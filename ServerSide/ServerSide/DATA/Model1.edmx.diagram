@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1b98799878de420eb724f3b36c3825f2" Name="Diagram1" ZoomLevel="26">
+        <EntityTypeShape EntityType="hotelDatabaseModel.Activity" Width="1.5" PointX="8.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Activity_hotel" Width="1.5" PointX="10.5" PointY="34.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Activity_nearBY" Width="1.5" PointX="7.5" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Activity_Update" Width="1.5" PointX="10.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Additional_Items" Width="1.5" PointX="15.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Additional_Items_Room_Service" Width="1.5" PointX="18" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Alcohol" Width="1.5" PointX="15" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Category_rating" Width="1.5" PointX="10.5" PointY="41.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Chat" Width="1.5" PointX="6" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.ChatLine" Width="1.5" PointX="8.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.CheckIn" Width="1.5" PointX="9.75" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Checkout" Width="1.5" PointX="9.75" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Department" Width="1.5" PointX="3.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Drink" Width="1.5" PointX="15" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Employee" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Facility" Width="1.5" PointX="5.25" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Fault_Request" Width="1.5" PointX="8.25" PointY="34" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Food" Width="1.5" PointX="15" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Food_And_Drinks" Width="1.5" PointX="12.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Food_And_Drinks_Room_Service" Width="1.5" PointX="18" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Free_Queue" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Guest" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Health_Declaration" Width="1.5" PointX="10.5" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Hot_Cold_Drinks" Width="1.5" PointX="15" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Hotel" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.HouseHold_Cleaning_Request" Width="1.5" PointX="10.5" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.HouseHold_Custom_Request" Width="1.5" PointX="10.5" PointY="39" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.HouseHold_Request" Width="1.5" PointX="8.25" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Language" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Order" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Questionnaire" Width="1.5" PointX="3" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Receipt" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Request" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Request_In_Order" Width="1.5" PointX="10.5" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Role" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Room" Width="1.5" PointX="3" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Room_Service_Order" Width="1.5" PointX="15.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Shift" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Spa_Order" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Spa_Order_Active" Width="1.5" PointX="10.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Therapist" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Therapist_IN_Therapy" Width="1.5" PointX="10.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Therapy" Width="1.5" PointX="8.25" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Therapy_Knowledge" Width="1.5" PointX="13.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.Therapy_Room" Width="1.5" PointX="6" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.User" Width="1.5" PointX="0.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelDatabaseModel.WorkingInShift" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Activity___place__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Activity___place__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Activity___place__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Category___place__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Activity___order__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Additional_I__ID__32AB8735" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Additiona__reque__31B762FC" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Alcohol__ID__2645B050" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Chat__email__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Chat__orderID__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__ChatLine__chatID__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_CheckIn_ReceiptID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Checkout_ReceiptID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Role__department__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Drinks__ID__208CD6FA" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Employee__email__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__WorkingIn__email__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Facility__hotelI__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Fault_Req__reque__18EBB532" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Food__ID__236943A5" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Food_And_Dri__ID__2EDAF651" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Hot_Cold_Dri__ID__29221CFB" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Food_And___reque__2DE6D218" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Free_Queue_RoleID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Guest__email__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Order__email__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Health_Declaration_RequestID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Order__hotelID__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Room__hotelID__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__HouseHold__reque__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__HouseHold__reque__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__HouseHold__reque__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Request_I__order__58D1301D" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Receipt_OrderID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Request_I__reque__57DD0BE4" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Room_Serv__reque__1BC821DD" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Spa_Order_RequestID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__Therapist__roleI__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.FK__WorkingInS__date__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Spa_Order_Active_RequestID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Therapist_IN_Therapy_RequestID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Spa_Order_Active_RoleID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Spa_Order_Active_Therapy" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Spa_Order_Active_Therapy_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Therapist_IN_Therapy_RoleID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Therapy_Knowledge_RoleID" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Therapist_IN_Therapy_Therapy" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Therapist_IN_Therapy_Therapy_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Therapy_Knowledge_Therapy" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.fk_Therapy_Knowledge_Therapy_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.Activity_Signed" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.Employee_Chat" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.Employee_handle_request" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.Role_In_Shift" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.Room_Allowed" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.RoomFor" ManuallyRouted="false" />
+        <AssociationConnector Association="hotelDatabaseModel.User_questionnaire" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
