@@ -3,17 +3,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './Screens/LoginScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WelcomeScreen from './Screens/WelcomeScreen';
+import HotelsAppContextProvider from './Context/HotelsAppContext';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <HotelsAppContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </HotelsAppContextProvider>
   );
 }
 

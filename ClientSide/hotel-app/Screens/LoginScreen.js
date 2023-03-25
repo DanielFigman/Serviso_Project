@@ -1,9 +1,12 @@
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput, Image } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useContext, useLayoutEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ArrowLeftCircleIcon, ArrowLeftIcon, ArrowSmallLeftIcon, ArrowUturnLeftIcon, ChevronLeftIcon } from 'react-native-heroicons/mini';
 import Languages from '../Json files/Languages';
+import { HotelsAppContext } from '../Context/HotelsAppContext';
+import { SelectList } from 'react-native-dropdown-select-list'
+
 
 
 const LoginScreen = () => {
@@ -22,7 +25,24 @@ const LoginScreen = () => {
   }, []);
   ///////////////////////////////////////
 
-const [language, setlanguage] = useState("EN")
+  const screenContent = Languages.LoginScreen;
+
+
+  const { language, setlanguage } = useContext(HotelsAppContext)
+  const [selected, setSelected] = React.useState("EN");
+
+
+  const data = [
+    { key: '1', value: 'EN' },
+    { key: '2', value: 'HE' },
+    { key: '3', value: 'AR' },
+    { key: '4', value: 'ES' },
+    { key: '5', value: 'RU' },
+    { key: '6', value: 'FR' },
+    { key: '7', value: 'POR' },
+    { key: '8', value: 'CH' },
+    { key: '9', value: 'JP' }
+  ]
 
   return (
     <SafeAreaView style={styles.container}>
@@ -32,14 +52,23 @@ const [language, setlanguage] = useState("EN")
         </TouchableOpacity>
       </View>
       <View>
-        <Text style={styles.largeText}>{Languages.Wellcome.JP}!</Text>
-        <Text style={styles.smallText}>{Languages.EnterYourUsernameAndPassword.JP}</Text>
+        <Text style={styles.largeText}>{screenContent.Welcome[language]}</Text>
+        <Text style={styles.smallText}>{screenContent.EnterYourUsernameAndPassword[language]}</Text>
+      </View>
+      <View>
+        <SelectList 
+        setSelected={(val) => setSelected(val)} 
+        data={data}
+          save="value"
+          onSelect={() => setlanguage(selected)}
+          label="Languages"
+        />
       </View>
       <View style={styles.textInputsView}>
-        <Text style={{ left: 15, fontSize: 26 }}>{Languages.UserName.JP}</Text>
-        <TextInput style={styles.textInputs} placeholder='UserName' keyboardAppearance='dark' autoCapitalize='none' />
-        <Text style={{ left: 15, fontSize: 26 }}>{Languages.Password.JP}</Text>
-        <TextInput style={styles.textInputs} placeholder='Password' keyboardAppearance='dark' autoCapitalize='none' secureTextEntry />
+        <Text style={{ left: 15, fontSize: 26 }}>{screenContent.UserName[language]}</Text>
+        <TextInput style={styles.textInputs} placeholder={screenContent.UserName[language]} keyboardAppearance='dark' autoCapitalize='none' />
+        <Text style={{ left: 15, fontSize: 26 }}>{screenContent.Password[language]}</Text>
+        <TextInput style={styles.textInputs} placeholder={screenContent.Password[language]} keyboardAppearance='dark' autoCapitalize='none' secureTextEntry />
       </View>
       <View style={styles.loginButton}>
         <TouchableOpacity onPress={() => {
@@ -47,7 +76,7 @@ const [language, setlanguage] = useState("EN")
         }}
 
         >
-          <Text style={styles.loginText}>{Languages.Login.JP}</Text>
+          <Text style={styles.loginText}>{screenContent.Login[language]}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.additionalOptionsView}>
@@ -56,14 +85,14 @@ const [language, setlanguage] = useState("EN")
         }}
 
         >
-          <Text style={styles.additionalOptions}>{Languages.ForgotYourPassword.JP}</Text>
+          <Text style={styles.additionalOptions}>{screenContent.ForgotYourPassword[language]}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {
 
         }}
 
         >
-          <Text style={styles.additionalOptions}>{Languages.OrCreateAnewAccount.JP}</Text>
+          <Text style={styles.additionalOptions}>{screenContent.OrCreateAnewAccount[language]}</Text>
         </TouchableOpacity>
       </View>
       <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
@@ -97,7 +126,7 @@ const styles = StyleSheet.create({
     height: 48,
     alignSelf: "center",
     color: "#535150",
-    marginTop: 20
+    marginTop: 20,
   },
   smallText: {
     fontSize: 18,
@@ -120,13 +149,14 @@ const styles = StyleSheet.create({
     marginTop: 50,
     alignSelf: "center",
     borderRadius: 30,
-    backgroundColor: "black"
+    backgroundColor: "black",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   loginText: {
     color: "white",
-    fontSize: 36,
-    alignSelf: "center",
-    top: 10
+    fontSize: 36
   },
   backgroundFont: {
     position: "absolute",
@@ -147,9 +177,9 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   servisoFlower: {
-    width:134,
-    height:68,
-    top:50,
-    alignSelf:"center"
+    width: 134,
+    height: 68,
+    top: 50,
+    alignSelf: "center"
   }
 });

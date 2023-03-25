@@ -1,7 +1,8 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useContext, useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Languages from '../Json files/Languages';
+import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 const WelcomeScreen = () => {
 
@@ -19,6 +20,10 @@ const WelcomeScreen = () => {
     }, []);
     ///////////////////////////////////////
 
+    const screenContent = Languages.WelcomeScreen;
+
+    const {language} = useContext(HotelsAppContext)
+
 
     return (
         <View style={styles.container}>
@@ -31,7 +36,7 @@ const WelcomeScreen = () => {
                 }}
 
                 >
-                    <Text style={styles.joinText}>{Languages.Start.EN}</Text>
+                    <Text style={styles.joinText}>{screenContent.Start[language]}</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -61,12 +66,13 @@ const styles = StyleSheet.create({
         top: 300,
         alignSelf: "center",
         borderRadius: 30,
-        backgroundColor: "black"
+        backgroundColor: "black",
+        display: "flex",
+        alignItems:"center",
+        justifyContent:"center"
     },
     joinText: {
         color: "white",
-        fontSize: 36,
-        alignSelf: "center",
-        top: 10
+        fontSize: 36
     }
 });
