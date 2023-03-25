@@ -61,7 +61,7 @@ const LoginScreen = () => {
         data={data}
           save="value"
           onSelect={() => setlanguage(selected)}
-          label="Languages"
+          label="Languagess"
         />
       </View>
       <View style={styles.textInputsView}>
