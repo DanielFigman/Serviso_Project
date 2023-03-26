@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { ArrowLeftCircleIcon, ArrowLeftIcon, ArrowSmallLeftIcon, ArrowUturnLeftIcon, ChevronLeftIcon } from 'react-native-heroicons/mini';
 import Languages from '../Json files/Languages';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
-import { SelectList } from 'react-native-dropdown-select-list'
+import { SelectList } from 'react-native-dropdown-select-list';
 
 
 
@@ -55,13 +55,14 @@ const LoginScreen = () => {
         <Text style={styles.largeText}>{screenContent.Welcome[language]}</Text>
         <Text style={styles.smallText}>{screenContent.EnterYourUsernameAndPassword[language]}</Text>
       </View>
-      <View>
-        <SelectList 
-        setSelected={(val) => setSelected(val)} 
-        data={data}
+      <View style={styles.selectList}>
+        <SelectList
+          setSelected={(val) => setSelected(val)}
+          data={data}
+          placeholder={language}
           save="value"
           onSelect={() => setlanguage(selected)}
-          label="Languages"
+          label="Languagess"
         />
       </View>
       <View style={styles.textInputsView}>
@@ -158,14 +159,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 36
   },
-  backgroundFont: {
-    position: "absolute",
-    width: 643,
-    height: 713,
-    left: -174,
-    top: 303,
-    backgroundColor: "rgba(240, 232, 230, 0.3)",
-  },
   additionalOptions: {
     fontSize: 15,
     color: "#6B6B6B",
@@ -179,7 +172,15 @@ const styles = StyleSheet.create({
   servisoFlower: {
     width: 134,
     height: 68,
-    top: 50,
+    top: 40,
     alignSelf: "center"
+  },
+  selectList: {
+    width: "20%",
+    left: 12,
+    top: 250,
+    position: "absolute",
+    zIndex:1,
+    backgroundColor:"white"
   }
 });
