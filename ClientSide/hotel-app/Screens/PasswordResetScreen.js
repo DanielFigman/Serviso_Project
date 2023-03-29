@@ -2,6 +2,8 @@ import { View, Text, SafeAreaView } from 'react-native'
 import React, { useContext, useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Languages from '../Json files/Languages';
+import VerificationCode from '../FCComponents/VerificationCode';
+import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 const PasswordResetScreen = () => {
 
@@ -27,9 +29,7 @@ const PasswordResetScreen = () => {
 
 
   return (
-   <SafeAreaView>
-    <Text></Text>
-   </SafeAreaView>
+    <VerificationCode />
   )
 }
 
