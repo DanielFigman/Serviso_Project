@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { ArrowLeftCircleIcon, ArrowLeftIcon, ArrowSmallLeftIcon, ArrowUturnLeftIcon, ChevronLeftIcon } from 'react-native-heroicons/mini';
 import Languages from '../Json files/Languages';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
-import { SelectList } from 'react-native-dropdown-select-list';
+import { SelectList } from 'react-native-dropdown-select-list'
 
 
 
@@ -29,7 +29,9 @@ const LoginScreen = () => {
 
 
   const { language, setlanguage } = useContext(HotelsAppContext)
-  const [selected, setSelected] = React.useState("EN");
+  const [selected, setSelected] = useState("EN");
+
+  
 
 
   const data = [
@@ -96,7 +98,7 @@ const LoginScreen = () => {
           <Text style={styles.additionalOptions}>{screenContent.OrCreateAnewAccount[language]}</Text>
         </TouchableOpacity>
       </View>
-      <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
+      <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')}/>
     </SafeAreaView >
   )
 }
