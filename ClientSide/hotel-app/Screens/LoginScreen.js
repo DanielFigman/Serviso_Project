@@ -29,7 +29,9 @@ const LoginScreen = () => {
 
 
   const { language, setlanguage } = useContext(HotelsAppContext)
-  const [selected, setSelected] = React.useState("EN");
+  const [selected, setSelected] = useState("EN");
+
+  
 
 
   const data = [
@@ -55,10 +57,11 @@ const LoginScreen = () => {
         <Text style={styles.largeText}>{screenContent.Welcome[language]}</Text>
         <Text style={styles.smallText}>{screenContent.EnterYourUsernameAndPassword[language]}</Text>
       </View>
-      <View>
-        <SelectList 
-        setSelected={(val) => setSelected(val)} 
-        data={data}
+      <View style={styles.selectList}>
+        <SelectList
+          setSelected={(val) => setSelected(val)}
+          data={data}
+          placeholder={language}
           save="value"
           onSelect={() => setlanguage(selected)}
           label="Languages"
@@ -95,7 +98,7 @@ const LoginScreen = () => {
           <Text style={styles.additionalOptions}>{screenContent.OrCreateAnewAccount[language]}</Text>
         </TouchableOpacity>
       </View>
-      <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
+      <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')}/>
     </SafeAreaView >
   )
 }
@@ -158,14 +161,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 36
   },
-  backgroundFont: {
-    position: "absolute",
-    width: 643,
-    height: 713,
-    left: -174,
-    top: 303,
-    backgroundColor: "rgba(240, 232, 230, 0.3)",
-  },
   additionalOptions: {
     fontSize: 15,
     color: "#6B6B6B",
@@ -179,7 +174,15 @@ const styles = StyleSheet.create({
   servisoFlower: {
     width: 134,
     height: 68,
-    top: 50,
+    top: 40,
     alignSelf: "center"
+  },
+  selectList: {
+    width: "20%",
+    left: 12,
+    top: 250,
+    position: "absolute",
+    zIndex:1,
+    backgroundColor:"white"
   }
 });
