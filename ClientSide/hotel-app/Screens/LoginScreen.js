@@ -31,7 +31,7 @@ const LoginScreen = () => {
   const { language, setlanguage } = useContext(HotelsAppContext)
   const [selected, setSelected] = useState("EN");
 
-  
+
 
 
   const data = [
@@ -84,7 +84,7 @@ const LoginScreen = () => {
       </View>
       <View style={styles.additionalOptionsView}>
         <TouchableOpacity onPress={() => {
-
+          navigation.navigate("PasswordResetScreen")
         }}
 
         >
@@ -98,7 +98,7 @@ const LoginScreen = () => {
           <Text style={styles.additionalOptions}>{screenContent.OrCreateAnewAccount[language]}</Text>
         </TouchableOpacity>
       </View>
-      <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')}/>
+      <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
     </SafeAreaView >
   )
 }
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     left: 12,
     top: 250,
     position: "absolute",
-    zIndex:1,
-    backgroundColor:"white"
+    zIndex: 1,
+    backgroundColor: "white"
   }
 });
