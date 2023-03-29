@@ -1,11 +1,22 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import VerificationCode from './VerificationCode'
 
 const GetEmail = () => {
+
+  const [emailSucceed, setemailSucceed] = useState(true)
+
   return (
     <View>
-      <Text>GetEmail</Text>
+      {
+        emailSucceed
+          ?
+          <VerificationCode />
+          :
+          <Text>Hello</Text>
+      }
     </View>
+
   )
 }
 

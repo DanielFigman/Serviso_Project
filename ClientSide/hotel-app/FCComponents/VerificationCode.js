@@ -1,5 +1,5 @@
-import {Animated, Image, SafeAreaView, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import { Animated, Image, SafeAreaView, Text, View } from 'react-native';
+import React, { useState } from 'react';
 
 import {
   CodeField,
@@ -15,9 +15,10 @@ import ConfirmationCodeStyles, {
   DEFAULT_CELL_BG_COLOR,
   NOT_EMPTY_CELL_BG_COLOR,
 } from '../Styles/ConfirmationCodeStyles';
+import Languages from '../Json files/Languages';
 
 
-const {Value, Text: AnimatedText} = Animated;
+const { Value, Text: AnimatedText } = Animated;
 
 const CELL_COUNT = 4;
 const source = {
@@ -26,7 +27,7 @@ const source = {
 
 const animationsColor = [...new Array(CELL_COUNT)].map(() => new Value(0));
 const animationsScale = [...new Array(CELL_COUNT)].map(() => new Value(1));
-const animateCell = ({hasValue, index, isFocused}) => {
+const animateCell = ({ hasValue, index, isFocused }) => {
   Animated.parallel([
     Animated.timing(animationsColor[index], {
       useNativeDriver: false,
@@ -43,24 +44,27 @@ const animateCell = ({hasValue, index, isFocused}) => {
 
 const VerificationCode = () => {
   const [value, setValue] = useState('');
-  const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
 
-  const renderCell = ({index, symbol, isFocused}) => {
+  const screenContent = Languages.VerificationCodeComp;
+
+
+  const renderCell = ({ index, symbol, isFocused }) => {
     const hasValue = Boolean(symbol);
     const animatedCellStyle = {
       backgroundColor: hasValue
         ? animationsScale[index].interpolate({
-            inputRange: [0, 1],
-            outputRange: ["black", "black"],
-          })
+          inputRange: [0, 1],
+          outputRange: ["black", "black"],
+        })
         : animationsColor[index].interpolate({
-            inputRange: [0, 1],
-            outputRange: ["white", "white"],
-          }),
+          inputRange: [0, 1],
+          outputRange: ["black", "white"],
+        }),
       borderRadius: animationsScale[index].interpolate({
         inputRange: [0, 1],
         outputRange: [CELL_SIZE, CELL_BORDER_RADIUS],
@@ -69,7 +73,7 @@ const VerificationCode = () => {
         {
           scale: animationsScale[index].interpolate({
             inputRange: [0, 1],
-            outputRange: [0.2, 1],
+            outputRange: [0.5, 1],
           }),
         },
       ],
@@ -78,7 +82,7 @@ const VerificationCode = () => {
     // Run animation on next event loop tik
     // Because we need first return new style prop and then animate this value
     setTimeout(() => {
-      animateCell({hasValue, index, isFocused});
+      animateCell({ hasValue, index, isFocused });
     }, 0);
 
     return (
@@ -93,12 +97,8 @@ const VerificationCode = () => {
 
   return (
     <SafeAreaView style={ConfirmationCodeStyles.root}>
-      <Text style={ConfirmationCodeStyles.title}>Verification</Text>
-      <Image style={ConfirmationCodeStyles.icon} source={source} />
-      <Text style={ConfirmationCodeStyles.subTitle}>
-        Please enter the verification code{'\n'}
-        we send to your email address
-      </Text>
+      <Text style={ConfirmationCodeStyles.title}>{screenContent.EnterConfirmationCode.EN}</Text>
+      <Text style={ConfirmationCodeStyles.subTitle}>{screenContent.A4DigitCodeWasSentTo.EN}</Text>
 
       <CodeField
         ref={ref}
@@ -112,7 +112,7 @@ const VerificationCode = () => {
         renderCell={renderCell}
       />
       <View style={ConfirmationCodeStyles.nextButton}>
-        <Text style={ConfirmationCodeStyles.nextButtonText}>{value}</Text>
+        <Text style={ConfirmationCodeStyles.nextButtonText}>Continue</Text>
       </View>
     </SafeAreaView>
   );

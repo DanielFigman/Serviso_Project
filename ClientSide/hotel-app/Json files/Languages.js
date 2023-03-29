@@ -104,7 +104,7 @@ export default Languages = {
             JP: "認証コードを入力"
         },
         A4DigitCodeWasSentTo:{
-            EN: "START",
+            EN: "A 4 Digit Code Was Sent To",
             HE: "קוד בן 4 ספרות נשלח אל",
             AR: "تم إرسال رمز مكون من 4 أرقام إلى",
             ES: "Se ha enviado un código de 4 dígitos a",

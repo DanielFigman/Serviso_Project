@@ -9,7 +9,7 @@ export const ACTIVE_CELL_BG_COLOR = '#f7fafe';
 const ConfirmationCodeStyles = StyleSheet.create({
   codeFieldRoot: {
     height: CELL_SIZE,
-    marginTop: 30,
+    marginTop: 70,
     paddingHorizontal: 20,
     justifyContent: 'center',
   },
@@ -22,7 +22,7 @@ const ConfirmationCodeStyles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
     borderRadius: CELL_BORDER_RADIUS,
-    color: 'black',
+    color: 'white',
     backgroundColor: '#fff',
 
     // IOS
@@ -59,12 +59,11 @@ const ConfirmationCodeStyles = StyleSheet.create({
     marginRight: 'auto',
   },
   subTitle: {
-    paddingTop: 30,
-    color: '#000',
+    color: 'black',
     textAlign: 'center',
   },
   nextButton: {
-    marginTop: 30,
+    marginTop: 70,
     borderRadius: 60,
     height: 60,
     backgroundColor: 'black',
