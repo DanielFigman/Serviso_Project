@@ -91,5 +91,108 @@ export default Languages = {
             JP: "または、新しいアカウントを作成します"
         }
     },
+    VerificationCodeComp: {
+        EnterConfirmationCode: {
+            EN: "Enter Confirmation Code",
+            HE: "הכנס קוד אישור",
+            AR: "أدخل رمز التأكيد",
+            ES: "Introducir el código de confirmación",
+            RU: "Введите код подтверждения",
+            FR: "Entrez le code de confirmation",
+            POR: "Introduza o código de confirmação",
+            CH: "输入验证码",
+            JP: "認証コードを入力"
+        },
+        A4DigitCodeWasSentTo:{
+            EN: "START",
+            HE: "קוד בן 4 ספרות נשלח אל",
+            AR: "تم إرسال رمز مكون من 4 أرقام إلى",
+            ES: "Se ha enviado un código de 4 dígitos a",
+            RU: "Четырехзначный код был отправлен на",
+            FR: "Un code à 4 chiffres a été envoyé à",
+            POR: "Um código de 4 dígitos foi enviado para",
+            CH: "一个 4 位数的代码已发送至",
+            JP: "4桁のコードが送信されました"
+        },
+        ResendCode:{
+            EN: "Resend code",
+            HE: "שלח קוד שוב",
+            AR: "أعد إرسال الرمز",
+            ES: "Reenviar codigo",
+            RU: "Отправить код еще раз",
+            FR: "Renvoyer le code",
+            POR: "Reenviar código",
+            CH: "重新发送验证码",
+            JP: "コードを再送する"
+        },
+        Continue: {
+            EN: "Continue",
+            HE: "המשך",
+            AR: "استمر",
+            ES: "Continuar",
+            RU: "Продолжить",
+            FR: "Continuer",
+            POR: "Continuar",
+            CH: "继续",
+            JP: "続ける"
+        }
+
+    },
+    ResetPasswordComp: {
+        ChooseNewPassword: {
+            EN: "Choose A New Password",
+            HE: "בחר סיסמא חדשה",
+            AR: "اختر كلمة مرور جديدة",
+            ES: "Elija una Nueva Contraseña",
+            RU: "Выберите новый пароль",
+            FR: "Choisissez un nouveau mot de passe",
+            POR: "Escolha uma nova senha",
+            CH: "选择一个新密码",
+            JP: "新しいパスワードを選択してください"
+        },
+        NewPassword: {
+            HE: "סיסמא חדשה",
+            AR: "كلمة مرور جديدة",
+            ES: "Nueva Contraseña",
+            RU: "Новый пароль",
+            FR: "Nouveau mot de passe",
+            POR: "Nova senha",
+            CH: "新密码",
+            JP: "新しいパスワード"
+        },
+        ConfirmNewPassword: {
+            EN: "Confirm New Password",
+            HE: "אמת סיסמא חדשה",
+            AR: "تأكيد كلمة المرور الجديدة",
+            ES: "Confirmar Nueva Contraseña",
+            RU: "Подтвердите новый пароль",
+            FR: "Confirmer le Nouveau Mot de Passe",
+            POR: "Confirmar Nova Senha",
+            CH: "确认新密码",
+            JP: "新しいパスワードの確認"
+        },
+        Continue: {
+            EN: "Continue",
+            HE: "המשך",
+            AR: "استمر",
+            ES: "Continuar",
+            RU: "Продолжить",
+            FR: "Continuer",
+            POR: "Continuar",
+            CH: "继续",
+            JP: "続ける"
+        }
+    },
+    GetEmailComp:{
+        EN: "START",
+        HE: "התחל",
+        AR: "يبدأ",
+        ES: "Comenzar",
+        RU: "Начинать",
+        FR: "Commencer",
+        POR: "Começar",
+        CH: "开始",
+        JP: "始める"
+    }
 }
 
