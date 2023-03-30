@@ -14,7 +14,7 @@ import ConfirmationCodeStyles, {
   CELL_SIZE,
   DEFAULT_CELL_BG_COLOR,
   NOT_EMPTY_CELL_BG_COLOR,
-} from '../src/Styles/ConfirmationCodeStyles';
+} from '../Styles/ConfirmationCodeStyles';
 import Languages from '../Json files/Languages';
 import { XCircleIcon } from 'react-native-heroicons/mini';
 import { useNavigation } from '@react-navigation/core';
