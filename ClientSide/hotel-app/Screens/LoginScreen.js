@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput, Image } from 'react-native'
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput, Image, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import React, { useContext, useLayoutEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -25,13 +25,18 @@ const LoginScreen = () => {
   }, []);
   ///////////////////////////////////////
 
+
+
   const screenContent = Languages.LoginScreen;
 
 
   const { language, setlanguage } = useContext(HotelsAppContext)
   const [selected, setSelected] = useState("EN");
 
-
+  const dismissKeyboard = () => {
+    if (Keyboard)
+      Keyboard.dismiss();
+  };
 
 
   const data = [
@@ -47,59 +52,62 @@ const LoginScreen = () => {
   ]
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.leftArrowView}>
-        <TouchableOpacity onPress={navigation.goBack}>
-          <ArrowLeftCircleIcon color={styles.leftArrow.color} size={styles.leftArrow.fontSize} style={styles.leftArrow} />
-        </TouchableOpacity>
-      </View>
-      <View>
-        <Text style={styles.largeText}>{screenContent.Welcome[language]}</Text>
-        <Text style={styles.smallText}>{screenContent.EnterYourUsernameAndPassword[language]}</Text>
-      </View>
-      <View style={styles.selectList}>
-        <SelectList
-          setSelected={(val) => setSelected(val)}
-          data={data}
-          placeholder={language}
-          save="value"
-          onSelect={() => setlanguage(selected)}
-          label="Languages"
-        />
-      </View>
-      <View style={styles.textInputsView}>
-        <Text style={{ left: 15, fontSize: 26 }}>{screenContent.UserName[language]}</Text>
-        <TextInput style={styles.textInputs} placeholder={screenContent.UserName[language]} keyboardAppearance='dark' autoCapitalize='none' />
-        <Text style={{ left: 15, fontSize: 26 }}>{screenContent.Password[language]}</Text>
-        <TextInput style={styles.textInputs} placeholder={screenContent.Password[language]} keyboardAppearance='dark' autoCapitalize='none' secureTextEntry />
-      </View>
-      <View style={styles.loginButton}>
-        <TouchableOpacity onPress={() => {
+    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.leftArrowView}>
+          <TouchableOpacity onPress={navigation.goBack}>
+            <ArrowLeftCircleIcon color={styles.leftArrow.color} size={styles.leftArrow.fontSize} style={styles.leftArrow} />
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Text style={styles.largeText}>{screenContent.Welcome[language]}</Text>
+          <Text style={styles.smallText}>{screenContent.EnterYourUsernameAndPassword[language]}</Text>
+        </View>
+        <View style={styles.selectList}>
+          <SelectList
+            setSelected={(val) => setSelected(val)}
+            data={data}
+            placeholder={language}
+            save="value"
+            onSelect={() => setlanguage(selected)}
+            label="Languages"
+          />
+        </View>
+        <View style={styles.textInputsView}>
+          <Text style={{ left: 15, fontSize: 26 }}>{screenContent.UserName[language]}</Text>
+          <TextInput style={styles.textInputs} placeholder={screenContent.UserName[language]} keyboardAppearance='dark' autoCapitalize='none' />
+          <Text style={{ left: 15, fontSize: 26 }}>{screenContent.Password[language]}</Text>
+          <TextInput style={styles.textInputs} placeholder={screenContent.Password[language]} keyboardAppearance='dark' autoCapitalize='none' secureTextEntry />
+        </View>
+        <View style={styles.loginButton}>
+          <TouchableOpacity onPress={() => {
 
-        }}
+          }}
 
-        >
-          <Text style={styles.loginText}>{screenContent.Login[language]}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.additionalOptionsView}>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("PasswordResetScreen")
-        }}
+          >
+            <Text style={styles.loginText}>{screenContent.Login[language]}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.additionalOptionsView}>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate("PasswordResetScreen")
+          }}
 
-        >
-          <Text style={styles.additionalOptions}>{screenContent.ForgotYourPassword[language]}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
+          >
+            <Text style={styles.additionalOptions}>{screenContent.ForgotYourPassword[language]}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {
 
-        }}
+          }}
 
-        >
-          <Text style={styles.additionalOptions}>{screenContent.OrCreateAnewAccount[language]}</Text>
-        </TouchableOpacity>
-      </View>
-      <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
-    </SafeAreaView >
+          >
+            <Text style={styles.additionalOptions}>{screenContent.OrCreateAnewAccount[language]}</Text>
+          </TouchableOpacity>
+        </View>
+        <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
+      </SafeAreaView >
+    </TouchableWithoutFeedback>
+
   )
 }
 
