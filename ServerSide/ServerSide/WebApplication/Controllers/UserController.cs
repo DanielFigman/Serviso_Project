@@ -25,7 +25,8 @@ namespace WebApplication.Controllers
 
                 hotelDatabaseContext db = new hotelDatabaseContext();
 
-                User user = db.Users.Where(u => u.email == userEmail).FirstOrDefault();
+                User user = db.Users.FirstOrDefault(u => u.email == userEmail);
+
                 bool isUserFound = user != null;
 
                 if (isUserFound)
@@ -56,7 +57,8 @@ namespace WebApplication.Controllers
         }
 
 
-        [HttpPost]
+
+    /*    [HttpPost]
         [Route("api/signUP")]
 
         public IHttpActionResult Post([FromBody] JObject data)
@@ -83,7 +85,7 @@ namespace WebApplication.Controllers
             }
         }
 
-
+*/
 
 
 

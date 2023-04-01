@@ -22,6 +22,7 @@ namespace WebApplication
 
             // Web API configuration and services
 
+
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
 
             config.EnableCors(cors);

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.IO;
+
+
 
 
 namespace DATA
@@ -30,7 +33,7 @@ namespace DATA
         }
 
 
-        public bool UpdateUserInfo(string givenEmail, string givenPassword, string givenLanguage, DateTime birthDate, string givenPhoneNumber)
+        public bool UpdateUserInfo(string givenEmail, string givenPassword, string givenLanguage, DateTime birthDate, string givenPhoneNumber, string userGender)
         {
             try
             {
@@ -45,6 +48,7 @@ namespace DATA
                 language = givenLanguage;
                 dateOfBirth = birthDate;
                 phone = givenPhoneNumber;
+                gender = userGender;
 
                 return true;
             }
@@ -54,6 +58,5 @@ namespace DATA
             }
          
         }
-
     }
 }
