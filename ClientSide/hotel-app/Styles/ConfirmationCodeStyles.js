@@ -79,6 +79,12 @@ const ConfirmationCodeStyles = StyleSheet.create({
     color: '#fff',
     fontWeight: '700',
   },
+  cancelButton: {
+    color: "#8E8E8E",
+    width: 2,
+    fontSize: 30,
+    left: 10
+  }
 });
 
 export default ConfirmationCodeStyles;

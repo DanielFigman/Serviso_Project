@@ -3,6 +3,7 @@ import React, { useContext, useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 import Languages from '../Json files/Languages';
+import ButtonMain from '../FCComponents/Buttons';
 
 const WelcomeScreen = () => {
 
@@ -22,7 +23,7 @@ const WelcomeScreen = () => {
 
     const screenContent = Languages.WelcomeScreen;
 
-    const {language} = useContext(HotelsAppContext)
+    const { language } = useContext(HotelsAppContext)
 
 
     return (
@@ -30,15 +31,8 @@ const WelcomeScreen = () => {
             <View>
                 <Image style={styles.mainImage} source={require('../assets/ServisoMain.png')} />
             </View>
-            <View style={styles.joinButton}>
-                <TouchableOpacity  onPress={()=>{
-                    navigation.navigate("LoginScreen")
-                }}
+            <ButtonMain text={screenContent.Start[language]} buttonStyle={{marginTop:300}} navigate={"LoginScreen"}/>
 
-                >
-                    <Text style={styles.joinText}>{screenContent.Start[language]}</Text>
-                </TouchableOpacity>
-            </View>
         </View>
     )
 }
@@ -59,20 +53,5 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#000000",
         top: 150,
-    },
-    joinButton: {
-        width: 281,
-        height: 62,
-        top: 300,
-        alignSelf: "center",
-        borderRadius: 30,
-        backgroundColor: "black",
-        display: "flex",
-        alignItems:"center",
-        justifyContent:"center"
-    },
-    joinText: {
-        color: "white",
-        fontSize: 36
     }
 });

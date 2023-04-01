@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput, Image,
 import React, { useContext, useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import LanguageSelect from '../FCComponents/LanguageSelect';
-import ButtonMain from '../FCComponents/ButtonMain';
+import ButtonMain, { ButtonText } from '../FCComponents/Buttons';
 import ScreenComponent from '../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 import Languages from '../Json files/Languages';
@@ -16,38 +16,25 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <ScreenComponent content={
-      <View>
+    <ScreenComponent
+      content={
         <View>
-          <Text style={styles.largeText}>{screenContent.Welcome[language]}</Text>
-          <Text style={styles.smallText}>{screenContent.EnterYourUsernameAndPassword[language]}</Text>
+          <View>
+            <Text style={styles.largeText}>{screenContent.Welcome[language]}</Text>
+            <Text style={styles.smallText}>{screenContent.EnterYourEmailAndPassword[language]}</Text>
+          </View>
+          <LanguageSelect languageContext={language} setlanguageContext={setlanguage} buttonStyle={{}} />
+          <View style={styles.textInputsView}>
+            <Text style={{ left: 15, fontSize: 26 }}>{screenContent.Email[language]}</Text>
+            <TextInput style={styles.textInputs} placeholder={screenContent.Email[language]} keyboardAppearance='dark' autoCapitalize='none' />
+            <Text style={{ left: 15, fontSize: 26 }}>{screenContent.Password[language]}</Text>
+            <TextInput style={styles.textInputs} placeholder={screenContent.Password[language]} keyboardAppearance='dark' autoCapitalize='none' secureTextEntry />
+          </View>
+          <ButtonMain text={screenContent.Login[language]} buttonStyle={{ marginTop: 50 }} onPress={() => { { } }} />
+          <ButtonText text={screenContent.ForgotYourPassword[language]} buttonStyle={{ marginTop: 30 }} navigate={"PasswordResetScreen"} />
+          <ButtonText text={screenContent.OrCreateAnewAccount[language]} buttonStyle={{ marginTop: 20}} />
         </View>
-        <LanguageSelect languageContext={language} setlanguageContext={setlanguage} buttonStyle={{}}/>
-        <View style={styles.textInputsView}>
-          <Text style={{ left: 15, fontSize: 26 }}>{screenContent.UserName[language]}</Text>
-          <TextInput style={styles.textInputs} placeholder={screenContent.UserName[language]} keyboardAppearance='dark' autoCapitalize='none' />
-          <Text style={{ left: 15, fontSize: 26 }}>{screenContent.Password[language]}</Text>
-          <TextInput style={styles.textInputs} placeholder={screenContent.Password[language]} keyboardAppearance='dark' autoCapitalize='none' secureTextEntry />
-        </View>
-        <ButtonMain text={screenContent.Login[language]} buttonStyle={{ marginTop: 50 }} onPress={() => { { } }} />
-        <View style={styles.additionalOptionsView}>
-          <TouchableOpacity onPress={() => {
-            navigation.navigate("PasswordResetScreen")
-          }}
-
-          >
-            <Text style={styles.additionalOptions}>{screenContent.ForgotYourPassword[language]}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-
-          }}
-
-          >
-            <Text style={styles.additionalOptions}>{screenContent.OrCreateAnewAccount[language]}</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    }
+      }
     />
   )
 }
@@ -55,10 +42,6 @@ const LoginScreen = () => {
 export default LoginScreen
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    height: "100%"
-  },
   largeText: {
     fontSize: 40,
     height: 48,
@@ -77,18 +60,9 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    borderRadius:10
   },
   textInputsView: {
     marginTop: 100
-  },
-  additionalOptions: {
-    fontSize: 15,
-    color: "#6B6B6B",
-    textAlign: "center",
-    marginTop: 20,
-  },
-  additionalOptionsView: {
-    alignItems: "center",
-    marginTop: 15
   }
 });

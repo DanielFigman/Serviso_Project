@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { SelectList } from 'react-native-dropdown-select-list';
 
-const LanguageSelect = ({languageContext,setlanguageContext, buttonStyle}) => {
+const LanguageSelect = ({ languageContext, setlanguageContext, buttonStyle }) => {
 
     const [selected, setSelected] = useState("EN");
 
@@ -36,15 +36,14 @@ export default LanguageSelect
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: "white",
-      height: "100%"
+        height: "100%"
     },
     buttonStyle: {
-      width: "20%",
-      left: 12,
-      top: 150,
-      position: "absolute",
-      zIndex: 1,
-      backgroundColor: "white"
+        width: "20%",
+        left: 12,
+        top: 150,
+        position: "absolute",
+        zIndex: 1,
+        backgroundColor: "#F2F2F2"
     }
-  });
+});

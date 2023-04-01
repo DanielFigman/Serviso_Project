@@ -3,10 +3,12 @@ import React, { useLayoutEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/core';
 import { TouchableWithoutFeedback } from 'react-native';
-import { ArrowLeftCircleIcon } from 'react-native-heroicons/mini';
+import { ArrowLeftCircleIcon, XCircleIcon } from 'react-native-heroicons/mini';
 import { Image } from 'react-native';
+import PropTypes, { checkPropTypes } from 'prop-types';
 
-const ScreenComponent = ({content}) => {
+
+const ScreenComponent = ({ content, topLeftButton, cancelNavigation }) => {
 
     ////////////////////////////////////////
     ////////Make screen without header//////
@@ -26,13 +28,34 @@ const ScreenComponent = ({content}) => {
             Keyboard.dismiss();
     };
 
+    let topLeftButtonIcon = <></>;
+    switch (topLeftButton) {
+        case "none":
+            break;
+        case "cancel":
+            if (cancelNavigation) {
+                topLeftButtonIcon = (
+                    <TouchableOpacity onPress={() => navigation.navigate(cancelNavigation)}>
+                        <XCircleIcon color={styles.topLeftButton.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
+                    </TouchableOpacity>
+                );
+            }
+            break;
+        default:
+            topLeftButtonIcon = (
+                <TouchableOpacity onPress={navigation.goBack}>
+                    <ArrowLeftCircleIcon color={styles.topLeftButton.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
+                </TouchableOpacity>
+            )
+            break;
+    }
 
     return (
         <TouchableWithoutFeedback onPress={dismissKeyboard}>
             <SafeAreaView style={styles.container}>
-                <TouchableOpacity onPress={navigation.goBack}>
-                    <ArrowLeftCircleIcon color={styles.leftArrow.color} size={styles.leftArrow.fontSize} style={styles.leftArrow} />
-                </TouchableOpacity>
+                <View style={styles.leftArrowView}>
+                    {topLeftButtonIcon}
+                </View>
                 {content}
                 <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
             </SafeAreaView>
@@ -42,28 +65,34 @@ const ScreenComponent = ({content}) => {
 
 export default ScreenComponent
 
+ScreenComponent.propTypes = {
+    content: PropTypes.element.isRequired,
+    topLeftButton: PropTypes.string
+}
+
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "white",
         height: "100%",
-        flex:1
     },
-    leftArrow: {
+    topLeftButton: {
         color: "#8E8E8E",
-        width: 2,
+        width: 20,
         fontSize: 30,
         left: 10,
         top: 5,
+        position: "absolute"
     },
     leftArrowView: {
-        height: 60,
-        width: 2
+        marginBottom: 20,
+         width: 50,
+         height:20
     },
     servisoFlower: {
         width: 134,
         height: 68,
-        position:"absolute",
-        bottom:15,
-        alignSelf:"center"
+        position: "absolute",
+        bottom: 15,
+        alignSelf: "center"
     }
 });
+

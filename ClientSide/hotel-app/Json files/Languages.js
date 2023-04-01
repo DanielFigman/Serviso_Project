@@ -15,36 +15,36 @@ export default Languages = {
     LoginScreen: {
         Welcome: {
             EN: "Welcome!",
-            HE: "ברוך הבא!",
-            AR: "مرحباً!",
+            HE: "ברוכים הבאים!",
+            AR: "اهلا وسهلا!",
             ES: "¡Bienvenido!",
             RU: "Добро пожаловать!",
-            FR: "Bienvenu!",
+            FR: "Accueillir!",
             POR: "Bem-vindo!",
             CH: "欢迎！",
             JP: "いらっしゃいませ！"
         },
-        EnterYourUsernameAndPassword: {
-            EN: "Enter your username & password",
-            HE: "הכנס את שם המשתמש והסיסמא",
-            AR: "أدخل اسم المستخدم وكلمة المرور الخاصة بك",
-            ES: "Ingrese su nombre de usuario y contraseña",
-            RU: "Введите имя пользователя и пароль",
-            FR: "Entrez votre nom d'utilisateur et votre mot de passe",
-            POR: "Digite seu nome de usuário e senha",
-            CH: "输入你的用户名与密码",
-            JP: "ユーザー名とパスワードを入力してください"
+        EnterYourEmailAndPassword: {
+            EN: "Enter your email & password",
+            HE: "הזן את האימייל והסיסמה שלך",
+            AR: "أدخل بريدك الإلكتروني وكلمة المرور",
+            ES: "Ingrese su correo electrónico y contraseña",
+            RU: "Введите адрес электронной почты и пароль",
+            FR: "Entrez votre e-mail et votre mot de passe",
+            POR: "Digite seu e-mail e senha",
+            CH: "输入您的电子邮件和密码",
+            JP: "メールアドレスとパスワードを入力してください"
         },
-        UserName: {
-            EN: "Username",
-            HE: "שם משתמש",
-            AR: "اسم المستخدم",
-            ES: "nombre de usuario",
-            RU: "имя пользователя",
-            FR: "nom d'utilisateur",
-            POR: "nome de usuário",
-            CH: "用户名",
-            JP: "ユーザー名"
+        Email: {
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
         },
         Password: {
             EN: "Password",
@@ -103,7 +103,7 @@ export default Languages = {
             CH: "输入验证码",
             JP: "認証コードを入力"
         },
-        A4DigitCodeWasSentTo:{
+        A4DigitCodeWasSentTo: {
             EN: "A 4 Digit Code Was Sent To",
             HE: "קוד בן 4 ספרות נשלח אל",
             AR: "تم إرسال رمز مكون من 4 أرقام إلى",
@@ -114,7 +114,7 @@ export default Languages = {
             CH: "一个 4 位数的代码已发送至",
             JP: "4桁のコードが送信されました"
         },
-        ResendCode:{
+        ResendCode: {
             EN: "Resend code",
             HE: "שלח קוד שוב",
             AR: "أعد إرسال الرمز",
@@ -139,6 +139,17 @@ export default Languages = {
 
     },
     ResetPasswordComp: {
+        PasswordReset: {
+            EN: "Password Reset",
+            HE: "איפוס סיסמה",
+            AR: "إعادة تعيين كلمة المرور",
+            ES: "Restablecimiento de contraseña",
+            RU: "Восстановление пароля",
+            FR: "Réinitialisation du mot de passe",
+            POR: "Redefinição de senha",
+            CH: "重设密码",
+            JP: "パスワードのリセット"
+        },
         ChooseNewPassword: {
             EN: "Choose A New Password",
             HE: "בחר סיסמא חדשה",
@@ -151,6 +162,7 @@ export default Languages = {
             JP: "新しいパスワードを選択してください"
         },
         NewPassword: {
+            EN: "New Password",
             HE: "סיסמא חדשה",
             AR: "كلمة مرور جديدة",
             ES: "Nueva Contraseña",
@@ -183,16 +195,51 @@ export default Languages = {
             JP: "続ける"
         }
     },
-    GetEmailComp:{
-        EN: "START",
-        HE: "התחל",
-        AR: "يبدأ",
-        ES: "Comenzar",
-        RU: "Начинать",
-        FR: "Commencer",
-        POR: "Começar",
-        CH: "开始",
-        JP: "始める"
+    GetEmailComp: {
+        EmailVerification: {
+            EN: "Email Verification",
+            HE: "אימות הדוא\"ל",
+            AR: "تأكيد بواسطة البريد الالكتروني",
+            ES: "verificacion de email",
+            RU: "Подтверждение по элетронной почте",
+            FR: "vérification de l'E-mail",
+            POR: "verificação de e-mail",
+            CH: "电子邮件验证",
+            JP: "メール認証"
+        },
+        EnterYourEmail: {
+            EN: "Enter your email address",
+            HE: "הזן את כתובת הדוא\"ל שלך",
+            AR: "أدخل عنوان بريدك الالكتروني",
+            ES: "Ingrese su dirección de correo electrónico",
+            RU: "Введите ваш адрес электронной почты",
+            FR: "Entrez votre adresse email",
+            POR: "Insira o seu endereço de email",
+            CH: "输入你的电子邮箱地址",
+            JP: "メールアドレスを入力してください"
+        },
+        Email: {
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
+        },
+        Continue: {
+            EN: "Continue",
+            HE: "המשך",
+            AR: "استمر",
+            ES: "Continuar",
+            RU: "Продолжить",
+            FR: "Continuer",
+            POR: "Continuar",
+            CH: "继续",
+            JP: "続ける"
+        }
     }
 }
 

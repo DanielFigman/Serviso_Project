@@ -1,36 +1,30 @@
-import { View, Text, SafeAreaView } from 'react-native'
-import React, { useContext, useLayoutEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native';
-import Languages from '../Json files/Languages';
-import GetEmail from '../FCComponents/GetEmail';
+import { useContext, useState } from 'react';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
+import GetEmail from '../FCComponents/GetEmail';
+import ResetPassword from '../FCComponents/ResetPassword';
+import ScreenComponent from '../FCComponents/ScreenComponent';
+import VerificationCode from '../FCComponents/VerificationCode';
 
 const PasswordResetScreen = () => {
-
-
-
-  ////////////////////////////////////////
-  ////////Make screen without header//////
-  ////////////////////////////////////////
-  const navigation = useNavigation();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-
-  }, []);
-  ///////////////////////////////////////
-
-  const screenContent = Languages.PasswordResetScreen;
-
   const { language, setlanguage } = useContext(HotelsAppContext)
+  const [emailToReset, setEmailToReset] = useState(null)
+  const [verificationSucceed, setVerificationSucceed] = useState(false)
 
 
   return (
-    <SafeAreaView>
-      <GetEmail/>
-    </SafeAreaView>
+    <ScreenComponent topLeftButton="cancel" cancelNavigation="LoginScreen"
+      content={
+        !emailToReset
+          ?
+          <GetEmail setEmailToReset={setEmailToReset} language={language}/>
+          :
+          !verificationSucceed
+            ?
+            <VerificationCode language={language} email={emailToReset} setVerificationSucceed={setVerificationSucceed}/>
+            :
+            <ResetPassword language={language} email={emailToReset}/>
+      }
+    />
   )
 }
 
