@@ -7,12 +7,12 @@ using System.Web.Http.Cors;
 
 namespace WebApplication.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
     public class EmailController : ApiController
     {
         // GET: api/Email
         [HttpGet]
         [Route("api/emailVerification")]
-        [EnableCors ("*","*","*")]
         public IHttpActionResult Get([FromUri]string email)
         {
 

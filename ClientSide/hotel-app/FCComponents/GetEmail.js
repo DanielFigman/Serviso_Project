@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
+import VerificationCode from './VerificationCode'
+import ScreenComponent from './ScreenComponent'
 import Languages from '../Json files/Languages'
 import ButtonMain from './Buttons'
 import verifyEmail from '../Hooks/useFetch'
@@ -10,22 +12,20 @@ const GetEmail = ({ setEmailToReset, setEmailSucceed, language }) => {
   const screenContent = Languages.GetEmailComp;
   const [givenEmail, setGivenEmail] = useState(null)
 
+  const checkEmailSucceed = () => {
 
-  const checkEmailSucceed = async () => {
-    const url = `https://localhost:50884/api/emailVerification?email=${encodeURIComponent(givenEmail)}`;
-    await fetch(url, {
-      method: 'GET',
-      headers: new Headers({
-        'Content-Type': 'application/json; charset=UTF-8',
-      })
-    })
+    const url = "https://localhost:44375/api/EmailVerification?email=" + encodeURIComponent(givenEmail);
+    console.log(url)
+
+    axios.get(url)
       .then((res) => {
-        console.log(res);
-      },
-        (err) => {
-          console.log(err);
+        console.log("OK", res)
+        setEmailToReset(givenEmail);
+      })
+      .catch((err) => {
+        console.log("error", err)
+      })
 
-        });
   }
 
   return (

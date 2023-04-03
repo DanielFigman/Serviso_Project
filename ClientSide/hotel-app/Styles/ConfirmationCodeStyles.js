@@ -84,7 +84,13 @@ const ConfirmationCodeStyles = StyleSheet.create({
     width: 2,
     fontSize: 30,
     left: 10
-  }
+  },
+  smallText: {
+    fontSize: 17,
+    alignSelf: "center",
+    color: "black",
+    marginTop: 10
+  },
 });
 
 export default ConfirmationCodeStyles;

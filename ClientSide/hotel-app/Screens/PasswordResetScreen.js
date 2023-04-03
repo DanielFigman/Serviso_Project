@@ -7,7 +7,7 @@ import VerificationCode from '../FCComponents/VerificationCode';
 
 const PasswordResetScreen = () => {
   const { language, setlanguage } = useContext(HotelsAppContext)
-  const [emailToReset, setEmailToReset] = useState(null)
+  const [emailToReset, setEmailToReset] = useState("")
   const [verificationSucceed, setVerificationSucceed] = useState(false)
 
 
