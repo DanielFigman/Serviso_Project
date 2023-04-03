@@ -6,11 +6,13 @@ import CarouselData from '../../Json_files/CarouselData';
 
 export default function MainScreen() {
 
-  
+console.log(CarouselData.SpaCarousel);
+
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.item}>
         <Image source={{ uri: item.imageUrl }} style={styles.image} />
+        <Image source= {require('hotel-app/assets/spa_2.jpeg') } style={styles.image} />
       </View>
     );
   };
