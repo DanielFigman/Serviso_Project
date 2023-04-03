@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, StyleSheet, TextInput } from 'react-native'
 import React from 'react'
-import Languages from '../Json files/Languages';
+import Languages from '../Json_files/Languages';
 import ButtonMain from './Buttons';
 
 const ResetPassword = ({ language }) => {

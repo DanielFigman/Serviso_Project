@@ -6,6 +6,7 @@ import WelcomeScreen from './Screens/WelcomeScreen';
 import HotelsAppContextProvider from './Context/HotelsAppContext';
 import PasswordResetScreen from './Screens/PasswordResetScreen';
 import CraeteUser from './Screens/CraeteUser';
+import Carousel from './Features/Carousal';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,10 +15,12 @@ export default function App() {
     <HotelsAppContextProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+          <Stack.Screen name="Carousel" component={Carousel} />
+          {/* <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="PasswordResetScreen" component={PasswordResetScreen} />
-          <Stack.Screen name="CraeteUser" component={CraeteUser} />
+          <Stack.Screen name="CraeteUser" component={CraeteUser} /> */}
+          
         </Stack.Navigator>
       </NavigationContainer>
     </HotelsAppContextProvider>

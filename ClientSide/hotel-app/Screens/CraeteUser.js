@@ -1,7 +1,7 @@
 import { View, Text, TextInput } from 'react-native'
 import React, { useContext, useState } from 'react'
 import ScreenComponent from '../FCComponents/ScreenComponent'
-import Languages from '../Json files/Languages'
+import Languages from '../Json_files/Languages'
 import { StyleSheet } from 'react-native'
 import { HotelsAppContext } from '../Context/HotelsAppContext'
 import LanguageSelect from '../FCComponents/LanguageSelect'
