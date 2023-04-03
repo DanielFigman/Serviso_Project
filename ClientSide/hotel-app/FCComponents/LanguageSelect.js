@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
         width: "20%",
         left: 12,
-        top: 150,
+        marginTop: 150,
         position: "absolute",
         zIndex: 1,
         backgroundColor: "#F2F2F2"

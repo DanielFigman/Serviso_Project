@@ -240,6 +240,63 @@ export default Languages = {
             CH: "继续",
             JP: "続ける"
         }
+    },
+    CreateUserScreen: {
+        CreateAccount: {
+            EN: "Create Account",
+            HE: "צור חשבון",
+            AR: "إنشاء حساب",
+            ES: "Crear una cuenta",
+            RU: "Зарегистрироваться",
+            FR: "Créer un compte",
+            POR: "Criar uma conta",
+            CH: "创建账户",
+            JP: "アカウントを作成する"
+        },
+        Email: {
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
+        },
+        NewPassword: {
+            EN: "New Password",
+            HE: "סיסמא חדשה",
+            AR: "كلمة مرور جديدة",
+            ES: "Nueva Contraseña",
+            RU: "Новый пароль",
+            FR: "Nouveau mot de passe",
+            POR: "Nova senha",
+            CH: "新密码",
+            JP: "新しいパスワード"
+        },
+        ConfirmNewPassword: {
+            EN: "Confirm New Password",
+            HE: "אמת סיסמא חדשה",
+            AR: "تأكيد كلمة المرور الجديدة",
+            ES: "Confirmar Nueva Contraseña",
+            RU: "Подтвердите новый пароль",
+            FR: "Confirmer le Nouveau Mot de Passe",
+            POR: "Confirmar Nova Senha",
+            CH: "确认新密码",
+            JP: "新しいパスワードの確認"
+        },
+        SelectLanguage:{
+            EN: "Select Language",
+            HE: "בחר שפה",
+            AR: "اختار اللغة",
+            ES: "seleccione el idioma",
+            RU: "выберите язык",
+            FR: "Choisir la langue",
+            POR: "selecione o idioma",
+            CH: "选择语言",
+            JP: "言語を選択する"
+        }
     }
 }
 

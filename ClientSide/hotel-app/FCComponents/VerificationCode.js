@@ -39,7 +39,7 @@ const animateCell = ({ hasValue, index, isFocused }) => {
   ]).start();
 };
 
-const VerificationCode = ({ language, setVerificationSucceed, email}) => {
+const VerificationCode = ({ language, setVerificationSucceed, email }) => {
 
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -97,11 +97,12 @@ const VerificationCode = ({ language, setVerificationSucceed, email}) => {
     <View>
       <Text style={ConfirmationCodeStyles.title}>{screenContent.EnterConfirmationCode[language]}</Text>
       <Text style={ConfirmationCodeStyles.subTitle}>{screenContent.A4DigitCodeWasSentTo[language]}</Text>
+      <Text style={ConfirmationCodeStyles.smallText}>{email}</Text>
       <CodeField
         ref={ref}
         {...props}
         value={value}
-        onChangeText={setValue}
+        onChangeText={(val) => setValue(val)}
         cellCount={CELL_COUNT}
         rootStyle={ConfirmationCodeStyles.codeFieldRoot}
         keyboardType="number-pad"

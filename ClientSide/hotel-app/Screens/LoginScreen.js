@@ -16,7 +16,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <ScreenComponent
+    <ScreenComponent 
       content={
         <View>
           <View>
@@ -32,7 +32,7 @@ const LoginScreen = () => {
           </View>
           <ButtonMain text={screenContent.Login[language]} buttonStyle={{ marginTop: 50 }} onPress={() => { { } }} />
           <ButtonText text={screenContent.ForgotYourPassword[language]} buttonStyle={{ marginTop: 30 }} navigate={"PasswordResetScreen"} />
-          <ButtonText text={screenContent.OrCreateAnewAccount[language]} buttonStyle={{ marginTop: 20}} />
+          <ButtonText text={screenContent.OrCreateAnewAccount[language]} buttonStyle={{ marginTop: 20}} navigate={"CraeteUser"}/>
         </View>
       }
     />
