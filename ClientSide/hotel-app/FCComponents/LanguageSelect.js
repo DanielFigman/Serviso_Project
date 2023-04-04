@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         marginTop: 150,
         position: "absolute",
         zIndex: 1,
-        backgroundColor: "#F2F2F2"
+        backgroundColor: "#F2F2F2",
+        justifyContent:"space-between"
     }
 });
