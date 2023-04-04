@@ -53,7 +53,7 @@ const CraeteUser = () => {
                     </View>
                     <ButtonMain
                         text={screenContent.CreateAccount[language]}
-                        buttonStyle={(language == "JP" || language == "RU") ? { marginTop: 50, width: 370 } : { marginTop: 50 }}
+                        buttonStyle={{ marginTop: 50 }}
                         onPress={checkPath}
                     />
                 </View>
