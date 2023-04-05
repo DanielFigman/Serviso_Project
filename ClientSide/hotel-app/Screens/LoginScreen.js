@@ -13,10 +13,9 @@ const LoginScreen = () => {
 
   const { language, setlanguage } = useContext(HotelsAppContext)
   const screenContent = Languages.LoginScreen;
-  const navigation = useNavigation();
 
   return (
-    <ScreenComponent 
+    <ScreenComponent
       content={
         <View>
           <View>
