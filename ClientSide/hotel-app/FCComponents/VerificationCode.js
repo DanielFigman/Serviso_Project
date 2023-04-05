@@ -1,5 +1,7 @@
-import {Animated, Image, SafeAreaView, Text, View} from 'react-native';
+import {Animated, StyleSheet, Image, SafeAreaView, Text, View} from 'react-native';
 import React, {useState} from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { ArrowLeftCircleIcon, ArrowLeftIcon, ArrowSmallLeftIcon, ArrowUturnLeftIcon, ChevronLeftIcon } from 'react-native-heroicons/mini';
 
 import {
   CodeField,
@@ -94,8 +96,7 @@ const VerificationCode = () => {
   return (
     <SafeAreaView style={ConfirmationCodeStyles.root}>
       <Text style={ConfirmationCodeStyles.title}>Verification</Text>
-      <Image style={ConfirmationCodeStyles.icon} source={source} />
-      <Text style={ConfirmationCodeStyles.subTitle}>
+      <Text style={[ConfirmationCodeStyles.subTitle,{fontSize:20, margin:10}]}>
         Please enter the verification code{'\n'}
         we send to your email address
       </Text>
