@@ -311,28 +311,28 @@ export default Languages = {
             JP: "Eメール"
         },
         CheckIn:{
-            EN: "Email",
-            HE: "דואר אלקטרוני",
-            AR: "بريد إلكتروني",
-            ES: "Correo electrónico",
-            RU: "Электронная почта",
-            FR: "E-mail",
-            POR: "E-mail",
-            CH: "电子邮件",
-            JP: "Eメール"
+            EN: "Check-In",
+            HE: "צ'ק אין",
+            AR: "تحقق في",
+            ES: "Registrarse",
+            RU: "Регистрироваться",
+            FR: "Enregistrement",
+            POR: "Check-in",
+            CH: "报到",
+            JP: "チェックイン"
         },
         CheckOut:{
-            EN: "Email",
-            HE: "דואר אלקטרוני",
-            AR: "بريد إلكتروني",
-            ES: "Correo electrónico",
-            RU: "Электронная почта",
-            FR: "E-mail",
-            POR: "E-mail",
-            CH: "电子邮件",
-            JP: "Eメール"
+            EN: "Check-Out",
+            HE: "צ'ק אאוט",
+            AR: "الدفع",
+            ES: "Verificar",
+            RU: "Выезд",
+            FR: "Vérifier",
+            POR: "Confira",
+            CH: "查看",
+            JP: "チェックアウト"
         },
-        HouseHold:{
+        Houseold:{
             EN: "Email",
             HE: "דואר אלקטרוני",
             AR: "بريد إلكتروني",
@@ -355,15 +355,15 @@ export default Languages = {
             JP: "Eメール"
         },
         NewRequest:{
-            EN: "Email",
-            HE: "דואר אלקטרוני",
-            AR: "بريد إلكتروني",
-            ES: "Correo electrónico",
-            RU: "Электронная почта",
-            FR: "E-mail",
-            POR: "E-mail",
-            CH: "电子邮件",
-            JP: "Eメール"
+            EN: "New Request",
+            HE: "בקשה חדשה",
+            AR: "طلب جديد",
+            ES: "Nueva solicitud",
+            RU: "Новый запрос",
+            FR: "Nouvelle requête",
+            POR: "Novo pedido",
+            CH: "新请求",
+            JP: "新しいリクエスト"
         }
     }
 }
