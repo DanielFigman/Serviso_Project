@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowDownCircleIcon } from "react-native-heroicons/mini";
 import { ArrowRightCircleIcon } from "react-native-heroicons/mini";
@@ -15,8 +15,11 @@ import ScreenComponent from "../FCComponents/ScreenComponent";
 import { ListItemAccordion } from "@rneui/base/dist/ListItem/ListItem.Accordion";
 import { ListItem } from "@rneui/base";
 import { ButtonArrow, ButtonText } from "../FCComponents/Buttons";
+import { HotelsAppContext } from "../Context/HotelsAppContext";
+import Languages from "../Json files/Languages";
 
 const PersonalPageScreen = () => {
+  const { language } = useContext(HotelsAppContext);
   const [name, setName] = useState("Nofar");
   const [Email, setEmail] = useState("nofar400@gmail.com");
   const [gender, setGender] = useState("women");
@@ -29,12 +32,14 @@ const PersonalPageScreen = () => {
     setIsOpen(!isOpen);
   };
 
+  const screenContent = Languages.PersonalPageScreen;
+
   return (
     <ScreenComponent
       content={
         <View>
           <View style={{ marginBottom: 80 }}>
-            <Text style={styles.title}>My Page</Text>
+            <Text style={styles.title}>{screenContent.MyPage[language]}</Text>
             {gender == "women" ? (
               <Image
                 style={styles.Image}
@@ -48,13 +53,13 @@ const PersonalPageScreen = () => {
           </View>
           <View style={styles.rowView}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.text}>Check In</Text>
+              <Text style={styles.text}>{screenContent.CheckIn[language]}</Text>
             </View>
             <ButtonArrow navigate={"CheckInScreen"} />
           </View>
           <View style={styles.rowView}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.text}>Check Out</Text>
+              <Text style={styles.text}>{screenContent.CheckOut[language]}</Text>
             </View>
             <ButtonArrow navigate={"CheckOutScreen"} />
           </View>
@@ -65,7 +70,7 @@ const PersonalPageScreen = () => {
               icon={<ArrowRightCircleIcon style={styles.arrowList} size={30} />}
               expandIcon={<ArrowDownCircleIcon style={styles.arrowList} size={30} />}
               noRotation={true}
-              content={<Text style={StyleSheet.flatten([styles.text, { left: 7 }])}>Household</Text>}
+              content={<Text style={StyleSheet.flatten([styles.text, { left: 7 }])}>{screenContent.HouseHold[language]}</Text>}
               isExpanded={isOpen}
               onPress={() => setIsOpen(!isOpen)}
             >
@@ -74,7 +79,7 @@ const PersonalPageScreen = () => {
                 <ListItem.Content>
                   <View style={styles.listItemView}>
                     <View style={{ flex: 1 }}>
-                      <Text style={styles.text}>Room cleaning schedule</Text>
+                      <Text style={styles.text}>{screenContent.RoomCleaningSchedule[language]}</Text>
                     </View>
                     <View>
                       <TouchableOpacity onPress={() => navigation.navigate("")}>
@@ -90,7 +95,7 @@ const PersonalPageScreen = () => {
                 <ListItem.Content>
                   <View style={styles.listItemView}>
                     <View style={{ flex: 1 }}>
-                      <Text style={styles.text}>New request</Text>
+                      <Text style={styles.text}>{screenContent.NewRequest[language]}</Text>
                     </View>
                     <View>
                       <TouchableOpacity onPress={() => navigation.navigate("")}>
