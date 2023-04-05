@@ -1,11 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import LoginScreen from './Screens/LoginScreen';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import WelcomeScreen from './Screens/WelcomeScreen';
-import HotelsAppContextProvider from './Context/HotelsAppContext';
-import PasswordResetScreen from './Screens/PasswordResetScreen';
-import CraeteUser from './Screens/CraeteUser';
+import { StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+import LoginScreen from "./Screens/LoginScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import WelcomeScreen from "./Screens/WelcomeScreen";
+import HotelsAppContextProvider from "./Context/HotelsAppContext";
+import PasswordResetScreen from "./Screens/PasswordResetScreen";
+import CheckInScreen from "./Screens/CheckInScreen";
+import PaymentScreen from "./Screens/PaymentScreen";
+import CheckOutScreen from "./Screens/CheckOutScreen";
+import PersonalPageScreen from "./Screens/PersonalPageScreen";import CraeteUser from './Screens/CraeteUser';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,9 +18,19 @@ export default function App() {
     <HotelsAppContextProvider>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen
+            name="PersonalPageScreen"
+            component={PersonalPageScreen}
+          />
+          <Stack.Screen name="CheckOutScreen" component={CheckOutScreen} />
+          <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
+          <Stack.Screen name="CheckInScreen" component={CheckInScreen} />
           <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="PasswordResetScreen" component={PasswordResetScreen} />
+          <Stack.Screen
+            name="PasswordResetScreen"
+            component={PasswordResetScreen}
+          />
           <Stack.Screen name="CraeteUser" component={CraeteUser} />
         </Stack.Navigator>
       </NavigationContainer>
@@ -27,8 +41,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
