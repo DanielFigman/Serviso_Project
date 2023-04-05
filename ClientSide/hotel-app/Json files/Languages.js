@@ -296,6 +296,74 @@ export default Languages = {
             POR: "selecione o idioma",
             CH: "选择语言",
             JP: "言語を選択する"
+        },
+    },
+    PersonalPageScreen:{
+        MyPage:{
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
+        },
+        CheckIn:{
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
+        },
+        CheckOut:{
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
+        },
+        HouseHold:{
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
+        },
+        RoomCleaningSchedule:{
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
+        },
+        NewRequest:{
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
         }
     }
 }
