@@ -95,19 +95,14 @@ namespace WebApplication.Controllers
         {
             try
             {
-                string errorMessage;
-
                 User u = new User();
-                bool userCreationSucceed = u.CreateUser(data,out errorMessage);
+                u.CreateUser(data);
 
-                if (userCreationSucceed) { return Ok(); }
-                
-                return BadRequest(errorMessage);
+                return Ok();
             }
             catch (Exception e)
             {
-
-                return Content(HttpStatusCode.BadRequest, e.Message);
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message});
             }
         }
 

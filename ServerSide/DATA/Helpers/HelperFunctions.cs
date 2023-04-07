@@ -48,7 +48,7 @@ namespace DATA
                     catch (Exception)
                     {
 
-                        throw new Exception ("password must be sent for user creation");
+                        throw new MissingFieldException ("password must be sent for user creation");
                     }
                     
                     

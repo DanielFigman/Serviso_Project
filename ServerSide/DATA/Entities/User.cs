@@ -27,25 +27,30 @@ namespace DATA
 
                 return hashedUserInputPassword.SequenceEqual(storedHashedPassword);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
         }
 
 
-        public bool CreateUser(JObject data, out string errorMessage)
+        public bool CreateUser(JObject data)
         {
+
             try
             {
-                errorMessage = string.Empty;
-
                 Dictionary<string, Object> convertedDict = dataHelper.ConvertJsonToDictionary(data);
 
-                if (isUserExist(convertedDict["email"].ToString()))
+                if (convertedDict.ContainsKey("email"))
                 {
-                    errorMessage = $"{convertedDict["email"]} is already exist in the system";
-                    return false;
+                        if (IsUserExist(convertedDict["email"].ToString()))
+                        {
+                            throw new UserExistsException(convertedDict["email"].ToString());
+                        }   
+                }
+                else
+                {
+                    throw new MissingFieldException("Email address must be sent for user creation");
                 }
 
                 User u = dataHelper.CreateObjectFromDictionary<User>(convertedDict);
@@ -69,21 +74,19 @@ namespace DATA
                 }
                 catch (Exception)
                 {
-
-                    throw new Exception ("one of the required fields of the user has not been sent");
+                    throw new MissingFieldException();
                 }
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                errorMessage = e.Message;
-                return false;
+                throw;
             }
 
         }
 
-        public bool isUserExist(string email)
+        public bool IsUserExist(string email)
         {
             return db.Users.SingleOrDefault(u => u.email == email) != null;
         }
