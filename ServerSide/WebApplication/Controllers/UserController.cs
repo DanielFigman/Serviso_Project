@@ -88,34 +88,30 @@ namespace WebApplication.Controllers
 
 
 
-        /*    [HttpPost]
-            [Route("api/signUP")]
+        [HttpPost]
+        [Route("api/signUP")]
 
-            public IHttpActionResult Post([FromBody] JObject data)
+        public IHttpActionResult Post([FromBody] JObject data)
+        {
+            try
             {
-                try
-                {
-                    string givenEmail = data["userEmail"].ToString();
-                    string givenUserPassword = data["givenUserPassword"].ToString();
-                    string givenLanguage = data["language"].ToString();
-                    DateTime birthDate = Convert.ToDateTime(data["birthDate"]);
-                    string givenPhoneNumber = data["phoneNumber"].ToString();
+                string errorMessage;
 
-                    hotelDatabaseContext db = new hotelDatabaseContext();
+                User u = new User();
+                bool userCreationSucceed = u.CreateUser(data,out errorMessage);
 
-                    User newUser = new User();
-                    bool userCreationSucceed = newUser.UpdateUserInfo(givenEmail, givenUserPassword, givenLanguage, birthDate);
-
-
-                }
-                catch (Exception e)
-                {
-
-                    return Content(HttpStatusCode.BadRequest, e.Message);
-                }
+                if (userCreationSucceed) { return Ok(); }
+                
+                return BadRequest(errorMessage);
             }
+            catch (Exception e)
+            {
 
-    */
+                return Content(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+
+
 
 
 
