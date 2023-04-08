@@ -9,170 +9,103 @@ import ButtonMain from '../FCComponents/Buttons'
 import { useNavigation } from '@react-navigation/core'
 import { isEqual } from 'lodash';
 import RNDateTimePicker from '@react-native-community/datetimepicker'
+import GetPersonalInfo from '../FCComponents/GetPersonalInfo'
+import GetLoginInfo from '../FCComponents/GetLoginInfo'
+import axios from 'axios'
 
 const CreateUserScreen = () => {
 
-    const { language, setlanguage } = useContext(HotelsAppContext)
+    //Screen content (words and sentences from Languages Json File that have been set for the current page)
     const screenContent = Languages.CreateUserScreen;
 
-    const [email, setEmail] = useState(null)
-    const [newPassword, setNewPassword] = useState(null)
-    const [confirmNewPassword, setConfirmNewPassword] = useState(null)
-    const [isConfirmePasswordCorrect, setIsconfirmedPasswordCorrect] = useState(null)
-    const [borderColor, setBorderColor] = useState(null)
+    //Context (language will be used also as personal info)
+    const {language} = useContext(HotelsAppContext)
+
+
+    //Personal Info States
+    const [gender, setGender] = useState(null)
+    const [fname, setFname] = useState(null)
+    const [sname, setSname] = useState(null)
+    const [phoneNumber, setPhoneNumber] = useState(null)
     const [birthDate, setBirthDate] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [password, setPassword] = useState(null)
 
+    //Confirmation of Moving to the next step states (will return from the children and then we will do the next steps)
+    const [getPersonalInfoSucceed, setGetPersonalInfoSucceed] = useState(false)
+    const [getLoginInfoSucceed, setGetLoginInfoSucceed] = useState(false)
 
+    //Confirmation and error message states to update if the user creation failed
+    const [errorMessageAfterFetch, setErrorMessageAfterFetch] = useState("")
+    const [fetchFailed, setFetchFailed] = useState(null)
 
+    const data = [
+        { key: '1', value: 'EN' },
+        { key: '2', value: 'HE' },
+        { key: '3', value: 'AR' },
+        { key: '4', value: 'ES' },
+        { key: '5', value: 'RU' },
+        { key: '6', value: 'FR' },
+        { key: '7', value: 'POR' },
+        { key: '8', value: 'CH' },
+        { key: '9', value: 'JP' }
+    ]
 
-    const navigation = useNavigation();
-
-    const checkPath = () => {
-        if (email && newPassword && confirmNewPassword) {
-            if (newPassword == confirmNewPassword)
-                navigation.navigate("LoginScreen")
-        }
-    }
-
-    const checkPasswords = () => {
-        if (!isEqual(newPassword, confirmNewPassword)) {
-            setIsconfirmedPasswordCorrect(false);
-        }
-        else {
-            setIsconfirmedPasswordCorrect(true);
-        }
-    }
+    const languageToSend = data.filter(obj => obj.value === language).key;
 
     useEffect(() => {
-        if (confirmNewPassword != null) {
-            if (isConfirmePasswordCorrect) {
-                setBorderColor("green")
-            }
-            else {
-                setBorderColor("red")
-            }
+        if(getLoginInfoSucceed){
+            const url = 'http://proj.ruppin.ac.il/cgroup97/finalProject/api/signUP';
+
+            axios.post(url, {
+                email: email,
+                password: password,
+                languageID: languageToSend,
+                dateOfBirth: birthDate,
+                phone: phoneNumber,
+                gender: gender,
+                fName: fname,
+                Sname: sname
+              })
+              .then((response) => {
+                console.log(response);
+              })
+              .catch((error) => {
+                console.log(error);
+                setErrorMessageAfterFetch(response)
+                setFetchFailed(true)
+                setGetLoginInfoSucceed(false)
+              });
         }
+    }, [getLoginInfoSucceed])
 
-    }, [isConfirmePasswordCorrect])
-
-
-    const [date, setDate] = useState(new Date())
 
     return (
-        <ScreenComponent
+        <ScreenComponent topLeftButton={"cancel"} cancelNavigation={"LoginScreen"}
             content={
-                <ScrollView style={styles.container}>
-                    <Text style={styles.largeText}>{screenContent.CreateAccount[language]}</Text>
-                    <LanguageSelect languageContext={language} setlanguageContext={setlanguage} buttonStyle={{ marginTop: 120 }} />
-                    <View style={styles.textInputsView}>
-                        <View style={{ flex: 1, flexDirection: "row" }}>
-                            <View style={{ flex: 1, width: "50%" }}>
-                                <Text style={styles.textInputesText}>{screenContent.Email[language]}</Text>
-                                <TextInput style={styles.textInputs}
-                                    placeholder={screenContent.Email[language]} keyboardAppearance='dark' autoCapitalize='none'
-                                    onChangeText={(text) => setEmail(text)}
-                                />
-                            </View>
-                            <View style={{ width: "50%" }}>
-                                <Text style={styles.textInputesText}>{screenContent.NewPassword[language]}</Text>
-                                <TextInput style={StyleSheet.flatten([styles.textInputs, { borderColor }])}
-                                    placeholder={screenContent.NewPassword[language]} keyboardAppearance='dark' autoCapitalize='none'
-                                    secureTextEntry
-                                    onChangeText={(text) => setNewPassword(text)}
-                                />
-                            </View>
-                        </View>
-                        <View style={{ flex: 1, flexDirection: "row" }}>
 
-                            <View style={{flex:1}}>
-                                <Text style={styles.textInputesText}>{screenContent.ConfirmNewPassword[language]}</Text>
-                                <TextInput style={StyleSheet.flatten([styles.textInputs, { borderColor }])} placeholder={screenContent.ConfirmNewPassword[language]}
-                                    keyboardAppearance='dark' autoCapitalize='none' secureTextEntry
-                                    onChangeText={(text) => setConfirmNewPassword(text)}
-                                    onBlur={checkPasswords}
-                                />
-
-                            </View>
-                            <View>
-                                <Text style={styles.textInputesText}>Birth Date</Text>
-                                <RNDateTimePicker style={styles.datePicker} mode='date' value={new Date()} />
-                            </View>
-
-                        </View>
-
-                        <View style={{ flex: 1, flexDirection: "row" }}>
-                            <View style={{ flex: 1, width: "50%" }}>
-                                <Text style={styles.textInputesText}>First Name</Text>
-                                <TextInput style={styles.textInputs}
-                                    placeholder={"First Name"} keyboardAppearance='dark' autoCapitalize='none'
-                                    onChangeText={(text) => setEmail(text)}
-                                />
-                            </View>
-                            <View style={{ width: "50%" }}>
-                                <Text style={styles.textInputesText}>Last Name</Text>
-                                <TextInput style={StyleSheet.flatten([styles.textInputs, { borderColor }])}
-                                    placeholder={"Last Name"} keyboardAppearance='dark' autoCapitalize='none'
-                                    secureTextEntry
-                                    onChangeText={(text) => setNewPassword(text)}
-                                />
-                            </View>
-                        </View>
-                    </View>
-                    <ButtonMain
-                        text={screenContent.CreateAccount[language]}
-                        buttonStyle={{ marginTop: 50 }}
-                        onPress={checkPath}
+                !getPersonalInfoSucceed
+                    ?
+                    <GetPersonalInfo
+                        setReturnedGender={setGender}
+                        setReturnedFname={setFname}
+                        setReturnedSname={setSname}
+                        setReturnedPhoneNumber={setPhoneNumber}
+                        setReturnedBirthDate={setBirthDate}
+                        setGetPersonalInfoSucceed={setGetPersonalInfoSucceed}
                     />
-                </ScrollView>
+                    :
+                    <GetLoginInfo
+                        setReturnedEmail={setEmail}
+                        setReturnedPassword={setPassword}
+                        setGetLoginInfoSucceed={setGetLoginInfoSucceed}
+                        errorMessageAfterFetch={errorMessageAfterFetch}
+                        fetchFailed={fetchFailed}
+                        setFetchFailed={setFetchFailed}
+                    />
             }
         />
     )
 }
 
 export default CreateUserScreen
-
-const styles = StyleSheet.create({
-    container: {
-        zIndex: 1
-    },
-    largeText: {
-        fontSize: 35,
-        alignSelf: "center",
-        color: "black",
-        marginTop: 30,
-    },
-    smallText: {
-        fontSize: 18,
-        height: 48,
-        alignSelf: "center",
-        color: "#565656",
-        marginTop: 10
-    },
-    textInputs: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-        borderRadius: 10,
-        marginBottom: 20,
-    },
-    textInputsView: {
-        marginTop: 130,
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    textInputesText: {
-        fontSize: 20,
-        textAlign: "center"
-
-    },
-    datePicker:{
-        height: 40,
-        margin: 12,
-        padding: 10,
-        marginBottom: 20,
-        right:10
-    }
-}); 

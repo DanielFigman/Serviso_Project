@@ -69,7 +69,6 @@ namespace DATA
                 try
                 {
                     db.SaveChanges();
-
                 }
                 catch (Exception)
                 {

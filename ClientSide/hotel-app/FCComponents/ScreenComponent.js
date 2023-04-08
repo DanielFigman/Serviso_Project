@@ -56,7 +56,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation }) => {
                 <View style={styles.leftArrowView}>
                     {topLeftButtonIcon}
                 </View>
-                {content}
+                    {content}
                 <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
             </SafeAreaView>
         </TouchableWithoutFeedback>
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
     },
     leftArrowView: {
         marginBottom: 20,
-         width: 50,
-         height:20
+        width: 50,
+        height: 20
     },
     servisoFlower: {
         width: 134,
