@@ -31,7 +31,7 @@ const LoginScreen = () => {
           </View>
           <ButtonMain text={screenContent.Login[language]} buttonStyle={{ marginTop: 50 }} onPress={() => { { } }} />
           <ButtonText text={screenContent.ForgotYourPassword[language]} buttonStyle={{ marginTop: 30 }} navigate={"PasswordResetScreen"} />
-          <ButtonText text={screenContent.OrCreateAnewAccount[language]} buttonStyle={{ marginTop: 20}} navigate={"CraeteUser"}/>
+          <ButtonText text={screenContent.OrCreateAnewAccount[language]} buttonStyle={{ marginTop: 20}} navigate={"CreateUserScreen"}/>
         </View>
       }
     />

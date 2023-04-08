@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView } from 'react-native'
+import { View, Text, TextInput, ScrollView, DatePickerIOSBase } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import ScreenComponent from '../FCComponents/ScreenComponent'
 import Languages from '../Json files/Languages'
@@ -8,8 +8,9 @@ import LanguageSelect from '../FCComponents/LanguageSelect'
 import ButtonMain from '../FCComponents/Buttons'
 import { useNavigation } from '@react-navigation/core'
 import { isEqual } from 'lodash';
+import RNDateTimePicker from '@react-native-community/datetimepicker'
 
-const CraeteUser = () => {
+const CreateUserScreen = () => {
 
     const { language, setlanguage } = useContext(HotelsAppContext)
     const screenContent = Languages.CreateUserScreen;
@@ -19,6 +20,9 @@ const CraeteUser = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState(null)
     const [isConfirmePasswordCorrect, setIsconfirmedPasswordCorrect] = useState(null)
     const [borderColor, setBorderColor] = useState(null)
+    const [birthDate, setBirthDate] = useState(null)
+
+
 
 
     const navigation = useNavigation();
@@ -52,6 +56,7 @@ const CraeteUser = () => {
     }, [isConfirmePasswordCorrect])
 
 
+    const [date, setDate] = useState(new Date())
 
     return (
         <ScreenComponent
@@ -77,27 +82,36 @@ const CraeteUser = () => {
                                 />
                             </View>
                         </View>
-                        <View>
-                            <Text style={styles.textInputesText}>{screenContent.ConfirmNewPassword[language]}</Text>
-                            <TextInput style={StyleSheet.flatten([styles.textInputs, { borderColor }])} placeholder={screenContent.ConfirmNewPassword[language]}
-                                keyboardAppearance='dark' autoCapitalize='none' secureTextEntry
-                                onChangeText={(text) => setConfirmNewPassword(text)}
-                                onBlur={checkPasswords}
-                            />
+                        <View style={{ flex: 1, flexDirection: "row" }}>
+
+                            <View style={{flex:1}}>
+                                <Text style={styles.textInputesText}>{screenContent.ConfirmNewPassword[language]}</Text>
+                                <TextInput style={StyleSheet.flatten([styles.textInputs, { borderColor }])} placeholder={screenContent.ConfirmNewPassword[language]}
+                                    keyboardAppearance='dark' autoCapitalize='none' secureTextEntry
+                                    onChangeText={(text) => setConfirmNewPassword(text)}
+                                    onBlur={checkPasswords}
+                                />
+
+                            </View>
+                            <View>
+                                <Text style={styles.textInputesText}>Birth Date</Text>
+                                <RNDateTimePicker style={styles.datePicker} mode='date' value={new Date()} />
+                            </View>
 
                         </View>
+
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ flex: 1, width: "50%" }}>
-                                <Text style={styles.textInputesText}>{screenContent.Email[language]}</Text>
+                                <Text style={styles.textInputesText}>First Name</Text>
                                 <TextInput style={styles.textInputs}
-                                    placeholder={screenContent.Email[language]} keyboardAppearance='dark' autoCapitalize='none'
+                                    placeholder={"First Name"} keyboardAppearance='dark' autoCapitalize='none'
                                     onChangeText={(text) => setEmail(text)}
                                 />
                             </View>
                             <View style={{ width: "50%" }}>
-                                <Text style={styles.textInputesText}>{screenContent.NewPassword[language]}</Text>
+                                <Text style={styles.textInputesText}>Last Name</Text>
                                 <TextInput style={StyleSheet.flatten([styles.textInputs, { borderColor }])}
-                                    placeholder={screenContent.NewPassword[language]} keyboardAppearance='dark' autoCapitalize='none'
+                                    placeholder={"Last Name"} keyboardAppearance='dark' autoCapitalize='none'
                                     secureTextEntry
                                     onChangeText={(text) => setNewPassword(text)}
                                 />
@@ -115,7 +129,7 @@ const CraeteUser = () => {
     )
 }
 
-export default CraeteUser
+export default CreateUserScreen
 
 const styles = StyleSheet.create({
     container: {
@@ -153,5 +167,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center"
 
+    },
+    datePicker:{
+        height: 40,
+        margin: 12,
+        padding: 10,
+        marginBottom: 20,
+        right:10
     }
 }); 
