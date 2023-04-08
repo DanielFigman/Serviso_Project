@@ -17,9 +17,7 @@ namespace DATA
 
         public T CreateObjectFromDictionary<T>(Dictionary<string, object> dict) where T : class, new()
         {
-            try
-            {
-
+          
                 T obj = new T();
                 var properties = typeof(T).GetProperties();
 
@@ -49,26 +47,15 @@ namespace DATA
                     {
 
                         throw new MissingFieldException ("password must be sent for user creation");
-                    }
-                    
-                    
+                    }   
                 }
 
                 return obj;
-
-            }
-            catch (Exception)
-            {
-                
-                throw;
-            }
         }
 
 
         public void EncryptPassword(User u, string password)
         {
-            try
-            {
                 byte[] salt = new byte[16];
                 new RNGCryptoServiceProvider().GetBytes(salt);
 
@@ -76,13 +63,6 @@ namespace DATA
 
                 u.PasswordValue = hashedPassword;
                 u.SaltValue = salt;
-
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-
         }
 
         public Dictionary<string, object> ConvertJsonToDictionary(JObject jsonObj)

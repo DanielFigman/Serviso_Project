@@ -37,8 +37,7 @@ namespace DATA
         public bool CreateUser(JObject data)
         {
 
-            try
-            {
+           
                 Dictionary<string, Object> convertedDict = dataHelper.ConvertJsonToDictionary(data);
 
                 if (convertedDict.ContainsKey("email"))
@@ -70,7 +69,6 @@ namespace DATA
                 try
                 {
                     db.SaveChanges();
-
                 }
                 catch (Exception)
                 {
@@ -78,11 +76,8 @@ namespace DATA
                 }
 
                 return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            
+           
 
         }
 

@@ -22,3 +22,5 @@ C:\Dani\Ruppin_year3\FinalProject\FinalProject_first\ServerSide\DATA\obj\Release
 C:\Dani\Ruppin_year3\FinalProject\FinalProject_first\ServerSide\DATA\obj\Release\DATA.csproj.CopyComplete
 C:\Dani\Ruppin_year3\FinalProject\FinalProject_first\ServerSide\DATA\obj\Release\DATA.dll
 C:\Dani\Ruppin_year3\FinalProject\FinalProject_first\ServerSide\DATA\obj\Release\DATA.pdb
+C:\Dani\Ruppin_year3\FinalProject\FinalProject_first\ServerSide\DATA\bin\Release\Newtonsoft.Json.dll
+C:\Dani\Ruppin_year3\FinalProject\FinalProject_first\ServerSide\DATA\bin\Release\Newtonsoft.Json.xml

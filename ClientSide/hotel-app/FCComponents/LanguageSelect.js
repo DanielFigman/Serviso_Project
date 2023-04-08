@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { SelectList } from 'react-native-dropdown-select-list';
 
@@ -18,17 +18,27 @@ const LanguageSelect = ({ languageContext, setlanguageContext, buttonStyle }) =>
         { key: '9', value: 'JP' }
     ]
 
+    const dissmissSelectList = () => {
+        if(selected){
+            se
+        }
+    }
+
     return (
-        <View style={StyleSheet.flatten([styles.buttonStyle, buttonStyle])}>
-            <SelectList
-                setSelected={(val) => setSelected(val)}
-                data={data}
-                placeholder={languageContext}
-                save="value"
-                onSelect={() => setlanguageContext(selected)}
-                label="Languages"
-            />
-        </View>
+        <TouchableWithoutFeedback onPress={dissmissSelectList}>
+
+            <View style={StyleSheet.flatten([styles.buttonStyle, buttonStyle])}>
+                <SelectList
+                    setSelected={(val) => setSelected(val)}
+                    data={data}
+                    placeholder={languageContext}
+                    save="value"
+                    onSelect={() => setlanguageContext(selected)}
+                    label="Languages"
+                    search={false}
+                />
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -45,6 +55,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         zIndex: 1,
         backgroundColor: "#F2F2F2",
-        justifyContent:"space-between"
+        justifyContent: "space-between"
     }
 });
