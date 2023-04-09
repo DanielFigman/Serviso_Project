@@ -58,14 +58,14 @@ const GetLoginInfo = ({ setReturnedEmail, setReturnedPassword, setGetLoginInfoSu
         //Check that all the fieds have changed, if not change the input text titles to red
         checkFields();
 
-        if (email && newPassword && confirmNewPassword) {
-            if (newPassword === confirmNewPassword) {
-                // setting the states of the parent comp (CreateUserScreen)
-                setReturnedEmail(email);
-                setReturnedPassword(newPassword);
-                setGetLoginInfoSucceed(true);
+            if (email && newPassword && confirmNewPassword) {
+                if (newPassword === confirmNewPassword) {
+                    // setting the states of the parent comp (CreateUserScreen)
+                    setReturnedEmail(email);
+                    setReturnedPassword(newPassword);
+                    setGetLoginInfoSucceed(true);
+                }
             }
-        }
     }
 
     const checkFields = () => {
