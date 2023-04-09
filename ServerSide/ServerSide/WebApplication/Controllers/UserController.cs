@@ -105,24 +105,5 @@ namespace WebApplication.Controllers
                 return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message});
             }
         }
-
-
-
-
-
-        // POST: api/User
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/User/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/User/5
-        public void Delete(int id)
-        {
-        }
     }
 }

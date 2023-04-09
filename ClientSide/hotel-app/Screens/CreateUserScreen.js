@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView, DatePickerIOSBase } from 'react-native'
+import { View, Text, TextInput, ScrollView, DatePickerIOSBase, Alert } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import ScreenComponent from '../FCComponents/ScreenComponent'
 import Languages from '../Json files/Languages'
@@ -14,12 +14,13 @@ import GetLoginInfo from '../FCComponents/GetLoginInfo'
 import axios from 'axios'
 
 const CreateUserScreen = () => {
+    const navigation = useNavigation();
 
     //Screen content (words and sentences from Languages Json File that have been set for the current page)
     const screenContent = Languages.CreateUserScreen;
 
     //Context (language will be used also as personal info)
-    const {language} = useContext(HotelsAppContext)
+    const { language } = useContext(HotelsAppContext)
 
 
     //Personal Info States
@@ -38,6 +39,14 @@ const CreateUserScreen = () => {
     //Confirmation and error message states to update if the user creation failed
     const [errorMessageAfterFetch, setErrorMessageAfterFetch] = useState("")
     const [fetchFailed, setFetchFailed] = useState(null)
+    const [creationSucceed, setCreationSucceed] = useState(false)
+
+    useEffect(() => {
+        if (creationSucceed) {
+            showSucceedAlert();
+            setCreationSucceed(null);
+        }
+    }, [creationSucceed])
 
     const data = [
         { key: '1', value: 'EN' },
@@ -51,31 +60,78 @@ const CreateUserScreen = () => {
         { key: '9', value: 'JP' }
     ]
 
-    const languageToSend = data.filter(obj => obj.value === language).key;
+    const showSucceedAlert = () => {
+        Alert.alert(
+            "Account creation Succeed",
+            `for ${email}`,
+            [{ text: 'OK', onPress: () => navigation.navigate("LoginScreen")}],
+        );
+    }
 
-    useEffect(() => {
-        if(getLoginInfoSucceed){
-            const url = 'http://proj.ruppin.ac.il/cgroup97/finalProject/api/signUP';
+    const fetchThis = async () => {
+        try {
+            const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/signUP', {
+                method: 'POST',
+                body: JSON.stringify(
+                    {
+                        email: email,
+                        password: password,
+                        languageID: data.find(obj => obj.value === language).key,
+                        dateOfBirth: birthDate,
+                        phone: phoneNumber,
+                        gender: gender,
+                        fName: fname,
+                        sName: sname
+                    }
+                ),
+                headers: new Headers({
+                    'Content-type': 'application/json; charset=UTF-8',
+                })
+            });
 
-            axios.post(url, {
-                email: email,
-                password: password,
-                languageID: languageToSend,
-                dateOfBirth: birthDate,
-                phone: phoneNumber,
-                gender: gender,
-                fName: fname,
-                Sname: sname
-              })
-              .then((response) => {
-                console.log(response);
-              })
-              .catch((error) => {
-                console.log(error);
-                setErrorMessageAfterFetch(response)
+            if (response.ok) {
+                console.log("User created successfully");
+                setCreationSucceed(true)
+            } else {
+                const errorMessage = await response.text();
+                const errorObject = JSON.parse(errorMessage);
+                const errorType = errorObject.type;
+                const errorMessageText = errorObject.message;
+
+                console.log(`Error: ${response.status} - ${errorType} - ${errorMessageText}`);
+                setErrorMessageAfterFetch(errorMessageText)
                 setFetchFailed(true)
                 setGetLoginInfoSucceed(false)
-              });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    // await axios.post('http://proj.ruppin.ac.il/cgroup97/test2/api/signUP', {
+    //     email: email,
+    //     password: password,
+    //     languageID: 1,
+    //     dateOfBirth: birthDate,
+    //     phone: phoneNumber,
+    //     gender: gender,
+    //     fName: fname,
+    //     Sname: sname
+    // })
+    //     .then((response) => {
+    //         console.log(response);
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //         setErrorMessageAfterFetch(error)
+    //         setFetchFailed(true)
+    //         setGetLoginInfoSucceed(false)
+    //     });
+    // }
+
+    useEffect(() => {
+        if (getLoginInfoSucceed) {
+            setFetchFailed(null)
+            fetchThis();
         }
     }, [getLoginInfoSucceed])
 
