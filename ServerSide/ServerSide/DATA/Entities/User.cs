@@ -76,6 +76,12 @@ namespace DATA
                 }
 
                 return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
             
            
 

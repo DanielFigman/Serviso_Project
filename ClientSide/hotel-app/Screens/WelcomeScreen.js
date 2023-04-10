@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useContext, useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
-import Languages from '../Json files/Languages';
+import Languages from '../Json_files/Languages';
 import ButtonMain from '../FCComponents/Buttons';
 
 const WelcomeScreen = () => {

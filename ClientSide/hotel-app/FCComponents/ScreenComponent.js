@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/core';
 import { TouchableWithoutFeedback } from 'react-native';
 import { ArrowLeftCircleIcon, XCircleIcon } from 'react-native-heroicons/mini';
 import { Image } from 'react-native';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 
 const ScreenComponent = ({ content, topLeftButton, cancelNavigation }) => {
@@ -65,11 +65,11 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation }) => {
 
 export default ScreenComponent
 
-ScreenComponent.propTypes = {
-    content: PropTypes.element.isRequired,
-    topLeftButton: PropTypes.string,
-    cancelNavigation: PropTypes.string
-}
+// ScreenComponent.propTypes = {
+//     content: PropTypes.element.isRequired,
+//     topLeftButton: PropTypes.string,
+//     cancelNavigation: PropTypes.string
+// }
 
 const styles = StyleSheet.create({
     container: {

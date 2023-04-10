@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native'
-import React, { useState } from 'react'
-import VerificationCode from './VerificationCode'
-import ScreenComponent from './ScreenComponent'
-import Languages from '../Json files/Languages'
-import ButtonMain from './Buttons'
-import verifyEmail from '../Hooks/useFetch'
-import axios from 'axios'
+import { View, Text, StyleSheet, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import VerificationCode from './VerificationCode';
+import ScreenComponent from './ScreenComponent';
+import Languages from '../Json_files/Languages';
+import ButtonMain from './Buttons';
+import verifyEmail from '../Hooks/useFetch';
+import axios from 'axios';
 
 const GetEmail = ({ setEmailToReset, setEmailSucceed, language }) => {
 
