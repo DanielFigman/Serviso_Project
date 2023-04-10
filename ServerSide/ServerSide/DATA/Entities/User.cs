@@ -26,7 +26,7 @@ namespace DATA
 
                 return hashedUserInputPassword.SequenceEqual(storedHashedPassword);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -52,11 +52,11 @@ namespace DATA
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
-         
+
         }
     }
 }
