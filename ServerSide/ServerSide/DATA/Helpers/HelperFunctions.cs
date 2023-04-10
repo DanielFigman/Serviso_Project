@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -111,6 +112,48 @@ namespace DATA
                     dict.Add(property.Name, property.Value.Value<object>());
                 }
             }
+        }
+
+        public async Task<bool> SendVerificationCodeEmail(string recipientEmail, string emailBody, bool isEnglish)
+        {
+
+            string templateID = isEnglish ? "passwordReset_EN" : "passwordReset_HE";
+
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post, "https://api.emailjs.com/api/v1.0/email/send");
+
+                var content = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("user_id", "o-85Yh1PPT6Zd8mcx"),
+                    new KeyValuePair<string, string>("service_id", "service_8x2c6oa"),
+                    new KeyValuePair<string, string>("template_id", templateID),
+                    new KeyValuePair<string, string>("recipient", recipientEmail),
+                    new KeyValuePair<string, string>("text", emailBody)
+                });
+
+                request.Content = content;
+
+                var response = await client.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public string GetVerificationCode()
+        {
+            Random random = new Random();
+            int code = random.Next(10000);
+            string formattedCode = code.ToString("D4");
+
+            return formattedCode;
         }
     }
 }
