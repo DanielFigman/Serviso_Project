@@ -26,6 +26,7 @@ namespace DATA
         public Nullable<decimal> price { get; set; }
         public Nullable<bool> inStock { get; set; }
         public byte[] photo { get; set; }
+        public string tags { get; set; }
     
         public virtual Alcohol Alcohol { get; set; }
         public virtual Drink Drink { get; set; }

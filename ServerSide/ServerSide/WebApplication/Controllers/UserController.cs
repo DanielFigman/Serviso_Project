@@ -12,6 +12,8 @@ namespace WebApplication.Controllers
 {
     public class UserController : ApiController
     {
+        private readonly hotelAppDBContext db = new hotelAppDBContext();
+
 
         [HttpGet]
         [Route("api/login")]
@@ -23,7 +25,6 @@ namespace WebApplication.Controllers
                 string userEmail = data["userEmail"].ToString();
                 string givenUserPassword = data["givenUserPassword"].ToString();
 
-                hotelDatabaseContext db = new hotelDatabaseContext();
 
                 User user = db.Users.FirstOrDefault(u => u.email == userEmail);
 
@@ -31,7 +32,7 @@ namespace WebApplication.Controllers
 
                 if (isUserFound)
                 {
-                  
+
                     bool passwordVerification = user.CheckUsersPassword(givenUserPassword);
 
                     if (passwordVerification)
@@ -56,26 +57,26 @@ namespace WebApplication.Controllers
             }
         }
 
-
-
-    /*    [HttpPost]
-        [Route("api/signUP")]
-
-        public IHttpActionResult Post([FromBody] JObject data)
+        // GET: api/Email
+        [HttpGet]
+        [Route("api/emailVerification")]
+        public IHttpActionResult Get([FromUri] string email)
         {
+
             try
             {
-                string givenEmail = data["userEmail"].ToString();
-                string givenUserPassword = data["givenUserPassword"].ToString();
-                string givenLanguage = data["language"].ToString();
-                DateTime birthDate = Convert.ToDateTime(data["birthDate"]);
-                string givenPhoneNumber = data["phoneNumber"].ToString();
+                User user = db.Users.FirstOrDefault(u => u.email == email);
 
-                hotelDatabaseContext db = new hotelDatabaseContext();
+                bool isUserFound = user != null;
 
-                User newUser = new User();
-                bool userCreationSucceed = newUser.UpdateUserInfo(givenEmail, givenUserPassword, givenLanguage, birthDate);
-
+                if (isUserFound)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
 
             }
             catch (Exception e)
@@ -85,23 +86,24 @@ namespace WebApplication.Controllers
             }
         }
 
-*/
 
 
+        [HttpPost]
+        [Route("api/signUP")]
 
-        // POST: api/User
-        public void Post([FromBody] string value)
+        public IHttpActionResult Post([FromBody] JObject data)
         {
-        }
+            try
+            {
+                User u = new User();
+                u.CreateUser(data);
 
-        // PUT: api/User/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/User/5
-        public void Delete(int id)
-        {
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message});
+            }
         }
     }
 }

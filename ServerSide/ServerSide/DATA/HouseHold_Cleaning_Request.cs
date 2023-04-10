@@ -16,6 +16,8 @@ namespace DATA
     {
         public int requestID { get; set; }
         public Nullable<bool> toClear { get; set; }
+        public Nullable<bool> anyTime { get; set; }
+        public Nullable<System.DateTime> scheduleTime { get; set; }
     
         public virtual HouseHold_Request HouseHold_Request { get; set; }
     }

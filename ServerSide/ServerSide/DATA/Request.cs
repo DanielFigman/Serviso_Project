@@ -22,8 +22,8 @@ namespace DATA
         }
     
         public int requestID { get; set; }
-        public Nullable<System.DateTime> orderDate { get; set; }
-        public Nullable<System.TimeSpan> orderHour { get; set; }
+        public Nullable<System.DateTime> requestDate { get; set; }
+        public Nullable<System.TimeSpan> requestHour { get; set; }
         public string status { get; set; }
     
         public virtual Fault_Request Fault_Request { get; set; }

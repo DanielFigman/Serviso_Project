@@ -14,7 +14,17 @@ namespace DATA
     
     public partial class Language
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Language()
+        {
+            this.Users = new HashSet<User>();
+        }
+    
         public int languageID { get; set; }
         public string languageName { get; set; }
+        public string shortName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

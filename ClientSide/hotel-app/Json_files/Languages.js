@@ -297,6 +297,186 @@ export default Languages = {
             CH: "选择语言",
             JP: "言語を選択する"
         }
+    },
+    GetPersonalInfoComp:{
+        CreateAccount: {
+            EN: "Create Account",
+            HE: "צור חשבון",
+            AR: "إنشاء حساب",
+            ES: "Crear una cuenta",
+            RU: "Зарегистрироваться",
+            FR: "Créer un compte",
+            POR: "Criar uma conta",
+            CH: "创建账户",
+            JP: "アカウントを作成する"
+        },
+        PersonalInfo: {
+            EN: "Personal Info",
+            HE: "פרטים אישיים",
+            AR: "معلومات شخصية",
+            ES: "Información Personal",
+            RU: "Личная информация",
+            FR: "Informations personnelles",
+            POR: "Informações pessoais",
+            CH: "个人信息",
+            JP: "個人情報"
+          },
+          FirstName:{
+            EN: "First Name",
+            HE: "שם פרטי",
+            AR: "الاسم الأول",
+            ES: "Nombre",
+            RU: "Имя",
+            FR: "Prénom",
+            POR: "Primeiro nome",
+            CH: "名字",
+            JP: "名"
+          },
+          LastName: {
+            EN: "Last Name",
+            HE: "שם משפחה",
+            AR: "الاسم الأخير",
+            ES: "Apellido",
+            RU: "Фамилия",
+            FR: "Nom de famille",
+            POR: "Sobrenome",
+            CH: "姓氏",
+            JP: "姓"
+          },
+          PhoneNumber: {
+            EN: "Phone Number",
+            HE: "מספר טלפון",
+            AR: "رقم الهاتف",
+            ES: "Número de teléfono",
+            RU: "Номер телефона",
+            FR: "Numéro de téléphone",
+            POR: "Número de telefone",
+            CH: "电话号码",
+            JP: "電話番号"
+          },
+          BirthDate: {
+            EN: "Birthday",
+            HE: "תאריך לידה",
+            AR: "عيد ميلاد",
+            ES: "Cumpleaños",
+            RU: "День рождения",
+            FR: "Anniversaire",
+            POR: "Aniversário",
+            CH: "出生日期",
+            JP: "誕生日"
+          },
+          Gender: {
+            EN: "Gender",
+            HE: "מגדר",
+            AR: "الجنس",
+            ES: "Género",
+            RU: "Пол",
+            FR: "Genre",
+            POR: "Gênero",
+            CH: "性别",
+            JP: "性別"
+          },
+          Male: {
+            EN: "Male",
+            HE: "זכר",
+            AR: "ذكر",
+            ES: "Masculino",
+            RU: "Мужской",
+            FR: "Masculin",
+            POR: "Masculino",
+            CH: "男性",
+            JP: "男性"
+          },
+          Female: {
+            EN: "Female",
+            HE: "נקבה",
+            AR: "أنثى",
+            ES: "Femenino",
+            RU: "Женский",
+            FR: "Féminin",
+            POR: "Feminino",
+            CH: "女性",
+            JP: "女性"
+          },
+          Continue: {
+            EN: "Continue",
+            HE: "המשך",
+            AR: "استمر",
+            ES: "Continuar",
+            RU: "Продолжить",
+            FR: "Continuer",
+            POR: "Continuar",
+            CH: "继续",
+            JP: "続ける"
+        }
+    },
+    GetLoginInfoComp:{
+        CreateAccount: {
+            EN: "Create Account",
+            HE: "צור חשבון",
+            AR: "إنشاء حساب",
+            ES: "Crear una cuenta",
+            RU: "Зарегистрироваться",
+            FR: "Créer un compte",
+            POR: "Criar uma conta",
+            CH: "创建账户",
+            JP: "アカウントを作成する"
+        },
+        LoginInformation: {
+            EN: "Login Information",
+            HE: "פרטי כניסה",
+            AR: "معلومات الدخول",
+            ES: "Información de Inicio de Sesión",
+            RU: "Информация для входа",
+            FR: "Informations de Connexion",
+            POR: "Informações de Login",
+            CH: "登录信息",
+            JP: "ログイン情報"
+          },
+          Email: {
+            EN: "Email",
+            HE: "דואר אלקטרוני",
+            AR: "بريد إلكتروني",
+            ES: "Correo electrónico",
+            RU: "Электронная почта",
+            FR: "E-mail",
+            POR: "E-mail",
+            CH: "电子邮件",
+            JP: "Eメール"
+        },
+        NewPassword: {
+            EN: "New Password",
+            HE: "סיסמא חדשה",
+            AR: "كلمة مرور جديدة",
+            ES: "Nueva Contraseña",
+            RU: "Новый пароль",
+            FR: "Nouveau mot de passe",
+            POR: "Nova senha",
+            CH: "新密码",
+            JP: "新しいパスワード"
+        },
+        ConfirmNewPassword: {
+            EN: "Confirm New Password",
+            HE: "אמת סיסמא חדשה",
+            AR: "تأكيد كلمة المرور الجديدة",
+            ES: "Confirmar Nueva Contraseña",
+            RU: "Подтвердите новый пароль",
+            FR: "Confirmer le Nouveau Mot de Passe",
+            POR: "Confirmar Nova Senha",
+            CH: "确认新密码",
+            JP: "新しいパスワードの確認"
+        },
+        PasswordsDoNotMatch: {
+            EN: "Passwords do not match",
+            HE: "סיסמאות לא תואמות",
+            AR: "كلمات المرور غير متطابقة",
+            ES: "Las contraseñas no coinciden",
+            RU: "Пароли не совпадают",
+            FR: "Les mots de passe ne correspondent pas",
+            POR: "As senhas não coincidem",
+            CH: "密码不一致",
+            JP: "パスワードが一致しません"
+          }
     }
 }
 

@@ -26,8 +26,8 @@ namespace DATA
         }
     
         public int orderID { get; set; }
-        public Nullable<System.DateTime> checkInDate { get; set; }
-        public Nullable<System.DateTime> checkOutDate { get; set; }
+        public System.DateTime checkInDate { get; set; }
+        public System.DateTime checkOutDate { get; set; }
         public Nullable<int> adults { get; set; }
         public Nullable<int> children { get; set; }
         public Nullable<System.DateTime> orderDate { get; set; }

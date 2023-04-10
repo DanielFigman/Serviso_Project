@@ -14,14 +14,8 @@ namespace DATA
     
     public partial class Questionnaire
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Questionnaire()
-        {
-            this.Users = new HashSet<User>();
-        }
-    
         public int questionnaireID { get; set; }
-        public Nullable<int> Adventure_sports { get; set; }
+        public Nullable<int> adventure_sports { get; set; }
         public Nullable<int> nature { get; set; }
         public Nullable<int> culture { get; set; }
         public Nullable<int> concerts { get; set; }
@@ -33,7 +27,6 @@ namespace DATA
         public Nullable<int> shopping { get; set; }
         public Nullable<int> workshops { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual User User { get; set; }
     }
 }

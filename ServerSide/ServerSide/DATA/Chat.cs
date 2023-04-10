@@ -22,11 +22,11 @@ namespace DATA
         }
     
         public int chatID { get; set; }
-        public string email { get; set; }
+        public string userEmail { get; set; }
         public Nullable<int> orderID { get; set; }
     
-        public virtual User User { get; set; }
         public virtual Order Order { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatLine> ChatLines { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

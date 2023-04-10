@@ -17,6 +17,7 @@ namespace DATA
         public int ID { get; set; }
         public string description { get; set; }
         public string possibleChanges { get; set; }
+        public string tags { get; set; }
     
         public virtual Food_And_Drinks Food_And_Drinks { get; set; }
     }

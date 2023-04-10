@@ -15,7 +15,7 @@ namespace DATA
     public partial class Fault_Request
     {
         public int requestID { get; set; }
-        public string type { get; set; }
+        public string description { get; set; }
         public string location { get; set; }
         public string solution { get; set; }
     

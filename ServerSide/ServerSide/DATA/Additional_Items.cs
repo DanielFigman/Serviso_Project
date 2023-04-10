@@ -25,6 +25,7 @@ namespace DATA
         public Nullable<decimal> price { get; set; }
         public Nullable<bool> inStock { get; set; }
         public byte[] photo { get; set; }
+        public string tags { get; set; }
         public string description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

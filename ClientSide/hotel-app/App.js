@@ -7,7 +7,7 @@ import HotelsAppContextProvider from './Context/HotelsAppContext';
 import PasswordResetScreen from './Screens/PasswordResetScreen';
 import CreateUser from './Screens/CreateUser';
 import ServisoScreen from './Screens/ServisoScreen/ServisoScreen';
-
+import CreateUserScreen from './Screens/CreateUserScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,8 +20,8 @@ export default function App() {
           <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="PasswordResetScreen" component={PasswordResetScreen} />
-          <Stack.Screen name="CreateUser" component={CreateUser} />
-          
+          <Stack.Screen name="CreateUser" component={CreateUser} />      
+          <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </HotelsAppContextProvider>

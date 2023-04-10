@@ -26,8 +26,8 @@ namespace DATA
         public string sName { get; set; }
         public string phone { get; set; }
         public string gender { get; set; }
-        public Nullable<System.DateTime> dateOfBirth { get; set; }
-        public string language { get; set; }
+        public System.DateTime dateOfBirth { get; set; }
+        public int languageID { get; set; }
         public byte[] SaltValue { get; set; }
         public byte[] PasswordValue { get; set; }
     
@@ -35,6 +35,7 @@ namespace DATA
         public virtual ICollection<Chat> Chats { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Guest Guest { get; set; }
+        public virtual Language Language { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Questionnaire> Questionnaires { get; set; }
     }
