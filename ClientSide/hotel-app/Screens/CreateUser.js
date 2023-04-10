@@ -8,7 +8,7 @@ import LanguageSelect from '../FCComponents/LanguageSelect'
 import ButtonMain from '../FCComponents/Buttons'
 import { useNavigation } from '@react-navigation/core'
 
-const CraeteUser = () => {
+const CreateUser = () => {
 
     const { language, setlanguage } = useContext(HotelsAppContext)
     const screenContent = Languages.CreateUserScreen;
@@ -62,7 +62,7 @@ const CraeteUser = () => {
     )
 }
 
-export default CraeteUser
+export default CreateUser
 
 const styles = StyleSheet.create({
     largeText: {
