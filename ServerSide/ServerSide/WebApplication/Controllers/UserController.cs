@@ -47,7 +47,6 @@ namespace WebApplication.Controllers
                     {
                         return BadRequest("PASSWORD");
                     }
-
                 }
                 else
                     return BadRequest("NOT_FOUND");
