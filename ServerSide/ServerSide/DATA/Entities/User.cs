@@ -86,26 +86,31 @@ namespace DATA
             return db.Users.SingleOrDefault(u => u.email == email) != null;
         }
 
-        public User GetUser(string email)
+        public async Task<string> SendCodeToUser()
         {
-            User user = db.Users.FirstOrDefault(u => u.email == email);
+            string code = dataHelper.GetVerificationCode();
+            bool isEnglish = Language.shortName == "EN";
+            string name = fName;
 
-            if (user != null)
+            try
             {
-                return user;
+                bool isEmailSent = await dataHelper.SendVerificationCodeEmail(email, name, code, isEnglish);
+                if (isEmailSent)
+                {
+                    return code;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error sending email: " + ex.Message);
             }
 
             return null;
         }
 
-        public async Task<bool> SendCodeToUser()
+        public void PasswordUpdate(string givenPassword)
         {
-            string code = dataHelper.GetVerificationCode();
-            bool isEnglish = Language.shortName == "EN";
-
-            bool isEmailSent = await dataHelper.SendVerificationCodeEmail(email, code, isEnglish);
-
-            return isEmailSent;
+            dataHelper.EncryptPassword(this, givenPassword);
         }
     }
 }

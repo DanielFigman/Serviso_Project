@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 
@@ -18,52 +20,52 @@ namespace DATA
 
         public T CreateObjectFromDictionary<T>(Dictionary<string, object> dict) where T : class, new()
         {
-          
-                T obj = new T();
-                var properties = typeof(T).GetProperties();
 
-                foreach (var property in properties)
+            T obj = new T();
+            var properties = typeof(T).GetProperties();
+
+            foreach (var property in properties)
+            {
+                if (dict.ContainsKey(property.Name))
                 {
-                    if (dict.ContainsKey(property.Name))
+                    if (property.PropertyType == typeof(DateTime))
                     {
-                        if (property.PropertyType == typeof(DateTime))
-                        {
-                            property.SetValue(obj, Convert.ToDateTime(dict[property.Name]));
-                        }
-                        else
-                        {
-                            property.SetValue(obj, Convert.ChangeType(dict[property.Name], property.PropertyType));
-                        }
+                        property.SetValue(obj, Convert.ToDateTime(dict[property.Name]));
+                    }
+                    else
+                    {
+                        property.SetValue(obj, Convert.ChangeType(dict[property.Name], property.PropertyType));
                     }
                 }
+            }
 
-                User u = obj as User;
-                if(u != null)
+            User u = obj as User;
+            if (u != null)
+            {
+                try
                 {
-                    try
-                    {
-                        EncryptPassword(u, dict["password"].ToString());
-                    }
-                    catch (Exception)
-                    {
-
-                        throw new MissingFieldException ("password must be sent for user creation");
-                    }   
+                    EncryptPassword(u, dict["password"].ToString());
                 }
+                catch (Exception)
+                {
 
-                return obj;
+                    throw new MissingFieldException("password must be sent for user creation");
+                }
+            }
+
+            return obj;
         }
 
 
         public void EncryptPassword(User u, string password)
         {
-                byte[] salt = new byte[16];
-                new RNGCryptoServiceProvider().GetBytes(salt);
+            byte[] salt = new byte[16];
+            new RNGCryptoServiceProvider().GetBytes(salt);
 
-                var hashedPassword = new Rfc2898DeriveBytes(password, salt, 10000).GetBytes(20);
+            var hashedPassword = new Rfc2898DeriveBytes(password, salt, 10000).GetBytes(20);
 
-                u.PasswordValue = hashedPassword;
-                u.SaltValue = salt;
+            u.PasswordValue = hashedPassword;
+            u.SaltValue = salt;
         }
 
         public Dictionary<string, object> ConvertJsonToDictionary(JObject jsonObj)
@@ -114,7 +116,7 @@ namespace DATA
             }
         }
 
-        public async Task<bool> SendVerificationCodeEmail(string recipientEmail, string emailBody, bool isEnglish)
+        public async Task<bool> SendVerificationCodeEmail(string recipientEmail, string name, string emailBody, bool isEnglish)
         {
 
             string templateID = isEnglish ? "passwordReset_EN" : "passwordReset_HE";
@@ -123,16 +125,21 @@ namespace DATA
             {
                 var request = new HttpRequestMessage(HttpMethod.Post, "https://api.emailjs.com/api/v1.0/email/send");
 
-                var content = new FormUrlEncodedContent(new[]
+                var data = new
                 {
-                    new KeyValuePair<string, string>("user_id", "o-85Yh1PPT6Zd8mcx"),
-                    new KeyValuePair<string, string>("service_id", "service_8x2c6oa"),
-                    new KeyValuePair<string, string>("template_id", templateID),
-                    new KeyValuePair<string, string>("recipient", recipientEmail),
-                    new KeyValuePair<string, string>("text", emailBody)
-                });
+                    user_id = "sBqE3GuIN5frQ4uEo",
+                    service_id = "8x2c6oa",
+                    template_id = templateID,
+                    template_params = new
+                    {
+                        to_name = name,
+                        message = emailBody,
+                        to_email = recipientEmail
+                    },
+                };
 
-                request.Content = content;
+                var json = JsonConvert.SerializeObject(data);
+                request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var response = await client.SendAsync(request);
 
@@ -142,7 +149,7 @@ namespace DATA
                 }
                 else
                 {
-                    return true;
+                    return false;
                 }
             }
         }

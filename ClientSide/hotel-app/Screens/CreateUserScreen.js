@@ -107,26 +107,6 @@ const CreateUserScreen = () => {
             console.log(error);
         }
     };
-    // await axios.post('http://proj.ruppin.ac.il/cgroup97/test2/api/signUP', {
-    //     email: email,
-    //     password: password,
-    //     languageID: 1,
-    //     dateOfBirth: birthDate,
-    //     phone: phoneNumber,
-    //     gender: gender,
-    //     fName: fname,
-    //     Sname: sname
-    // })
-    //     .then((response) => {
-    //         console.log(response);
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //         setErrorMessageAfterFetch(error)
-    //         setFetchFailed(true)
-    //         setGetLoginInfoSucceed(false)
-    //     });
-    // }
 
     useEffect(() => {
         if (getLoginInfoSucceed) {

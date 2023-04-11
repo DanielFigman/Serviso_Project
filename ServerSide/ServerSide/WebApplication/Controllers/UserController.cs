@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Web.Http;
 
 namespace WebApplication.Controllers
@@ -72,12 +73,12 @@ namespace WebApplication.Controllers
                 if (isUserFound)
                 {
                     string code = await user.SendCodeToUser();
-                    return Ok(code);
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                    if(code != null)
+                    {
+                        return Ok(code);
+                    }
+                }    
+                return BadRequest();
             }
             catch (Exception e)
             {
@@ -95,6 +96,33 @@ namespace WebApplication.Controllers
             {
                 User u = new User();
                 u.CreateUser(data);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/passwordReset")]
+
+        public IHttpActionResult Put([FromBody] JObject data)
+        {
+            try
+            {
+                string email = data["email"].ToString();
+                string password = data["password"].ToString();
+
+                User user = db.Users.FirstOrDefault(u => u.email == email);
+
+                bool isUserFound = user != null;
+
+                if (isUserFound)
+                {
+                    user.PasswordUpdate(password);
+                }
 
                 return Ok();
             }
