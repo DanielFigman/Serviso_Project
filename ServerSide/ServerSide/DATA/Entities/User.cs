@@ -29,7 +29,7 @@ namespace DATA
             }
             catch (Exception)
             {
-                return false;
+                throw;
             }
         }
 

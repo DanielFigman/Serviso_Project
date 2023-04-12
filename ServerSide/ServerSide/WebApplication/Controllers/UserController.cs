@@ -45,16 +45,15 @@ namespace WebApplication.Controllers
                     }
                     else
                     {
-                        return BadRequest("PASSWORD");
+                        return BadRequest();
                     }
                 }
                 else
-                    return BadRequest("NOT_FOUND");
+                    return BadRequest();
             }
             catch (Exception e)
             {
-
-                return Content(HttpStatusCode.BadRequest, e.Message);
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
             }
         }
 
