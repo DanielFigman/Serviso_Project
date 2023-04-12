@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Web.Http;
 
 namespace WebApplication.Controllers
@@ -45,7 +47,6 @@ namespace WebApplication.Controllers
                     {
                         return BadRequest("PASSWORD");
                     }
-
                 }
                 else
                     return BadRequest("NOT_FOUND");
@@ -60,9 +61,8 @@ namespace WebApplication.Controllers
         // GET: api/Email
         [HttpGet]
         [Route("api/emailVerification")]
-        public IHttpActionResult Get([FromUri] string email)
+        public async Task<IHttpActionResult> Get([FromUri] string email)
         {
-
             try
             {
                 User user = db.Users.FirstOrDefault(u => u.email == email);
@@ -71,21 +71,23 @@ namespace WebApplication.Controllers
 
                 if (isUserFound)
                 {
-                    return Ok();
+                    string code = await user.SendCodeToUser();
+                    if(code != null)
+                    {
+                        return Ok(code);
+                    }
                 }
                 else
                 {
-                    return BadRequest();
+                    throw new NonExistingUser(email);
                 }
-
+                return BadRequest();
             }
             catch (Exception e)
             {
-
-                return Content(HttpStatusCode.BadRequest, e.Message);
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
             }
         }
-
 
 
         [HttpPost]
@@ -102,7 +104,34 @@ namespace WebApplication.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message});
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/passwordReset")]
+
+        public IHttpActionResult Put([FromBody] JObject data)
+        {
+            try
+            {
+                string email = data["email"].ToString();
+                string password = data["password"].ToString();
+
+                User user = db.Users.FirstOrDefault(u => u.email == email);
+
+                bool isUserFound = user != null;
+
+                if (isUserFound)
+                {
+                    user.PasswordUpdate(password);
+                }
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
             }
         }
     }
