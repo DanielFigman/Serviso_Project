@@ -193,7 +193,18 @@ export default Languages = {
             POR: "Continuar",
             CH: "继续",
             JP: "続ける"
-        }
+        },
+        PasswordsDoNotMatch: {
+            EN: "Passwords do not match",
+            HE: "סיסמאות לא תואמות",
+            AR: "كلمات المرور غير متطابقة",
+            ES: "Las contraseñas no coinciden",
+            RU: "Пароли не совпадают",
+            FR: "Les mots de passe ne correspondent pas",
+            POR: "As senhas não coincidem",
+            CH: "密码不一致",
+            JP: "パスワードが一致しません"
+          }
     },
     GetEmailComp: {
         EmailVerification: {

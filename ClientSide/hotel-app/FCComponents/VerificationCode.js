@@ -1,5 +1,5 @@
-import { Animated, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import { Alert, Animated, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
 
 import {
   CodeField,
@@ -39,17 +39,34 @@ const animateCell = ({ hasValue, index, isFocused }) => {
   ]).start();
 };
 
-const VerificationCode = ({ language, setVerificationSucceed, email }) => {
+const VerificationCode = ({ language, setVerificationSucceed, email, code }) => {
 
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
-  });
+  }); 
 
   const screenContent = Languages.VerificationCodeComp;
 
+  const onSubmit = () => {
+    if(value === code){
+      setVerificationSucceed(true);
+    }
+    else{
+      showFailedAlert();
+    }
+  }
+
+  
+  const showFailedAlert = () => {
+    Alert.alert(
+        "Wrong verification code",
+        "",
+        [{ text: 'OK'}],
+    );
+}
 
   const renderCell = ({ index, symbol, isFocused }) => {
     const hasValue = Boolean(symbol);
@@ -83,6 +100,7 @@ const VerificationCode = ({ language, setVerificationSucceed, email }) => {
       animateCell({ hasValue, index, isFocused });
     }, 0);
 
+
     return (
       <AnimatedText
         key={index}
@@ -110,7 +128,7 @@ const VerificationCode = ({ language, setVerificationSucceed, email }) => {
         renderCell={renderCell}
         keyboardAppearance='dark'
       />
-      <ButtonMain text={screenContent.Continue[language]} buttonStyle={{ marginTop: 70 }} />
+      <ButtonMain text={screenContent.Continue[language]} buttonStyle={{ marginTop: 70 }} onPress={onSubmit}/>
     </View>
   );
 };
