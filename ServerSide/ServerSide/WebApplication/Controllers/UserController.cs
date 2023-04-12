@@ -76,8 +76,11 @@ namespace WebApplication.Controllers
                     {
                         return Ok(code);
                     }
-                }    
-                return BadRequest();
+                }
+                else
+                {
+                    throw new NonExistingUser(email);
+                }
             }
             catch (Exception e)
             {
