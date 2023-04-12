@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
 import React, { useState } from 'react'
 import VerificationCode from './VerificationCode'
 import ScreenComponent from './ScreenComponent'
@@ -6,29 +6,66 @@ import Languages from '../Json files/Languages'
 import ButtonMain from './Buttons'
 import verifyEmail from '../Hooks/useFetch'
 import axios from 'axios'
+import Loading from './Loading'
 
 const GetEmail = ({ setEmailToReset, language, setCode }) => {
 
   const screenContent = Languages.GetEmailComp;
-  const [givenEmail, setGivenEmail] = useState(null)
+  const [givenEmail, setGivenEmail] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const showErrAlert = (error) => {
+    Alert.alert(
+        "Email Verification Failed",
+        `${error}`,
+        [{ text: 'OK'}],
+    );
+}
 
   const checkEmailSucceed = () => {
+    setIsLoading(true);
+
     const url = "http://proj.ruppin.ac.il/cgroup97/test2/api/EmailVerification?email=" + encodeURIComponent(givenEmail);
     console.log(url)
 
     axios.get(url)
       .then((res) => {
-        setEmailToReset(givenEmail);
-        setCode(res.data)
+        if (res) {
+          setEmailToReset(givenEmail);
+          setCode(res.data)
+          setIsLoading(false)
+        }
       })
       .catch((err) => {
-        console.log("error", err)
-      })
+        if (err.response) {
+          console.log("Error status code:", err.response.status);
+          if(err.response.data){
+            console.log("Error type:", err.response.data.type);
+            console.log("Error message:", err.response.data.message);
+
+            if(err.response.data.type === "NonExistingUser"){
+              showErrAlert(err.response.data.message);
+            }
+          }
+        } else if (err.request) {
+          console.log("Request error:", err.request);
+        } else {
+          console.log("Error message:", err.message);
+        }
+        setIsLoading(false);
+      });
 
   }
 
   return (
     <View>
+      {
+        isLoading ? 
+        <Loading />
+        :
+        ""
+      }
       <Text style={styles.largeText}>{screenContent.EmailVerification[language]}</Text>
       <Text style={styles.smallText}>{screenContent.EnterYourEmail[language]}</Text>
       <View style={styles.textInputsView}>

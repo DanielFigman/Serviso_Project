@@ -81,10 +81,11 @@ namespace WebApplication.Controllers
                 {
                     throw new NonExistingUser(email);
                 }
+                return BadRequest();
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.BadRequest, e.Message);
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
             }
         }
 

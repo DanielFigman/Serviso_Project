@@ -1,17 +1,12 @@
-import { View, Text, TextInput, ScrollView, DatePickerIOSBase, Alert } from 'react-native'
+import {Alert } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import ScreenComponent from '../FCComponents/ScreenComponent'
 import Languages from '../Json files/Languages'
-import { StyleSheet } from 'react-native'
 import { HotelsAppContext } from '../Context/HotelsAppContext'
-import LanguageSelect from '../FCComponents/LanguageSelect'
-import ButtonMain from '../FCComponents/Buttons'
 import { useNavigation } from '@react-navigation/core'
-import { isEqual } from 'lodash';
-import RNDateTimePicker from '@react-native-community/datetimepicker'
 import GetPersonalInfo from '../FCComponents/GetPersonalInfo'
 import GetLoginInfo from '../FCComponents/GetLoginInfo'
-import axios from 'axios'
+import Loading from '../FCComponents/Loading'
 
 const CreateUserScreen = () => {
     const navigation = useNavigation();
@@ -40,6 +35,8 @@ const CreateUserScreen = () => {
     const [errorMessageAfterFetch, setErrorMessageAfterFetch] = useState("")
     const [fetchFailed, setFetchFailed] = useState(null)
     const [creationSucceed, setCreationSucceed] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
         if (creationSucceed) {
@@ -64,11 +61,13 @@ const CreateUserScreen = () => {
         Alert.alert(
             "Account creation Succeed",
             `for ${email}`,
-            [{ text: 'OK', onPress: () => navigation.navigate("LoginScreen")}],
+            [{ text: 'OK', onPress: () => navigation.navigate("LoginScreen") }],
         );
     }
 
     const fetchThis = async () => {
+        setIsLoading(true);
+
         try {
             const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/signUP', {
                 method: 'POST',
@@ -92,6 +91,7 @@ const CreateUserScreen = () => {
             if (response.ok) {
                 console.log("User created successfully");
                 setCreationSucceed(true)
+
             } else {
                 const errorMessage = await response.text();
                 const errorObject = JSON.parse(errorMessage);
@@ -103,8 +103,12 @@ const CreateUserScreen = () => {
                 setFetchFailed(true)
                 setGetLoginInfoSucceed(false)
             }
+            setIsLoading(false)
+
         } catch (error) {
             console.log(error);
+            setIsLoading(false)
+
         }
     };
 
@@ -120,25 +124,29 @@ const CreateUserScreen = () => {
         <ScreenComponent topLeftButton={"cancel"} cancelNavigation={"LoginScreen"}
             content={
 
-                !getPersonalInfoSucceed
-                    ?
-                    <GetPersonalInfo
-                        setReturnedGender={setGender}
-                        setReturnedFname={setFname}
-                        setReturnedSname={setSname}
-                        setReturnedPhoneNumber={setPhoneNumber}
-                        setReturnedBirthDate={setBirthDate}
-                        setGetPersonalInfoSucceed={setGetPersonalInfoSucceed}
-                    />
+                isLoading ?
+                    <Loading />
                     :
-                    <GetLoginInfo
-                        setReturnedEmail={setEmail}
-                        setReturnedPassword={setPassword}
-                        setGetLoginInfoSucceed={setGetLoginInfoSucceed}
-                        errorMessageAfterFetch={errorMessageAfterFetch}
-                        fetchFailed={fetchFailed}
-                        setFetchFailed={setFetchFailed}
-                    />
+
+                    !getPersonalInfoSucceed
+                        ?
+                        <GetPersonalInfo
+                            setReturnedGender={setGender}
+                            setReturnedFname={setFname}
+                            setReturnedSname={setSname}
+                            setReturnedPhoneNumber={setPhoneNumber}
+                            setReturnedBirthDate={setBirthDate}
+                            setGetPersonalInfoSucceed={setGetPersonalInfoSucceed}
+                        />
+                        :
+                        <GetLoginInfo
+                            setReturnedEmail={setEmail}
+                            setReturnedPassword={setPassword}
+                            setGetLoginInfoSucceed={setGetLoginInfoSucceed}
+                            errorMessageAfterFetch={errorMessageAfterFetch}
+                            fetchFailed={fetchFailed}
+                            setFetchFailed={setFetchFailed}
+                        />
             }
         />
     )

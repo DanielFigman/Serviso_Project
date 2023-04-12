@@ -92,17 +92,11 @@ namespace DATA
             bool isEnglish = Language.shortName == "EN";
             string name = fName;
 
-            try
+
+            bool isEmailSent = await dataHelper.SendVerificationCodeEmail(email, name, code, isEnglish);
+            if (isEmailSent)
             {
-                bool isEmailSent = await dataHelper.SendVerificationCodeEmail(email, name, code, isEnglish);
-                if (isEmailSent)
-                {
-                    return code;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error sending email: " + ex.Message);
+                return code;
             }
 
             return null;

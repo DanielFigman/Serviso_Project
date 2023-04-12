@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Languages from '../Json files/Languages';
 import ButtonMain from './Buttons';
 import { isEqual } from 'lodash';
+import Loading from './Loading';
 
 const ResetPassword = ({ language, email, setIsResetSucceed }) => {
 
@@ -12,6 +13,7 @@ const ResetPassword = ({ language, email, setIsResetSucceed }) => {
     //Helper States
     const [isConfirmePasswordCorrect, setIsconfirmedPasswordCorrect] = useState(null)
     const [borderColor, setBorderColor] = useState("black")
+    const [isLoading, setIsLoading] = useState(false);
 
 
     //Personal Info States
@@ -19,6 +21,8 @@ const ResetPassword = ({ language, email, setIsResetSucceed }) => {
     const [confirmNewPassword, setConfirmNewPassword] = useState(null)
 
     const handleSubmit = async () => {
+        setIsLoading(true);
+
         if (isConfirmePasswordCorrect) {
             try {
                 const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/passwordReset', {
@@ -46,9 +50,12 @@ const ResetPassword = ({ language, email, setIsResetSucceed }) => {
                     console.log(`Error: ${response.status} - ${errorType} - ${errorMessageText}`);
                     setIsResetSucceed(false)
                 }
+                setIsLoading(false);
+
             } catch (error) {
                 console.log(error);
                 setIsResetSucceed(false)
+                setIsLoading(false);
             }
         }
     }
@@ -78,6 +85,12 @@ const ResetPassword = ({ language, email, setIsResetSucceed }) => {
 
     return (
         <View style={styles.container}>
+            {
+                isLoading ?
+                    <Loading />
+                    :
+                    ""
+            }
             <Text style={styles.largeText}>{screenContent.PasswordReset[language]}</Text>
             <Text style={styles.smallText}>{screenContent.ChooseNewPassword[language]}</Text>
             <View style={styles.textInputsView}>

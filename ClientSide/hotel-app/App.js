@@ -6,6 +6,7 @@ import WelcomeScreen from './Screens/WelcomeScreen';
 import HotelsAppContextProvider from './Context/HotelsAppContext';
 import PasswordResetScreen from './Screens/PasswordResetScreen';
 import CreateUserScreen from './Screens/CreateUserScreen';
+import Loading from './FCComponents/Loading';
 
 const Stack = createNativeStackNavigator();
 

@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\figma\Desktop\finalProject</_PublishTargetUrl>
-    <History>True|2023-04-11T11:58:52.3076714Z;True|2023-04-11T14:31:15.6253939+03:00;True|2023-04-11T14:30:03.4026973+03:00;True|2023-04-09T00:36:13.1226410+03:00;True|2023-04-08T23:53:39.9220338+03:00;True|2023-04-08T23:45:39.4453098+03:00;True|2023-04-06T21:41:24.8074614+03:00;True|2023-04-06T13:19:53.5287681+03:00;</History>
+    <History>True|2023-04-12T10:53:27.4839006Z;True|2023-04-11T14:58:52.3076714+03:00;True|2023-04-11T14:31:15.6253939+03:00;True|2023-04-11T14:30:03.4026973+03:00;True|2023-04-09T00:36:13.1226410+03:00;True|2023-04-08T23:53:39.9220338+03:00;True|2023-04-08T23:45:39.4453098+03:00;True|2023-04-06T21:41:24.8074614+03:00;True|2023-04-06T13:19:53.5287681+03:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -79,13 +79,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/10/2023 21:04:01</publishTime>
     </File>
     <File Include="bin/DATA.dll">
-      <publishTime>04/11/2023 14:58:49</publishTime>
+      <publishTime>04/12/2023 13:53:23</publishTime>
     </File>
     <File Include="bin/DATA.dll.config">
       <publishTime>04/11/2023 12:22:58</publishTime>
     </File>
     <File Include="bin/DATA.pdb">
-      <publishTime>04/11/2023 14:58:49</publishTime>
+      <publishTime>04/12/2023 13:53:23</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>04/10/2023 21:04:01</publishTime>
@@ -286,10 +286,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/10/2023 21:04:02</publishTime>
     </File>
     <File Include="bin/WebApplication.dll">
-      <publishTime>04/11/2023 14:58:50</publishTime>
+      <publishTime>04/12/2023 13:53:24</publishTime>
     </File>
     <File Include="bin/WebApplication.pdb">
-      <publishTime>04/11/2023 14:58:50</publishTime>
+      <publishTime>04/12/2023 13:53:24</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>04/10/2023 21:04:02</publishTime>

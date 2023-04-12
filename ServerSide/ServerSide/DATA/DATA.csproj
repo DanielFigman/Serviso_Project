@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="Entities\User.cs" />
     <Compile Include="Exceptions\MissingFieldException.cs" />
+    <Compile Include="Exceptions\NonExistingUser.cs" />
     <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Facility.cs">
       <DependentUpon>Model.tt</DependentUpon>
