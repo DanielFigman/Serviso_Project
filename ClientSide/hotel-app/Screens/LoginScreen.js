@@ -15,7 +15,7 @@ const LoginScreen = () => {
   const screenContent = Languages.LoginScreen;
 
   return (
-    <ScreenComponent
+    <ScreenComponent bottomMenu={true}
       content={
         <View>
           <View>

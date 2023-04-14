@@ -1,14 +1,20 @@
 import { View, Text, StyleSheet, TouchableOpacity, Keyboard } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useContext, useLayoutEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/core';
 import { TouchableWithoutFeedback } from 'react-native';
 import { ArrowLeftCircleIcon, XCircleIcon } from 'react-native-heroicons/mini';
 import { Image } from 'react-native';
 import PropTypes from 'prop-types';
+import BottomMenu from './BottomMenu';
+import Loading from './Loading';
+import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 
-const ScreenComponent = ({ content, topLeftButton, cancelNavigation }) => {
+const ScreenComponent = ({ content, topLeftButton, cancelNavigation, bottomMenu }) => {
+
+    //use context to display Loading component 
+    const { isLoading } = useContext(HotelsAppContext)
 
     ////////////////////////////////////////
     ////////Make screen without header//////
@@ -56,8 +62,21 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation }) => {
                 <View style={styles.leftArrowView}>
                     {topLeftButtonIcon}
                 </View>
-                    {content}
-                <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
+                {
+                    isLoading ?
+                        <Loading />
+                        :
+                        content
+                }
+                {
+                    bottomMenu ?
+                        <View style={styles.bottomMenu}>
+                            <BottomMenu />
+                        </View>
+                        :
+                        <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
+                }
+
             </SafeAreaView>
         </TouchableWithoutFeedback>
     )
@@ -94,6 +113,11 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 15,
         alignSelf: "center",
+    },
+    bottomMenu: {
+        position: "absolute",
+        bottom: 5,
+
     }
 });
 

@@ -1,4 +1,4 @@
-import {Alert } from 'react-native'
+import { Alert } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import ScreenComponent from '../FCComponents/ScreenComponent'
 import Languages from '../Json files/Languages'
@@ -6,7 +6,6 @@ import { HotelsAppContext } from '../Context/HotelsAppContext'
 import { useNavigation } from '@react-navigation/core'
 import GetPersonalInfo from '../FCComponents/GetPersonalInfo'
 import GetLoginInfo from '../FCComponents/GetLoginInfo'
-import Loading from '../FCComponents/Loading'
 
 const CreateUserScreen = () => {
     const navigation = useNavigation();
@@ -15,7 +14,7 @@ const CreateUserScreen = () => {
     const screenContent = Languages.CreateUserScreen;
 
     //Context (language will be used also as personal info)
-    const { language } = useContext(HotelsAppContext)
+    const { language, setIsLoading } = useContext(HotelsAppContext)
 
 
     //Personal Info States
@@ -35,7 +34,6 @@ const CreateUserScreen = () => {
     const [errorMessageAfterFetch, setErrorMessageAfterFetch] = useState("")
     const [fetchFailed, setFetchFailed] = useState(null)
     const [creationSucceed, setCreationSucceed] = useState(false)
-    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
@@ -123,30 +121,25 @@ const CreateUserScreen = () => {
     return (
         <ScreenComponent topLeftButton={"cancel"} cancelNavigation={"LoginScreen"}
             content={
-
-                isLoading ?
-                    <Loading />
+                !getPersonalInfoSucceed
+                    ?
+                    <GetPersonalInfo
+                        setReturnedGender={setGender}
+                        setReturnedFname={setFname}
+                        setReturnedSname={setSname}
+                        setReturnedPhoneNumber={setPhoneNumber}
+                        setReturnedBirthDate={setBirthDate}
+                        setGetPersonalInfoSucceed={setGetPersonalInfoSucceed}
+                    />
                     :
-
-                    !getPersonalInfoSucceed
-                        ?
-                        <GetPersonalInfo
-                            setReturnedGender={setGender}
-                            setReturnedFname={setFname}
-                            setReturnedSname={setSname}
-                            setReturnedPhoneNumber={setPhoneNumber}
-                            setReturnedBirthDate={setBirthDate}
-                            setGetPersonalInfoSucceed={setGetPersonalInfoSucceed}
-                        />
-                        :
-                        <GetLoginInfo
-                            setReturnedEmail={setEmail}
-                            setReturnedPassword={setPassword}
-                            setGetLoginInfoSucceed={setGetLoginInfoSucceed}
-                            errorMessageAfterFetch={errorMessageAfterFetch}
-                            fetchFailed={fetchFailed}
-                            setFetchFailed={setFetchFailed}
-                        />
+                    <GetLoginInfo
+                        setReturnedEmail={setEmail}
+                        setReturnedPassword={setPassword}
+                        setGetLoginInfoSucceed={setGetLoginInfoSucceed}
+                        errorMessageAfterFetch={errorMessageAfterFetch}
+                        fetchFailed={fetchFailed}
+                        setFetchFailed={setFetchFailed}
+                    />
             }
         />
     )

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import VerificationCode from './VerificationCode'
 import ScreenComponent from './ScreenComponent'
 import Languages from '../Json files/Languages'
@@ -7,12 +7,15 @@ import ButtonMain from './Buttons'
 import verifyEmail from '../Hooks/useFetch'
 import axios from 'axios'
 import Loading from './Loading'
+import { HotelsAppContext } from '../Context/HotelsAppContext'
 
 const GetEmail = ({ setEmailToReset, language, setCode }) => {
 
+  const { setIsLoading } = useContext(HotelsAppContext)
+
+
   const screenContent = Languages.GetEmailComp;
   const [givenEmail, setGivenEmail] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
 
   const showErrAlert = (error) => {
@@ -60,12 +63,6 @@ const GetEmail = ({ setEmailToReset, language, setCode }) => {
 
   return (
     <View>
-      {
-        isLoading ? 
-        <Loading />
-        :
-        ""
-      }
       <Text style={styles.largeText}>{screenContent.EmailVerification[language]}</Text>
       <Text style={styles.smallText}>{screenContent.EnterYourEmail[language]}</Text>
       <View style={styles.textInputsView}>
