@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import Languages from '../Json files/Languages';
+import Languages from '../Json_files/Languages';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 import ButtonMain from './Buttons';
 import { isEqual } from 'lodash';
