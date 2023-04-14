@@ -1,11 +1,15 @@
 import { View, Text, SafeAreaView, StyleSheet, TextInput } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Languages from '../Json files/Languages';
+import React, { useContext, useEffect, useState } from 'react'
+import Languages from '../Json_files/Languages';
 import ButtonMain from './Buttons';
 import { isEqual } from 'lodash';
 import Loading from './Loading';
+import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 const ResetPassword = ({ language, email, setIsResetSucceed }) => {
+
+    const { setIsLoading } = useContext(HotelsAppContext)
+
 
     //Screen content (words and sentences from Languages Json File that have been set for the current page)
     const screenContent = Languages.ResetPasswordComp;
@@ -13,7 +17,6 @@ const ResetPassword = ({ language, email, setIsResetSucceed }) => {
     //Helper States
     const [isConfirmePasswordCorrect, setIsconfirmedPasswordCorrect] = useState(null)
     const [borderColor, setBorderColor] = useState("black")
-    const [isLoading, setIsLoading] = useState(false);
 
 
     //Personal Info States
@@ -85,12 +88,6 @@ const ResetPassword = ({ language, email, setIsResetSucceed }) => {
 
     return (
         <View style={styles.container}>
-            {
-                isLoading ?
-                    <Loading />
-                    :
-                    ""
-            }
             <Text style={styles.largeText}>{screenContent.PasswordReset[language]}</Text>
             <Text style={styles.smallText}>{screenContent.ChooseNewPassword[language]}</Text>
             <View style={styles.textInputsView}>

@@ -75,9 +75,15 @@ namespace DATA
                 throw new MissingFieldException();
             }
 
-            return true;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
 
-
+            
+           
 
         }
 

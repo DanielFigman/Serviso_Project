@@ -5,7 +5,7 @@ import LanguageSelect from '../FCComponents/LanguageSelect';
 import ButtonMain, { ButtonText } from '../FCComponents/Buttons';
 import ScreenComponent from '../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
-import Languages from '../Json files/Languages';
+import Languages from '../Json_files/Languages';
 
 
 
@@ -15,7 +15,7 @@ const LoginScreen = () => {
   const screenContent = Languages.LoginScreen;
 
   return (
-    <ScreenComponent
+    <ScreenComponent bottomMenu={true}
       content={
         <View>
           <View>

@@ -1,5 +1,5 @@
-import { View, Text, Modal, Image, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import { View, Modal, Image, StyleSheet } from 'react-native'
+import React from 'react'
 
 const Loading = () => {
     return (

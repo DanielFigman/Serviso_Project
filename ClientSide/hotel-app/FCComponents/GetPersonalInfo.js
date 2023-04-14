@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { HotelsAppContext } from '../Context/HotelsAppContext';
-import Languages from '../Json files/Languages';
+import Languages from '../Json_files/Languages';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import LanguageSelect from './LanguageSelect';
 import ButtonMain from './Buttons';
