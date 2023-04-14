@@ -1,13 +1,16 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
+import React, { useContext, useState } from 'react';
 import VerificationCode from './VerificationCode';
 import ScreenComponent from './ScreenComponent';
 import Languages from '../Json_files/Languages';
 import ButtonMain from './Buttons';
 import verifyEmail from '../Hooks/useFetch';
 import axios from 'axios';
+import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 const GetEmail = ({ setEmailToReset, language, setCode }) => {
+
+  const { setIsLoading } = useContext(HotelsAppContext)
 
   const screenContent = Languages.GetEmailComp;
   const [givenEmail, setGivenEmail] = useState(null);
@@ -32,7 +35,6 @@ const GetEmail = ({ setEmailToReset, language, setCode }) => {
         if (res) {
           setEmailToReset(givenEmail);
           setCode(res.data)
-          setIsLoading(false)
         }
       })
       .catch((err) => {
