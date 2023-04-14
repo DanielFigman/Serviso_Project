@@ -4,6 +4,9 @@ import CarouselComponent from "../../Features/Carousal";
 import CarouselData from "../../Json_files/CarouselData";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
 import  { ButtonText } from '../../FCComponents/Buttons';
+import {ViewPropTypes} from 'deprecated-react-native-prop-types'; 
+
+
 export default function MainScreen() {
 /*
  * This file contains the Main Screen for the serviso component.
@@ -34,7 +37,7 @@ export default function MainScreen() {
   };
 
   return (
-    <ScreenComponent
+    <ScreenComponent bottomMenu={true}
       content={
         <>
           <View style={{flexDirection: "row",justifyContent: "space-between",alignItems: "center",}}>

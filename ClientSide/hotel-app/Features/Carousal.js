@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {Text, View} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import {ViewPropTypes} from 'deprecated-react-native-prop-types'; 
+
 
 export default function CarouselComponent({ carouselItems, renderItem, sliderWidth, itemWidth}) {
   const [activeIndex, setActiveIndex] = React.useState(0);

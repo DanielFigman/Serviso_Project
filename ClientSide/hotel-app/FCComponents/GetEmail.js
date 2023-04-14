@@ -7,6 +7,7 @@ import ButtonMain from './Buttons';
 import verifyEmail from '../Hooks/useFetch';
 import axios from 'axios';
 
+const GetEmail = ({ setEmailToReset, language, setCode }) => {
 
   const screenContent = Languages.GetEmailComp;
   const [givenEmail, setGivenEmail] = useState(null);

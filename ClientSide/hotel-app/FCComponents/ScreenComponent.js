@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
 import { Keyboard, StyleSheet, View, Image, TouchableWithoutFeedback, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ArrowLeftCircleIcon, XCircleIcon } from 'react-native-heroicons/mini';
-import { Image } from 'react-native';
 import BottomMenu from './BottomMenu';
 import Loading from './Loading';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
