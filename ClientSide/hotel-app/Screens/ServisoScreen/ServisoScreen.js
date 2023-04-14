@@ -37,7 +37,7 @@ export default function MainScreen() {
   };
 
   return (
-    <ScreenComponent bottomMenu={true}
+    <ScreenComponent bottomMenu={true} topLeftButton={"none"}
       content={
         <>
           <View style={{flexDirection: "row",justifyContent: "space-between",alignItems: "center",}}>

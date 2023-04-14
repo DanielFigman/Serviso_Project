@@ -2,12 +2,17 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { ChatBubbleOvalLeftIcon, HomeIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/outline'
 import { Image } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 const BottomMenu = () => {
 
     const navigation = useNavigation();
+    const route = useRoute();
 
+    const SCREENS = ['ServisoScreen', 'Search', 'ChatScreen', 'Profile'];
+
+    const activeScreenIndex = SCREENS.indexOf(route.name);
+    
     return (
         <View>
             <View
@@ -17,23 +22,32 @@ const BottomMenu = () => {
                 }}
             />
             <View style={styles.container}>
-
-                <TouchableOpacity>
-                    <HomeIcon style={styles.homeIcon} color={styles.homeIcon.color} size={styles.homeIcon.fontSize} onPress={()=> navigation.navigate("ServisoScreen")}/>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <MagnifyingGlassIcon style={styles.MagnifyingGlass} color={styles.MagnifyingGlass.color} size={styles.MagnifyingGlass.fontSize} />
-                </TouchableOpacity>
-                <View>
-                    <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
-                </View>
-                <TouchableOpacity>
-                    <ChatBubbleOvalLeftIcon style={styles.chatIcon} color={styles.chatIcon.color} size={styles.chatIcon.fontSize}
-                        onPress={()=> navigation.navigate("ChatScreen")}
+                <TouchableOpacity onPress={() => navigation.navigate("ServisoScreen")}>
+                    <HomeIcon
+                        style={[styles.icon, activeScreenIndex === 0 && styles.activeIcon]}
+                        size={styles.icon.fontSize}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <UserIcon style={styles.user} color={styles.user.color} size={styles.user.fontSize} />
+                    <MagnifyingGlassIcon
+                        style={[styles.icon, activeScreenIndex === 1 && styles.activeIcon]}
+                        size={styles.icon.fontSize}
+                    />
+                </TouchableOpacity>
+                <View style={styles.servisoFlowerContainer}>
+                    <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")} >
+                    <ChatBubbleOvalLeftIcon
+                        style={[styles.icon, activeScreenIndex === 2 && styles.activeIcon]}
+                        size={styles.icon.fontSize}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <UserIcon
+                        style={[styles.icon, activeScreenIndex === 3 && styles.activeIcon]}
+                        size={styles.icon.fontSize}
+                    />
                 </TouchableOpacity>
             </View>
         </View>
@@ -49,28 +63,25 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         height: 60,
-        width: '100%', // Add this line to set the container width to 100%
+        width: '100%',
         backgroundColor: "#F0F0F0"
     },
-    homeIcon: {
-        color: "#6B6B6B",
-        fontSize: 30
-    },
-    MagnifyingGlass: {
+    icon: {
         color: "#6B6B6B",
         fontSize: 30,
     },
-    chatIcon: {
-        color: "#6B6B6B",
-        fontSize: 30,
-    },
-    user: {
-        color: "#6B6B6B",
-        fontSize: 30,
-    },
-    servisoFlower: {
+    servisoFlowerContainer: {
+        position: 'relative',
         width: 134,
         height: 68,
         bottom: 15
     },
+    servisoFlower: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%'
+    },
+    activeIcon:{
+        color:"black"
+    }
 })

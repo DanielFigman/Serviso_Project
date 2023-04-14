@@ -85,28 +85,29 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, bottomMenu 
     }
 
     return (
-        <TouchableWithoutFeedback disabled={!isKeyBoardOpen} onPress={dismissKeyboard}>
-            <SafeAreaView style={styles.container}>
-                <View style={styles.leftArrowView}>
-                    {topLeftButtonIcon}
-                </View>
-                {
-                    isLoading ?
-                        <Loading />
-                        :
-                        content
-                }
-                {
-                    bottomMenu ?
-                        <View style={styles.bottomMenu}>
-                            <BottomMenu />
-                        </View>
-                        :
-                        <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
-                }
-            </SafeAreaView>
-        </TouchableWithoutFeedback>
-
+        <>
+            <TouchableWithoutFeedback disabled={!isKeyBoardOpen} onPress={dismissKeyboard}>
+                <SafeAreaView style={styles.container}>
+                    <View style={styles.leftArrowView}>
+                        {topLeftButtonIcon}
+                    </View>
+                    {
+                        isLoading ?
+                            <Loading />
+                            :
+                            content
+                    }
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
+            {
+                bottomMenu ?
+                    <View style={styles.bottomMenu}>
+                        <BottomMenu />
+                    </View>
+                    :
+                    <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
+            }
+        </>
     );
 };
 
