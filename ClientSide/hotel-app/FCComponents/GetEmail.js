@@ -7,23 +7,51 @@ import ButtonMain from './Buttons';
 import verifyEmail from '../Hooks/useFetch';
 import axios from 'axios';
 
-const GetEmail = ({ setEmailToReset, setEmailSucceed, language }) => {
 
   const screenContent = Languages.GetEmailComp;
-  const [givenEmail, setGivenEmail] = useState(null)
+  const [givenEmail, setGivenEmail] = useState(null);
+
+
+  const showErrAlert = (error) => {
+    Alert.alert(
+        "Email Verification Failed",
+        `${error}`,
+        [{ text: 'OK'}],
+    );
+}
 
   const checkEmailSucceed = () => {
+    setIsLoading(true);
+
     const url = "http://proj.ruppin.ac.il/cgroup97/test2/api/EmailVerification?email=" + encodeURIComponent(givenEmail);
     console.log(url)
 
     axios.get(url)
       .then((res) => {
-        console.log("OK", res)
-        setEmailToReset(givenEmail);
+        if (res) {
+          setEmailToReset(givenEmail);
+          setCode(res.data)
+          setIsLoading(false)
+        }
       })
       .catch((err) => {
-        console.log("error", err)
-      })
+        if (err.response) {
+          console.log("Error status code:", err.response.status);
+          if(err.response.data){
+            console.log("Error type:", err.response.data.type);
+            console.log("Error message:", err.response.data.message);
+
+            if(err.response.data.type === "NonExistingUser"){
+              showErrAlert(err.response.data.message);
+            }
+          }
+        } else if (err.request) {
+          console.log("Request error:", err.request);
+        } else {
+          console.log("Error message:", err.message);
+        }
+        setIsLoading(false);
+      });
 
   }
 

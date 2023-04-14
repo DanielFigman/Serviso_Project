@@ -52,8 +52,10 @@ const GetPersonalInfo = ({ setReturnedGender, setReturnedFname, setReturnedSname
     }, [gender])
 
     const handleDateChange = (event, selectedDate) => {
-        const currentDate = selectedDate || birthDate;
-        setBirthDate(currentDate);
+        if (event.type == "set") {
+            const currentDate = selectedDate || birthDate;
+            setBirthDate(currentDate);
+        }
     };
 
     const handleSubmit = () => {
@@ -128,7 +130,7 @@ const GetPersonalInfo = ({ setReturnedGender, setReturnedFname, setReturnedSname
                     </View>
                     <View style={{ width: "30%", alignItems: "center", marginRight: 20 }}>
                         <Text style={StyleSheet.flatten([styles.textInputesText, { color: BirthDateColors }])}>{screenContent.BirthDate[language]}</Text>
-                        <RNDateTimePicker display='calendar' style={styles.datePicker} mode='date' value={birthDate} maximumDate={new Date(Date.now())}
+                        <RNDateTimePicker mode="date" display='default' style={styles.datePicker} value={birthDate} maximumDate={new Date(Date.now())}
                             onChange={handleDateChange}
                         />
                     </View>

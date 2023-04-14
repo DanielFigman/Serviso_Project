@@ -29,7 +29,7 @@ namespace DATA
             }
             catch (Exception)
             {
-                return false;
+                throw;
             }
         }
 
@@ -37,43 +37,43 @@ namespace DATA
         public bool CreateUser(JObject data)
         {
 
-           
-                Dictionary<string, Object> convertedDict = dataHelper.ConvertJsonToDictionary(data);
 
-                if (convertedDict.ContainsKey("email"))
+            Dictionary<string, Object> convertedDict = dataHelper.ConvertJsonToDictionary(data);
+
+            if (convertedDict.ContainsKey("email"))
+            {
+                if (IsUserExist(convertedDict["email"].ToString()))
                 {
-                        if (IsUserExist(convertedDict["email"].ToString()))
-                        {
-                            throw new UserExistsException(convertedDict["email"].ToString());
-                        }   
+                    throw new UserExistsException(convertedDict["email"].ToString());
                 }
-                else
-                {
-                    throw new MissingFieldException("Email address must be sent for user creation");
-                }
+            }
+            else
+            {
+                throw new MissingFieldException("Email address must be sent for user creation");
+            }
 
-                User u = dataHelper.CreateObjectFromDictionary<User>(convertedDict);
+            User u = dataHelper.CreateObjectFromDictionary<User>(convertedDict);
 
-                email = u.email;
-                PasswordValue = u.PasswordValue;
-                SaltValue = u.SaltValue;
-                languageID = u.languageID;
-                dateOfBirth = u.dateOfBirth;
-                phone = u.phone;
-                gender = u.gender;
-                fName = u.fName;
-                sName = u.sName;
+            email = u.email;
+            PasswordValue = u.PasswordValue;
+            SaltValue = u.SaltValue;
+            languageID = u.languageID;
+            dateOfBirth = u.dateOfBirth;
+            phone = u.phone;
+            gender = u.gender;
+            fName = u.fName;
+            sName = u.sName;
 
 
-                db.Users.Add(this);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    throw new MissingFieldException();
-                }
+            db.Users.Add(this);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new MissingFieldException();
+            }
 
                 return true;
             }
@@ -90,6 +90,27 @@ namespace DATA
         public bool IsUserExist(string email)
         {
             return db.Users.SingleOrDefault(u => u.email == email) != null;
+        }
+
+        public async Task<string> SendCodeToUser()
+        {
+            string code = dataHelper.GetVerificationCode();
+            bool isEnglish = Language.shortName == "EN";
+            string name = fName;
+
+
+            bool isEmailSent = await dataHelper.SendVerificationCodeEmail(email, name, code, isEnglish);
+            if (isEmailSent)
+            {
+                return code;
+            }
+
+            return null;
+        }
+
+        public void PasswordUpdate(string givenPassword)
+        {
+            dataHelper.EncryptPassword(this, givenPassword);
         }
     }
 }

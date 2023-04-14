@@ -17,8 +17,6 @@ const GetLoginInfo = ({ setReturnedEmail, setReturnedPassword, setGetLoginInfoSu
     //Helper States
     const [isConfirmePasswordCorrect, setIsconfirmedPasswordCorrect] = useState(null)
     const [emailTitleColor, setEmailTitleColor] = useState("black")
-    const [newPasswordTitleColor, setNewPasswordTitleColor] = useState("black")
-    const [passwordConfirmTitleColor, setPasswordConfirmTitleColor] = useState("black")
     const [borderColor, setBorderColor] = useState(null)
 
 
@@ -54,10 +52,6 @@ const GetLoginInfo = ({ setReturnedEmail, setReturnedPassword, setGetLoginInfoSu
 
 
     const handleSubmit = () => {
-
-        //Check that all the fieds have changed, if not change the input text titles to red
-        checkFields();
-
             if (email && newPassword && confirmNewPassword) {
                 if (newPassword === confirmNewPassword) {
                     // setting the states of the parent comp (CreateUserScreen)
@@ -66,17 +60,6 @@ const GetLoginInfo = ({ setReturnedEmail, setReturnedPassword, setGetLoginInfoSu
                     setGetLoginInfoSucceed(true);
                 }
             }
-    }
-
-    const checkFields = () => {
-        const warningColor = "red";
-        const okColor = "black"
-
-        if (email == "") { setEmailTitleColor(warningColor) } else { setEmailTitleColor(okColor) }
-
-        if (!newPassword && newPassword != null) { setNewPasswordTitleColor(warningColor) } else { setNewPasswordTitleColor(okColor) }
-
-        if (!confirmNewPassword && confirmNewPassword != null) { setPasswordConfirmTitleColor(warningColor) } else { setPasswordConfirmTitleColor(okColor) }
     }
 
     useEffect(() => {
