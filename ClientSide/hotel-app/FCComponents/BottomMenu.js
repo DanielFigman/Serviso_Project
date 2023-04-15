@@ -9,7 +9,7 @@ const BottomMenu = () => {
     const navigation = useNavigation();
     const route = useRoute();
 
-    const SCREENS = ['ServisoScreen', 'Search', 'ChatScreen', 'Profile'];
+    const SCREENS = ['ServisoScreen', 'SearchScreen', 'ChatScreen', 'PersonalPageScreen'];
 
     const activeScreenIndex = SCREENS.indexOf(route.name);
 
@@ -29,7 +29,7 @@ const BottomMenu = () => {
                         fill={activeScreenIndex === 0 ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("SearchScreen")} >
                     <MagnifyingGlassIcon
                         style={[styles.icon, activeScreenIndex === 1 && styles.activeIcon]}
                         size={styles.icon.fontSize}
@@ -47,7 +47,7 @@ const BottomMenu = () => {
                         fill={activeScreenIndex === 2 ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("PersonalPageScreen")}>
                     <UserIcon
                         style={[styles.icon, activeScreenIndex === 3 && styles.activeIcon]}
                         size={styles.icon.fontSize}

@@ -5,7 +5,7 @@ import { SearchBar } from "@rneui/themed";
 
 const SearchScreen = () => {
   return (
-    <ScreenComponent
+    <ScreenComponent bottomMenu={true}
       content={
         <View style={styles.viwSearch}>
           <SearchBar
@@ -16,7 +16,6 @@ const SearchScreen = () => {
               borderRadius: 20,
             }}
             inputContainerStyle={{ backgroundColor: "white" }}
-            placeholderTextColor={"#g5g5g5"}
           />
         </View>
       }

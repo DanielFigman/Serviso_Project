@@ -4,7 +4,7 @@ import { ButtonArrow } from "../FCComponents/Buttons";
 import { HotelsAppContext } from "../Context/HotelsAppContext";
 import React, { useContext } from "react";
 import { SearchBar } from "@rneui/themed";
-import Languages from "../Json files/Languages";
+import Languages from "../Json_files/Languages";
 
 // const { language } = useContext(HotelsAppContext);
 

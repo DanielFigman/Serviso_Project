@@ -16,7 +16,7 @@ import { ListItemAccordion } from "@rneui/base/dist/ListItem/ListItem.Accordion"
 import { ListItem } from "@rneui/base";
 import { ButtonArrow, ButtonText } from "../FCComponents/Buttons";
 import { HotelsAppContext } from "../Context/HotelsAppContext";
-import Languages from "../Json files/Languages";
+import Languages from "../Json_files/Languages";
 
 const PersonalPageScreen = () => {
   const { language } = useContext(HotelsAppContext);
@@ -35,7 +35,7 @@ const PersonalPageScreen = () => {
   const screenContent = Languages.PersonalPageScreen;
 
   return (
-    <ScreenComponent
+    <ScreenComponent bottomMenu={true}
       content={
         <View>
           <View style={{ marginBottom: 80 }}>

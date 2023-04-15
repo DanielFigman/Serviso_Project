@@ -45,8 +45,8 @@ export default function MainScreen() {
         </View>
           <View style={{flexDirection: "row",justifyContent: "space-between",alignItems: "center",}}>
             {/* style is not renderind correctly with button integration */}
-            <ButtonText text={"Perfect for you"} buttonStyle={{ paddingLeft: 50, fontWeight: "bold", fontSize: 30 }} navigate={"CreateUser"}/>
-            <ButtonText text={"To the concierge!"} buttonStyle={{ paddingRight: 40, fontSize: 12,fontWeight: "bold",color: "rgba(128, 128, 128, 1.0)" }} navigate={"CreateUser"}/>
+            <ButtonText text={"Perfect for you"} buttonStyle={{ paddingLeft: 50, fontWeight: "bold", fontSize: 30 }} navigate={"CreateUserScreen"}/>
+            <ButtonText text={"To the concierge!"} buttonStyle={{ paddingRight: 40, fontSize: 12,fontWeight: "bold",color: "rgba(128, 128, 128, 1.0)" }} navigate={"CreateUserScreen"}/>
            
           </View>
 

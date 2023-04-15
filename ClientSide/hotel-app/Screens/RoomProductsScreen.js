@@ -1,12 +1,12 @@
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
-import Products from "../Json files/Products";
+import Products from "../Json_files/Products";
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useState } from "react";
 import "react-native-vector-icons/FontAwesome";
 import ScreenComponent from "../FCComponents/ScreenComponent";
 import { ButtonArrow, ButtonText } from "../FCComponents/Buttons";
 import { HotelsAppContext } from "../Context/HotelsAppContext";
-import Languages from "../Json files/Languages";
+import Languages from "../Json_files/Languages";
 
 // const navigation = useNavigation();
 
