@@ -16,6 +16,7 @@ namespace DATA
     {
         public int placeID { get; set; }
         public Nullable<int> HallNum { get; set; }
+        public string tags { get; set; }
     
         public virtual Activity Activity { get; set; }
     }

@@ -6,12 +6,16 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Web.Http;
 
 namespace WebApplication.Controllers
 {
     public class UserController : ApiController
     {
+        private readonly hotelAppDBContext db = new hotelAppDBContext();
+
 
         [HttpGet]
         [Route("api/login")]
@@ -23,7 +27,6 @@ namespace WebApplication.Controllers
                 string userEmail = data["userEmail"].ToString();
                 string givenUserPassword = data["givenUserPassword"].ToString();
 
-                hotelDatabaseContext db = new hotelDatabaseContext();
 
                 User user = db.Users.FirstOrDefault(u => u.email == userEmail);
 
@@ -31,7 +34,7 @@ namespace WebApplication.Controllers
 
                 if (isUserFound)
                 {
-                  
+
                     bool passwordVerification = user.CheckUsersPassword(givenUserPassword);
 
                     if (passwordVerification)
@@ -42,66 +45,93 @@ namespace WebApplication.Controllers
                     }
                     else
                     {
-                        return BadRequest("PASSWORD");
+                        return BadRequest();
                     }
-
                 }
                 else
-                    return BadRequest("NOT_FOUND");
+                    return BadRequest();
             }
             catch (Exception e)
             {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
 
-                return Content(HttpStatusCode.BadRequest, e.Message);
+        // GET: api/Email
+        [HttpGet]
+        [Route("api/emailVerification")]
+        public async Task<IHttpActionResult> Get([FromUri] string email)
+        {
+            try
+            {
+                User user = db.Users.FirstOrDefault(u => u.email == email);
+
+                bool isUserFound = user != null;
+
+                if (isUserFound)
+                {
+                    string code = await user.SendCodeToUser();
+                    if(code != null)
+                    {
+                        return Ok(code);
+                    }
+                }
+                else
+                {
+                    throw new NonExistingUser(email);
+                }
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
             }
         }
 
 
-
-    /*    [HttpPost]
+        [HttpPost]
         [Route("api/signUP")]
 
         public IHttpActionResult Post([FromBody] JObject data)
         {
             try
             {
-                string givenEmail = data["userEmail"].ToString();
-                string givenUserPassword = data["givenUserPassword"].ToString();
-                string givenLanguage = data["language"].ToString();
-                DateTime birthDate = Convert.ToDateTime(data["birthDate"]);
-                string givenPhoneNumber = data["phoneNumber"].ToString();
+                User u = new User();
+                u.CreateUser(data);
 
-                hotelDatabaseContext db = new hotelDatabaseContext();
-
-                User newUser = new User();
-                bool userCreationSucceed = newUser.UpdateUserInfo(givenEmail, givenUserPassword, givenLanguage, birthDate);
-
-
+                return Ok();
             }
             catch (Exception e)
             {
-
-                return Content(HttpStatusCode.BadRequest, e.Message);
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
             }
         }
 
-*/
+        [HttpPost]
+        [Route("api/passwordReset")]
 
-
-
-        // POST: api/User
-        public void Post([FromBody] string value)
+        public IHttpActionResult Put([FromBody] JObject data)
         {
-        }
+            try
+            {
+                string email = data["email"].ToString();
+                string password = data["password"].ToString();
 
-        // PUT: api/User/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+                User user = db.Users.FirstOrDefault(u => u.email == email);
 
-        // DELETE: api/User/5
-        public void Delete(int id)
-        {
+                bool isUserFound = user != null;
+
+                if (isUserFound)
+                {
+                    user.PasswordUpdate(password);
+                }
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
         }
     }
 }

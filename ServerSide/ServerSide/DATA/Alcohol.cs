@@ -16,6 +16,7 @@ namespace DATA
     {
         public int ID { get; set; }
         public Nullable<decimal> alcoholPercent { get; set; }
+        public string tags { get; set; }
     
         public virtual Food_And_Drinks Food_And_Drinks { get; set; }
     }

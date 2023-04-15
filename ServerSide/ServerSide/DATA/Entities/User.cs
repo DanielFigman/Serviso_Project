@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.IO;
-
-
-
+using Newtonsoft.Json.Linq;
 
 namespace DATA
 {
     public partial class User
     {
+        private readonly hotelAppDBContext db = new hotelAppDBContext();
+
+        private HelperFunctions dataHelper = new HelperFunctions();
 
         public bool CheckUsersPassword(string givenPassword)
         {
@@ -26,37 +27,90 @@ namespace DATA
 
                 return hashedUserInputPassword.SequenceEqual(storedHashedPassword);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return false;
+                throw;
             }
         }
 
 
-        public bool UpdateUserInfo(string givenEmail, string givenPassword, string givenLanguage, DateTime birthDate, string givenPhoneNumber, string userGender)
+        public bool CreateUser(JObject data)
         {
+
+
+            Dictionary<string, Object> convertedDict = dataHelper.ConvertJsonToDictionary(data);
+
+            if (convertedDict.ContainsKey("email"))
+            {
+                if (IsUserExist(convertedDict["email"].ToString()))
+                {
+                    throw new UserExistsException(convertedDict["email"].ToString());
+                }
+            }
+            else
+            {
+                throw new MissingFieldException("Email address must be sent for user creation");
+            }
+
+            User u = dataHelper.CreateObjectFromDictionary<User>(convertedDict);
+
+            email = u.email;
+            PasswordValue = u.PasswordValue;
+            SaltValue = u.SaltValue;
+            languageID = u.languageID;
+            dateOfBirth = u.dateOfBirth;
+            phone = u.phone;
+            gender = u.gender;
+            fName = u.fName;
+            sName = u.sName;
+
+
+            db.Users.Add(this);
             try
             {
-
-                byte[] salt = new byte[16];
-                new RNGCryptoServiceProvider().GetBytes(salt);
-
-                var hashedPassword = new Rfc2898DeriveBytes(givenPassword, salt, 10000).GetBytes(20);
-
-                PasswordValue = hashedPassword;
-                SaltValue = salt;
-                language = givenLanguage;
-                dateOfBirth = birthDate;
-                phone = givenPhoneNumber;
-                gender = userGender;
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new MissingFieldException();
+            }
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
-         
+
+            
+           
+
+        }
+
+        public bool IsUserExist(string email)
+        {
+            return db.Users.SingleOrDefault(u => u.email == email) != null;
+        }
+
+        public async Task<string> SendCodeToUser()
+        {
+            string code = dataHelper.GetVerificationCode();
+            bool isEnglish = Language.shortName == "EN";
+            string name = fName;
+
+
+            bool isEmailSent = await dataHelper.SendVerificationCodeEmail(email, name, code, isEnglish);
+            if (isEmailSent)
+            {
+                return code;
+            }
+
+            return null;
+        }
+
+        public void PasswordUpdate(string givenPassword)
+        {
+            dataHelper.EncryptPassword(this, givenPassword);
         }
     }
 }

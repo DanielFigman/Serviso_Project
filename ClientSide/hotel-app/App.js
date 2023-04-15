@@ -17,6 +17,17 @@ import SearchScreen from "./Screens/SearchScreen";
 import HealthDeclarationScreen from "./Screens/HealthDeclarationScreen";
 import SpaConfirmationScreen from "./Screens/SpaConfirmationScreen";
 import FeedbackScreen from "./Screens/FeedbackScreen";
+import { NavigationContainer } from '@react-navigation/native';
+import LoginScreen from './Screens/LoginScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import WelcomeScreen from './Screens/WelcomeScreen';
+import HotelsAppContextProvider from './Context/HotelsAppContext';
+import PasswordResetScreen from './Screens/PasswordResetScreen';
+import CreateUser from './Screens/CreateUser';
+import ServisoScreen from './Screens/ServisoScreen/ServisoScreen';
+import CreateUserScreen from './Screens/CreateUserScreen';
+import HomeScreen from './Screens/HomeScreen';
+import ChatScreen from './Screens/ChatScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,7 +68,11 @@ export default function App() {
             name="PasswordResetScreen"
             component={PasswordResetScreen}
           />
-          <Stack.Screen name="CraeteUser" component={CraeteUser} />
+          <Stack.Screen name="CreateUser" component={CreateUser} />      
+          <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
+          <Stack.Screen name="ChatScreen" component={ChatScreen} />
+          <Stack.Screen name="ServisoScreen" component={ServisoScreen} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </HotelsAppContextProvider>

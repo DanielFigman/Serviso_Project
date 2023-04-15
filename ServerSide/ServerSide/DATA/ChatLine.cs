@@ -19,7 +19,9 @@ namespace DATA
         public string lineText { get; set; }
         public Nullable<System.DateTime> createdAT { get; set; }
         public Nullable<bool> isGuest { get; set; }
+        public string employeeEmail { get; set; }
     
         public virtual Chat Chat { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

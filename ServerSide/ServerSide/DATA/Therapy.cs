@@ -28,6 +28,7 @@ namespace DATA
         public string description { get; set; }
         public Nullable<int> minDuration { get; set; }
         public Nullable<double> basePrice { get; set; }
+        public string tags { get; set; }
         public Nullable<double> priceForAdditional15 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
