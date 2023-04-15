@@ -40,6 +40,9 @@ export default function MainScreen() {
     <ScreenComponent bottomMenu={true} topLeftButton={"none"}
       content={
         <>
+        <View>
+          <Text className="text-center siz">Serviso</Text>
+        </View>
           <View style={{flexDirection: "row",justifyContent: "space-between",alignItems: "center",}}>
             {/* style is not renderind correctly with button integration */}
             <ButtonText text={"Perfect for you"} buttonStyle={{ paddingLeft: 50, fontWeight: "bold", fontSize: 30 }} navigate={"CreateUser"}/>

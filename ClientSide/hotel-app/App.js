@@ -10,7 +10,6 @@ import CheckInScreen from "./Screens/CheckInScreen";
 import PaymentScreen from "./Screens/PaymentScreen";
 import CheckOutScreen from "./Screens/CheckOutScreen";
 import PersonalPageScreen from "./Screens/PersonalPageScreen";
-import CraeteUser from "./Screens/CraeteUser";
 import SpaTreatmenScreen from "./Screens/SpaTreatmenScreen";
 import RoomProductsScreen from "./Screens/RoomProductsScreen";
 import SearchScreen from "./Screens/SearchScreen";
@@ -26,7 +25,6 @@ import PasswordResetScreen from './Screens/PasswordResetScreen';
 import CreateUser from './Screens/CreateUser';
 import ServisoScreen from './Screens/ServisoScreen/ServisoScreen';
 import CreateUserScreen from './Screens/CreateUserScreen';
-import HomeScreen from './Screens/HomeScreen';
 import ChatScreen from './Screens/ChatScreen';
 
 const Stack = createNativeStackNavigator();
