@@ -7,20 +7,14 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import HouseHoldProductCard from "../FCComponents/HouseHoldProductCard";
 // import React, { useState } from "react";
 
-// const [count, setCount] = useState(0);
 
-// function incrementCount() {
-//   count = count + 1;
-//   setCount(count);
-// }
-// function decrementCount() {
-//   count = count - 1;
-//   setCount(count);
-// }
+
 
 const Products = () => {
+
   const products = [
     {
       _id: "1",
@@ -45,70 +39,11 @@ const Products = () => {
       discription: "Extra blanket",
     },
   ];
+
   return (
     <View style={{ marginTop: 35 }}>
       {products.map((product) => (
-        <Pressable key={product._id}>
-          <View style={styles.rowView}>
-            <Image
-              source={{ url: product.image }}
-              style={{ width: 90, height: 90 }}
-            />
-            <Text style={styles.text}>{product.name}</Text>
-            <Pressable
-              style={{
-                flexDirection: "row",
-                paddingHorizontal: 10,
-                paddingVertical: 5,
-                alignSelf: "center",
-              }}
-              //   onPress={() => {
-              //     decrementCount();
-              //   }}
-            >
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    color: "#926255",
-                    paddingHorizontal: 6,
-                    fontWeight: "900",
-                  }}
-                >
-                  -
-                </Text>
-              </TouchableOpacity>
-              {/* <Pressable> */}
-              <Text
-                style={{
-                  fontSize: 19,
-                  color: "#926255",
-                  paddingHorizontal: 8,
-                  fontWeight: "800",
-                }}
-              >
-                0{/* {count} */}
-              </Text>
-              {/* </Pressable> */}
-              <TouchableOpacity
-              //   onPress={() => {
-              //     incrementCount();
-              //   }}
-              >
-                <Text
-                  style={{
-                    fontSize: 20,
-                    color: "#926255",
-                    paddingHorizontal: 6,
-                    fontWeight: "800",
-                  }}
-                >
-                  +
-                </Text>
-              </TouchableOpacity>
-            </Pressable>
-          </View>
-        </Pressable>
+        <HouseHoldProductCard key={product._id} productID={product._id} productName={product.name} productImage={product.image} />
       ))}
     </View>
   );
@@ -116,36 +51,7 @@ const Products = () => {
 
 export default Products;
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    flex: 1,
-    padding: 10,
-  },
-  discription: {
-    flex: 1,
-    fontSize: 15,
-  },
-  Details: {
-    alignSelf: "center",
-    top: 50,
-  },
-  listItemView: {
-    flexDirection: "row",
-    marginTop: 20,
-    alignItems: "center",
-    marginHorizontal: 20,
-  },
-  rowView: {
-    flexDirection: "row",
-    marginTop: 10,
-    alignItems: "center",
-    margin: 10,
-    borderColor: "#926255",
-    borderWidth: 1,
-    borderRadius: 2,
-  },
-});
+
 
 //     <View style={{ marginTop: 50 }}>
 //       {products.map((product) => (
