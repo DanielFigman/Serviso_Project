@@ -12,7 +12,7 @@ const BottomMenu = () => {
     const SCREENS = ['ServisoScreen', 'Search', 'ChatScreen', 'Profile'];
 
     const activeScreenIndex = SCREENS.indexOf(route.name);
-    
+
     return (
         <View>
             <View
@@ -26,12 +26,15 @@ const BottomMenu = () => {
                     <HomeIcon
                         style={[styles.icon, activeScreenIndex === 0 && styles.activeIcon]}
                         size={styles.icon.fontSize}
+                        fill={activeScreenIndex === 0 ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <MagnifyingGlassIcon
                         style={[styles.icon, activeScreenIndex === 1 && styles.activeIcon]}
                         size={styles.icon.fontSize}
+                        fill={activeScreenIndex === 1 ? styles.fill.color : "transparent"}
+
                     />
                 </TouchableOpacity>
                 <View style={styles.servisoFlowerContainer}>
@@ -41,12 +44,14 @@ const BottomMenu = () => {
                     <ChatBubbleOvalLeftIcon
                         style={[styles.icon, activeScreenIndex === 2 && styles.activeIcon]}
                         size={styles.icon.fontSize}
+                        fill={activeScreenIndex === 2 ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <UserIcon
                         style={[styles.icon, activeScreenIndex === 3 && styles.activeIcon]}
                         size={styles.icon.fontSize}
+                        fill={activeScreenIndex === 3 ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
             </View>
@@ -81,7 +86,10 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%'
     },
-    activeIcon:{
-        color:"black"
+    activeIcon: {
+        color: "black"
+    },
+    fill:{
+        color:"white"
     }
 })
