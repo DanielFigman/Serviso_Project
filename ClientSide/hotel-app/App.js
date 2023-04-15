@@ -10,14 +10,13 @@ import PaymentScreen from "./Screens/PaymentScreen";
 import CheckOutScreen from "./Screens/CheckOutScreen";
 import PersonalPageScreen from "./Screens/PersonalPageScreen";
 import SpaTreatmenScreen from "./Screens/SpaTreatmenScreen";
-import RoomProductsScreen from "./Screens/RoomProductsScreen";
 import SearchScreen from "./Screens/SearchScreen";
 import HealthDeclarationScreen from "./Screens/HealthDeclarationScreen";
 import SpaConfirmationScreen from "./Screens/SpaConfirmationScreen";
 import FeedbackScreen from "./Screens/FeedbackScreen";
-import ServisoScreen from './Screens/ServisoScreen/ServisoScreen';
-import CreateUserScreen from './Screens/CreateUserScreen';
-import ChatScreen from './Screens/ChatScreen';
+import ServisoScreen from "./Screens/ServisoScreen/ServisoScreen";
+import CreateUserScreen from "./Screens/CreateUserScreen";
+import ChatScreen from "./Screens/ChatScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,8 +25,6 @@ export default function App() {
     <HotelsAppContextProvider>
       <NavigationContainer>
         <Stack.Navigator>
-
-
           <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen
@@ -42,7 +39,6 @@ export default function App() {
           <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
           <Stack.Screen name="CheckInScreen" component={CheckInScreen} />
 
-
           <Stack.Screen
             name="SpaConfirmationScreen"
             component={SpaConfirmationScreen}
@@ -56,17 +52,11 @@ export default function App() {
             name="PersonalPageScreen"
             component={PersonalPageScreen}
           />
-          <Stack.Screen
-            name="RoomProductsScreen"
-            component={RoomProductsScreen}
-          />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
           <Stack.Screen
             name="SpaTreatmenScreen"
             component={SpaTreatmenScreen}
           />
-
-
         </Stack.Navigator>
       </NavigationContainer>
     </HotelsAppContextProvider>

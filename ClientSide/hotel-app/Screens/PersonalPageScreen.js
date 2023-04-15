@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowDownCircleIcon } from "react-native-heroicons/mini";
@@ -17,6 +10,7 @@ import { ListItem } from "@rneui/base";
 import { ButtonArrow, ButtonText } from "../FCComponents/Buttons";
 import { HotelsAppContext } from "../Context/HotelsAppContext";
 import Languages from "../Json_files/Languages";
+import HouseHold from "../FCComponents/HouseHold";
 
 const PersonalPageScreen = () => {
   const { language } = useContext(HotelsAppContext);
@@ -35,7 +29,8 @@ const PersonalPageScreen = () => {
   const screenContent = Languages.PersonalPageScreen;
 
   return (
-    <ScreenComponent bottomMenu={true}
+    <ScreenComponent
+      bottomMenu={true}
       content={
         <View>
           <View style={{ marginBottom: 80 }}>
@@ -115,11 +110,7 @@ const PersonalPageScreen = () => {
                       </Text>
                     </View>
                     <View>
-                      <TouchableOpacity
-                        onPress={() =>
-                          navigation.navigate("RoomProductsScreen")
-                        }
-                      >
+                      <TouchableOpacity onPress={() => ""}>
                         <ArrowRightCircleIcon
                           color={styles.arrow.color}
                           size={styles.arrow.fontSize}
