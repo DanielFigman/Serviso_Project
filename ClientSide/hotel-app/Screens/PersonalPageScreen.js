@@ -59,7 +59,9 @@ const PersonalPageScreen = () => {
           </View>
           <View style={styles.rowView}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.text}>{screenContent.CheckOut[language]}</Text>
+              <Text style={styles.text}>
+                {screenContent.CheckOut[language]}
+              </Text>
             </View>
             <ButtonArrow navigate={"CheckOutScreen"} />
           </View>
@@ -68,37 +70,56 @@ const PersonalPageScreen = () => {
             <ListItemAccordion
               containerStyle={{ backgroundColor: "#F2F2F2" }}
               icon={<ArrowRightCircleIcon style={styles.arrowList} size={30} />}
-              expandIcon={<ArrowDownCircleIcon style={styles.arrowList} size={30} />}
+              expandIcon={
+                <ArrowDownCircleIcon style={styles.arrowList} size={30} />
+              }
               noRotation={true}
-              content={<Text style={StyleSheet.flatten([styles.text, { left: 7 }])}>{screenContent.HouseHold[language]}</Text>}
+              content={
+                <Text style={StyleSheet.flatten([styles.text, { left: 7 }])}>
+                  {screenContent.HouseHold[language]}
+                </Text>
+              }
               isExpanded={isOpen}
               onPress={() => setIsOpen(!isOpen)}
             >
-
-              <ListItem key={1} containerStyle={{ backgroundColor: "#F2F2F2", marginTop: 0 }}>
+              <ListItem
+                key={1}
+                containerStyle={{ backgroundColor: "#F2F2F2", marginTop: 0 }}
+              >
                 <ListItem.Content>
                   <View style={styles.listItemView}>
                     <View style={{ flex: 1 }}>
-                      <Text style={styles.text}>{screenContent.RoomCleaningSchedule[language]}</Text>
+                      <Text style={styles.text}>
+                        {screenContent.RoomCleaningSchedule[language]}
+                      </Text>
                     </View>
                     <View>
                       <TouchableOpacity onPress={() => navigation.navigate("")}>
-                        <ArrowRightCircleIcon color={styles.arrow.color} size={styles.arrow.fontSize} style={styles.arrow} />
+                        <ArrowRightCircleIcon
+                          color={styles.arrow.color}
+                          size={styles.arrow.fontSize}
+                          style={styles.arrow}
+                        />
                       </TouchableOpacity>
                     </View>
                   </View>
                 </ListItem.Content>
               </ListItem>
 
-
               <ListItem key={2} containerStyle={{ backgroundColor: "#F2F2F2" }}>
                 <ListItem.Content>
                   <View style={styles.listItemView}>
                     <View style={{ flex: 1 }}>
-                      <Text style={styles.text}>{screenContent.NewRequest[language]}</Text>
+                      <Text style={styles.text}>
+                        {screenContent.NewRequest[language]}
+                      </Text>
                     </View>
                     <View>
-                      <TouchableOpacity onPress={() => navigation.navigate("")}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("RoomProductsScreen")
+                        }
+                      >
                         <ArrowRightCircleIcon
                           color={styles.arrow.color}
                           size={styles.arrow.fontSize}
@@ -124,13 +145,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 40, color: "#000000", alignSelf:"center"
+    fontSize: 40,
+    color: "#000000",
+    alignSelf: "center",
   },
   Image: {
-    alignSelf: "center", width: 124, height: 160, top: 50
+    alignSelf: "center",
+    width: 124,
+    height: 160,
+    top: 50,
   },
   Details: {
-    alignSelf: "center", top: 50
+    alignSelf: "center",
+    top: 50,
   },
   arrow: {
     color: "#8E8E8E",
@@ -154,5 +181,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: "center",
     margin: 20,
-  }
+  },
 });
