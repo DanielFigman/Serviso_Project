@@ -14,7 +14,7 @@ namespace DATA
     {
         private readonly hotelAppDBContext db = new hotelAppDBContext();
 
-        private HelperFunctions dataHelper = new HelperFunctions();
+        private readonly HelperFunctions dataHelper = new HelperFunctions();
 
         public bool CheckUsersPassword(string givenPassword)
         {
@@ -108,7 +108,7 @@ namespace DATA
             dataHelper.EncryptPassword(this, givenPassword);
         }
 
-        public String GetHotelLocation()
+        public string GetHotelLocation()
         {
             DateTime oneWeekAgo = DateTime.Now.AddDays(-7);
             DateTime tommorow = DateTime.Now.AddDays(1);

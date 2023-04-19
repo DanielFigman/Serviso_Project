@@ -16,9 +16,9 @@ namespace DATA
     {
         public int requestID { get; set; }
         public int orderID { get; set; }
-        public System.DateTime requestedDate { get; set; }
-        public System.TimeSpan requestedHour { get; set; }
-        public decimal price { get; set; }
+        public Nullable<System.DateTime> requestedDate { get; set; }
+        public Nullable<System.TimeSpan> requestedHour { get; set; }
+        public Nullable<decimal> price { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Request Request { get; set; }

@@ -101,6 +101,7 @@
     <Compile Include="Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Request.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Exceptions\MissingFieldException.cs" />
     <Compile Include="Exceptions\NonExistingUser.cs" />

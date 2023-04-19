@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -20,7 +22,6 @@ namespace DATA
 
         public T CreateObjectFromDictionary<T>(Dictionary<string, object> dict) where T : class, new()
         {
-
             T obj = new T();
             var properties = typeof(T).GetProperties();
 
@@ -28,9 +29,38 @@ namespace DATA
             {
                 if (dict.ContainsKey(property.Name))
                 {
-                    if (property.PropertyType == typeof(DateTime))
+                    if (property.PropertyType.IsClass && !property.PropertyType.IsValueType && property.PropertyType != typeof(string)) // handle nested objects
                     {
-                        property.SetValue(obj, Convert.ToDateTime(dict[property.Name]));
+                        var nestedDict = dict[property.Name];
+                        if (nestedDict != null)
+                        {
+                            object nestedObj = Activator.CreateInstance(property.PropertyType);
+                            nestedObj = GetType().GetMethod("CreateObjectFromDictionary").MakeGenericMethod(property.PropertyType).Invoke(this, new object[] { nestedDict });
+
+                            property.SetValue(obj, nestedObj);
+                        }
+                    }
+                    else if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>)) // handle nested collections
+                    {
+                        var nestedDict = dict[property.Name];
+                        if (nestedDict != null)
+                        {
+                            Type elementType = property.PropertyType.GetGenericArguments()[0];
+                            object nestedObj = Activator.CreateInstance(elementType);
+                            nestedObj = GetType().GetMethod("CreateObjectFromDictionary").MakeGenericMethod(elementType).Invoke(this, new object[] { nestedDict });
+
+                            // create instance of the concrete ICollection implementation
+                            Type concreteType = typeof(List<>).MakeGenericType(elementType);
+                            var nestedCollectionObj = Activator.CreateInstance(concreteType);
+
+                            // add the nested object to the collection
+                            var addMethod = concreteType.GetMethod("Add");
+                            addMethod.Invoke(nestedCollectionObj, new object[] { nestedObj });
+
+                            // set the property value to the nested collection
+                            property.SetValue(obj, nestedCollectionObj);
+                        }
+
                     }
                     else
                     {
@@ -39,6 +69,7 @@ namespace DATA
                 }
             }
 
+            // handle special case for User object
             User u = obj as User;
             if (u != null)
             {
@@ -48,14 +79,12 @@ namespace DATA
                 }
                 catch (Exception)
                 {
-
                     throw new MissingFieldException("password must be sent for user creation");
                 }
             }
 
             return obj;
         }
-
 
         public void EncryptPassword(User u, string password)
         {

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HotelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HotelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="placeID" />
@@ -290,10 +290,12 @@
         <EntityType Name="HouseHold_Custom_Request">
           <Key>
             <PropertyRef Name="requestID" />
+            <PropertyRef Name="typeID" />
           </Key>
           <Property Name="requestID" Type="int" Nullable="false" />
           <Property Name="typeID" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar(max)" />
+          <Property Name="amount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HouseHold_Request">
           <Key>
@@ -368,9 +370,9 @@
           </Key>
           <Property Name="requestID" Type="int" Nullable="false" />
           <Property Name="orderID" Type="int" Nullable="false" />
-          <Property Name="requestedDate" Type="date" Nullable="false" />
-          <Property Name="requestedHour" Type="time" Precision="7" Nullable="false" />
-          <Property Name="price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="requestedDate" Type="date" />
+          <Property Name="requestedHour" Type="time" Precision="7" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -872,7 +874,7 @@
         </Association>
         <Association Name="FK__HouseHold__reque__05D8E0BE">
           <End Role="HouseHold_Request" Type="Self.HouseHold_Request" Multiplicity="1" />
-          <End Role="HouseHold_Custom_Request" Type="Self.HouseHold_Custom_Request" Multiplicity="0..1" />
+          <End Role="HouseHold_Custom_Request" Type="Self.HouseHold_Custom_Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HouseHold_Request">
               <PropertyRef Name="requestID" />
@@ -1667,8 +1669,7 @@
             <End Role="Therapy_Knowledge" EntitySet="Therapy_Knowledge" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HotelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1982,6 +1983,7 @@
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Custom_Request_Types" Relationship="Self.FK__HouseHold__typeI__06CD04F7" FromRole="HouseHold_Custom_Request" ToRole="Custom_Request_Types" />
           <NavigationProperty Name="HouseHold_Request" Relationship="Self.FK__HouseHold__reque__05D8E0BE" FromRole="HouseHold_Custom_Request" ToRole="HouseHold_Request" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="HouseHold_Request">
           <Key>
@@ -2078,9 +2080,9 @@
           </Key>
           <Property Name="requestID" Type="Int32" Nullable="false" />
           <Property Name="orderID" Type="Int32" Nullable="false" />
-          <Property Name="requestedDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="requestedHour" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="requestedDate" Type="DateTime" Precision="0" />
+          <Property Name="requestedHour" Type="Time" Precision="7" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="Order" Relationship="Self.FK__Request_I__order__4C6B5938" FromRole="Request_In_Order" ToRole="Order" />
           <NavigationProperty Name="Request" Relationship="Self.FK__Request_I__reque__4B7734FF" FromRole="Request_In_Order" ToRole="Request" />
         </EntityType>
@@ -3492,6 +3494,7 @@
           <EntitySetMapping Name="HouseHold_Custom_Request">
             <EntityTypeMapping TypeName="HotelModel.HouseHold_Custom_Request">
               <MappingFragment StoreEntitySet="HouseHold_Custom_Request">
+                <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="typeID" ColumnName="typeID" />
                 <ScalarProperty Name="description" ColumnName="description" />

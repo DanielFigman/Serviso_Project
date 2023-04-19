@@ -17,6 +17,7 @@ namespace DATA
         public int requestID { get; set; }
         public int typeID { get; set; }
         public string description { get; set; }
+        public int amount { get; set; }
     
         public virtual Custom_Request_Types Custom_Request_Types { get; set; }
         public virtual HouseHold_Request HouseHold_Request { get; set; }
