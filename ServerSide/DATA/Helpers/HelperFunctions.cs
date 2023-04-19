@@ -31,7 +31,7 @@ namespace DATA
                 {
                     if (property.PropertyType.IsClass && !property.PropertyType.IsValueType && property.PropertyType != typeof(string)) // handle nested objects
                     {
-                        var nestedDict = dict[property.Name];
+                        var nestedDict = (Dictionary<string, object>)dict[property.Name];
                         if (nestedDict != null)
                         {
                             object nestedObj = Activator.CreateInstance(property.PropertyType);
@@ -42,25 +42,29 @@ namespace DATA
                     }
                     else if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>)) // handle nested collections
                     {
-                        var nestedDict = dict[property.Name];
-                        if (nestedDict != null)
+                        var nestedDictList = (List<object>)dict[property.Name];
+
+                        if (nestedDictList != null)
                         {
                             Type elementType = property.PropertyType.GetGenericArguments()[0];
-                            object nestedObj = Activator.CreateInstance(elementType);
-                            nestedObj = GetType().GetMethod("CreateObjectFromDictionary").MakeGenericMethod(elementType).Invoke(this, new object[] { nestedDict });
 
                             // create instance of the concrete ICollection implementation
                             Type concreteType = typeof(List<>).MakeGenericType(elementType);
                             var nestedCollectionObj = Activator.CreateInstance(concreteType);
 
-                            // add the nested object to the collection
-                            var addMethod = concreteType.GetMethod("Add");
-                            addMethod.Invoke(nestedCollectionObj, new object[] { nestedObj });
+                            foreach (var nestedDict in nestedDictList)
+                            {
+                                object nestedObj = Activator.CreateInstance(elementType);
+                                nestedObj = GetType().GetMethod("CreateObjectFromDictionary").MakeGenericMethod(elementType).Invoke(this, new object[] { nestedDict });
+
+                                // add the nested object to the collection
+                                var addMethod = concreteType.GetMethod("Add");
+                                addMethod.Invoke(nestedCollectionObj, new object[] { nestedObj });
+                            }
 
                             // set the property value to the nested collection
                             property.SetValue(obj, nestedCollectionObj);
                         }
-
                     }
                     else
                     {

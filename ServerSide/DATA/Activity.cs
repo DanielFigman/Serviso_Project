@@ -24,7 +24,7 @@ namespace DATA
         public int placeID { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public Nullable<double> rating { get; set; }
+        public double rating { get; set; }
     
         public virtual Activity_hotel Activity_hotel { get; set; }
         public virtual Activity_nearBY Activity_nearBY { get; set; }

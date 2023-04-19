@@ -25,6 +25,7 @@ namespace DATA
         public string address { get; set; }
         public string category { get; set; }
         public string tags { get; set; }
+        public string landmark { get; set; }
     
         public virtual Activity Activity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

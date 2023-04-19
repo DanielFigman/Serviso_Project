@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HotelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="igroup197_test1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="placeID" />
@@ -12,7 +12,7 @@
           <Property Name="placeID" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="200" />
-          <Property Name="rating" Type="float" />
+          <Property Name="rating" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Activity_hotel">
           <Key>
@@ -29,8 +29,9 @@
           <Property Name="placeID" Type="int" Nullable="false" />
           <Property Name="phone" Type="varchar" MaxLength="20" />
           <Property Name="address" Type="varchar" MaxLength="100" />
-          <Property Name="category" Type="varchar" MaxLength="50" />
+          <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="tags" Type="nvarchar(max)" />
+          <Property Name="landmark" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Activity_Signed">
           <Key>
@@ -1344,7 +1345,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HotelModelStoreContainer">
+        <EntityContainer Name="igroup197_test1ModelStoreContainer">
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Activity_hotel" EntityType="Self.Activity_hotel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Activity_nearBY" EntityType="Self.Activity_nearBY" Schema="dbo" store:Type="Tables" />
@@ -1669,10 +1670,11 @@
             <End Role="Therapy_Knowledge" EntitySet="Therapy_Knowledge" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="HotelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="igroup197_test1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="placeID" />
@@ -1680,7 +1682,7 @@
           <Property Name="placeID" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="rating" Type="Double" />
+          <Property Name="rating" Type="Double" Nullable="false" />
           <NavigationProperty Name="Activity_hotel" Relationship="Self.FK__Activity___place__571DF1D5" FromRole="Activity" ToRole="Activity_hotel" />
           <NavigationProperty Name="Activity_nearBY" Relationship="Self.FK__Activity___place__59FA5E80" FromRole="Activity" ToRole="Activity_nearBY" />
           <NavigationProperty Name="Activity_Update" Relationship="Self.FK__Activity___place__60A75C0F" FromRole="Activity" ToRole="Activity_Update" />
@@ -1702,8 +1704,9 @@
           <Property Name="placeID" Type="Int32" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="landmark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Activity" Relationship="Self.FK__Activity___place__59FA5E80" FromRole="Activity_nearBY" ToRole="Activity" />
           <NavigationProperty Name="Orders" Relationship="Self.Activity_Signed" FromRole="Activity_nearBY" ToRole="Order" />
         </EntityType>
@@ -1977,13 +1980,14 @@
         <EntityType Name="HouseHold_Custom_Request">
           <Key>
             <PropertyRef Name="requestID" />
+            <PropertyRef Name="typeID" />
           </Key>
           <Property Name="requestID" Type="Int32" Nullable="false" />
           <Property Name="typeID" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Custom_Request_Types" Relationship="Self.FK__HouseHold__typeI__06CD04F7" FromRole="HouseHold_Custom_Request" ToRole="Custom_Request_Types" />
           <NavigationProperty Name="HouseHold_Request" Relationship="Self.FK__HouseHold__reque__05D8E0BE" FromRole="HouseHold_Custom_Request" ToRole="HouseHold_Request" />
-          <Property Name="amount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="HouseHold_Request">
           <Key>
@@ -2642,7 +2646,7 @@
         </Association>
         <Association Name="FK__HouseHold__reque__05D8E0BE">
           <End Role="HouseHold_Request" Type="Self.HouseHold_Request" Multiplicity="1" />
-          <End Role="HouseHold_Custom_Request" Type="Self.HouseHold_Custom_Request" Multiplicity="0..1" />
+          <End Role="HouseHold_Custom_Request" Type="Self.HouseHold_Custom_Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HouseHold_Request">
               <PropertyRef Name="requestID" />
@@ -3215,9 +3219,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HotelModelStoreContainer" CdmEntityContainer="hotelAppDBContext">
+        <EntityContainerMapping StorageEntityContainer="igroup197_test1ModelStoreContainer" CdmEntityContainer="hotelAppDBContext">
           <EntitySetMapping Name="Activities">
-            <EntityTypeMapping TypeName="HotelModel.Activity">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Activity">
               <MappingFragment StoreEntitySet="Activity">
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3227,7 +3231,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Activity_hotel">
-            <EntityTypeMapping TypeName="HotelModel.Activity_hotel">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Activity_hotel">
               <MappingFragment StoreEntitySet="Activity_hotel">
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="HallNum" ColumnName="HallNum" />
@@ -3236,18 +3240,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Activity_nearBY">
-            <EntityTypeMapping TypeName="HotelModel.Activity_nearBY">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Activity_nearBY">
               <MappingFragment StoreEntitySet="Activity_nearBY">
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="category" ColumnName="category" />
                 <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="landmark" ColumnName="landmark" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Activity_Update">
-            <EntityTypeMapping TypeName="HotelModel.Activity_Update">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Activity_Update">
               <MappingFragment StoreEntitySet="Activity_Update">
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
@@ -3259,7 +3264,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Additional_Items">
-            <EntityTypeMapping TypeName="HotelModel.Additional_Items">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Additional_Items">
               <MappingFragment StoreEntitySet="Additional_Items">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3272,7 +3277,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Additional_Items_Room_Service">
-            <EntityTypeMapping TypeName="HotelModel.Additional_Items_Room_Service">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Additional_Items_Room_Service">
               <MappingFragment StoreEntitySet="Additional_Items_Room_Service">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -3281,7 +3286,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Alcohols">
-            <EntityTypeMapping TypeName="HotelModel.Alcohol">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Alcohol">
               <MappingFragment StoreEntitySet="Alcohol">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="alcoholPercent" ColumnName="alcoholPercent" />
@@ -3290,7 +3295,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Category_rating">
-            <EntityTypeMapping TypeName="HotelModel.Category_rating">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Category_rating">
               <MappingFragment StoreEntitySet="Category_rating">
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="categoryName" ColumnName="categoryName" />
@@ -3300,7 +3305,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Chats">
-            <EntityTypeMapping TypeName="HotelModel.Chat">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Chat">
               <MappingFragment StoreEntitySet="Chat">
                 <ScalarProperty Name="chatID" ColumnName="chatID" />
                 <ScalarProperty Name="userEmail" ColumnName="userEmail" />
@@ -3309,7 +3314,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChatLines">
-            <EntityTypeMapping TypeName="HotelModel.ChatLine">
+            <EntityTypeMapping TypeName="igroup197_test1Model.ChatLine">
               <MappingFragment StoreEntitySet="ChatLine">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="chatID" ColumnName="chatID" />
@@ -3321,7 +3326,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CheckIns">
-            <EntityTypeMapping TypeName="HotelModel.CheckIn">
+            <EntityTypeMapping TypeName="igroup197_test1Model.CheckIn">
               <MappingFragment StoreEntitySet="CheckIn">
                 <ScalarProperty Name="receiptID" ColumnName="receiptID" />
                 <ScalarProperty Name="givenKeys" ColumnName="givenKeys" />
@@ -3330,7 +3335,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Checkouts">
-            <EntityTypeMapping TypeName="HotelModel.Checkout">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Checkout">
               <MappingFragment StoreEntitySet="Checkout">
                 <ScalarProperty Name="receiptID" ColumnName="receiptID" />
                 <ScalarProperty Name="returnedKeys" ColumnName="returnedKeys" />
@@ -3338,7 +3343,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Custom_Request_Types">
-            <EntityTypeMapping TypeName="HotelModel.Custom_Request_Types">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Custom_Request_Types">
               <MappingFragment StoreEntitySet="Custom_Request_Types">
                 <ScalarProperty Name="typeID" ColumnName="typeID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3346,7 +3351,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="HotelModel.Department">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Department">
               <MappingFragment StoreEntitySet="Department">
                 <ScalarProperty Name="departmentID" ColumnName="departmentID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3354,7 +3359,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Drinks">
-            <EntityTypeMapping TypeName="HotelModel.Drink">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Drink">
               <MappingFragment StoreEntitySet="Drinks">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="category" ColumnName="category" />
@@ -3363,7 +3368,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="HotelModel.Employee">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="startingDate" ColumnName="startingDate" />
@@ -3373,7 +3378,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Facilities">
-            <EntityTypeMapping TypeName="HotelModel.Facility">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Facility">
               <MappingFragment StoreEntitySet="Facility">
                 <ScalarProperty Name="facilityID" ColumnName="facilityID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3385,7 +3390,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Fault_Request">
-            <EntityTypeMapping TypeName="HotelModel.Fault_Request">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Fault_Request">
               <MappingFragment StoreEntitySet="Fault_Request">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -3395,7 +3400,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Foods">
-            <EntityTypeMapping TypeName="HotelModel.Food">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Food">
               <MappingFragment StoreEntitySet="Food">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -3405,7 +3410,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Food_And_Drinks">
-            <EntityTypeMapping TypeName="HotelModel.Food_And_Drinks">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Food_And_Drinks">
               <MappingFragment StoreEntitySet="Food_And_Drinks">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3418,7 +3423,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Food_And_Drinks_Room_Service">
-            <EntityTypeMapping TypeName="HotelModel.Food_And_Drinks_Room_Service">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Food_And_Drinks_Room_Service">
               <MappingFragment StoreEntitySet="Food_And_Drinks_Room_Service">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -3428,7 +3433,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Free_Queue">
-            <EntityTypeMapping TypeName="HotelModel.Free_Queue">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Free_Queue">
               <MappingFragment StoreEntitySet="Free_Queue">
                 <ScalarProperty Name="roleID" ColumnName="roleID" />
                 <ScalarProperty Name="date" ColumnName="date" />
@@ -3436,14 +3441,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Guests">
-            <EntityTypeMapping TypeName="HotelModel.Guest">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Guest">
               <MappingFragment StoreEntitySet="Guest">
                 <ScalarProperty Name="email" ColumnName="email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Health_Declaration">
-            <EntityTypeMapping TypeName="HotelModel.Health_Declaration">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Health_Declaration">
               <MappingFragment StoreEntitySet="Health_Declaration">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="participantID" ColumnName="participantID" />
@@ -3459,7 +3464,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hot_Cold_Drinks">
-            <EntityTypeMapping TypeName="HotelModel.Hot_Cold_Drinks">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Hot_Cold_Drinks">
               <MappingFragment StoreEntitySet="Hot_Cold_Drinks">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="possibleChanges" ColumnName="possibleChanges" />
@@ -3468,7 +3473,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hotels">
-            <EntityTypeMapping TypeName="HotelModel.Hotel">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Hotel">
               <MappingFragment StoreEntitySet="Hotel">
                 <ScalarProperty Name="hotelID" ColumnName="hotelID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3482,7 +3487,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HouseHold_Cleaning_Request">
-            <EntityTypeMapping TypeName="HotelModel.HouseHold_Cleaning_Request">
+            <EntityTypeMapping TypeName="igroup197_test1Model.HouseHold_Cleaning_Request">
               <MappingFragment StoreEntitySet="HouseHold_Cleaning_Request">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="toClear" ColumnName="toClear" />
@@ -3492,24 +3497,24 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HouseHold_Custom_Request">
-            <EntityTypeMapping TypeName="HotelModel.HouseHold_Custom_Request">
+            <EntityTypeMapping TypeName="igroup197_test1Model.HouseHold_Custom_Request">
               <MappingFragment StoreEntitySet="HouseHold_Custom_Request">
-                <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="typeID" ColumnName="typeID" />
                 <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HouseHold_Request">
-            <EntityTypeMapping TypeName="HotelModel.HouseHold_Request">
+            <EntityTypeMapping TypeName="igroup197_test1Model.HouseHold_Request">
               <MappingFragment StoreEntitySet="HouseHold_Request">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Languages">
-            <EntityTypeMapping TypeName="HotelModel.Language">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Language">
               <MappingFragment StoreEntitySet="Language">
                 <ScalarProperty Name="languageID" ColumnName="languageID" />
                 <ScalarProperty Name="languageName" ColumnName="languageName" />
@@ -3518,7 +3523,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="HotelModel.Order">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
                 <ScalarProperty Name="checkInDate" ColumnName="checkInDate" />
@@ -3534,7 +3539,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Questionnaires">
-            <EntityTypeMapping TypeName="HotelModel.Questionnaire">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Questionnaire">
               <MappingFragment StoreEntitySet="Questionnaire">
                 <ScalarProperty Name="questionnaireID" ColumnName="questionnaireID" />
                 <ScalarProperty Name="adventure_sports" ColumnName="adventure_sports" />
@@ -3552,7 +3557,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Receipts">
-            <EntityTypeMapping TypeName="HotelModel.Receipt">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Receipt">
               <MappingFragment StoreEntitySet="Receipt">
                 <ScalarProperty Name="receiptID" ColumnName="receiptID" />
                 <ScalarProperty Name="date" ColumnName="date" />
@@ -3564,7 +3569,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requests">
-            <EntityTypeMapping TypeName="HotelModel.Request">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Request">
               <MappingFragment StoreEntitySet="Request">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="requestDate" ColumnName="requestDate" />
@@ -3574,7 +3579,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Request_In_Order">
-            <EntityTypeMapping TypeName="HotelModel.Request_In_Order">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Request_In_Order">
               <MappingFragment StoreEntitySet="Request_In_Order">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
@@ -3585,7 +3590,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="HotelModel.Role">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="roleID" ColumnName="roleID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3595,7 +3600,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rooms">
-            <EntityTypeMapping TypeName="HotelModel.Room">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Room">
               <MappingFragment StoreEntitySet="Room">
                 <ScalarProperty Name="hotelID" ColumnName="hotelID" />
                 <ScalarProperty Name="roomNum" ColumnName="roomNum" />
@@ -3605,14 +3610,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Room_Service_Order">
-            <EntityTypeMapping TypeName="HotelModel.Room_Service_Order">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Room_Service_Order">
               <MappingFragment StoreEntitySet="Room_Service_Order">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Shifts">
-            <EntityTypeMapping TypeName="HotelModel.Shift">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Shift">
               <MappingFragment StoreEntitySet="Shift">
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="startTime" ColumnName="startTime" />
@@ -3621,7 +3626,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Spa_Order">
-            <EntityTypeMapping TypeName="HotelModel.Spa_Order">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Spa_Order">
               <MappingFragment StoreEntitySet="Spa_Order">
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="numOfParticipants" ColumnName="numOfParticipants" />
@@ -3630,7 +3635,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Spa_Order_Active">
-            <EntityTypeMapping TypeName="HotelModel.Spa_Order_Active">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Spa_Order_Active">
               <MappingFragment StoreEntitySet="Spa_Order_Active">
                 <ScalarProperty Name="therapyID" ColumnName="therapyID" />
                 <ScalarProperty Name="roomID" ColumnName="roomID" />
@@ -3640,14 +3645,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Therapists">
-            <EntityTypeMapping TypeName="HotelModel.Therapist">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Therapist">
               <MappingFragment StoreEntitySet="Therapist">
                 <ScalarProperty Name="roleID" ColumnName="roleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Therapist_IN_Therapy">
-            <EntityTypeMapping TypeName="HotelModel.Therapist_IN_Therapy">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Therapist_IN_Therapy">
               <MappingFragment StoreEntitySet="Therapist_IN_Therapy">
                 <ScalarProperty Name="therapyID" ColumnName="therapyID" />
                 <ScalarProperty Name="roomID" ColumnName="roomID" />
@@ -3657,7 +3662,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Therapies">
-            <EntityTypeMapping TypeName="HotelModel.Therapy">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Therapy">
               <MappingFragment StoreEntitySet="Therapy">
                 <ScalarProperty Name="therapyID" ColumnName="therapyID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3670,7 +3675,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Therapy_Knowledge">
-            <EntityTypeMapping TypeName="HotelModel.Therapy_Knowledge">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Therapy_Knowledge">
               <MappingFragment StoreEntitySet="Therapy_Knowledge">
                 <ScalarProperty Name="therapyID" ColumnName="therapyID" />
                 <ScalarProperty Name="roomID" ColumnName="roomID" />
@@ -3679,7 +3684,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Therapy_Room">
-            <EntityTypeMapping TypeName="HotelModel.Therapy_Room">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Therapy_Room">
               <MappingFragment StoreEntitySet="Therapy_Room">
                 <ScalarProperty Name="roomID" ColumnName="roomID" />
                 <ScalarProperty Name="numberOfBeds" ColumnName="numberOfBeds" />
@@ -3688,7 +3693,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="HotelModel.User">
+            <EntityTypeMapping TypeName="igroup197_test1Model.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="fName" ColumnName="fName" />
@@ -3703,14 +3708,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WorkingInShifts">
-            <EntityTypeMapping TypeName="HotelModel.WorkingInShift">
+            <EntityTypeMapping TypeName="igroup197_test1Model.WorkingInShift">
               <MappingFragment StoreEntitySet="WorkingInShift">
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="date" ColumnName="date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Activity_Signed" TypeName="HotelModel.Activity_Signed" StoreEntitySet="Activity_Signed">
+          <AssociationSetMapping Name="Activity_Signed" TypeName="igroup197_test1Model.Activity_Signed" StoreEntitySet="Activity_Signed">
             <EndProperty Name="Order">
               <ScalarProperty Name="orderID" ColumnName="orderID" />
             </EndProperty>
@@ -3718,7 +3723,7 @@
               <ScalarProperty Name="placeID" ColumnName="placeID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="Employee_Chat" TypeName="HotelModel.Employee_Chat" StoreEntitySet="Employee_Chat">
+          <AssociationSetMapping Name="Employee_Chat" TypeName="igroup197_test1Model.Employee_Chat" StoreEntitySet="Employee_Chat">
             <EndProperty Name="Chat">
               <ScalarProperty Name="chatID" ColumnName="chatID" />
             </EndProperty>
@@ -3727,7 +3732,7 @@
               <ScalarProperty Name="date" ColumnName="date" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="Employee_handle_request" TypeName="HotelModel.Employee_handle_request" StoreEntitySet="Employee_handle_request">
+          <AssociationSetMapping Name="Employee_handle_request" TypeName="igroup197_test1Model.Employee_handle_request" StoreEntitySet="Employee_handle_request">
             <EndProperty Name="Request">
               <ScalarProperty Name="requestID" ColumnName="requestID" />
             </EndProperty>
@@ -3736,7 +3741,7 @@
               <ScalarProperty Name="date" ColumnName="date" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="Role_In_Shift" TypeName="HotelModel.Role_In_Shift" StoreEntitySet="Role_In_Shift">
+          <AssociationSetMapping Name="Role_In_Shift" TypeName="igroup197_test1Model.Role_In_Shift" StoreEntitySet="Role_In_Shift">
             <EndProperty Name="Role">
               <ScalarProperty Name="roleID" ColumnName="roleID" />
             </EndProperty>
@@ -3745,7 +3750,7 @@
               <ScalarProperty Name="date" ColumnName="date" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="Room_Allowed" TypeName="HotelModel.Room_Allowed" StoreEntitySet="Room_Allowed">
+          <AssociationSetMapping Name="Room_Allowed" TypeName="igroup197_test1Model.Room_Allowed" StoreEntitySet="Room_Allowed">
             <EndProperty Name="Therapy_Room">
               <ScalarProperty Name="roomID" ColumnName="roomID" />
             </EndProperty>
@@ -3753,7 +3758,7 @@
               <ScalarProperty Name="therapyID" ColumnName="therapyID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="RoomFor" TypeName="HotelModel.RoomFor" StoreEntitySet="RoomFor">
+          <AssociationSetMapping Name="RoomFor" TypeName="igroup197_test1Model.RoomFor" StoreEntitySet="RoomFor">
             <EndProperty Name="Room">
               <ScalarProperty Name="hotelID" ColumnName="hotelID" />
               <ScalarProperty Name="roomNum" ColumnName="roomNum" />
@@ -3762,7 +3767,7 @@
               <ScalarProperty Name="orderID" ColumnName="orderID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="User_questionnaire" TypeName="HotelModel.User_questionnaire" StoreEntitySet="User_questionnaire">
+          <AssociationSetMapping Name="User_questionnaire" TypeName="igroup197_test1Model.User_questionnaire" StoreEntitySet="User_questionnaire">
             <EndProperty Name="User">
               <ScalarProperty Name="email" ColumnName="email" />
             </EndProperty>

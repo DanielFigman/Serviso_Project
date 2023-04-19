@@ -14,10 +14,17 @@ namespace DATA
     
     public partial class HouseHold_Request
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public HouseHold_Request()
+        {
+            this.HouseHold_Custom_Request = new HashSet<HouseHold_Custom_Request>();
+        }
+    
         public int requestID { get; set; }
     
         public virtual HouseHold_Cleaning_Request HouseHold_Cleaning_Request { get; set; }
-        public virtual HouseHold_Custom_Request HouseHold_Custom_Request { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HouseHold_Custom_Request> HouseHold_Custom_Request { get; set; }
         public virtual Request Request { get; set; }
     }
 }
