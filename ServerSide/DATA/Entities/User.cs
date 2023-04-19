@@ -55,15 +55,7 @@ namespace DATA
 
             User u = dataHelper.CreateObjectFromDictionary<User>(convertedDict);
 
-            email = u.email;
-            PasswordValue = u.PasswordValue;
-            SaltValue = u.SaltValue;
-            languageID = u.languageID;
-            dateOfBirth = u.dateOfBirth;
-            phone = u.phone;
-            gender = u.gender;
-            fName = u.fName;
-            sName = u.sName;
+            dataHelper.SetObjectValuesFromObject(this, u);
 
 
             db.Users.Add(this);
@@ -121,5 +113,8 @@ namespace DATA
 
             return currentOrder?.Hotel?.landmark;
         }
+
+
+        /*public*/
     }
 }

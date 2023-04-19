@@ -57,7 +57,6 @@ namespace WebApplication.Controllers
             }
         }
 
-        // GET: api/Email
         [HttpGet]
         [Route("api/emailVerification")]
         public async Task<IHttpActionResult> Get([FromUri] string email)

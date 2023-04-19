@@ -16,18 +16,15 @@ namespace DATA
 
         public bool CraeteNewRequestEntity(JObject data)
         {
+            //converting the Json to a dictionary
             Dictionary<string, Object> convertedDict = dataHelper.ConvertJsonToDictionary(data);
+
+            //creating an instance of Request based on the Json properties
             Request r = dataHelper.CreateObjectFromDictionary<Request>(convertedDict);
 
-            requestID = r.requestID;
-            requestDate = r.requestDate;
-            requestHour = r.requestHour;
-            status = r.status;
-            Fault_Request = r.Fault_Request;
-            HouseHold_Request = r.HouseHold_Request;
-            Request_In_Order = r.Request_In_Order;
-            Room_Service_Order = r.Room_Service_Order;
-            Spa_Order = r.Spa_Order;
+            //setting the instnce object values to this 
+            dataHelper.SetObjectValuesFromObject(this, r);
+
 
             db.Requests.Add(this);
             try

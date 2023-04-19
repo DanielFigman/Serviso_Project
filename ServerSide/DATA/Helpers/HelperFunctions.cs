@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -19,7 +20,7 @@ namespace DATA
 {
     public class HelperFunctions
     {
-
+        //creating Object from Dictionary
         public T CreateObjectFromDictionary<T>(Dictionary<string, object> dict) where T : class, new()
         {
             T obj = new T();
@@ -90,6 +91,8 @@ namespace DATA
             return obj;
         }
 
+
+        //Encrypt user's password
         public void EncryptPassword(User u, string password)
         {
             byte[] salt = new byte[16];
@@ -101,6 +104,7 @@ namespace DATA
             u.SaltValue = salt;
         }
 
+        //Convert Json to Dictionary
         public Dictionary<string, object> ConvertJsonToDictionary(JObject jsonObj)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -108,6 +112,7 @@ namespace DATA
             return dict;
         }
 
+        //setting the dictionary properties from the converJsonToDictionart function by recursicely adding the propertis in case of Object or List, or just setting the key and value if it is a simple value
         private void AddPropertiesToDictionary(JObject jsonObj, Dictionary<string, object> dict)
         {
             foreach (var property in jsonObj.Properties())
@@ -149,6 +154,7 @@ namespace DATA
             }
         }
 
+        //sending an email through third party service of a verification code to the user
         public async Task<bool> SendVerificationCodeEmail(string recipientEmail, string name, string emailBody, bool isEnglish)
         {
 
@@ -187,6 +193,7 @@ namespace DATA
             }
         }
 
+        //generates a 4 digit code
         public string GetVerificationCode()
         {
             Random random = new Random();
@@ -194,6 +201,23 @@ namespace DATA
             string formattedCode = code.ToString("D4");
 
             return formattedCode;
+        }
+
+        //setting propertis of object from same type of object instance
+        public void SetObjectValuesFromObject<T>(T obj, T values)
+        {
+            // Get all the properties of the object
+            PropertyInfo[] properties = typeof(T).GetProperties();
+
+            // Loop through each property
+            foreach (PropertyInfo property in properties)
+            {
+                // Get the value from the values object
+                object value = property.GetValue(values);
+
+                // Set the value of the property
+                property.SetValue(obj, value);
+            }
         }
     }
 }
