@@ -105,6 +105,7 @@
     <Compile Include="Entities\Request.cs" />
     <Compile Include="Entities\SuggestedActivities.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Exceptions\InvalidJsonSchemaException.cs" />
     <Compile Include="Exceptions\MissingFieldException.cs" />
     <Compile Include="Exceptions\NonExistingUser.cs" />
     <Compile Include="Exceptions\UserExistsException.cs" />
