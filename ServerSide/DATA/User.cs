@@ -20,7 +20,6 @@ namespace DATA
             this.Chats = new HashSet<Chat>();
             this.Questionnaires = new HashSet<Questionnaire>();
         }
-    
         public string email { get; set; }
         public string fName { get; set; }
         public string sName { get; set; }

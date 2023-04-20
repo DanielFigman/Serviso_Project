@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using DATA.Exceptions;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,19 @@ namespace DATA
             Dictionary<string, Object> convertedDict = dataHelper.ConvertJsonToDictionary(data);
 
             //creating an instance of Request based on the Json properties
-            Request r = dataHelper.CreateObjectFromDictionary<Request>(convertedDict);
+            Request request = dataHelper.CreateObjectFromDictionary<Request>(convertedDict);
+
+
+            //checking if there isn't an existing object with the same primary key like the created instance in the data base 
+            Request findObjectWithThisID = db.Requests.Where(r => r.requestID == request.requestID).FirstOrDefault();
+
+            if (findObjectWithThisID != null)
+            {
+                throw new ObjectAlreadyExist();
+            }
 
             //setting the instnce object values to this 
-            dataHelper.SetObjectValuesFromObject(this, r);
+            dataHelper.SetObjectValuesFromObject(this, request);
 
 
             db.Requests.Add(this);

@@ -57,7 +57,6 @@ namespace DATA
 
             dataHelper.SetObjectValuesFromObject(this, u);
 
-
             db.Users.Add(this);
             try
             {
