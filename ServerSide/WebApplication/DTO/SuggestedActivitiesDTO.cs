@@ -20,8 +20,5 @@ namespace WebApplication
         public string tags { get; set; }
         public string landmark { get; set; }
 
-        public SuggestedActivitiesDTO(object suggested)
-        {
-        }
     }
 }
