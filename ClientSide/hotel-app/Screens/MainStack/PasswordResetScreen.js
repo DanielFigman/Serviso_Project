@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import { HotelsAppContext } from '../Context/HotelsAppContext';
-import GetEmail from '../FCComponents/GetEmail';
-import ResetPassword from '../FCComponents/ResetPassword';
-import ScreenComponent from '../FCComponents/ScreenComponent';
-import VerificationCode from '../FCComponents/VerificationCode';
+import { HotelsAppContext } from '../../Context/HotelsAppContext';
+import GetEmail from '../../FCComponents/GetEmail';
+import ResetPassword from '../../FCComponents/ResetPassword';
+import ScreenComponent from '../../FCComponents/ScreenComponent';
+import VerificationCode from '../../FCComponents/VerificationCode';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 

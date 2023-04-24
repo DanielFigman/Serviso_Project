@@ -123,7 +123,7 @@ const PaymentScreen = () => {
         </View>
         <Image
           style={styles.mainImage}
-          source={require("../assets/ServisoMain.png")}
+          source={require("../../assets/ServisoMain.png")}
         />
       </View>
     </SafeAreaView>

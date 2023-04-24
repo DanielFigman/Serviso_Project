@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import ScreenComponent from '../FCComponents/ScreenComponent'
+import ScreenComponent from '../../FCComponents/ScreenComponent'
 
 const ChatScreen = () => {
     return (

@@ -4,19 +4,16 @@ import { useNavigation } from "@react-navigation/native";
 import { ArrowDownCircleIcon } from "react-native-heroicons/mini";
 import { ArrowRightCircleIcon } from "react-native-heroicons/mini";
 import "react-native-vector-icons/FontAwesome";
-import ScreenComponent from "../FCComponents/ScreenComponent";
+import ScreenComponent from "../../FCComponents/ScreenComponent";
 import { ListItemAccordion } from "@rneui/base/dist/ListItem/ListItem.Accordion";
 import { ListItem } from "@rneui/base";
-import { ButtonArrow, ButtonText } from "../FCComponents/Buttons";
-import { HotelsAppContext } from "../Context/HotelsAppContext";
-import Languages from "../Json_files/Languages";
-import HouseHold from "../FCComponents/HouseHold";
+import { ButtonArrow, ButtonText } from "../../FCComponents/Buttons";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
+import Languages from "../../Json_files/Languages";
+import HouseHold from "../../FCComponents/HouseHold";
 
 const PersonalPageScreen = () => {
-  const { language } = useContext(HotelsAppContext);
-  const [name, setName] = useState("Nofar");
-  const [Email, setEmail] = useState("nofar400@gmail.com");
-  const [gender, setGender] = useState("women");
+  const { language, user } = useContext(HotelsAppContext)
 
   const navigation = useNavigation();
 
@@ -35,16 +32,12 @@ const PersonalPageScreen = () => {
         <View>
           <View style={{ marginBottom: 80 }}>
             <Text style={styles.title}>{screenContent.MyPage[language]}</Text>
-            {gender == "women" ? (
-              <Image
-                style={styles.Image}
-                source={require("../assets/persona.png")}
-              />
-            ) : (
-              ""
-            )}
-            <Text style={styles.Details}>{name}</Text>
-            <Text style={styles.Details}>{Email}</Text>
+            <Image
+              style={styles.Image}
+              source={user.gender == "woman" ? require("../../assets/persona.png") : require("../../assets/male-avatar.png")}
+            />
+            <Text style={styles.Details}>{user.fName + " " + user.sName}</Text>
+            <Text style={styles.Details}>{user.email}</Text>
           </View>
           <View style={styles.rowView}>
             <View style={{ flex: 1 }}>

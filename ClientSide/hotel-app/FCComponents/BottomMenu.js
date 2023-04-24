@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { ChatBubbleOvalLeftIcon, HomeIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/outline'
 import { Image } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -8,10 +8,6 @@ const BottomMenu = () => {
 
     const navigation = useNavigation();
     const route = useRoute();
-
-    const SCREENS = ['ServisoScreen', 'SearchScreen', 'ChatScreen', 'PersonalPageScreen'];
-
-    const activeScreenIndex = SCREENS.indexOf(route.name);
 
     return (
         <View>
@@ -22,18 +18,18 @@ const BottomMenu = () => {
                 }}
             />
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => navigation.navigate("ServisoScreen")}>
+                <TouchableOpacity onPress={() => navigation.navigate("ServisoScreenStack")}>
                     <HomeIcon
-                        style={[styles.icon, activeScreenIndex === 0 && styles.activeIcon]}
+                        style={[styles.icon, route.name === "ServisoScreenStack" && styles.activeIcon]}
                         size={styles.icon.fontSize}
-                        fill={activeScreenIndex === 0 ? styles.fill.color : "transparent"}
+                        fill={route.name === "ServisoScreenStack" ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("SearchScreen")} >
+                <TouchableOpacity onPress={() => navigation.navigate("SearchStackPage")} >
                     <MagnifyingGlassIcon
-                        style={[styles.icon, activeScreenIndex === 1 && styles.activeIcon]}
+                        style={[styles.icon, route.name === "SearchStackPage" && styles.activeIcon]}
                         size={styles.icon.fontSize}
-                        fill={activeScreenIndex === 1 ? styles.fill.color : "transparent"}
+                        fill={route.name === "SearchStackPage" ? styles.fill.color : "transparent"}
 
                     />
                 </TouchableOpacity>
@@ -42,16 +38,16 @@ const BottomMenu = () => {
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")} >
                     <ChatBubbleOvalLeftIcon
-                        style={[styles.icon, activeScreenIndex === 2 && styles.activeIcon]}
+                        style={[styles.icon, route.name === "ChatScreen" && styles.activeIcon]}
                         size={styles.icon.fontSize}
-                        fill={activeScreenIndex === 2 ? styles.fill.color : "transparent"}
+                        fill={route.name === "ChatScreen" ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("PersonalPageScreen")}>
+                <TouchableOpacity onPress={() => navigation.navigate("PersonalPageStack")}>
                     <UserIcon
-                        style={[styles.icon, activeScreenIndex === 3 && styles.activeIcon]}
+                        style={[styles.icon, route.name === "PersonalPageStack" && styles.activeIcon]}
                         size={styles.icon.fontSize}
-                        fill={activeScreenIndex === 3 ? styles.fill.color : "transparent"}
+                        fill={route.name === "PersonalPageStack" ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
             </View>

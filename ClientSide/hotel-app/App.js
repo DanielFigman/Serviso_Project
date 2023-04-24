@@ -1,22 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import LoginScreen from "./Screens/LoginScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import WelcomeScreen from "./Screens/WelcomeScreen";
 import HotelsAppContextProvider from "./Context/HotelsAppContext";
-import PasswordResetScreen from "./Screens/PasswordResetScreen";
-import CheckInScreen from "./Screens/CheckInScreen";
-import PaymentScreen from "./Screens/PaymentScreen";
-import CheckOutScreen from "./Screens/CheckOutScreen";
-import PersonalPageScreen from "./Screens/PersonalPageScreen";
-import SpaTreatmenScreen from "./Screens/SpaTreatmenScreen";
-import SearchScreen from "./Screens/SearchScreen";
-import HealthDeclarationScreen from "./Screens/HealthDeclarationScreen";
-import SpaConfirmationScreen from "./Screens/SpaConfirmationScreen";
-import FeedbackScreen from "./Screens/FeedbackScreen";
-import ServisoScreen from "./Screens/ServisoScreen/ServisoScreen";
-import CreateUserScreen from "./Screens/CreateUserScreen";
-import ChatScreen from "./Screens/ChatScreen";
+
+//screens
+import WelcomeScreen from "./Screens/MainStack/WelcomeScreen";
+import LoginScreen from "./Screens/MainStack/LoginScreen";
+import PasswordResetScreen from "./Screens/MainStack/PasswordResetScreen";
+import CreateUserScreen from "./Screens/MainStack/CreateUserScreen";
+import MainScreen from "./Screens/MainStack/MainScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +17,7 @@ export default function App() {
     <HotelsAppContextProvider>
       <NavigationContainer>
         <Stack.Navigator>
+
           <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen
@@ -32,14 +25,18 @@ export default function App() {
             component={PasswordResetScreen}
           />
           <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
-          <Stack.Screen name="ChatScreen" component={ChatScreen} />
-          <Stack.Screen name="ServisoScreen" component={ServisoScreen} />
+          <Stack.Screen name="MainScreen" component={MainScreen} />
 
-          <Stack.Screen name="CheckOutScreen" component={CheckOutScreen} />
-          <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
-          <Stack.Screen name="CheckInScreen" component={CheckInScreen} />
 
-          <Stack.Screen
+
+          {/* <Stack.Screen name="ChatScreen" component={ChatScreen} /> */}
+          {/* <Stack.Screen name="ServisoScreen" component={ServisoScreen} /> */}
+
+          {/* <Stack.Screen name="CheckOutScreen" component={CheckOutScreen} /> */}
+          {/* <Stack.Screen name="PaymentScreen" component={PaymentScreen} /> */}
+          {/* <Stack.Screen name="CheckInScreen" component={CheckInScreen} /> */}
+
+          {/* <Stack.Screen
             name="SpaConfirmationScreen"
             component={SpaConfirmationScreen}
           />
@@ -51,12 +48,13 @@ export default function App() {
           <Stack.Screen
             name="PersonalPageScreen"
             component={PersonalPageScreen}
-          />
-          <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          /> */}
+          {/* <Stack.Screen name="SearchScreen" component={SearchScreen} />
           <Stack.Screen
             name="SpaTreatmenScreen"
             component={SpaTreatmenScreen}
-          />
+          /> */}
+          
         </Stack.Navigator>
       </NavigationContainer>
     </HotelsAppContextProvider>

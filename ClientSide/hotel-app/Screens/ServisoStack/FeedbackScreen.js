@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import "react-native-vector-icons/FontAwesome";
-import ScreenComponent from "../FCComponents/ScreenComponent";
+import ScreenComponent from "../../FCComponents/ScreenComponent";
 import { AirbnbRating } from "@rneui/themed";
 import React, { useState } from "react";
 // import StarRating from "react-native-star-rating";

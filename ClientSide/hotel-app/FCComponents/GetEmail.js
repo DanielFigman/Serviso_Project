@@ -36,6 +36,7 @@ const GetEmail = ({ setEmailToReset, language, setCode }) => {
           setEmailToReset(givenEmail);
           setCode(res.data)
         }
+        setIsLoading(false);
       })
       .catch((err) => {
         if (err.response) {

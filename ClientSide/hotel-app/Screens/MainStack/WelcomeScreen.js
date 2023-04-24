@@ -1,9 +1,9 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useContext, useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { HotelsAppContext } from '../Context/HotelsAppContext';
-import Languages from '../Json_files/Languages';
-import ButtonMain from '../FCComponents/Buttons';
+import { HotelsAppContext } from '../../Context/HotelsAppContext';
+import Languages from '../../Json_files/Languages';
+import ButtonMain from '../../FCComponents/Buttons';
 
 const WelcomeScreen = () => {
 
@@ -29,7 +29,7 @@ const WelcomeScreen = () => {
     return (
         <View style={styles.container}>
             <View>
-                <Image style={styles.mainImage} source={require('../assets/ServisoMain.png')} />
+                <Image style={styles.mainImage} source={require('../../assets/ServisoMain.png')} />
             </View>
             <ButtonMain text={screenContent.Start[language]} buttonStyle={{marginTop:300}} navigate={"LoginScreen"}/>
 

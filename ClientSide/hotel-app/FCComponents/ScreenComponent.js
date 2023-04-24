@@ -102,7 +102,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, bottomMenu 
             {
                 bottomMenu ?
                     <View style={styles.bottomMenu}>
-                        <BottomMenu />
+                        {/* <BottomMenu /> */}
                     </View>
                     :
                     <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />

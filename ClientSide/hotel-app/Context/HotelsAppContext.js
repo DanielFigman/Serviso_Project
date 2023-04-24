@@ -5,6 +5,7 @@ export const HotelsAppContext = createContext();
 export default function HotelsAppContextProvider(props) {
     const [language, setlanguage] = useState("EN")
     const [isLoading, setIsLoading] = useState(false);
+    const [user, setUser] = useState({email:"", fName:"", sName:"", gender:""});
 
 
     return (
@@ -13,7 +14,9 @@ export default function HotelsAppContextProvider(props) {
                 language,
                 setlanguage,
                 isLoading,
-                setIsLoading
+                setIsLoading,
+                user,
+                setUser
             }}
         >
             {props.children}

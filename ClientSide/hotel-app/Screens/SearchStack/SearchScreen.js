@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import ScreenComponent from "../FCComponents/ScreenComponent";
-import { ButtonArrow } from "../FCComponents/Buttons";
+import ScreenComponent from "../../FCComponents/ScreenComponent";
+import { ButtonArrow } from "../../FCComponents/Buttons";
 import { SearchBar } from "@rneui/themed";
 
 const SearchScreen = () => {

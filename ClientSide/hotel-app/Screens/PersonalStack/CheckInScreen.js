@@ -72,7 +72,7 @@ const CheckInScreen = () => {
       </View>
       <Image
         style={styles.mainImage}
-        source={require("../assets/ServisoMain.png")}
+        source={require('../../assets/ServisoMain.png')}
       />
     </SafeAreaView>
   );

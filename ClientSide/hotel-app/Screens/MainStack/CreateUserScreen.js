@@ -1,12 +1,12 @@
 import { Alert } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import ScreenComponent from '../FCComponents/ScreenComponent'
-import Languages from '../Json_files/Languages'
+import ScreenComponent from '../../FCComponents/ScreenComponent'
+import Languages from '../../Json_files/Languages'
 import { StyleSheet } from 'react-native'
-import { HotelsAppContext } from '../Context/HotelsAppContext'
+import { HotelsAppContext } from '../../Context/HotelsAppContext'
 import { useNavigation } from '@react-navigation/core'
-import GetPersonalInfo from '../FCComponents/GetPersonalInfo'
-import GetLoginInfo from '../FCComponents/GetLoginInfo'
+import GetPersonalInfo from '../../FCComponents/GetPersonalInfo'
+import GetLoginInfo from '../../FCComponents/GetLoginInfo'
 
 const CreateUserScreen = () => {
     const navigation = useNavigation();
