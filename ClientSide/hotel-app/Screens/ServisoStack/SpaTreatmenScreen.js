@@ -28,7 +28,6 @@ const SpaTreatmenScreen = () => {
                 borderRadius: 20,
               }}
               inputContainerStyle={{ backgroundColor: "white" }}
-              placeholderTextColor={"#g5g5g5"}
             />
           </View>
           <Text style={styles.title}>Swedish Massage</Text>

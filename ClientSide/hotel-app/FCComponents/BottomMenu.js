@@ -8,6 +8,49 @@ const BottomMenu = () => {
 
     const navigation = useNavigation();
     const route = useRoute();
+    const [selectedButton, setSelectedButton] = useState("HOME")
+
+    const handlePress = (screen) => {
+        switch (screen) {
+            case "HOME":
+                navigation.navigate("ServisoScreenStack");
+                setSelectedButton("HOME");
+                break;
+            case "SEARCH":
+                navigation.navigate("SearchStackPage");
+                setSelectedButton("SEARCH");
+                break;
+            case "CHAT":
+                navigation.navigate("ChatScreen");
+                setSelectedButton("CHAT");
+                break;
+            case "PERSONAL":
+                navigation.navigate("PersonalPageStack");
+                setSelectedButton("PERSONAL");
+                break;
+        }
+    }
+
+    const handleLonPress = (screen) => {
+        switch (screen) {
+            case "HOME":
+                navigation.navigate("HomeScreen");
+                setSelectedButton("HOME");
+                break;
+            case "SEARCH":
+                navigation.navigate("SearchScreen");
+                setSelectedButton("SEARCH");
+                break;
+            case "CHAT":
+                navigation.navigate("ChatScreen");
+                setSelectedButton("CHAT");
+                break;
+            case "PERSONAL":
+                navigation.navigate("PersonalPageScreen");
+                setSelectedButton("PERSONAL");
+                break;
+        }
+    }
 
     return (
         <View>
@@ -18,36 +61,36 @@ const BottomMenu = () => {
                 }}
             />
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => navigation.navigate("ServisoScreenStack")}>
+                <TouchableOpacity onPress={() => handlePress("HOME")} onLongPress={() => handleLonPress("HOME")}>
                     <HomeIcon
-                        style={[styles.icon, route.name === "ServisoScreenStack" && styles.activeIcon]}
+                        style={[styles.icon, selectedButton === "HOME" && styles.activeIcon]}
                         size={styles.icon.fontSize}
-                        fill={route.name === "ServisoScreenStack" ? styles.fill.color : "transparent"}
+                        fill={selectedButton === "HOME" ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("SearchStackPage")} >
+                <TouchableOpacity onPress={() => handlePress("SEARCH")} onLongPress={() => handleLonPress("SEARCH")}>
                     <MagnifyingGlassIcon
-                        style={[styles.icon, route.name === "SearchStackPage" && styles.activeIcon]}
+                        style={[styles.icon, selectedButton === "SEARCH" && styles.activeIcon]}
                         size={styles.icon.fontSize}
-                        fill={route.name === "SearchStackPage" ? styles.fill.color : "transparent"}
+                        fill={selectedButton === "SEARCH" ? styles.fill.color : "transparent"}
 
                     />
                 </TouchableOpacity>
                 <View style={styles.servisoFlowerContainer}>
                     <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")} >
+                <TouchableOpacity onPress={() => handlePress("CHAT")} onLongPress={() => handleLonPress("CHAT")}>
                     <ChatBubbleOvalLeftIcon
-                        style={[styles.icon, route.name === "ChatScreen" && styles.activeIcon]}
+                        style={[styles.icon, selectedButton === "CHAT" && styles.activeIcon]}
                         size={styles.icon.fontSize}
-                        fill={route.name === "ChatScreen" ? styles.fill.color : "transparent"}
+                        fill={selectedButton === "CHAT" ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("PersonalPageStack")}>
+                <TouchableOpacity onPress={() => handlePress("PERSONAL")} onLongPress={() => handleLonPress("PERSONAL")}>
                     <UserIcon
-                        style={[styles.icon, route.name === "PersonalPageStack" && styles.activeIcon]}
+                        style={[styles.icon, selectedButton === "PERSONAL" && styles.activeIcon]}
                         size={styles.icon.fontSize}
-                        fill={route.name === "PersonalPageStack" ? styles.fill.color : "transparent"}
+                        fill={selectedButton === "PERSONAL" ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
             </View>
@@ -85,7 +128,7 @@ const styles = StyleSheet.create({
     activeIcon: {
         color: "black"
     },
-    fill:{
-        color:"white"
+    fill: {
+        color: "white"
     }
 })

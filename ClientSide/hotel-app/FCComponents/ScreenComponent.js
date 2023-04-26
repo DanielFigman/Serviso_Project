@@ -7,7 +7,7 @@ import Loading from './Loading';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 
-const ScreenComponent = ({ content, topLeftButton, cancelNavigation, bottomMenu }) => {
+const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower }) => {
 
     //use context to display Loading component 
     const { isLoading } = useContext(HotelsAppContext)
@@ -61,7 +61,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, bottomMenu 
         }
     };
 
-    //switch to knwo which topLeftButton is needed
+    //switch to know which topLeftButton is needed
     let topLeftButtonIcon = <></>;
     switch (topLeftButton) {
         case 'none':
@@ -84,6 +84,8 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, bottomMenu 
             break;
     }
 
+    const servisoFlowerInternal = servisoFlower === true ? true : false;
+
     return (
         <>
             <TouchableWithoutFeedback disabled={!isKeyBoardOpen} onPress={dismissKeyboard}>
@@ -100,12 +102,11 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, bottomMenu 
                 </SafeAreaView>
             </TouchableWithoutFeedback>
             {
-                bottomMenu ?
-                    <View style={styles.bottomMenu}>
-                        {/* <BottomMenu /> */}
-                    </View>
-                    :
+                servisoFlowerInternal
+                    ?
                     <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
+                    :
+                    ""
             }
         </>
     );

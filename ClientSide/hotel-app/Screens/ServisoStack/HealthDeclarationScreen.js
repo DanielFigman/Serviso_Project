@@ -1,14 +1,8 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import ScreenComponent from "../../FCComponents/ScreenComponent";
 import { ButtonArrow } from "../../FCComponents/Buttons";
 import { Input, Switch } from "@rneui/themed";
 import React, { useState } from "react";
-
-// const [checked, setChecked] = useState(false);
-
-// const toggleSwitch = () => {
-//   setChecked(checked);
-// };
+import ScreenComponent from "../../FCComponents/ScreenComponent";
 
 const HealthDeclarationScreen = () => {
   const [isEnabled1, setIsEnabled1] = useState(false);

@@ -6,6 +6,8 @@ import CheckOutScreen from '../PersonalStack/CheckOutScreen';
 import PaymentScreen from '../PersonalStack/PaymentScreen';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import NewCheckInScreen from '../PersonalStack/NewCheckInScreen';
+import PaymentConfirmation from '../PersonalStack/PaymentConfirmation';
 
 
 
@@ -23,9 +25,10 @@ const PersonalPageStack = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="PersonalPageScreen" component={PersonalPageScreen} />
-            <Stack.Screen name="CheckInScreen" component={CheckInScreen} />
+            <Stack.Screen name="NewCheckInScreen" component={NewCheckInScreen} />
             <Stack.Screen name="CheckOutScreen" component={CheckOutScreen} />
             <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
+            <Stack.Screen name="PaymentConfirmation" component={PaymentConfirmation} />
         </Stack.Navigator>
     )
 }

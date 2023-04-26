@@ -43,7 +43,7 @@ const PersonalPageScreen = () => {
             <View style={{ flex: 1 }}>
               <Text style={styles.text}>{screenContent.CheckIn[language]}</Text>
             </View>
-            <ButtonArrow navigate={"CheckInScreen"} />
+            <ButtonArrow navigate={"NewCheckInScreen"} />
           </View>
           <View style={styles.rowView}>
             <View style={{ flex: 1 }}>

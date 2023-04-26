@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import "react-native-vector-icons/FontAwesome";
 import { useState } from "react";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
+
 const SpaConfirmationScreen = () => {
   const [treatmentType, setTreatmentType] = useState("Deep Tissue Massage");
   const [time, setTime] = useState("60");
@@ -31,7 +32,7 @@ const SpaConfirmationScreen = () => {
             <Text style={styles.text}>Session Duration: {time} min</Text>
             <Text style={styles.text}>{date}</Text>
             <Text style={styles.text}>{hour}</Text>
-            <Text style={styles.text}>{price} $</Text>
+            <Text style={styles.text}>{price} ₪</Text>
           </View>
         </View>
       }
