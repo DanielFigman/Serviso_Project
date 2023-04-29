@@ -93,7 +93,7 @@ const ConciergeMainScreen = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.view1}>
-            <Text style={styles.text}>Unforgettabale experiences</Text>
+            <Text style={styles.text}>Questionnaire recommendations</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("ConciergeActivitiesScreen")}
             >
@@ -101,7 +101,7 @@ const ConciergeMainScreen = () => {
             </TouchableOpacity>
           </View>
           <View>
-            <MyCarousel data={CarouselData.SpaCarousel} />
+            <MyCarousel data={CarouselData.SpaCarousel} type={'default'} style={{width:"90%", alignSelf:"center", borderRadius:20, borderWidth:1}}/>
           </View>
           <View style={styles.view1}>
             <Text style={styles.text}>Without leaving the hotel</Text>

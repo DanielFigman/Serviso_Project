@@ -24,7 +24,7 @@ const HotelActivityCard = ({ item }) => {
             <HeartIcon
               size={30}
               color={favorite ? "red" : "black"}
-              style={{ top: -2, left: 26 }}
+              style={{ top: -2, left: 12 }}
             />
           </TouchableOpacity>
           <Button
@@ -37,7 +37,7 @@ const HotelActivityCard = ({ item }) => {
             titleStyle={{ fontSize: 15, color: "#ffffff" }}
             containerStyle={{
               width: 65,
-              right: -8,
+              right: 5,
             }}
             //   onPress={""}
           >
@@ -67,5 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 15,
     backgroundColor: "#EDEDED",
+    marginLeft: 10,
+    marginRight: 10,
   },
 });

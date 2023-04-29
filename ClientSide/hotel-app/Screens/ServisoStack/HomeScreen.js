@@ -69,7 +69,7 @@ const HomeScreen = () => {
     return (
         <ScreenComponent topLeftButton={"none"}
             content={
-                <View style={{ top: -30 }}>
+                <View>
                     <View style={{ alignItems: "center" }}>
                         <Image source={require('../../assets/ServisoText.png')} />
                     </View>
@@ -82,7 +82,7 @@ const HomeScreen = () => {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flex: 1 }}>
-                                <MyCarousel data={CarouselData.SpaCarousel} />
+                                <MyCarousel data={CarouselData.SpaCarousel} type={'parallax'} cardStyle={{borderWidth:1}}/>
                             </View>
                         </View>
                         <View style={{ marginVertical: 10, marginTop: 10 }}>
@@ -98,7 +98,7 @@ const HomeScreen = () => {
                                 ))}
                             </ScrollView>
                         </View>
-                        <View style={{ marginVertical: 10, marginTop: 10, paddingBottom:60}}>
+                        <View style={{ marginVertical: 10, marginTop: 10, paddingBottom:50}}>
                             <View style={{ flexDirection: "row", marginHorizontal: 40, marginBottom: 5, marginTop: 10 }}>
                                 <Text style={{ flex: 1, fontWeight: "bold" }}>Something to snack on</Text>
                                 <TouchableOpacity onPress={() => ""}>

@@ -42,9 +42,9 @@ const ConciergeActivitiesScreen = () => {
           <View>
             <Text style={styles.text}>Recommended activities in the area</Text>
           </View>
-          {dataPerfactForYou.map((item) => (
-            <ConciergeCard key={item.id} item={item} />
-          ))}
+            {dataPerfactForYou.map((item) => (
+              <ConciergeCard key={item.id} item={item} />
+            ))}
         </ScrollView>
       }
     />

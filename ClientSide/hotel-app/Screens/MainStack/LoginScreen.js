@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput, Image, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput, Image, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native'
 import React, { useContext, useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import LanguageSelect from '../../FCComponents/LanguageSelect';
@@ -47,21 +47,25 @@ const LoginScreen = () => {
           setUser({email, fName, sName, gender});
           navigation.navigate("MainScreen")
         } else {
-          const errorMessage = await response.text();
-          const errorObject = JSON.parse(errorMessage);
-          const errorType = errorObject.type;
-          const errorMessageText = errorObject.message;
-
-          console.log(`Error: ${response.status} - ${errorType} - ${errorMessageText}`);
+          showAlert();
         }
-        setIsLoading(false);
-
       } catch (error) {
-        console.log(error);
+        showAlert();
+      }
+      finally{
         setIsLoading(false);
       }
     }
   }
+
+  const showAlert = () => {
+    Alert.alert(
+        "Login Failed",
+        "Either the Email or the password wrong",
+        [{ text: 'OK' }],
+    );
+}
+
 
   return (
     <ScreenComponent bottomMenu={true}

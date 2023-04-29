@@ -3,13 +3,13 @@ import React from 'react'
 import Carousel from 'react-native-reanimated-carousel'
 import BigCard from './Cards/BigCard'
 
-const MyCarousel = ({data}) => {
+const MyCarousel = ({data, type, style, cardStyle}) => {
     const width = Dimensions.get('window').width;
 
     return (
         <Carousel
             loop
-            mode='parallax'
+            mode={type}
             width={width}
             height={width / 2}
             autoPlay={true}
@@ -27,8 +27,9 @@ const MyCarousel = ({data}) => {
             }}
             autoPlayInterval={2500}
             renderItem={({ item }) => (
-                <BigCard item={item} />
+                <BigCard item={item} cardStyle={cardStyle}/>
             )}
+            style={style}
         />
     )
 }

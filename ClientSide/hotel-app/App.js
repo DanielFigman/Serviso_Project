@@ -18,13 +18,13 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
 
-          {/* <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen
             name="PasswordResetScreen"
             component={PasswordResetScreen}
           />
-          <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} /> */}
+          <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
           <Stack.Screen name="MainScreen" component={MainScreen} />
         </Stack.Navigator>
       </NavigationContainer>

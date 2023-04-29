@@ -7,7 +7,7 @@ import Loading from './Loading';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 
-const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower }) => {
+const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower, topLeftButtonStyle, topLeftButtonColor }) => {
 
     //use context to display Loading component 
     const { isLoading } = useContext(HotelsAppContext)
@@ -70,7 +70,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
             if (cancelNavigation) {
                 topLeftButtonIcon = (
                     <TouchableOpacity onPress={() => navigation.navigate(cancelNavigation)}>
-                        <XCircleIcon color={styles.topLeftButton.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
+                        <XCircleIcon fill={topLeftButtonColor ?  topLeftButtonColor : styles.topLeftButton.color} size={styles.topLeftButton.fontSize}style={styles.topLeftButton}/>
                     </TouchableOpacity>
                 );
             }
@@ -78,7 +78,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
         default:
             topLeftButtonIcon = (
                 <TouchableOpacity onPress={navigation.goBack}>
-                    <ArrowLeftCircleIcon color={styles.topLeftButton.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
+                    <ArrowLeftCircleIcon fill={topLeftButtonColor ?  topLeftButtonColor : styles.topLeftButton.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
                 </TouchableOpacity>
             );
             break;
@@ -90,9 +90,13 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
         <>
             <TouchableWithoutFeedback disabled={!isKeyBoardOpen} onPress={dismissKeyboard}>
                 <SafeAreaView style={styles.container}>
-                    <View style={styles.leftArrowView}>
-                        {topLeftButtonIcon}
-                    </View>
+                    {topLeftButton != "none" ?
+                        <View style={StyleSheet.flatten([styles.leftArrowView, topLeftButtonStyle])}>
+                            {topLeftButtonIcon}
+                        </View>
+                        :
+                        ""
+                    }
                     {
                         isLoading ?
                             <Loading />

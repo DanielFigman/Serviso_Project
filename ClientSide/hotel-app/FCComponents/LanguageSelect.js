@@ -18,14 +18,7 @@ const LanguageSelect = ({ languageContext, setlanguageContext, buttonStyle }) =>
         { key: '9', value: 'JP' }
     ]
 
-    const dissmissSelectList = () => {
-        if(selected){
-            se
-        }
-    }
-
     return (
-        <TouchableWithoutFeedback onPress={dissmissSelectList}>
 
             <View style={StyleSheet.flatten([styles.buttonStyle, buttonStyle])}>
                 <SelectList
@@ -38,7 +31,6 @@ const LanguageSelect = ({ languageContext, setlanguageContext, buttonStyle }) =>
                     search={false}
                 />
             </View>
-        </TouchableWithoutFeedback>
     )
 }
 

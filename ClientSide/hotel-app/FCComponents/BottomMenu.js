@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ChatBubbleOvalLeftIcon, HomeIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/outline'
 import { Image } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -8,46 +8,38 @@ const BottomMenu = () => {
 
     const navigation = useNavigation();
     const route = useRoute();
-    const [selectedButton, setSelectedButton] = useState("HOME")
+    const [selectedButton, setSelectedButton] = useState("HOME");
 
     const handlePress = (screen) => {
         switch (screen) {
             case "HOME":
-                navigation.navigate("ServisoScreenStack");
-                setSelectedButton("HOME");
-                break;
-            case "SEARCH":
-                navigation.navigate("SearchStackPage");
-                setSelectedButton("SEARCH");
-                break;
-            case "CHAT":
-                navigation.navigate("ChatScreen");
-                setSelectedButton("CHAT");
-                break;
-            case "PERSONAL":
-                navigation.navigate("PersonalPageStack");
-                setSelectedButton("PERSONAL");
-                break;
-        }
-    }
+                if (selectedButton != "HOME") {
+                    navigation.navigate("ServisoScreenStack");
+                    setSelectedButton("HOME");
+                } else {
+                    navigation.navigate("HomeScreen");
+                }
 
-    const handleLonPress = (screen) => {
-        switch (screen) {
-            case "HOME":
-                navigation.navigate("HomeScreen");
-                setSelectedButton("HOME");
                 break;
             case "SEARCH":
-                navigation.navigate("SearchScreen");
-                setSelectedButton("SEARCH");
+                if (selectedButton != "SEARCH") {
+                    navigation.navigate("SearchStackPage");
+                    setSelectedButton("SEARCH");
+                } else {
+                    navigation.navigate("SearchScreen");
+                }
                 break;
             case "CHAT":
                 navigation.navigate("ChatScreen");
                 setSelectedButton("CHAT");
                 break;
             case "PERSONAL":
-                navigation.navigate("PersonalPageScreen");
-                setSelectedButton("PERSONAL");
+                if (selectedButton != "PERSONAL") {
+                    navigation.navigate("PersonalPageStack");
+                    setSelectedButton("PERSONAL");
+                } else {
+                    navigation.navigate("PersonalPageScreen");
+                }
                 break;
         }
     }
@@ -61,14 +53,14 @@ const BottomMenu = () => {
                 }}
             />
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => handlePress("HOME")} onLongPress={() => handleLonPress("HOME")}>
+                <TouchableOpacity onPress={() => handlePress("HOME")}>
                     <HomeIcon
                         style={[styles.icon, selectedButton === "HOME" && styles.activeIcon]}
                         size={styles.icon.fontSize}
                         fill={selectedButton === "HOME" ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("SEARCH")} onLongPress={() => handleLonPress("SEARCH")}>
+                <TouchableOpacity onPress={() => handlePress("SEARCH")}>
                     <MagnifyingGlassIcon
                         style={[styles.icon, selectedButton === "SEARCH" && styles.activeIcon]}
                         size={styles.icon.fontSize}
@@ -79,14 +71,14 @@ const BottomMenu = () => {
                 <View style={styles.servisoFlowerContainer}>
                     <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
                 </View>
-                <TouchableOpacity onPress={() => handlePress("CHAT")} onLongPress={() => handleLonPress("CHAT")}>
+                <TouchableOpacity onPress={() => handlePress("CHAT")}>
                     <ChatBubbleOvalLeftIcon
                         style={[styles.icon, selectedButton === "CHAT" && styles.activeIcon]}
                         size={styles.icon.fontSize}
                         fill={selectedButton === "CHAT" ? styles.fill.color : "transparent"}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("PERSONAL")} onLongPress={() => handleLonPress("PERSONAL")}>
+                <TouchableOpacity onPress={() => handlePress("PERSONAL")}>
                     <UserIcon
                         style={[styles.icon, selectedButton === "PERSONAL" && styles.activeIcon]}
                         size={styles.icon.fontSize}

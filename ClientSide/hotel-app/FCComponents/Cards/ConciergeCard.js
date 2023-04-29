@@ -24,7 +24,7 @@ const ConciergeCard = ({ item }) => {
             <HeartIcon
               size={30}
               color={favorite ? "red" : "black"}
-              style={{ top: -25, left: 50 }}
+              style={{ top: -25, left: 30 }}
             />
           </TouchableOpacity>
 
@@ -39,7 +39,7 @@ const ConciergeCard = ({ item }) => {
             containerStyle={{
               width: 65,
               position: "absolute",
-              right: -65,
+              right: -45,
               top: 10,
             }}
             //   onPress={""}
@@ -70,5 +70,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignItems: "center",
     backgroundColor: "#EDEDED",
+    marginLeft: 10,
+    marginRight: 10,
   },
 });

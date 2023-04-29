@@ -27,6 +27,7 @@ const PersonalPageScreen = () => {
 
   return (
     <ScreenComponent
+    topLeftButton={"none"}
       bottomMenu={true}
       content={
         <View>

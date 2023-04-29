@@ -12,21 +12,22 @@ export default function NewCheckInScreen() {
 
     return (
         <ScreenComponent
-            topLeftButton="none"
+            topLeftButtonStyle={{position:"absolute", top:50, zIndex:1}}
+            topLeftButtonColor={"black"}
             content={
                 <>
                     <View>
                         <Image
-                            style={[styles.image, { top: -height * 0.12 }]}
+                            style={[styles.image, { top: -height * 0.07 }]}
                             source={{
                                 uri:
                                     'https://www.americaisraeltours.com/wp-content/uploads/cita1.jpg',
                             }}
                         />
-                        <Text style={[styles.textHeader, { top: -height * 0.2 }]}>
+                        <Text style={[styles.textHeader, { top: -height * 0.15 }]}>
                             Contactless Check-In
                         </Text>
-                        <Text style={[styles.textHotel, { top: -height * 0.2 }]}>
+                        <Text style={[styles.textHotel, { top: -height * 0.15 }]}>
                             David Citadel Hotel
                         </Text>
                     </View>
@@ -71,6 +72,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         textAlign: "center",
         marginBottom: 30,
-        marginTop: 10
+        marginTop: 40
     }
 });
