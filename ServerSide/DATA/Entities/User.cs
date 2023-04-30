@@ -140,8 +140,7 @@ namespace DATA
 
             if (currentOrder != null)
             {
-                Hotel currenHotel = currentOrder.Hotel;
-                loginDTO.SetLoginDTO(this, currentOrder, currenHotel);
+                loginDTO.SetLoginDTO(this, currentOrder);
             }
 
             return loginDTO;

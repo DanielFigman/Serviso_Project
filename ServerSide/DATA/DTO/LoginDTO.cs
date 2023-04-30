@@ -30,8 +30,10 @@ namespace DATA
         public List<Custom_Request_Type_DTO> Custom_Request_Types { get; set; }
 
 
-        public void SetLoginDTO(User user ,Order order, Hotel hotel)
+        public void SetLoginDTO(User user ,Order order)
         {
+            Hotel hotel = order.Hotel;
+
             userType = "GUEST";
             fName = user.fName;
             sName = user.sName;

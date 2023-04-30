@@ -42,8 +42,8 @@ namespace WebApplication.Controllers
                             return Content(HttpStatusCode.OK, new { userType = "EMPLOYEE" });
                         else
                         {
-                            LoginDTO a = user.GetLoginDTO();
-                            return Content(HttpStatusCode.OK, a);
+                            LoginDTO loginDTO = user.GetLoginDTO();
+                            return Content(HttpStatusCode.OK, loginDTO);
                         }
                     }
                     else
