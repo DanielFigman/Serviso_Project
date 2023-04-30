@@ -18,46 +18,6 @@ namespace WebApplication.Controllers
 
 
         [HttpGet]
-        [Route("api/login")]
-
-        public IHttpActionResult Get([FromBody] JObject data)
-        {
-            try
-            {
-                string userEmail = data["userEmail"].ToString();
-                string givenUserPassword = data["givenUserPassword"].ToString();
-
-
-                User user = db.Users.FirstOrDefault(u => u.email == userEmail);
-
-                bool isUserFound = user != null;
-
-                if (isUserFound)
-                {
-
-                    bool passwordVerification = user.CheckUsersPassword(givenUserPassword);
-
-                    if (passwordVerification)
-                    {
-                        bool isEmployeeFound = user.Employee != null;
-
-                        return isEmployeeFound ? Ok("EMPLOYEE") : Ok("GUEST");
-                    }
-                    else
-                    {
-                        return BadRequest("PASSWORD");
-                    }
-                }
-                else
-                    return BadRequest("NOT_FOUND");
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
-            }
-        }
-
-        [HttpGet]
         [Route("api/emailVerification")]
         public async Task<IHttpActionResult> Get([FromUri] string email)
         {

@@ -35,6 +35,7 @@ namespace DATA
         public string orderMethod { get; set; }
         public string email { get; set; }
         public Nullable<int> hotelID { get; set; }
+        public int price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity_Update> Activity_Update { get; set; }

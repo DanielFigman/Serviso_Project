@@ -11,7 +11,7 @@ namespace DATA
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Activity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,11 +20,12 @@ namespace DATA
             this.Activity_Update = new HashSet<Activity_Update>();
             this.Category_rating = new HashSet<Category_rating>();
         }
-
+    
         public int placeID { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public double rating { get; set; }
+        public string imageURL { get; set; }
     
         public virtual Activity_hotel Activity_hotel { get; set; }
         public virtual Activity_nearBY Activity_nearBY { get; set; }

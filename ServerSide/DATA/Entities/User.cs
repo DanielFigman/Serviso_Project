@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using System.Xml.Linq;
+using System.Data.Entity.Migrations;
 
 namespace DATA
 {
@@ -96,7 +97,11 @@ namespace DATA
 
         public void PasswordUpdate(string givenPassword)
         {
+
             dataHelper.EncryptPassword(this, givenPassword);
+
+            db.Users.AddOrUpdate(this);
+            db.SaveChanges();
         }
 
         public string GetHotelLocation()
@@ -113,7 +118,33 @@ namespace DATA
             return currentOrder?.Hotel?.landmark;
         }
 
+        public Order GetCurrentOrder()
+        {
+            DateTime oneWeekAgo = DateTime.Now.AddDays(-7);
+            DateTime tommorow = DateTime.Now.AddDays(1);
 
-        /*public*/
+            Order currentOrder = Guest.Orders
+                .Where(order => order.checkInDate >= oneWeekAgo && order.checkOutDate >= tommorow)
+                .OrderBy(order => order.checkInDate)
+                .ThenBy(order => order.checkOutDate)
+                .FirstOrDefault();
+
+            return currentOrder;
+        }
+
+
+        public LoginDTO GetLoginDTO()
+        {
+            Order currentOrder = GetCurrentOrder();
+            LoginDTO loginDTO = new LoginDTO();
+
+            if (currentOrder != null)
+            {
+                Hotel currenHotel = currentOrder.Hotel;
+                loginDTO.SetLoginDTO(this, currentOrder, currenHotel);
+            }
+
+            return loginDTO;
+        }
     }
 }

@@ -12,17 +12,12 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class Facility
+    public partial class sysdiagram
     {
-        public int facilityID { get; set; }
         public string name { get; set; }
-        public string description { get; set; }
-        public string contactNumber { get; set; }
-        public string imageURL { get; set; }
-        public Nullable<int> hotelID { get; set; }
-        public string type { get; set; }
-        public string openingHours { get; set; }
-    
-        public virtual Hotel Hotel { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
