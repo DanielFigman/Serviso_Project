@@ -54,10 +54,10 @@ namespace DATA
             landmark = landmark.Trim('(', ')');
             string[] extractedLandMark = landmark.Split(',');
 
-            double latitude = double.Parse(extractedLandMark[0].Trim());
-            double longitude = double.Parse(extractedLandMark[1].Trim());
+            double hotelLatitude = double.Parse(extractedLandMark[0].Trim());
+            double hotelLongitude = double.Parse(extractedLandMark[1].Trim());
 
-            var center = new GeoCoordinate(latitude, longitude);
+            var hotelCoordinate = new GeoCoordinate(hotelLatitude, hotelLongitude);
 
 
             List<Activity_nearBY> activities = db.Activity_nearBY.ToList();
@@ -73,15 +73,15 @@ namespace DATA
 
                 foreach (Activity_nearBY activity in activities)
                 {
-                    string otherLandmark = activity.landmark;
-                    otherLandmark = otherLandmark.Trim('(', ')');
-                    string[] extractedOtherLandMark = otherLandmark.Split(',');
-                    double otherLatitude = double.Parse(extractedOtherLandMark[0].Trim());
-                    double otherLongitude = double.Parse(extractedOtherLandMark[1].Trim());
+                    string activityLandmark = activity.landmark;
+                    activityLandmark = activityLandmark.Trim('(', ')');
+                    string[] extractedActivityLandmark = activityLandmark.Split(',');
+                    double activityLatitude = double.Parse(extractedActivityLandmark[0].Trim());
+                    double activityLongitude = double.Parse(extractedActivityLandmark[1].Trim());
 
-                    var otherCoordinate = new GeoCoordinate(otherLatitude, otherLongitude); // latitude, longitude
+                    var activityCoordinate = new GeoCoordinate(activityLatitude, activityLongitude);
 
-                    var distance = center.GetDistanceTo(otherCoordinate); // in meters
+                    var distance = hotelCoordinate.GetDistanceTo(activityCoordinate); // in meters
 
                     if(distance <= radius)
                     {
