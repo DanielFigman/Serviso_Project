@@ -154,9 +154,9 @@ namespace DATA
             {
                 customTypes.ForEach(x =>
                 {
-                    Custom_Request_Type_DTO cd = new Custom_Request_Type_DTO();
-                    cd.setCustom_Request_Type_DTO(x);
-                    retVal.Add(cd);
+                    Custom_Request_Type_DTO cr = new Custom_Request_Type_DTO();
+                    cr.setCustom_Request_Type_DTO(x);
+                    retVal.Add(cr);
                 });
             }
 
