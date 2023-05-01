@@ -14,7 +14,7 @@ namespace WebApplication.Controllers
         private readonly hotelAppDBContext db = new hotelAppDBContext();
 
 
-        [HttpPost]
+        [HttpGet]
         [Route("api/GetHouseHoldCustomRequests")]
 
         public IHttpActionResult Get([FromUri] int hotelID)
