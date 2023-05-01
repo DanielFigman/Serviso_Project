@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, TextInput, ScrollView } from "react-native";
 import "react-native-vector-icons/FontAwesome";
 import { AirbnbRating } from "@rneui/themed";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
+import Languages from "../../Json_files/Languages";
 
 const FeedbackScreen = () => {
   const [text, setText] = useState("Tell us everything");
@@ -13,22 +15,25 @@ const FeedbackScreen = () => {
     setRating(rating);
   };
 
+  const { language } = useContext(HotelsAppContext);
+  const screenContent = Languages.FeedbackScreen;
+
   return (
-    <ScreenComponent 
+    <ScreenComponent
       content={
         <View style={styles.row}>
-          <Text style={styles.title}>Feedback</Text>
-          <Text style={styles.text}>Did you enjoy from the activity?</Text>
+          <Text style={styles.title}>{screenContent.Feedback[language]}</Text>
+          <Text style={styles.text}>{screenContent.DidYouEnjoyTheActivity[language]}</Text>
           <Text>
             <AirbnbRating selectedColor="#D3B9B3" reviewColor="#D3B9B3" />
           </Text>
           <Text style={styles.text}>
-            Was the activity a good fit for your personaliti?
+          {screenContent.WasTheActivityAGoodFitForYourPersonality[language]}
           </Text>
           <Text>
             <AirbnbRating selectedColor="#D3B9B3" reviewColor="#D3B9B3" />
           </Text>
-          <Text style={styles.text2}>Anything else?</Text>
+          <Text style={styles.text2}>{screenContent.AnythingElse[language]}</Text>
           <View style={styles.tell}>
             <TextInput
               style={{ height: 100 }}

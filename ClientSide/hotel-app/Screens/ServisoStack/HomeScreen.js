@@ -1,5 +1,5 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import CarouselData from '../../Json_files/CarouselData';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import MyCarousel from '../../FCComponents/MyCarousel';
@@ -7,6 +7,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import SmallCard from '../../FCComponents/Cards/SmallCard';
 import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { HotelsAppContext } from '../../Context/HotelsAppContext';
+import Languages from '../../Json_files/Languages';
 
 const spaOptions = [
     {
@@ -62,9 +64,13 @@ const snackOptions = [
     },
 ];
 
+
+
 const HomeScreen = () => {
 
     const navigation = useNavigation();
+    const {language} = useContext(HotelsAppContext);
+    const screenContent = Languages.HomeScreen;
 
     return (
         <ScreenComponent topLeftButton={"none"}
@@ -76,9 +82,9 @@ const HomeScreen = () => {
                     <ScrollView>
                         <View>
                             <View style={{ flexDirection: "row", marginHorizontal: 40 }}>
-                                <Text style={{ flex: 1, fontWeight: "bold" }}>Perfect for you</Text>
+                                <Text style={{ flex: 1, fontWeight: "bold" }}>{screenContent.PerfectForYou[language]}</Text>
                                 <TouchableOpacity onPress={() => navigation.navigate("ConciergeMainScreen")}>
-                                    <Text>To the concierge</Text>
+                                    <Text>{screenContent.ToTheConcierge[language]}</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flex: 1 }}>
@@ -89,7 +95,7 @@ const HomeScreen = () => {
                             <View style={{ flexDirection: "row", marginHorizontal: 40, marginBottom: 5, marginTop: 10 }}>
                                 <Text style={{ flex: 1, fontWeight: "bold" }}>Spa time</Text>
                                 <TouchableOpacity onPress={() => navigation.navigate("SpaMainScreen")}>
-                                    <Text>More spa treatmants</Text>
+                                    <Text>{screenContent.MoreSpaTreatments[language]}</Text>
                                 </TouchableOpacity>
                             </View>
                             <ScrollView horizontal={true}>
@@ -100,9 +106,9 @@ const HomeScreen = () => {
                         </View>
                         <View style={{ marginVertical: 10, marginTop: 10, paddingBottom:50}}>
                             <View style={{ flexDirection: "row", marginHorizontal: 40, marginBottom: 5, marginTop: 10 }}>
-                                <Text style={{ flex: 1, fontWeight: "bold" }}>Something to snack on</Text>
+                                <Text style={{ flex: 1, fontWeight: "bold" }}>{screenContent.SomethingToSnack[language]}</Text>
                                 <TouchableOpacity onPress={() => ""}>
-                                    <Text>To the full menu</Text>
+                                    <Text>{screenContent.ToTheFullMenu[language]}</Text>
                                 </TouchableOpacity>
                             </View>
                             <ScrollView horizontal={true}>

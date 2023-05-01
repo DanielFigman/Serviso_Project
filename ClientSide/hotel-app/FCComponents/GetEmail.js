@@ -4,7 +4,6 @@ import VerificationCode from './VerificationCode';
 import ScreenComponent from './ScreenComponent';
 import Languages from '../Json_files/Languages';
 import ButtonMain from './Buttons';
-import verifyEmail from '../Hooks/useFetch';
 import axios from 'axios';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 

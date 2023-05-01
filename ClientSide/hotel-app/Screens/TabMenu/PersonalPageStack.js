@@ -1,7 +1,6 @@
 import { View, Text } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import PersonalPageScreen from '../PersonalStack/PersonalPageScreen';
-import CheckInScreen from '../PersonalStack/CheckInScreen';
 import CheckOutScreen from '../PersonalStack/CheckOutScreen';
 import PaymentScreen from '../PersonalStack/PaymentScreen';
 import { useNavigation } from '@react-navigation/native';

@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import ConciergeCard from "../../FCComponents/Cards/ConciergeCard";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
+import Languages from "../../Json_files/Languages";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
 
 const dataPerfactForYou = [
   {
@@ -35,12 +37,16 @@ const dataPerfactForYou = [
 ];
 
 const ConciergeActivitiesScreen = () => {
+
+const {language} = useContext(HotelsAppContext);
+const screenContent = Languages.ConciergeActivitiesScreen
+
   return (
     <ScreenComponent
       content={
         <ScrollView>
           <View>
-            <Text style={styles.text}>Recommended activities in the area</Text>
+            <Text style={styles.text}>{screenContent.RecommendedActivitiesInTheArea[language]}</Text>
           </View>
             {dataPerfactForYou.map((item) => (
               <ConciergeCard key={item.id} item={item} />

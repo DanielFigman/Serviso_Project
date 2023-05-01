@@ -5,11 +5,12 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
 import SmallCard from "../../FCComponents/Cards/SmallCard";
 import { useNavigation } from "@react-navigation/native";
 import MyCarousel from "../../FCComponents/MyCarousel";
+import Languages from "../../Json_files/Languages";
 
 const spaOptions = [
   {
@@ -70,16 +71,20 @@ const SpaFacilities = [
 
 const SpaMainScreen = () => {
   const navigation = useNavigation();
+
+  const {language} = useContext(HotelsAppContext);
+  const screenContent = Languages.SpaMainScreen;
+
   return (
     <ScreenComponent
       content={
         <ScrollView style={styles.container}>
-          <Text style={styles.title}>Spa</Text>
+          <Text style={styles.title}>{screenContent.Spa[language]}</Text>
           <View><MyCarousel data={spaOptions} /></View>
           <View style={styles.view1}>
-            <Text style={styles.text}>MASSAGE TREATMENTS</Text>
+            <Text style={styles.text}>{screenContent.MassageTreatments[language]}</Text>
             <TouchableOpacity onPress={() => navigation.navigate("SpaTreatmenScreen")}>
-              <Text style={styles.textBT}>for more treatmants</Text>
+              <Text style={styles.textBT}>{screenContent.ForMoreTreatments[language]}</Text>
             </TouchableOpacity>
           </View>
           <View style={{ marginVertical: 10 }}>
@@ -88,7 +93,7 @@ const SpaMainScreen = () => {
                 <SmallCard key={item.id} item={item} />
               ))}
             </ScrollView>
-            <Text style={styles.textC}>The spa facilities</Text>
+            <Text style={styles.textC}>{screenContent.TheSpaFacilities[language]}</Text>
             <ScrollView horizontal={true}>
               {SpaFacilities.map((item) => (
                 <SmallCard key={item.id} item={item} />

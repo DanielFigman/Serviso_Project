@@ -22,7 +22,6 @@ const MainScreen = () => {
   }, []);
 
 
-  
   return (
     <>
       <Tab.Navigator tabBar={props => <BottomMenu {...props} />} >

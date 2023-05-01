@@ -5,7 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@rneui/themed";
 import { HeartIcon } from "react-native-heroicons/outline";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
@@ -14,6 +14,8 @@ import ConciergeCarouselCard from "../../FCComponents/Cards/ConciergeCarouselCar
 import MyCarousel from "../../FCComponents/MyCarousel";
 import CarouselData from '../../Json_files/CarouselData';
 import { useNavigation } from "@react-navigation/native";
+import Languages from "../../Json_files/Languages";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
 
 
 const ActivitiesHotel = [
@@ -64,6 +66,9 @@ const dataPerfactForYou = [
 const ConciergeMainScreen = () => {
   const navigation = useNavigation();
 
+  const {language} = useContext(HotelsAppContext);
+  const screenContent = Languages.ConciergeMainScreen;
+
   return (
     <ScreenComponent
       content={
@@ -82,7 +87,7 @@ const ConciergeMainScreen = () => {
                 left: 15,
               }}
             >
-              New Questionnaire
+              {screenContent.Questionnaire[language]}
             </Button>
             <TouchableOpacity>
               <HeartIcon
@@ -93,20 +98,20 @@ const ConciergeMainScreen = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.view1}>
-            <Text style={styles.text}>Questionnaire recommendations</Text>
+            <Text style={styles.text}> {screenContent.QuestionnaireRecommendations[language]}</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("ConciergeActivitiesScreen")}
             >
-              <Text style={styles.button}>More</Text>
+              <Text style={styles.button}> {screenContent.More[language]}</Text>
             </TouchableOpacity>
           </View>
           <View>
             <MyCarousel data={CarouselData.SpaCarousel} type={'default'} style={{width:"90%", alignSelf:"center", borderRadius:20, borderWidth:1}}/>
           </View>
           <View style={styles.view1}>
-            <Text style={styles.text}>Without leaving the hotel</Text>
+            <Text style={styles.text}> {screenContent.WithoutLeavingTheHotel[language]}</Text>
             <TouchableOpacity onPress={() => navigation.navigate("HotelActivitiesScreen")}>
-              <Text style={styles.button}>More</Text>
+              <Text style={styles.button}> {screenContent.More[language]}</Text>
             </TouchableOpacity>
           </View>
           <ScrollView horizontal={true}>
@@ -115,9 +120,9 @@ const ConciergeMainScreen = () => {
             ))}
           </ScrollView>
           <View style={styles.view1}>
-            <Text style={styles.text}>Recommended places to visit</Text>
+            <Text style={styles.text}> {screenContent.RecommendedPlacesToVisit[language]}</Text>
             <TouchableOpacity onPress={() => navigation.navigate("ConciergeActivitiesScreen")}>
-              <Text style={styles.button}>More</Text>
+              <Text style={styles.button}>{screenContent.More[language]}</Text>
             </TouchableOpacity>
           </View>
           <ScrollView horizontal={true} style={{ paddingBottom: -20 }}>

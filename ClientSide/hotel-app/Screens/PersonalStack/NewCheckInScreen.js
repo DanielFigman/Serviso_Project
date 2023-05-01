@@ -1,8 +1,10 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import ReservationCard from '../../FCComponents/Cards/ReservationCard';
 import ButtonMain from '../../FCComponents/Buttons';
+import { HotelsAppContext } from '../../Context/HotelsAppContext';
+import Languages from '../../Json_files/Languages';
 
 const { height } = Dimensions.get('window');
 
@@ -10,9 +12,18 @@ export default function NewCheckInScreen() {
     const upperViewHeight = height * 0.4; // the height of the image
     const lowerViewMarginTop = upperViewHeight - 50; // 50px margin
 
+    const { language } = useContext(HotelsAppContext);
+    const screenContent = Languages.NewCheckInScreen;
+
+    const hotelName = "David Citadel Hotel";
+    const fullName = "Daniel Figman";
+    const checkIN = "April 26, 2023";
+    const checkOut = "May 03, 2023";
+    const estimatedPrice = "$1245.64";
+
     return (
         <ScreenComponent
-            topLeftButtonStyle={{position:"absolute", top:50, zIndex:1}}
+            topLeftButtonStyle={{ position: "absolute", top: 50, zIndex: 1 }}
             topLeftButtonColor={"black"}
             content={
                 <>
@@ -25,19 +36,19 @@ export default function NewCheckInScreen() {
                             }}
                         />
                         <Text style={[styles.textHeader, { top: -height * 0.15 }]}>
-                            Contactless Check-In
+                            {screenContent.ContactlessCheckIn[language]}
                         </Text>
                         <Text style={[styles.textHotel, { top: -height * 0.15 }]}>
-                            David Citadel Hotel
+                            {hotelName}
                         </Text>
                     </View>
                     <View style={{ marginTop: -lowerViewMarginTop }}>
-                        <Text style={styles.commentText}>Please review your reservation</Text>
-                            <ReservationCard title={"Name"} value={"Daniel Figman"} />
-                            <ReservationCard title={"Check-in"} value={"April 26, 2023"} />
-                            <ReservationCard title={"Check-out"} value={"May 03, 2023"} />
-                            <ReservationCard title={"Estimated Total"} value={"$1245.64"} />
-                        <ButtonMain text={"Next"} buttonStyle={{ marginTop: 20, height: 40, padding: 0 }} textStyle={{ fontSize: 25 }} />
+                        <Text style={styles.commentText}>{screenContent.PleaseReviewYourReservation[language]}</Text>
+                        <ReservationCard title={screenContent.Name[language]} value={fullName} />
+                        <ReservationCard title={screenContent.CheckIn[language]} value={checkIN} />
+                        <ReservationCard title={screenContent.CheckOut[language]} value={checkOut} />
+                        <ReservationCard title={screenContent.EstimatedTotal[language]} value={estimatedPrice} />
+                        <ButtonMain text={screenContent.Next[language]} buttonStyle={{ marginTop: 20, height: 40, padding: 0 }} textStyle={{ fontSize: 25 }} navigate={"PaymentScreen"}/>
                     </View>
                 </>
             }

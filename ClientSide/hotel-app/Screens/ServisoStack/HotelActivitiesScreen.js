@@ -6,9 +6,11 @@ import {
     ScrollView,
     Image,
   } from "react-native";
-  import React from "react";
+  import React, { useContext } from "react";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
 import HotelActivityCard from "../../FCComponents/Cards/HotelActivityCard";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
+import Languages from "../../Json_files/Languages";
   
   const ActivitiesHotel = [
     {
@@ -38,12 +40,16 @@ import HotelActivityCard from "../../FCComponents/Cards/HotelActivityCard";
   ];
   
   const HotelActivitieScreen = () => {
+
+    const {language} = useContext(HotelsAppContext);
+    const screenContent = Languages.HotelActivitieScreen;
+
     return (
       <ScreenComponent
         content={
           <ScrollView>
             <View>
-              <Text style={styles.text}>Without leaving the hotel</Text>
+              <Text style={styles.text}>{screenContent.WithoutLeavingTheHotel[language]}</Text>
             </View>
             {ActivitiesHotel.map((item) => (
               <HotelActivityCard key={item.id} item={item} />
