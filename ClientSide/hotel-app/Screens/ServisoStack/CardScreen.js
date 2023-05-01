@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
 import { ScrollView } from "react-native-gesture-handler";
@@ -7,9 +7,12 @@ import Languages from "../../Json_files/Languages";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 import { useRoute } from "@react-navigation/native";
 
+
 const { height } = Dimensions.get('window');
 
 const CardScreen = () => {
+
+
 
     const { params: {
         name,
@@ -17,12 +20,24 @@ const CardScreen = () => {
         openingHours,
         rating,
         address,
-        phone
+        phone,
+        imageURL
     } } = useRoute();
 
     const screenContent = Languages.CardScreen;
 
     const { language } = useContext(HotelsAppContext)
+
+    const newTop = () => {
+        const MAX_WIDTH = Dimensions.get("window").width - 20;
+        const nameWidth = name.length * 25; // 25 is an estimated width per character
+        if (nameWidth > MAX_WIDTH) {
+          return { top: -110 };
+        } else {
+          return { top: -50 };
+        }
+      };
+      
 
     return (
         <ScreenComponent
@@ -30,33 +45,52 @@ const CardScreen = () => {
             topLeftButtonColor={"black"}
             content={
                 <View>
-                    <Image
-                        style={{ width: "100%", height: '35%', top: -height * 0.07 }}
-                        source={{
-                            url: "https://igoogledisrael.com/wp-content/uploads/2016/05/timna_bs-e1523394536900.jpg",
-                        }}
-                    />
-                    <Text style={styles.titel}>{name}</Text>
-                    <ScrollView style={{ top: -height * 0.135 }}>
+                    <View style={{ width: "100%", height: 300, top: -height * 0.07 }}>
+                        <Image
+                            style={{width:"100%", height:"100%"}}
+                            source={{
+                                url: imageURL,
+                            }}
+                        />
+                        <Text style={[styles.titel, newTop()]}>{name}</Text>
+                    </View>
+                    <ScrollView style={{ top: -height * 0.07 }}>
                         <Text style={styles.titelText1}>{screenContent.Description[language]}</Text>
                         <Text style={styles.text}>{description}</Text>
                         <View style={{ paddingBottom: 60, left: -5 }}>
-                            <View style={styles.row}>
-                                <Text style={styles.titelText}>{screenContent.OpeningHours[language]}</Text>
-                                <Text style={styles.text2}>{openingHours}</Text>
-                            </View>
-                            <View style={styles.row}>
-                                <Text style={styles.titelText}>{screenContent.Rating[language]}</Text>
-                                <Text style={styles.text2}>{rating}</Text>
-                            </View>
-                            <View style={styles.row}>
-                                <Text style={styles.titelText}>{screenContent.Address[language]}</Text>
-                                <Text style={styles.text2}>{address}</Text>
-                            </View>
-                            <View style={styles.row}>
-                                <Text style={styles.titelText}>{screenContent.Phone[language]}</Text>
-                                <Text style={styles.text2}>{phone}</Text>
-                            </View>
+                            {openingHours ?
+
+                                <View style={styles.row}>
+                                    <Text style={styles.titelText}>{screenContent.OpeningHours[language]}</Text>
+                                    <Text style={styles.text}>{openingHours}</Text>
+                                </View>
+                                :
+                                ""
+                            }
+                            {rating ?
+                                <View style={styles.row}>
+                                    <Text style={styles.titelText}>{screenContent.Rating[language]}</Text>
+                                    <Text style={styles.text}>{rating}</Text>
+                                </View>
+                                :
+                                ""
+                            }
+                            {address ?
+                                <View style={styles.row}>
+                                    <Text style={styles.titelText}>{screenContent.Address[language]}</Text>
+                                    <Text style={styles.text}>{address}</Text>
+                                </View>
+                                :
+                                ""
+                            }
+                            {phone ?
+                                <View style={styles.row}>
+                                    <Text style={styles.titelText}>{screenContent.Phone[language]}</Text>
+                                    <Text style={styles.text}>{phone}</Text>
+                                </View>
+                                :
+                                ""
+                            }
                         </View>
                     </ScrollView>
                 </View>
@@ -102,7 +136,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     row: {
-        flexDirection: "row",
         padding: 5,
         marginTop: 10,
     },

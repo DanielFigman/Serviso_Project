@@ -12,13 +12,25 @@ import axios from 'axios';
 
 const LoginScreen = () => {
 
-  const { language, setlanguage, setIsLoading, setUser } = useContext(HotelsAppContext)
+  const {
+    language,
+    setlanguage,
+    setIsLoading,
+    setUser,
+    setOrder,
+    setActivities_nearBy,
+    setActivities_hotel,
+    setFacilities,
+    setCustom_Request_Types
+  } = useContext(HotelsAppContext)
+
+
   const screenContent = Languages.LoginScreen;
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null)
 
   const navigation = useNavigation();
- 
+
 
   const handleLogin = async () => {
     if (email && password) {
@@ -41,10 +53,12 @@ const LoginScreen = () => {
         if (response.ok) {
           const message = await response.text();
           const object = JSON.parse(message);
-          const fName = object.fName;
-          const sName = object.sName;
-          const gender = object.gender;
-          setUser({email, fName, sName, gender});
+          setUser({ email, fName: object.fName, sName: object.sName, gender: object.gender, phone: object.phone, dateOfBirth: object.dateOfBirth });
+          setOrder({ orderID: object.orderID, checkInDate: object.checkInDate, checkOutDate: object.checkOutDate, hotelID: object.hotelID });
+          setActivities_nearBy(object.activities_nearBy);
+          setActivities_hotel(object.activities_hotel);
+          setFacilities(object.facilities);
+          setCustom_Request_Types(object.custom_Request_Types);
           navigation.navigate("MainScreen")
         } else {
           showAlert();
@@ -52,7 +66,7 @@ const LoginScreen = () => {
       } catch (error) {
         showAlert();
       }
-      finally{
+      finally {
         setIsLoading(false);
       }
     }
@@ -60,11 +74,11 @@ const LoginScreen = () => {
 
   const showAlert = () => {
     Alert.alert(
-        "Login Failed",
-        "Either the Email or the password wrong",
-        [{ text: 'OK' }],
+      "Login Failed",
+      "Either the Email or the password wrong",
+      [{ text: 'OK' }],
     );
-}
+  }
 
 
   return (

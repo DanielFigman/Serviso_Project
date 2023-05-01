@@ -11,6 +11,7 @@ import SmallCard from "../../FCComponents/Cards/SmallCard";
 import { useNavigation } from "@react-navigation/native";
 import MyCarousel from "../../FCComponents/MyCarousel";
 import Languages from "../../Json_files/Languages";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
 
 const spaOptions = [
   {
@@ -72,7 +73,7 @@ const SpaFacilities = [
 const SpaMainScreen = () => {
   const navigation = useNavigation();
 
-  const {language} = useContext(HotelsAppContext);
+  const {language, facilities} = useContext(HotelsAppContext);
   const screenContent = Languages.SpaMainScreen;
 
   return (
@@ -95,8 +96,8 @@ const SpaMainScreen = () => {
             </ScrollView>
             <Text style={styles.textC}>{screenContent.TheSpaFacilities[language]}</Text>
             <ScrollView horizontal={true}>
-              {SpaFacilities.map((item) => (
-                <SmallCard key={item.id} item={item} />
+              {facilities.map((item) => item.type === "SPA" && (
+                <SmallCard key={item.facilityID} item={item} />
               ))}
             </ScrollView>
           </View>

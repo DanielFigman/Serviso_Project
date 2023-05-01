@@ -1,9 +1,18 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const SmallCard = ({ item }) => {
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("CardScreen", {
+      name: item.name,
+      description: item.description,
+      openingHours: item.openingHours,
+      imageURL: item.imageURL,
+      phone: item.contactNumber
+    })}>
       <View
         style={{
           margin: 5,
@@ -12,7 +21,7 @@ const SmallCard = ({ item }) => {
         }}
       >
         <Image
-          source={{ uri: item.url }}
+          source={{ uri: item.imageURL }}
           style={{
             resizeMode: "cover",
             width: 180,
