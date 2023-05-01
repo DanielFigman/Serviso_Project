@@ -130,10 +130,13 @@
     <Compile Include="DTO\ActivityNearByDTO.cs" />
     <Compile Include="DTO\Custom_Request_Type_DTO.cs" />
     <Compile Include="DTO\FacilityDTO.cs" />
+    <Compile Include="DTO\HouseCustomRequestDTO.cs" />
+    <Compile Include="DTO\LoginAdminDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\Questionnaire.cs" />
     <Compile Include="Entities\Request.cs" />
     <Compile Include="Entities\SuggestedActivities.cs" />
