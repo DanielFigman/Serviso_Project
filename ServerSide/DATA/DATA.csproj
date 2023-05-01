@@ -130,6 +130,7 @@
     <Compile Include="DTO\ActivityNearByDTO.cs" />
     <Compile Include="DTO\Custom_Request_Type_DTO.cs" />
     <Compile Include="DTO\FacilityDTO.cs" />
+    <Compile Include="DTO\HotelDTO.cs" />
     <Compile Include="DTO\HouseCustomRequestDTO.cs" />
     <Compile Include="DTO\LoginAdminDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />

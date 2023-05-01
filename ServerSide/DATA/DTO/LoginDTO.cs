@@ -29,6 +29,7 @@ namespace DATA
         public List<FacilityDTO> facilities { get; set; }
         public List<Custom_Request_Type_DTO> custom_Request_Types { get; set; }
         public List<TherapyDTO> therapies { get; set; }
+        public HotelDTO hotel { get; set; }
 
 
         public void SetLoginDTO(User user ,Order order)
@@ -51,6 +52,7 @@ namespace DATA
             facilities = GetFacilities(hotel);
             custom_Request_Types = GetCustomTypes();
             therapies = GetTherapies(hotel.hotelID);
+            this.hotel = GetHotel(hotel);
         }
 
         private List<ActivityNearByDTO> GetActivitiesNearBy(string landmark)
@@ -184,6 +186,14 @@ namespace DATA
             }
 
             return retVal;
+        }
+
+        private HotelDTO GetHotel(Hotel hotel)
+        {
+            HotelDTO hotelDTO = new HotelDTO();
+            hotelDTO.SetHotelDTO(hotel);
+
+            return hotelDTO;
         }
     }
 }
