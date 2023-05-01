@@ -21,7 +21,9 @@ const LoginScreen = () => {
     setActivities_nearBy,
     setActivities_hotel,
     setFacilities,
-    setCustom_Request_Types
+    setCustom_Request_Types,
+    setTherapies,
+    setHotel
   } = useContext(HotelsAppContext)
 
 
@@ -59,6 +61,8 @@ const LoginScreen = () => {
           setActivities_hotel(object.activities_hotel);
           setFacilities(object.facilities);
           setCustom_Request_Types(object.custom_Request_Types);
+          setTherapies(object.therapies);
+          setHotel(object.hotel)
           navigation.navigate("MainScreen")
         } else {
           showAlert();

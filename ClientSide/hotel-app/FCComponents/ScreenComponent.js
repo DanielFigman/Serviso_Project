@@ -7,7 +7,7 @@ import Loading from './Loading';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 
-const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower, topLeftButtonStyle, topLeftButtonColor }) => {
+const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower, topLeftButtonStyle, topLeftButtonColor, title }) => {
 
     //use context to display Loading component 
     const { isLoading } = useContext(HotelsAppContext)
@@ -70,7 +70,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
             if (cancelNavigation) {
                 topLeftButtonIcon = (
                     <TouchableOpacity onPress={() => navigation.navigate(cancelNavigation)}>
-                        <XCircleIcon fill={topLeftButtonColor ?  topLeftButtonColor : styles.topLeftButton.color} size={styles.topLeftButton.fontSize}style={styles.topLeftButton}/>
+                        <XCircleIcon fill={topLeftButtonColor ? topLeftButtonColor : styles.topLeftButton.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
                     </TouchableOpacity>
                 );
             }
@@ -78,7 +78,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
         default:
             topLeftButtonIcon = (
                 <TouchableOpacity onPress={navigation.goBack}>
-                    <ArrowLeftCircleIcon fill={topLeftButtonColor ?  topLeftButtonColor : styles.topLeftButton.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
+                    <ArrowLeftCircleIcon fill={topLeftButtonColor ? topLeftButtonColor : styles.topLeftButton.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
                 </TouchableOpacity>
             );
             break;
@@ -90,13 +90,20 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
         <>
             <TouchableWithoutFeedback disabled={!isKeyBoardOpen} onPress={dismissKeyboard}>
                 <SafeAreaView style={styles.container}>
-                    {topLeftButton != "none" ?
-                        <View style={StyleSheet.flatten([styles.leftArrowView, topLeftButtonStyle])}>
-                            {topLeftButtonIcon}
-                        </View>
-                        :
-                        ""
-                    }
+                    <View style={{flexDirection:"row", zIndex:5, width:"100%"}}>
+                        {topLeftButton != "none" ?
+                            <View style={StyleSheet.flatten([styles.leftArrowView, topLeftButtonStyle])}>
+                                {topLeftButtonIcon}
+                            </View>
+                            :
+                            ""
+                        }
+                        {title ?
+                            title
+                            :
+                            ""
+                        }
+                    </View>
                     {
                         isLoading ?
                             <Loading />
@@ -132,8 +139,9 @@ const styles = StyleSheet.create({
     },
     leftArrowView: {
         marginBottom: 20,
-        width: 50,
+        width: "10%",
         height: 20,
+        flexDirection:"column",
     },
     servisoFlower: {
         width: 134,

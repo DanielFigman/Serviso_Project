@@ -3,10 +3,11 @@ import React from "react";
 import { Icon } from "@rneui/themed";
 import { CheckCircleIcon, CheckIcon } from "react-native-heroicons/outline";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
+import ButtonMain from "../../FCComponents/Buttons";
 
 const PaymentConfirmation = () => {
   return (
-    <ScreenComponent
+    <ScreenComponent topLeftButton={"none"}
       content={
         <View style={{ paddingTop: 120 }}>
           <CheckCircleIcon
@@ -21,6 +22,9 @@ const PaymentConfirmation = () => {
           /> */}
           <Text style={styles.text}>Thank you!</Text>
           <Text style={styles.text}>The payment was successfully received</Text>
+          <View style={{marginTop:100}}>
+            <ButtonMain text={"Continue"} navigate={"PersonalPageScreen"}/>
+          </View>
         </View>
       }
     />

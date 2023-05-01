@@ -12,18 +12,20 @@ export default function NewCheckInScreen() {
     const upperViewHeight = height * 0.4; // the height of the image
     const lowerViewMarginTop = upperViewHeight - 50; // 50px margin
 
-    const { language } = useContext(HotelsAppContext);
+    const { language, hotel, user, order } = useContext(HotelsAppContext);
     const screenContent = Languages.NewCheckInScreen;
 
-    const hotelName = "David Citadel Hotel";
-    const fullName = "Daniel Figman";
-    const checkIN = "April 26, 2023";
-    const checkOut = "May 03, 2023";
+    const fullName = user.fName + " " + user.sName;
+    const checkIN = order.checkInDate;
+    const checkOut = order.checkOurDate;
     const estimatedPrice = "$1245.64";
+    const imageURL = hotel.imageURL;
+
+    const hotelName = hotel.Name;
 
     return (
         <ScreenComponent
-            topLeftButtonStyle={{ position: "absolute", top: 50, zIndex: 1 }}
+            topLeftButtonStyle={{ position: "absolute", zIndex: 1 }}
             topLeftButtonColor={"black"}
             content={
                 <>
@@ -31,8 +33,7 @@ export default function NewCheckInScreen() {
                         <Image
                             style={[styles.image, { top: -height * 0.07 }]}
                             source={{
-                                uri:
-                                    'https://www.americaisraeltours.com/wp-content/uploads/cita1.jpg',
+                                uri: imageURL,
                             }}
                         />
                         <Text style={[styles.textHeader, { top: -height * 0.15 }]}>
@@ -48,7 +49,7 @@ export default function NewCheckInScreen() {
                         <ReservationCard title={screenContent.CheckIn[language]} value={checkIN} />
                         <ReservationCard title={screenContent.CheckOut[language]} value={checkOut} />
                         <ReservationCard title={screenContent.EstimatedTotal[language]} value={estimatedPrice} />
-                        <ButtonMain text={screenContent.Next[language]} buttonStyle={{ marginTop: 20, height: 40, padding: 0 }} textStyle={{ fontSize: 25 }} navigate={"PaymentScreen"}/>
+                        <ButtonMain text={screenContent.Next[language]} buttonStyle={{ marginTop: 20, height: 40, padding: 0 }} textStyle={{ fontSize: 25 }} navigate={"PaymentScreen"} />
                     </View>
                 </>
             }

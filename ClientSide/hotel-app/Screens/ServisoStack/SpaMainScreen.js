@@ -19,14 +19,14 @@ const spaOptions = [
     name: "Swedish Massage",
     price: "250₪",
     url: "https://smb.ibsrv.net/imageresizer/image/article_manager/1200x1200/17220/291800/heroimage0.190644001621610009.jpg",
-    imageUrl:"https://smb.ibsrv.net/imageresizer/image/article_manager/1200x1200/17220/291800/heroimage0.190644001621610009.jpg"
+    imageUrl: "https://smb.ibsrv.net/imageresizer/image/article_manager/1200x1200/17220/291800/heroimage0.190644001621610009.jpg"
   },
   {
     id: 2,
     name: "Hot Stone Massage",
     price: "320₪",
     url: "https://img1.wsimg.com/isteam/stock/BNQKEo8/:/rs=w:984,h:738",
-    imageUrl:"https://img1.wsimg.com/isteam/stock/BNQKEo8/:/rs=w:984,h:738"
+    imageUrl: "https://img1.wsimg.com/isteam/stock/BNQKEo8/:/rs=w:984,h:738"
 
   },
   {
@@ -34,7 +34,7 @@ const spaOptions = [
     name: "Prenatal Massage",
     price: "340₪",
     url: "https://www.somanovo.com/wp-content/uploads/2018/11/feature_prenatal-640x380.jpg",
-    imageUrl:"https://www.somanovo.com/wp-content/uploads/2018/11/feature_prenatal-640x380.jpg"
+    imageUrl: "https://www.somanovo.com/wp-content/uploads/2018/11/feature_prenatal-640x380.jpg"
 
   },
   {
@@ -42,7 +42,7 @@ const spaOptions = [
     name: "Combined Massage",
     price: "250₪",
     url: "https://massageofsantafe.com/wp-content/uploads/2022/09/deep-tissue-massage.jpg",
-    imageUrl:"https://massageofsantafe.com/wp-content/uploads/2022/09/deep-tissue-massage.jpg"
+    imageUrl: "https://massageofsantafe.com/wp-content/uploads/2022/09/deep-tissue-massage.jpg"
 
   },
 ];
@@ -73,31 +73,32 @@ const SpaFacilities = [
 const SpaMainScreen = () => {
   const navigation = useNavigation();
 
-  const {language, facilities} = useContext(HotelsAppContext);
+  const { language, facilities, therapies } = useContext(HotelsAppContext);
   const screenContent = Languages.SpaMainScreen;
 
   return (
     <ScreenComponent
+      title={<View style={{flexDirection:"column", justifyContent:"center", width:"80%"}}><Text style={styles.title}>{screenContent.Spa[language]}</Text></View>}
       content={
         <ScrollView style={styles.container}>
-          <Text style={styles.title}>{screenContent.Spa[language]}</Text>
+          {/* <Text style={styles.title}>{screenContent.Spa[language]}</Text> */}
           <View><MyCarousel data={spaOptions} /></View>
           <View style={styles.view1}>
             <Text style={styles.text}>{screenContent.MassageTreatments[language]}</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("SpaTreatmenScreen")}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate("SpaTreatmenScreen")}>
               <Text style={styles.textBT}>{screenContent.ForMoreTreatments[language]}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={{ marginVertical: 10 }}>
             <ScrollView horizontal={true}>
-              {spaOptions.map((item) => (
-                <SmallCard key={item.id} item={item} />
+              {therapies.map((item) => (
+                <SmallCard key={item.therapyID} item={item} id={item.therapyID} type={"SPA"}/>
               ))}
             </ScrollView>
             <Text style={styles.textC}>{screenContent.TheSpaFacilities[language]}</Text>
             <ScrollView horizontal={true}>
               {facilities.map((item) => item.type === "SPA" && (
-                <SmallCard key={item.facilityID} item={item} />
+                <SmallCard key={item.facilityID} item={item} id={item.facilityID} />
               ))}
             </ScrollView>
           </View>
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     left: 8,
     fontWeight: "bold",
-    textAlign:"center"
+    textAlign: "center",
   },
   text: {
     fontSize: 17,

@@ -27,7 +27,7 @@ const PersonalPageScreen = () => {
 
   return (
     <ScreenComponent
-    topLeftButton={"none"}
+      topLeftButton={"none"}
       bottomMenu={true}
       content={
         <View>
@@ -52,7 +52,7 @@ const PersonalPageScreen = () => {
                 {screenContent.CheckOut[language]}
               </Text>
             </View>
-            <ButtonArrow navigate={"CheckOutScreen"} />
+            <ButtonArrow navigate={""} />
           </View>
 
           <View>
@@ -83,7 +83,7 @@ const PersonalPageScreen = () => {
                       </Text>
                     </View>
                     <View>
-                      <TouchableOpacity onPress={() => navigation.navigate("")}>
+                      <TouchableOpacity onPress={() => navigation.navigate("RoomCleaningScreen")}>
                         <ArrowRightCircleIcon
                           color={styles.arrow.color}
                           size={styles.arrow.fontSize}
@@ -104,7 +104,7 @@ const PersonalPageScreen = () => {
                       </Text>
                     </View>
                     <View>
-                      <TouchableOpacity onPress={() => ""}>
+                      <TouchableOpacity onPress={() => navigation.navigate("CustomRequestScreen")}>
                         <ArrowRightCircleIcon
                           color={styles.arrow.color}
                           size={styles.arrow.fontSize}
@@ -116,6 +116,14 @@ const PersonalPageScreen = () => {
                 </ListItem.Content>
               </ListItem>
             </ListItemAccordion>
+          </View>
+          <View style={styles.rowView}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.text}>
+                {screenContent.HotelNavigation[language]}
+              </Text>
+            </View>
+            <ButtonArrow navigate={"HotelNavigation"} />
           </View>
         </View>
       }

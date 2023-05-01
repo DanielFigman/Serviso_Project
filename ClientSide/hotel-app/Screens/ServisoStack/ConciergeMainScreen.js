@@ -66,14 +66,39 @@ const dataPerfactForYou = [
 const ConciergeMainScreen = () => {
   const navigation = useNavigation();
 
-  const {language} = useContext(HotelsAppContext);
+  const { language, activities_nearBy, activities_hotel } = useContext(HotelsAppContext);
   const screenContent = Languages.ConciergeMainScreen;
 
   return (
     <ScreenComponent
+      title={
+        <View style={styles.topView}>
+          <Text style={styles.titel}>Concierge</Text>
+          <Button
+            buttonStyle={{
+              backgroundColor: "#ffffff",
+              borderColor: "#000000",
+              borderWidth: 1,
+              borderRadius: 10,
+            }}
+            titleStyle={{ fontSize: 15, color: "#000000" }}
+            containerStyle={{
+            }}
+          >
+            {screenContent.Questionnaire[language]}
+          </Button>
+          <TouchableOpacity>
+            <HeartIcon
+              size={30}
+              style={{ marginHorizontal: 10, top: 5 }}
+              color={"black"}
+            />
+          </TouchableOpacity>
+        </View>
+      }
       content={
         <ScrollView>
-          <View style={styles.topView}>
+          {/* <View style={styles.topView}>
             <Text style={styles.titel}>Concierge</Text>
             <Button
               buttonStyle={{
@@ -96,7 +121,7 @@ const ConciergeMainScreen = () => {
                 color={"black"}
               />
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={styles.view1}>
             <Text style={styles.text}> {screenContent.QuestionnaireRecommendations[language]}</Text>
             <TouchableOpacity
@@ -106,7 +131,7 @@ const ConciergeMainScreen = () => {
             </TouchableOpacity>
           </View>
           <View>
-            <MyCarousel data={CarouselData.SpaCarousel} type={'default'} style={{width:"90%", alignSelf:"center", borderRadius:20, borderWidth:1}}/>
+            <MyCarousel data={activities_nearBy} type={'default'} style={{ width: "90%", alignSelf: "center", borderRadius: 20, borderWidth: 1 }} />
           </View>
           <View style={styles.view1}>
             <Text style={styles.text}> {screenContent.WithoutLeavingTheHotel[language]}</Text>
@@ -115,8 +140,8 @@ const ConciergeMainScreen = () => {
             </TouchableOpacity>
           </View>
           <ScrollView horizontal={true}>
-            {ActivitiesHotel.map((item) => (
-              <HotelActivityCarouselCard key={item.id} item={item} />
+            {activities_hotel.map((item) => (
+              <HotelActivityCarouselCard key={item.placeID} item={item} id={item.placeID} />
             ))}
           </ScrollView>
           <View style={styles.view1}>
@@ -126,8 +151,8 @@ const ConciergeMainScreen = () => {
             </TouchableOpacity>
           </View>
           <ScrollView horizontal={true} style={{ paddingBottom: -20 }}>
-            {dataPerfactForYou.map((item) => (
-              <ConciergeCarouselCard key={item.id} item={item} />
+            {activities_nearBy.map((item) => (
+              <ConciergeCarouselCard key={item.placeID} item={item} id={item.placeID} />
             ))}
           </ScrollView>
         </ScrollView>

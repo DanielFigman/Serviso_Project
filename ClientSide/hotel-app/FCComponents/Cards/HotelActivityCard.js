@@ -2,21 +2,32 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { Button } from "@rneui/base";
 import { HeartIcon } from "react-native-heroicons/outline";
+import { useNavigation } from "@react-navigation/native";
 
-const HotelActivityCard = ({ item }) => {
+const HotelActivityCard = ({ item, id }) => {
   const [favorite, setFavorite] = useState(item.favorite);
+  const navigation = useNavigation();
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("CardScreen", {
+      id,
+      name: item.name,
+      description: item.description,
+      openingHours: item.openingHours,
+      imageURL: item.imageURL,
+      price: "FREE",
+      rating: item.rating,
+      hallNum: item.HallNum,
+    })}>
       <View style={styles.rowView}>
         <Image
-          source={{ url: item.url }}
+          source={{ url: item.imageURL }}
           style={{ width: 90, height: 95, borderRadius: 20 }}
         />
         <View>
           <Text style={styles.titeltext}>{item.name}</Text>
           <Text numberOfLines={2} style={styles.text}>
-            {item.Description}
+            {item.description}
           </Text>
         </View>
         <View>

@@ -12,6 +12,7 @@ import ConciergeMainScreen from '../ServisoStack/ConciergeMainScreen';
 import HotelActivitiesScreen from '../ServisoStack/HotelActivitiesScreen';
 import SpaMainScreen from '../ServisoStack/SpaMainScreen';
 import CardScreen from '../ServisoStack/CardScreen';
+import SpaOrder from '../ServisoStack/SpaOrder';
 
 const ServisoScreenStack = () => {
   const Stack = createNativeStackNavigator();
@@ -35,6 +36,7 @@ const ServisoScreenStack = () => {
       <Stack.Screen name="HotelActivitiesScreen" component={HotelActivitiesScreen} />
       <Stack.Screen name="SpaMainScreen" component={SpaMainScreen}/>
       <Stack.Screen name="CardScreen" component={CardScreen} />
+      <Stack.Screen name="SpaOrder" component={SpaOrder} />
     </Stack.Navigator>
   )
 }

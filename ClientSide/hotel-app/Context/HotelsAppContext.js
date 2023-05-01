@@ -11,6 +11,8 @@ export default function HotelsAppContextProvider(props) {
     const [activities_hotel, setActivities_hotel] = useState(null);
     const [facilities, setFacilities] = useState(null);
     const [custom_Request_Types, setCustom_Request_Types] = useState(null);
+    const [therapies, setTherapies] = useState(null);
+    const [hotel, setHotel] = useState(null)
 
 
     return (
@@ -31,7 +33,11 @@ export default function HotelsAppContextProvider(props) {
                 facilities,
                 setFacilities,
                 custom_Request_Types,
-                setCustom_Request_Types
+                setCustom_Request_Types,
+                therapies, 
+                setTherapies,
+                hotel,
+                setHotel
             }}
         >
             {props.children}

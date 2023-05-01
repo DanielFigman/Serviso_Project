@@ -2,11 +2,23 @@ import { Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { Button } from "@rneui/base";
 import { HeartIcon } from "react-native-heroicons/outline";
+import { useNavigation } from "@react-navigation/native";
 
-const HotelActivityCarouselCard = ({ item }) => {
+const HotelActivityCarouselCard = ({ item, id}) => {
   const [favorite, setFavorite] = useState(item.favorite);
+
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("CardScreen", {
+      id,
+      name: item.name,
+      description: item.description,
+      openingHours: item.openingHours,
+      imageURL: item.imageURL,
+      price: "FREE",
+      rating: item.rating,
+      hallNum: item.HallNum,
+    })}>
       <View
         style={{
           margin: 5,
@@ -15,7 +27,7 @@ const HotelActivityCarouselCard = ({ item }) => {
         }}
       >
         <Image
-          source={{ uri: item.url }}
+          source={{ uri: item.imageURL }}
           style={{
             resizeMode: "cover",
             width: 180,
@@ -66,9 +78,9 @@ const HotelActivityCarouselCard = ({ item }) => {
                 width: 70,
                 padding: 2,
               }}
-              //   onPress={""}
+            //   onPress={""}
             >
-              Sing me up
+              Sign me up
             </Button>
           </View>
         </View>

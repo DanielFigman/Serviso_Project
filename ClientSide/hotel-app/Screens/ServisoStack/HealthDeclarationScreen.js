@@ -5,6 +5,7 @@ import HealthDeclarationCard from "../../FCComponents/Cards/HealthDeclarationCar
 import { useContext } from "react";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 import Languages from "../../Json_files/Languages";
+import ButtonMain from "../../FCComponents/Buttons";
 
 const HealthDetails = [
   {
@@ -27,7 +28,7 @@ const HealthDetails = [
 ];
 const HealthDeclarationScreen = () => {
 
-  const {language} = useContext(HotelsAppContext);
+  const { language } = useContext(HotelsAppContext);
   const screenContent = Languages.HealthDeclarationScreen;
 
 
@@ -42,13 +43,16 @@ const HealthDeclarationScreen = () => {
           <View style={styles.row}>
             <View style={{ flex: 1 }}>
               <Text style={styles.text}>
-              {screenContent.DoYouHaveAnyOfTheFollowingConditions[language]}
+                {screenContent.DoYouHaveAnyOfTheFollowingConditions[language]}
               </Text>
             </View>
           </View>
           {HealthDetails.map((item) => (
             <HealthDeclarationCard key={item.id} item={item} />
           ))}
+          <View style={{marginTop:20, paddingBottom:20}}>
+            <ButtonMain text={"NEXT"} navigate={"SpaConfirmationScreen"} />
+          </View>
         </ScrollView>
       }
     />

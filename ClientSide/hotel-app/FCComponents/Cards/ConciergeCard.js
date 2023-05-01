@@ -3,28 +3,30 @@ import React, { useState } from "react";
 import { Button } from "@rneui/base";
 import { HeartIcon } from "react-native-heroicons/outline";
 
-const ConciergeCard = ({ item }) => {
+const ConciergeCard = ({ item, id }) => {
   const [favorite, setFavorite] = useState(item.favorite);
   return (
     <TouchableOpacity>
-      <View style={styles.rowView}>
-        <Image
-          source={{ url: item.url }}
-          style={{ width: 90, height: 90, borderRadius: 20 }}
-        />
-        <View>
+      <View style={[styles.rowView, {width:"100%"}]}>
+        <View style={{width:"20%"}}>
+          <Image
+            source={{ url: item.imageURL }}
+            style={{ height: 90, borderRadius: 20 }}
+          />
+        </View>
+        <View style={{width:"60%"}}>
           <Text style={styles.titeltext}>{item.name}</Text>
           <Text numberOfLines={2} style={styles.text}>
-            {item.Details}
+            {item.description}
           </Text>
           <Text style={styles.text}>{item.price}</Text>
         </View>
-        <View>
+        <View style={{width:"20%"}}>
           <TouchableOpacity onPress={() => setFavorite(!favorite)}>
             <HeartIcon
               size={30}
               color={favorite ? "red" : "black"}
-              style={{ top: -25, left: 30 }}
+              style={{ top: -25, left: 20 }}
             />
           </TouchableOpacity>
 
@@ -37,12 +39,11 @@ const ConciergeCard = ({ item }) => {
             }}
             titleStyle={{ fontSize: 15, color: "#ffffff" }}
             containerStyle={{
-              width: 65,
               position: "absolute",
-              right: -45,
+              right: 20,
               top: 10,
             }}
-            //   onPress={""}
+          //   onPress={""}
           >
             Call
           </Button>
@@ -63,7 +64,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     flex: 1,
     paddingLeft: 8,
-    width: 200,
   },
   rowView: {
     flexDirection: "row",

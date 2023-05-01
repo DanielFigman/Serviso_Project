@@ -3,6 +3,8 @@ import "react-native-vector-icons/FontAwesome";
 import { useContext, useState } from "react";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
 import Languages from "../../Json_files/Languages";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
+import ButtonMain from "../../FCComponents/Buttons";
 
 const SpaConfirmationScreen = () => {
   const [treatmentType, setTreatmentType] = useState("Deep Tissue Massage");
@@ -11,11 +13,11 @@ const SpaConfirmationScreen = () => {
   const [hour, setHour] = useState("16:00");
   const [price, setPrice] = useState("300");
 
-  const {language} = useContext(HotelsAppContext);
+  const { language } = useContext(HotelsAppContext);
   const screenContent = Languages.SpaConfirmationScreen;
 
   return (
-    <ScreenComponent
+    <ScreenComponent topLeftButton={"none"}
       content={
         <View>
           <Image
@@ -38,6 +40,9 @@ const SpaConfirmationScreen = () => {
             <Text style={styles.text}>{date}</Text>
             <Text style={styles.text}>{hour}</Text>
             <Text style={styles.text}>{price}₪</Text>
+          </View>
+          <View style={{marginTop:50}}>
+            <ButtonMain text={"Continue"} navigate={"HomeScreen"} />
           </View>
         </View>
       }

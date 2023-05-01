@@ -5,14 +5,15 @@ import ScreenComponent from "../../FCComponents/ScreenComponent";
 import { ScrollView } from "react-native-gesture-handler";
 import Languages from "../../Json_files/Languages";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import ButtonMain from "../../FCComponents/Buttons";
 
 
 const { height } = Dimensions.get('window');
 
 const CardScreen = () => {
 
-
+    const navigation = useNavigation();
 
     const { params: {
         name,
@@ -21,7 +22,12 @@ const CardScreen = () => {
         rating,
         address,
         phone,
-        imageURL
+        imageURL,
+        price,
+        basePrice,
+        priceForAdditional15,
+        hallNum,
+        buttonType
     } } = useRoute();
 
     const screenContent = Languages.CardScreen;
@@ -29,25 +35,25 @@ const CardScreen = () => {
     const { language } = useContext(HotelsAppContext)
 
     const newTop = () => {
-        const MAX_WIDTH = Dimensions.get("window").width - 20;
+        const MAX_WIDTH = Dimensions.get("window").width;
         const nameWidth = name.length * 25; // 25 is an estimated width per character
         if (nameWidth > MAX_WIDTH) {
-          return { top: -110 };
+            return { top: -110 };
         } else {
-          return { top: -50 };
+            return { top: -50 };
         }
-      };
-      
+    };
+
 
     return (
         <ScreenComponent
-            topLeftButtonStyle={{ position: "absolute", top: 50, zIndex: 1 }}
+            topLeftButtonStyle={{ position: "absolute", zIndex: 1 }}
             topLeftButtonColor={"black"}
             content={
                 <View>
                     <View style={{ width: "100%", height: 300, top: -height * 0.07 }}>
                         <Image
-                            style={{width:"100%", height:"100%"}}
+                            style={{ width: "100%", height: "100%" }}
                             source={{
                                 url: imageURL,
                             }}
@@ -55,9 +61,15 @@ const CardScreen = () => {
                         <Text style={[styles.titel, newTop()]}>{name}</Text>
                     </View>
                     <ScrollView style={{ top: -height * 0.07 }}>
-                        <Text style={styles.titelText1}>{screenContent.Description[language]}</Text>
-                        <Text style={styles.text}>{description}</Text>
-                        <View style={{ paddingBottom: 60, left: -5 }}>
+                        {description ?
+                            <>
+                                <Text style={styles.titelText1}>{screenContent.Description[language]}</Text>
+                                <Text style={styles.text}>{description}</Text>
+                            </>
+                            :
+                            ""
+                        }
+                        <View style={{ paddingBottom: 250, left: -5 }}>
                             {openingHours ?
 
                                 <View style={styles.row}>
@@ -90,6 +102,48 @@ const CardScreen = () => {
                                 </View>
                                 :
                                 ""
+                            }
+                            {price ?
+
+                                <View style={styles.row}>
+                                    <Text style={styles.titelText}>{screenContent.Price[language]}</Text>
+                                    <Text style={styles.text}>{price}{price !== "FREE" ? "₪" : ""}</Text>
+                                </View>
+                                :
+                                ""
+                            }
+                            {basePrice ?
+
+                                <View style={styles.row}>
+                                    <Text style={styles.titelText}>{screenContent.BasePrice[language]}</Text>
+                                    <Text style={styles.text}>{basePrice}₪</Text>
+                                </View>
+                                :
+                                ""
+                            }
+                            {priceForAdditional15 ?
+
+                                <View style={styles.row}>
+                                    <Text style={styles.titelText}>{screenContent.PriceForAdditional15Minutes[language]}</Text>
+                                    <Text style={styles.text}>{priceForAdditional15}₪</Text>
+                                </View>
+                                :
+                                ""
+                            }
+                            {hallNum ?
+
+                                <View style={styles.row}>
+                                    <Text style={styles.titelText}>{screenContent.HallNum[language]}</Text>
+                                    <Text style={styles.text}>{hallNum}</Text>
+                                </View>
+                                :
+                                ""
+                            }
+                            {
+                                buttonType === "SPA" ?
+                                    <ButtonMain text={"Pick this"} buttonStyle={{ marginTop: 75 }} onPress={()=> navigation.navigate("SpaOrder") } />
+                                    :
+                                    ""
                             }
                         </View>
                     </ScrollView>

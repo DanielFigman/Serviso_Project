@@ -2,16 +2,21 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const SmallCard = ({ item }) => {
+const SmallCard = ({ item, id, type}) => {
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate("CardScreen", {
+      id,
       name: item.name,
       description: item.description,
       openingHours: item.openingHours,
       imageURL: item.imageURL,
-      phone: item.contactNumber
+      phone: item.contactNumber,
+      price: item.price,
+      basePrice: item.basePrice,
+      priceForAdditional15: item.priceForAdditional15,
+      buttonType: type
     })}>
       <View
         style={{
@@ -44,7 +49,7 @@ const SmallCard = ({ item }) => {
               fontSize: 17,
             }}
           >
-            {item.price}
+            {item.price ? item.price + "₪" : ""}
           </Text>
         </View>
       </View>
