@@ -27,7 +27,8 @@ namespace DATA
         public List<ActivityNearByDTO> activities_nearBy { get; set; }
         public List<ActivityHotelDTO> activities_hotel { get; set; }
         public List<FacilityDTO> facilities { get; set; }
-        public List<Custom_Request_Type_DTO> Custom_Request_Types { get; set; }
+        public List<Custom_Request_Type_DTO> custom_Request_Types { get; set; }
+        public List<TherapyDTO> therapies { get; set; }
 
 
         public void SetLoginDTO(User user ,Order order)
@@ -48,7 +49,8 @@ namespace DATA
             activities_nearBy = GetActivitiesNearBy(hotel.landmark);
             activities_hotel = GetActivitiesHotel(hotel.hotelID);
             facilities = GetFacilities(hotel);
-            Custom_Request_Types = GetCustomTypes();
+            custom_Request_Types = GetCustomTypes();
+            therapies = GetTherapies(hotel.hotelID);
         }
 
         private List<ActivityNearByDTO> GetActivitiesNearBy(string landmark)
@@ -159,6 +161,25 @@ namespace DATA
                     Custom_Request_Type_DTO cr = new Custom_Request_Type_DTO();
                     cr.setCustom_Request_Type_DTO(x);
                     retVal.Add(cr);
+                });
+            }
+
+            return retVal;
+        }
+
+        private List<TherapyDTO> GetTherapies(int hotelID)
+        {
+            List<Therapy> therapies = db.Therapies.Where(t => t.hotelID == hotelID).ToList();
+
+            List<TherapyDTO> retVal = new List<TherapyDTO>();
+
+            if(therapies.Count() > 0)
+            {
+                therapies.ForEach(x =>
+                {
+                    TherapyDTO td = new TherapyDTO();
+                    td.SetTherapyDTO(x);
+                    retVal.Add(td);
                 });
             }
 

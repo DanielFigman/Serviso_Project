@@ -133,6 +133,7 @@
     <Compile Include="DTO\HouseCustomRequestDTO.cs" />
     <Compile Include="DTO\LoginAdminDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
+    <Compile Include="DTO\TherapyDTO.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

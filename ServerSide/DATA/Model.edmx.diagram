@@ -27,7 +27,6 @@
         <EntityTypeShape EntityType="igroup197_test1Model.Food_And_Drinks_Room_Service" Width="1.5" PointX="20" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Free_Queue" Width="1.5" PointX="15" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Guest" Width="1.5" PointX="3" PointY="25.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Health_Declaration" Width="1.5" PointX="15" PointY="29" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Hot_Cold_Drinks" Width="1.5" PointX="17" PointY="25.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Hotel" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.HouseHold_Cleaning_Request" Width="1.5" PointX="15" PointY="35" IsExpanded="true" />
@@ -79,7 +78,6 @@
         <AssociationConnector Association="igroup197_test1Model.fk_Free_Queue_RoleID" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Guest__email__286302EC" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Order__email__2D27B809" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.fk_Health_Declaration_RequestID" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Order__hotelID__2E1BDC42" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Room__hotelID__6754599E" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__HouseHold__reque__09A971A2" ManuallyRouted="false" />
@@ -114,6 +112,8 @@
         <EntityTypeShape EntityType="igroup197_test1Model.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="igroup197_test1Model.Facility" Width="1.5" PointX="3" PointY="14" />
         <AssociationConnector Association="igroup197_test1Model.FK__Facility__hotelI__6477ECF3" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Health_Declaration" Width="1.5" PointX="15" PointY="28.375" />
+        <AssociationConnector Association="igroup197_test1Model.fk_Health_Declaration_RequestID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

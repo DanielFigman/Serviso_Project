@@ -17,13 +17,20 @@ namespace DATA
         public int requestID { get; set; }
         public int participantID { get; set; }
         public string name { get; set; }
-        public Nullable<bool> smoking { get; set; }
-        public Nullable<bool> blood_pressure { get; set; }
-        public Nullable<bool> diabetes { get; set; }
-        public Nullable<bool> pregnancy { get; set; }
-        public Nullable<bool> surgery { get; set; }
-        public Nullable<bool> antibiotics { get; set; }
-        public Nullable<bool> regular_medicat { get; set; }
+        public Nullable<bool> Back_problems { get; set; }
+        public Nullable<bool> High_low_blood_pressure { get; set; }
+        public Nullable<bool> Diabetes { get; set; }
+        public Nullable<bool> Pregnancy { get; set; }
+        public Nullable<bool> Pain_in_any_area { get; set; }
+        public Nullable<bool> Under_any_medication { get; set; }
+        public Nullable<bool> Asthma { get; set; }
+        public Nullable<bool> Nerve_damage { get; set; }
+        public Nullable<bool> Cancer { get; set; }
+        public Nullable<bool> Epilepsy { get; set; }
+        public Nullable<bool> Breast_feeding { get; set; }
+        public Nullable<bool> Headaches_Migraines { get; set; }
+        public Nullable<bool> Other { get; set; }
+        public Nullable<bool> Allergies { get; set; }
     
         public virtual Spa_Order Spa_Order { get; set; }
     }

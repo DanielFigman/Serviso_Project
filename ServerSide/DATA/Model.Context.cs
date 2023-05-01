@@ -47,7 +47,6 @@ namespace DATA
         public virtual DbSet<Food_And_Drinks_Room_Service> Food_And_Drinks_Room_Service { get; set; }
         public virtual DbSet<Free_Queue> Free_Queue { get; set; }
         public virtual DbSet<Guest> Guests { get; set; }
-        public virtual DbSet<Health_Declaration> Health_Declaration { get; set; }
         public virtual DbSet<Hot_Cold_Drinks> Hot_Cold_Drinks { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<HouseHold_Cleaning_Request> HouseHold_Cleaning_Request { get; set; }
@@ -74,5 +73,6 @@ namespace DATA
         public virtual DbSet<WorkingInShift> WorkingInShifts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Facility> Facilities { get; set; }
+        public virtual DbSet<Health_Declaration> Health_Declaration { get; set; }
     }
 }

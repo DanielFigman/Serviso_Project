@@ -254,13 +254,20 @@
           <Property Name="requestID" Type="int" Nullable="false" />
           <Property Name="participantID" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" />
-          <Property Name="smoking" Type="bit" />
-          <Property Name="blood_pressure" Type="bit" />
-          <Property Name="diabetes" Type="bit" />
-          <Property Name="pregnancy" Type="bit" />
-          <Property Name="surgery" Type="bit" />
-          <Property Name="antibiotics" Type="bit" />
-          <Property Name="regular_medicat" Type="bit" />
+          <Property Name="Back problems" Type="bit" />
+          <Property Name="High/low blood pressure" Type="bit" />
+          <Property Name="Diabetes" Type="bit" />
+          <Property Name="Pregnancy" Type="bit" />
+          <Property Name="Pain in any area" Type="bit" />
+          <Property Name="Under any medication" Type="bit" />
+          <Property Name="Asthma" Type="bit" />
+          <Property Name="Nerve damage" Type="bit" />
+          <Property Name="Cancer" Type="bit" />
+          <Property Name="Epilepsy" Type="bit" />
+          <Property Name="Breast feeding" Type="bit" />
+          <Property Name="Headaches/Migraines" Type="bit" />
+          <Property Name="Other" Type="bit" />
+          <Property Name="Allergies" Type="bit" />
         </EntityType>
         <EntityType Name="Hot_Cold_Drinks">
           <Key>
@@ -502,6 +509,7 @@
           <Property Name="tags" Type="nvarchar(max)" />
           <Property Name="priceForAdditional15" Type="float" />
           <Property Name="imageURL" Type="nvarchar(max)" />
+          <Property Name="hotelID" Type="int" />
         </EntityType>
         <EntityType Name="Therapy_Knowledge">
           <Key>
@@ -1932,23 +1940,6 @@
           <NavigationProperty Name="User" Relationship="Self.FK__Guest__email__286302EC" FromRole="Guest" ToRole="User" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__email__2D27B809" FromRole="Guest" ToRole="Order" />
         </EntityType>
-        <EntityType Name="Health_Declaration">
-          <Key>
-            <PropertyRef Name="requestID" />
-            <PropertyRef Name="participantID" />
-          </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
-          <Property Name="participantID" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="smoking" Type="Boolean" />
-          <Property Name="blood_pressure" Type="Boolean" />
-          <Property Name="diabetes" Type="Boolean" />
-          <Property Name="pregnancy" Type="Boolean" />
-          <Property Name="surgery" Type="Boolean" />
-          <Property Name="antibiotics" Type="Boolean" />
-          <Property Name="regular_medicat" Type="Boolean" />
-          <NavigationProperty Name="Spa_Order" Relationship="Self.fk_Health_Declaration_RequestID" FromRole="Health_Declaration" ToRole="Spa_Order" />
-        </EntityType>
         <EntityType Name="Hot_Cold_Drinks">
           <Key>
             <PropertyRef Name="ID" />
@@ -2148,10 +2139,10 @@
           <Property Name="requestID" Type="Int32" Nullable="false" />
           <Property Name="numOfParticipants" Type="Int32" />
           <Property Name="genderRequest" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Health_Declaration" Relationship="Self.fk_Health_Declaration_RequestID" FromRole="Spa_Order" ToRole="Health_Declaration" />
           <NavigationProperty Name="Request" Relationship="Self.fk_Spa_Order_RequestID" FromRole="Spa_Order" ToRole="Request" />
           <NavigationProperty Name="Spa_Order_Active" Relationship="Self.fk_Spa_Order_Active_RequestID" FromRole="Spa_Order" ToRole="Spa_Order_Active" />
           <NavigationProperty Name="Therapist_IN_Therapy" Relationship="Self.fk_Therapist_IN_Therapy_RequestID" FromRole="Spa_Order" ToRole="Therapist_IN_Therapy" />
+          <NavigationProperty Name="Health_Declaration" Relationship="igroup197_test1Model.fk_Health_Declaration_RequestID" FromRole="Spa_Order" ToRole="Health_Declaration" />
         </EntityType>
         <EntityType Name="Spa_Order_Active">
           <Key>
@@ -2212,6 +2203,7 @@
           <NavigationProperty Name="Therapy_Knowledge" Relationship="Self.fk_Therapy_Knowledge_Therapy" FromRole="Therapy" ToRole="Therapy_Knowledge" />
           <NavigationProperty Name="Therapy_Room" Relationship="Self.Room_Allowed" FromRole="Therapy" ToRole="Therapy_Room" />
           <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hotelID" Type="Int32" />
         </EntityType>
         <EntityType Name="Therapy_Knowledge">
           <Key>
@@ -2594,18 +2586,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Health_Declaration_RequestID">
-          <End Role="Spa_Order" Type="Self.Spa_Order" Multiplicity="1" />
-          <End Role="Health_Declaration" Type="Self.Health_Declaration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Spa_Order">
-              <PropertyRef Name="requestID" />
-            </Principal>
-            <Dependent Role="Health_Declaration">
-              <PropertyRef Name="requestID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Order__hotelID__2E1BDC42">
           <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -2945,7 +2925,6 @@
           <EntitySet Name="Food_And_Drinks_Room_Service" EntityType="Self.Food_And_Drinks_Room_Service" />
           <EntitySet Name="Free_Queue" EntityType="Self.Free_Queue" />
           <EntitySet Name="Guests" EntityType="Self.Guest" />
-          <EntitySet Name="Health_Declaration" EntityType="Self.Health_Declaration" />
           <EntitySet Name="Hot_Cold_Drinks" EntityType="Self.Hot_Cold_Drinks" />
           <EntitySet Name="Hotels" EntityType="Self.Hotel" />
           <EntitySet Name="HouseHold_Cleaning_Request" EntityType="Self.HouseHold_Cleaning_Request" />
@@ -3078,10 +3057,6 @@
             <End Role="Guest" EntitySet="Guests" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="fk_Health_Declaration_RequestID" Association="Self.fk_Health_Declaration_RequestID">
-            <End Role="Spa_Order" EntitySet="Spa_Order" />
-            <End Role="Health_Declaration" EntitySet="Health_Declaration" />
-          </AssociationSet>
           <AssociationSet Name="FK__Order__hotelID__2E1BDC42" Association="Self.FK__Order__hotelID__2E1BDC42">
             <End Role="Hotel" EntitySet="Hotels" />
             <End Role="Order" EntitySet="Orders" />
@@ -3212,6 +3187,11 @@
             <End Role="Hotel" EntitySet="Hotels" />
             <End Role="Facility" EntitySet="Facilities" />
           </AssociationSet>
+          <EntitySet Name="Health_Declaration" EntityType="igroup197_test1Model.Health_Declaration" />
+          <AssociationSet Name="fk_Health_Declaration_RequestID" Association="igroup197_test1Model.fk_Health_Declaration_RequestID">
+            <End Role="Spa_Order" EntitySet="Spa_Order" />
+            <End Role="Health_Declaration" EntitySet="Health_Declaration" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -3246,6 +3226,42 @@
             </Principal>
             <Dependent Role="Facility">
               <PropertyRef Name="hotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Health_Declaration">
+          <Key>
+            <PropertyRef Name="requestID" />
+            <PropertyRef Name="participantID" />
+          </Key>
+          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="participantID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Back_problems" Type="Boolean" />
+          <Property Name="High_low_blood_pressure" Type="Boolean" />
+          <Property Name="Diabetes" Type="Boolean" />
+          <Property Name="Pregnancy" Type="Boolean" />
+          <Property Name="Pain_in_any_area" Type="Boolean" />
+          <Property Name="Under_any_medication" Type="Boolean" />
+          <Property Name="Asthma" Type="Boolean" />
+          <Property Name="Nerve_damage" Type="Boolean" />
+          <Property Name="Cancer" Type="Boolean" />
+          <Property Name="Epilepsy" Type="Boolean" />
+          <Property Name="Breast_feeding" Type="Boolean" />
+          <Property Name="Headaches_Migraines" Type="Boolean" />
+          <Property Name="Other" Type="Boolean" />
+          <Property Name="Allergies" Type="Boolean" />
+          <NavigationProperty Name="Spa_Order" Relationship="igroup197_test1Model.fk_Health_Declaration_RequestID" FromRole="Health_Declaration" ToRole="Spa_Order" />
+        </EntityType>
+        <Association Name="fk_Health_Declaration_RequestID">
+          <End Type="igroup197_test1Model.Spa_Order" Role="Spa_Order" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Health_Declaration" Role="Health_Declaration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spa_Order">
+              <PropertyRef Name="requestID" />
+            </Principal>
+            <Dependent Role="Health_Declaration">
+              <PropertyRef Name="requestID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3472,22 +3488,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Health_Declaration">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Health_Declaration">
-              <MappingFragment StoreEntitySet="Health_Declaration">
-                <ScalarProperty Name="requestID" ColumnName="requestID" />
-                <ScalarProperty Name="participantID" ColumnName="participantID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="smoking" ColumnName="smoking" />
-                <ScalarProperty Name="blood_pressure" ColumnName="blood_pressure" />
-                <ScalarProperty Name="diabetes" ColumnName="diabetes" />
-                <ScalarProperty Name="pregnancy" ColumnName="pregnancy" />
-                <ScalarProperty Name="surgery" ColumnName="surgery" />
-                <ScalarProperty Name="antibiotics" ColumnName="antibiotics" />
-                <ScalarProperty Name="regular_medicat" ColumnName="regular_medicat" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Hot_Cold_Drinks">
             <EntityTypeMapping TypeName="igroup197_test1Model.Hot_Cold_Drinks">
               <MappingFragment StoreEntitySet="Hot_Cold_Drinks">
@@ -3691,6 +3691,7 @@
           <EntitySetMapping Name="Therapies">
             <EntityTypeMapping TypeName="igroup197_test1Model.Therapy">
               <MappingFragment StoreEntitySet="Therapy">
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
                 <ScalarProperty Name="imageURL" ColumnName="imageURL" />
                 <ScalarProperty Name="therapyID" ColumnName="therapyID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -3825,6 +3826,29 @@
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="facilityID" ColumnName="facilityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Health_Declaration">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Health_Declaration">
+              <MappingFragment StoreEntitySet="Health_Declaration">
+                <ScalarProperty Name="Allergies" ColumnName="Allergies" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="Headaches_Migraines" ColumnName="Headaches/Migraines" />
+                <ScalarProperty Name="Breast_feeding" ColumnName="Breast feeding" />
+                <ScalarProperty Name="Epilepsy" ColumnName="Epilepsy" />
+                <ScalarProperty Name="Cancer" ColumnName="Cancer" />
+                <ScalarProperty Name="Nerve_damage" ColumnName="Nerve damage" />
+                <ScalarProperty Name="Asthma" ColumnName="Asthma" />
+                <ScalarProperty Name="Under_any_medication" ColumnName="Under any medication" />
+                <ScalarProperty Name="Pain_in_any_area" ColumnName="Pain in any area" />
+                <ScalarProperty Name="Pregnancy" ColumnName="Pregnancy" />
+                <ScalarProperty Name="Diabetes" ColumnName="Diabetes" />
+                <ScalarProperty Name="High_low_blood_pressure" ColumnName="High/low blood pressure" />
+                <ScalarProperty Name="Back_problems" ColumnName="Back problems" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="participantID" ColumnName="participantID" />
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
