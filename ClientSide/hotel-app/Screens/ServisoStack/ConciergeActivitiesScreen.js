@@ -21,7 +21,7 @@ const ConciergeActivitiesScreen = () => {
         <ScrollView>
 
           {activities_nearBy.map((item) => (
-            <ConciergeCard key={item.PlaceID} item={item} id={item.placeID}/>
+            <ConciergeCard key={item.placeID} item={item} id={item.placeID}/>
           ))}
         </ScrollView>
       }
