@@ -27,7 +27,7 @@ const MyCarousel = ({data, type, style, cardStyle}) => {
             }}
             autoPlayInterval={2500}
             renderItem={({ item }) => (
-                <BigCard item={item} cardStyle={cardStyle} id={item.placeID}/>
+                <BigCard key={item.placeID} item={item} cardStyle={cardStyle} id={item.placeID}/>
             )}
             style={style}
         />
