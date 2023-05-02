@@ -16,12 +16,16 @@ export default function NewCheckInScreen() {
     const screenContent = Languages.NewCheckInScreen;
 
     const fullName = user.fName + " " + user.sName;
-    const checkIN = order.checkInDate;
-    const checkOut = order.checkOurDate;
+    const checkIN = new Date(order.checkInDate);
+    const checkOut = new Date(order.checkOutDate);
     const estimatedPrice = "$1245.64";
     const imageURL = hotel.imageURL;
 
-    const hotelName = hotel.Name;
+    const hotelName = hotel.name;
+
+    const formattedCheckInDate = checkIN.toLocaleDateString('en-GB');
+    const formattedCheckOutDate = checkOut.toLocaleDateString('en-GB');
+
 
     return (
         <ScreenComponent
@@ -46,8 +50,8 @@ export default function NewCheckInScreen() {
                     <View style={{ marginTop: -lowerViewMarginTop }}>
                         <Text style={styles.commentText}>{screenContent.PleaseReviewYourReservation[language]}</Text>
                         <ReservationCard title={screenContent.Name[language]} value={fullName} />
-                        <ReservationCard title={screenContent.CheckIn[language]} value={checkIN} />
-                        <ReservationCard title={screenContent.CheckOut[language]} value={checkOut} />
+                        <ReservationCard title={screenContent.CheckIn[language]} value={formattedCheckInDate} />
+                        <ReservationCard title={screenContent.CheckOut[language]} value={formattedCheckOutDate} />
                         <ReservationCard title={screenContent.EstimatedTotal[language]} value={estimatedPrice} />
                         <ButtonMain text={screenContent.Next[language]} buttonStyle={{ marginTop: 20, height: 40, padding: 0 }} textStyle={{ fontSize: 25 }} navigate={"PaymentScreen"} />
                     </View>
