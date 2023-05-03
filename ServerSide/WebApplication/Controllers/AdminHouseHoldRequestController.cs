@@ -38,5 +38,32 @@ namespace WebApplication.Controllers
                 return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
             }
         }
+
+
+
+        [HttpPut]
+        [Route("api/CloseOpenRequest")]
+
+        public IHttpActionResult Put([FromUri] int requestID)
+        {
+            try
+            {
+                Request request = db.Requests.FirstOrDefault(r => r.requestID == requestID);
+        
+                if (request != null)
+                {
+                    request.CloseOpenRequest();
+
+                    return Ok();
+                }
+
+                throw new NonExistingRequest(requestID);
+
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
     }
 }

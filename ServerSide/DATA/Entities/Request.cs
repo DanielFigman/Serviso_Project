@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,22 @@ namespace DATA
             }
 
             return true;
+        }
+
+        public void CloseOpenRequest()
+        {
+            status = "CLOSED";
+
+            try
+            {
+                db.Requests.AddOrUpdate(this);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

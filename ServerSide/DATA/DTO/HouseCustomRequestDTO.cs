@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,24 +9,60 @@ namespace DATA
 {
     public class HouseCustomRequestDTO
     {
+        private readonly hotelAppDBContext db = new hotelAppDBContext();
+
         public int requestID { get; set; }
         public int amount { get; set; }
         public string name { get; set; }
         public bool isMarked { get; set; }
-        public Nullable<System.DateTime> requestDate { get; set; }
-        public Nullable<System.TimeSpan> requestHour { get; set; }
+        public int roomNumber { get; set; }
+        public DateTime? requestDate { get; set; }
+        public TimeSpan? requestHour { get; set; }
 
 
         public void SetHouseCustomRequestDTO(HouseHold_Custom_Request request)
         {
             Request r = request.HouseHold_Request.Request;
-
+  
             requestID = request.requestID;
             amount = request.amount;
-            name = request.Custom_Request_Types.name;
+            name = GetCustomRequestName(request);
             isMarked = false;
             requestDate = r.requestDate;
             requestHour = r.requestHour;
+            roomNumber = GetRoomNumber(r);
+        }
+
+
+        private string GetCustomRequestName(HouseHold_Custom_Request request)
+        {
+            int typeCustom = db.Custom_Request_Types.FirstOrDefault(c => c.name == "CUSTOM").typeID;
+            string retVal = "";
+
+            if(request.typeID == typeCustom)
+            {
+                retVal = request.description ?? "";
+            }
+            else
+            {
+                retVal = name;
+            }
+
+            return retVal;
+        }
+
+        private int GetRoomNumber(Request request)
+        {
+            Order o = request.Request_In_Order.FirstOrDefault().Order;
+
+            int roomNumber = -1;
+
+            if (o != null)
+            {
+                roomNumber = o.Rooms.FirstOrDefault().roomNum;
+            }
+
+            return roomNumber;
         }
     }
 }
