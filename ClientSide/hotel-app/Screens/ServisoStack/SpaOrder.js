@@ -14,10 +14,10 @@ const SpaOrder = () => {
     const [doubleRoom, setDoubleRoom] = useState(false);
     const [selectedQueue, setSelectedQueue] = useState(null);
     const [availableAppointments, setAvailableAppointments] = useState([
-        { date: '2023-04-30', time: '10:00', gender: 'male', duration: 45, doubleRoom: false, queue: 'queue1' },
-        { date: '2023-04-30', time: '11:00', gender: 'female', duration: 60, doubleRoom: true, queue: 'queue1' },
-        { date: '2023-04-30', time: '12:00', gender: 'male', duration: 75, doubleRoom: false, queue: 'queue2' },
-        { date: '2023-04-30', time: '13:00', gender: 'female', duration: 90, doubleRoom: true, queue: 'queue2' },
+        { date: '2023-05-30', time: '10:00', gender: 'male', duration: 45, doubleRoom: false, queue: 'queue1' },
+        { date: '2023-05-30', time: '11:00', gender: 'female', duration: 60, doubleRoom: true, queue: 'queue1' },
+        { date: '2023-05-30', time: '12:00', gender: 'male', duration: 75, doubleRoom: false, queue: 'queue2' },
+        { date: '2023-05-30', time: '13:00', gender: 'female', duration: 90, doubleRoom: true, queue: 'queue2' },
     ]);
     const [availableQueues, setAvailableQueues] = useState([]);
 

@@ -15,10 +15,10 @@ const items = [
     { id: 10, name: 'Pillow', img: require('../assets/Pillow.png') },
 ];
 
-const CustomRequestCarusel = () => {
+const   CustomRequestCarusel = () => {
     return (
         <View>
-            <ScrollView horizontal={true}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                 {items.map(item =>
                     <CustomRequestCard key={item.id} item={item} />
                 )}

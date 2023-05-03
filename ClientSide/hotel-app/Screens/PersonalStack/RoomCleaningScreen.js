@@ -27,11 +27,14 @@ const RoomCleaningScreen = () => {
 
     return (
         <ScreenComponent
+            title={
+                <Text style={{ fontWeight: 'bold', fontSize: 30, marginHorizontal:30}}>Cleaning schedule</Text>
+
+            }
             content={
                 <View style={styles.container}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 40, margin: 10 }}>Room cleaning schedule</Text>
-                    <View style={{ backgroundColor: '#F0E8E6', padding: 10, marginTop:100}}>
-                        <View style={{ flexDirection: 'row', paddingBottom: 70}}>
+                    <View style={{ backgroundColor: '#F0E8E6', padding: 10, marginTop: 100 }}>
+                        <View style={[{ flexDirection: 'row', paddingBottom: 70,zIndex:1 }, isEnabled && {opacity: 0.2, pointerEvents: "none"}]}>
                             <View style={styles.pickerContainer}>
                                 <Text style={styles.label}>Hour</Text>
                                 <Picker
@@ -69,7 +72,7 @@ const RoomCleaningScreen = () => {
                             </View>
                         </View>
                     </View>
-                    <ButtonMain text={"NEXT"} onPress={handleContinue} buttonStyle={{marginTop:50}}/>
+                    <ButtonMain text={"NEXT"} onPress={handleContinue} buttonStyle={{ marginTop: 50 }} />
                 </View>
             }
         />

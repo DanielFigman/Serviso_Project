@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, View, Text, Button, Platform, StyleSheet, Switch, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { Dimensions, View, Text, Button, Platform, StyleSheet, Switch, TouchableOpacity, ScrollView, SafeAreaView, Pressable } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import CustomRequestCarusel from '../../FCComponents/CustomRequestCarusel';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
@@ -46,18 +46,20 @@ const CustomRequestScreen = () => {
 
     return (
         <ScreenComponent
+            title={
+                <Text
+                    style={{
+                        fontWeight: 'bold',
+                        fontSize: 30,
+                        marginHorizontal: 80
+                    }}>
+                    New request
+                </Text>}
             content={
                 <>
                     <View style={styles.container}>
-                        <Text
-                            style={{
-                                fontWeight: 'bold',
-                                fontSize: 40,
-                                marginTop: 30
-                            }}>
-                            New request
-                        </Text>
-                        <View style={{ marginTop: 150, height: "100%" }}>
+
+                        <View style={{ marginTop: 80, height: "100%" }}>
                             <CustomRequestCarusel />
                         </View>
                         <View style={{ height: 50, width: 120, marginTop: 50, right: '18%', top: -290, marginBottom: 10 }}>
@@ -81,7 +83,7 @@ const CustomRequestScreen = () => {
                                 <View style={[styles.pickerContainer, { opacity: isEnabled ? 0.5 : 1 }]}>
                                     <Text style={styles.label}>Hour</Text>
                                     <Picker
-                                        style={[styles.picker, isEnabled && { opacity: 0.5 }]}
+                                        style={[styles.picker, isEnabled && { opacity: 0.5, pointerEvents: "none" }]}
                                         selectedValue={hour}
                                         onValueChange={(value) => handleChangeHour(value)}
                                     >
@@ -90,13 +92,12 @@ const CustomRequestScreen = () => {
                                         ))}
                                     </Picker>
                                 </View>
-                                <View style={[styles.pickerContainer, { opacity: isEnabled ? 0.5 : 1 }]}>
+                                <View style={[styles.pickerContainer, { opacity: isEnabled ? 0.5 : 1}]}>
                                     <Text style={styles.label}>Minute</Text>
                                     <Picker
-                                        style={[styles.picker, isEnabled && { opacity: 0.5 }]}
+                                        style={[styles.picker, isEnabled && { opacity: 0.5, pointerEvents: "none"  }]}
                                         selectedValue={minute}
                                         onValueChange={(value) => handleChangeMinute(value)}
-
                                     >
                                         {Array.from({ length: 12 }, (_, i) => i).map((m) => (
                                             <Picker.Item key={m} label={m.toString().padStart(2, '0')} value={m} />

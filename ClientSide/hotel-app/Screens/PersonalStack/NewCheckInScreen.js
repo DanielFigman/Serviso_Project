@@ -26,7 +26,6 @@ export default function NewCheckInScreen() {
     const formattedCheckInDate = checkIN.toLocaleDateString('en-GB');
     const formattedCheckOutDate = checkOut.toLocaleDateString('en-GB');
 
-
     return (
         <ScreenComponent
             topLeftButtonStyle={{ position: "absolute", zIndex: 1 }}
