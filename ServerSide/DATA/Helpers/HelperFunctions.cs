@@ -227,5 +227,22 @@ namespace DATA
                 property.SetValue(obj, value);
             }
         }
+
+        public int GetOrderIdByRoomNumber(int roomNum, int hotelID)
+        {
+            hotelAppDBContext db = new hotelAppDBContext();
+
+            int? retVal = db.Orders
+                .Where(order => order.checkInDate <= DateTime.Now && order.checkOutDate >= DateTime.Now)
+                .FirstOrDefault(order => order.Rooms.Any(r => r.roomNum == roomNum && r.hotelID == hotelID))
+                ?.orderID;
+
+            if (retVal == null)
+            {
+                throw new NonActiveRoom(roomNum);
+            }
+
+            return (int) retVal;
+        }
     }
 }

@@ -65,5 +65,23 @@ namespace WebApplication.Controllers
                 return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
             }
         }
+
+        [HttpPost]
+        [Route("api/AdminCreateHouseHoldRequest")]
+
+        public IHttpActionResult Post([FromUri] int roomNum, [FromUri] int hotelID, [FromBody] JObject data)
+        {
+            try
+            {
+                Request r = new Request();
+                r.CraeteNewRequestEntity(roomNum,hotelID, data);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
     }
 }
