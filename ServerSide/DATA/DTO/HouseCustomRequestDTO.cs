@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,9 @@ namespace DATA
         public int roomNumber { get; set; }
         public DateTime? requestDate { get; set; }
         public TimeSpan? requestHour { get; set; }
+        public DateTime? requestedDate { get; set; }
+        public TimeSpan? requestedHour { get; set; }
+
 
 
         public void SetHouseCustomRequestDTO(HouseHold_Custom_Request request)
@@ -31,6 +35,8 @@ namespace DATA
             requestDate = r.requestDate;
             requestHour = r.requestHour;
             roomNumber = GetRoomNumber(r);
+            requestedDate = GetRequestedDate(r);
+            requestedHour = GetRequestedHour(r);
         }
 
 
@@ -45,7 +51,7 @@ namespace DATA
             }
             else
             {
-                retVal = name;
+                retVal = request.Custom_Request_Types.name;
             }
 
             return retVal;
@@ -64,5 +70,19 @@ namespace DATA
 
             return roomNumber;
         }
+
+        private DateTime? GetRequestedDate(Request request)
+        {
+            Request_In_Order requestInOrder = db.Request_In_Order.FirstOrDefault(r => r.requestID == request.requestID);
+
+            return requestInOrder?.requestedDate;
+        }
+        private TimeSpan? GetRequestedHour(Request request)
+        {
+            Request_In_Order requestInOrder = db.Request_In_Order.FirstOrDefault(r => r.requestID == request.requestID);
+
+            return requestInOrder?.requestedHour;
+        }
+
     }
 }
