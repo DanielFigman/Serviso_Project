@@ -10,6 +10,7 @@ import PaymentConfirmation from '../PersonalStack/PaymentConfirmation';
 import HotelNavigation from '../PersonalStack/HotelNavigation';
 import CustomRequestScreen from '../PersonalStack/CustomRequestScreen';
 import RoomCleaningScreen from '../PersonalStack/RoomCleaningScreen';
+import CustomOrderConfirmation from '../PersonalStack/CustomOrderConfirmation';
 
 const PersonalPageStack = () => {
     const Stack = createNativeStackNavigator();
@@ -31,6 +32,7 @@ const PersonalPageStack = () => {
             <Stack.Screen name="HotelNavigation" component={HotelNavigation} />
             <Stack.Screen name="CustomRequestScreen" component={CustomRequestScreen} />
             <Stack.Screen name="RoomCleaningScreen" component={RoomCleaningScreen} />
+            <Stack.Screen name="CustomOrderConfirmation" component={CustomOrderConfirmation} />
         </Stack.Navigator>
     )
 }

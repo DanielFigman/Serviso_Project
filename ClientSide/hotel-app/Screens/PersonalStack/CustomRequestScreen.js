@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, View, Text, Button, Platform, StyleSheet, Switch, TouchableOpacity, ScrollView, SafeAreaView, Pressable } from 'react-native';
+import { Dimensions, View, Text, Button, Platform, StyleSheet, Switch, TouchableOpacity, ScrollView, SafeAreaView, Pressable, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import CustomRequestCarusel from '../../FCComponents/CustomRequestCarusel';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
+import { useNavigation } from '@react-navigation/native';
 
 const CustomRequestScreen = () => {
 
+    const navigation = useNavigation();
     const { order } = useContext(HotelsAppContext)
 
     const [hour, setHour] = useState(15);
@@ -40,7 +42,6 @@ const CustomRequestScreen = () => {
     const handleContinue = async () => {
         if (Object.keys(customRequests).length !== 0) {
             const postObject = GetRequestObject();
-            console.log(JSON.stringify(postObject))
                 try {
                     const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/houseHoldCustomRequest', {
                         method: 'POST',
@@ -51,22 +52,31 @@ const CustomRequestScreen = () => {
                     });
 
                     if (response.ok) {
-                        console.log("Request Created");
+                        navigation.navigate("CustomOrderConfirmation", {
+                            selectedTime,
+                            date: postObject.Request_In_Order[0].requestedDate,
+                            hour,
+                            minute
+                        })
+
 
                     } else {
-                        const errorMessage = await response.text();
-                        const errorObject = JSON.parse(errorMessage);
-                        const errorType = errorObject.type;
-                        const errorMessageText = errorObject.message;
-
-                        console.log(`Error: ${response.status} - ${errorType} - ${errorMessageText}`);
+                        showAlert();
                     }
 
                 } catch (error) {
-                    console.log(error);
+                    showAlert();
                 }
         }
     };
+
+    const showAlert = () => {
+        Alert.alert(
+            "Request submitting failed",
+            "Something went wrong, please try again",
+            [{ text: 'OK' }],
+        );
+    }
 
     const GetRequestObject = () => {
         //creating the parent
