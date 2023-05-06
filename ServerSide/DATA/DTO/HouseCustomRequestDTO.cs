@@ -10,9 +10,9 @@ namespace DATA
 {
     public class HouseCustomRequestDTO
     {
-        private readonly hotelAppDBContext db = new hotelAppDBContext();
+        private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
-        public int requestID { get; set; }
+        public long requestID { get; set; }
         public int amount { get; set; }
         public string name { get; set; }
         public bool isMarked { get; set; }

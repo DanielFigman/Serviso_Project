@@ -9,7 +9,7 @@ namespace DATA
 {
     public partial class Hotel
     {
-        private readonly hotelAppDBContext db = new hotelAppDBContext();
+        private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
         public List<HouseCustomRequestDTO> GetHouseCustomReqeustDto()
         {
@@ -20,7 +20,7 @@ namespace DATA
                 .Distinct()
                 .ToArray();
 
-            int[] requestsID = db.Request_In_Order
+            long[] requestsID = db.Request_In_Order
                 .Where(request => ordersID
                 .Contains(request.orderID) && request.Request.status == "open")
                 .Select(y => y.requestID)

@@ -21,7 +21,7 @@ namespace DATA
             this.WorkingInShifts = new HashSet<WorkingInShift>();
         }
     
-        public int requestID { get; set; }
+        public long requestID { get; set; }
         public Nullable<System.DateTime> requestDate { get; set; }
         public Nullable<System.TimeSpan> requestHour { get; set; }
         public string status { get; set; }

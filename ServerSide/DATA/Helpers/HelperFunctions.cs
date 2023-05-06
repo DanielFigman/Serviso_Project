@@ -230,7 +230,7 @@ namespace DATA
 
         public int GetOrderIdByRoomNumber(int roomNum, int hotelID)
         {
-            hotelAppDBContext db = new hotelAppDBContext();
+            hotelAppDBContextNew db = new hotelAppDBContextNew();
 
             int? retVal = db.Orders
                 .Where(order => order.checkInDate <= DateTime.Now && order.checkOutDate >= DateTime.Now)

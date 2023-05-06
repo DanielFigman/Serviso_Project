@@ -21,7 +21,7 @@ namespace DATA
             this.Food_And_Drinks_Room_Service = new HashSet<Food_And_Drinks_Room_Service>();
         }
     
-        public int requestID { get; set; }
+        public long requestID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Additional_Items_Room_Service> Additional_Items_Room_Service { get; set; }

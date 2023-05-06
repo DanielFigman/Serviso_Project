@@ -10,7 +10,7 @@ namespace DATA
 {
     public partial class Questionnaire
     {
-        private readonly hotelAppDBContext db = new hotelAppDBContext();
+        private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
         private readonly HelperFunctions dataHelper = new HelperFunctions();
 

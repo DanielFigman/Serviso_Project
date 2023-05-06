@@ -14,7 +14,7 @@ namespace DATA
     
     public partial class Request_In_Order
     {
-        public int requestID { get; set; }
+        public long requestID { get; set; }
         public int orderID { get; set; }
         public Nullable<System.DateTime> requestedDate { get; set; }
         public Nullable<System.TimeSpan> requestedHour { get; set; }

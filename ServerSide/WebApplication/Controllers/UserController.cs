@@ -14,7 +14,7 @@ namespace WebApplication.Controllers
 {
     public class UserController : ApiController
     {
-        private readonly hotelAppDBContext db = new hotelAppDBContext();
+        private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
 
         [HttpGet]

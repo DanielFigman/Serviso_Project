@@ -14,7 +14,7 @@ namespace DATA
     
     public partial class Health_Declaration
     {
-        public int requestID { get; set; }
+        public long requestID { get; set; }
         public int participantID { get; set; }
         public string name { get; set; }
         public Nullable<bool> Back_problems { get; set; }

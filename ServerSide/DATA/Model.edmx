@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="igroup197_test1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="igroup197_test1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="placeID" />
@@ -72,7 +72,7 @@
             <PropertyRef Name="requestID" />
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="amount" Type="int" />
         </EntityType>
@@ -175,7 +175,7 @@
             <PropertyRef Name="email" />
             <PropertyRef Name="date" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
         </EntityType>
@@ -196,7 +196,7 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="description" Type="nvarchar(max)" />
           <Property Name="location" Type="varchar" MaxLength="255" />
           <Property Name="solution" Type="varchar(max)" />
@@ -227,7 +227,7 @@
             <PropertyRef Name="requestID" />
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="amount" Type="int" />
           <Property Name="changes" Type="varchar(max)" />
@@ -251,7 +251,7 @@
             <PropertyRef Name="requestID" />
             <PropertyRef Name="participantID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="participantID" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" />
           <Property Name="Back problems" Type="bit" />
@@ -295,7 +295,7 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="toClear" Type="bit" />
           <Property Name="anyTime" Type="bit" />
           <Property Name="scheduleTime" Type="date" />
@@ -305,7 +305,7 @@
             <PropertyRef Name="requestID" />
             <PropertyRef Name="typeID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="typeID" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar(max)" />
           <Property Name="amount" Type="int" Nullable="false" />
@@ -314,7 +314,7 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -372,7 +372,7 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="requestDate" Type="date" />
           <Property Name="requestHour" Type="time" Precision="7" />
           <Property Name="status" Type="varchar" MaxLength="255" />
@@ -382,7 +382,7 @@
             <PropertyRef Name="requestID" />
             <PropertyRef Name="orderID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="orderID" Type="int" Nullable="false" />
           <Property Name="requestedDate" Type="date" />
           <Property Name="requestedHour" Type="time" Precision="7" />
@@ -429,7 +429,7 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="RoomFor">
           <Key>
@@ -453,7 +453,7 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="numOfParticipants" Type="int" />
           <Property Name="genderRequest" Type="varchar" MaxLength="6" />
         </EntityType>
@@ -467,7 +467,7 @@
           <Property Name="therapyID" Type="int" Nullable="false" />
           <Property Name="roomID" Type="int" Nullable="false" />
           <Property Name="roleID" Type="int" Nullable="false" />
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -495,7 +495,7 @@
           <Property Name="therapyID" Type="int" Nullable="false" />
           <Property Name="roomID" Type="int" Nullable="false" />
           <Property Name="roleID" Type="int" Nullable="false" />
-          <Property Name="requestID" Type="int" Nullable="false" />
+          <Property Name="requestID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Therapy">
           <Key>
@@ -1696,7 +1696,8 @@
             <End Role="Therapy_Knowledge" EntitySet="Therapy_Knowledge" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="igroup197_test1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1708,11 +1709,11 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="rating" Type="Double" Nullable="false" />
+          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Activity_hotel" Relationship="Self.FK__Activity___place__571DF1D5" FromRole="Activity" ToRole="Activity_hotel" />
           <NavigationProperty Name="Activity_nearBY" Relationship="Self.FK__Activity___place__59FA5E80" FromRole="Activity" ToRole="Activity_nearBY" />
           <NavigationProperty Name="Activity_Update" Relationship="Self.FK__Activity___place__60A75C0F" FromRole="Activity" ToRole="Activity_Update" />
           <NavigationProperty Name="Category_rating" Relationship="Self.FK__Category___place__5441852A" FromRole="Activity" ToRole="Category_rating" />
-          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Activity_hotel">
           <Key>
@@ -1721,8 +1722,8 @@
           <Property Name="placeID" Type="Int32" Nullable="false" />
           <Property Name="HallNum" Type="Int32" />
           <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Activity" Relationship="Self.FK__Activity___place__571DF1D5" FromRole="Activity_hotel" ToRole="Activity" />
           <Property Name="hotelID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK__Activity___place__571DF1D5" FromRole="Activity_hotel" ToRole="Activity" />
         </EntityType>
         <EntityType Name="Activity_nearBY">
           <Key>
@@ -1769,7 +1770,7 @@
             <PropertyRef Name="requestID" />
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="amount" Type="Int32" />
           <NavigationProperty Name="Additional_Items" Relationship="Self.FK__Additional_I__ID__2645B050" FromRole="Additional_Items_Room_Service" ToRole="Additional_Items" />
@@ -1874,11 +1875,25 @@
           <NavigationProperty Name="User" Relationship="Self.FK__Employee__email__31EC6D26" FromRole="Employee" ToRole="User" />
           <NavigationProperty Name="WorkingInShifts" Relationship="Self.FK__WorkingIn__email__36B12243" FromRole="Employee" ToRole="WorkingInShift" />
         </EntityType>
+        <EntityType Name="Facility">
+          <Key>
+            <PropertyRef Name="facilityID" />
+          </Key>
+          <Property Name="facilityID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="contactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hotelID" Type="Int32" />
+          <Property Name="type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="openingHours" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK__Facility__hotelI__6477ECF3" FromRole="Facility" ToRole="Hotel" />
+        </EntityType>
         <EntityType Name="Fault_Request">
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="solution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -1916,7 +1931,7 @@
             <PropertyRef Name="requestID" />
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="amount" Type="Int32" />
           <Property Name="changes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -1940,6 +1955,30 @@
           <NavigationProperty Name="User" Relationship="Self.FK__Guest__email__286302EC" FromRole="Guest" ToRole="User" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__email__2D27B809" FromRole="Guest" ToRole="Order" />
         </EntityType>
+        <EntityType Name="Health_Declaration">
+          <Key>
+            <PropertyRef Name="requestID" />
+            <PropertyRef Name="participantID" />
+          </Key>
+          <Property Name="requestID" Type="Int64" Nullable="false" />
+          <Property Name="participantID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Back_problems" Type="Boolean" />
+          <Property Name="High_low_blood_pressure" Type="Boolean" />
+          <Property Name="Diabetes" Type="Boolean" />
+          <Property Name="Pregnancy" Type="Boolean" />
+          <Property Name="Pain_in_any_area" Type="Boolean" />
+          <Property Name="Under_any_medication" Type="Boolean" />
+          <Property Name="Asthma" Type="Boolean" />
+          <Property Name="Nerve_damage" Type="Boolean" />
+          <Property Name="Cancer" Type="Boolean" />
+          <Property Name="Epilepsy" Type="Boolean" />
+          <Property Name="Breast_feeding" Type="Boolean" />
+          <Property Name="Headaches_Migraines" Type="Boolean" />
+          <Property Name="Other" Type="Boolean" />
+          <Property Name="Allergies" Type="Boolean" />
+          <NavigationProperty Name="Spa_Order" Relationship="Self.fk_Health_Declaration_RequestID" FromRole="Health_Declaration" ToRole="Spa_Order" />
+        </EntityType>
         <EntityType Name="Hot_Cold_Drinks">
           <Key>
             <PropertyRef Name="ID" />
@@ -1961,16 +2000,16 @@
           <Property Name="contactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="landmark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="joinDate" Type="DateTime" Precision="0" />
+          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Facilities" Relationship="Self.FK__Facility__hotelI__6477ECF3" FromRole="Hotel" ToRole="Facility" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__hotelID__2E1BDC42" FromRole="Hotel" ToRole="Order" />
           <NavigationProperty Name="Rooms" Relationship="Self.FK__Room__hotelID__6754599E" FromRole="Hotel" ToRole="Room" />
-          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Facilities" Relationship="igroup197_test1Model.FK__Facility__hotelI__6477ECF3" FromRole="Hotel" ToRole="Facility" />
         </EntityType>
         <EntityType Name="HouseHold_Cleaning_Request">
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <Property Name="toClear" Type="Boolean" />
           <Property Name="anyTime" Type="Boolean" />
           <Property Name="scheduleTime" Type="DateTime" Precision="0" />
@@ -1981,7 +2020,7 @@
             <PropertyRef Name="requestID" />
             <PropertyRef Name="typeID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <Property Name="typeID" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="amount" Type="Int32" Nullable="false" />
@@ -1992,7 +2031,7 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="HouseHold_Cleaning_Request" Relationship="Self.FK__HouseHold__reque__09A971A2" FromRole="HouseHold_Request" ToRole="HouseHold_Cleaning_Request" />
           <NavigationProperty Name="HouseHold_Custom_Request" Relationship="Self.FK__HouseHold__reque__05D8E0BE" FromRole="HouseHold_Request" ToRole="HouseHold_Custom_Request" />
           <NavigationProperty Name="Request" Relationship="Self.FK__HouseHold__reque__01142BA1" FromRole="HouseHold_Request" ToRole="Request" />
@@ -2020,6 +2059,7 @@
           <Property Name="orderMethod" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="hotelID" Type="Int32" />
+          <Property Name="price" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Activity_Update" Relationship="Self.FK__Activity___order__619B8048" FromRole="Order" ToRole="Activity_Update" />
           <NavigationProperty Name="Chats" Relationship="Self.FK__Chat__orderID__3B75D760" FromRole="Order" ToRole="Chat" />
           <NavigationProperty Name="Guest" Relationship="Self.FK__Order__email__2D27B809" FromRole="Order" ToRole="Guest" />
@@ -2028,7 +2068,6 @@
           <NavigationProperty Name="Receipts" Relationship="Self.fk_Receipt_OrderID" FromRole="Order" ToRole="Receipt" />
           <NavigationProperty Name="Activity_nearBY" Relationship="Self.Activity_Signed" FromRole="Order" ToRole="Activity_nearBY" />
           <NavigationProperty Name="Rooms" Relationship="Self.RoomFor" FromRole="Order" ToRole="Room" />
-          <Property Name="price" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Questionnaire">
           <Key>
@@ -2066,7 +2105,7 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <Property Name="requestDate" Type="DateTime" Precision="0" />
           <Property Name="requestHour" Type="Time" Precision="7" />
           <Property Name="status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -2082,7 +2121,7 @@
             <PropertyRef Name="requestID" />
             <PropertyRef Name="orderID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <Property Name="orderID" Type="Int32" Nullable="false" />
           <Property Name="requestedDate" Type="DateTime" Precision="0" />
           <Property Name="requestedHour" Type="Time" Precision="7" />
@@ -2118,7 +2157,7 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Additional_Items_Room_Service" Relationship="Self.FK__Additiona__reque__25518C17" FromRole="Room_Service_Order" ToRole="Additional_Items_Room_Service" />
           <NavigationProperty Name="Food_And_Drinks_Room_Service" Relationship="Self.FK__Food_And___reque__2180FB33" FromRole="Room_Service_Order" ToRole="Food_And_Drinks_Room_Service" />
           <NavigationProperty Name="Request" Relationship="Self.FK__Room_Serv__reque__0F624AF8" FromRole="Room_Service_Order" ToRole="Request" />
@@ -2136,13 +2175,13 @@
           <Key>
             <PropertyRef Name="requestID" />
           </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <Property Name="numOfParticipants" Type="Int32" />
           <Property Name="genderRequest" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Health_Declaration" Relationship="Self.fk_Health_Declaration_RequestID" FromRole="Spa_Order" ToRole="Health_Declaration" />
           <NavigationProperty Name="Request" Relationship="Self.fk_Spa_Order_RequestID" FromRole="Spa_Order" ToRole="Request" />
           <NavigationProperty Name="Spa_Order_Active" Relationship="Self.fk_Spa_Order_Active_RequestID" FromRole="Spa_Order" ToRole="Spa_Order_Active" />
           <NavigationProperty Name="Therapist_IN_Therapy" Relationship="Self.fk_Therapist_IN_Therapy_RequestID" FromRole="Spa_Order" ToRole="Therapist_IN_Therapy" />
-          <NavigationProperty Name="Health_Declaration" Relationship="igroup197_test1Model.fk_Health_Declaration_RequestID" FromRole="Spa_Order" ToRole="Health_Declaration" />
         </EntityType>
         <EntityType Name="Spa_Order_Active">
           <Key>
@@ -2154,11 +2193,21 @@
           <Property Name="therapyID" Type="Int32" Nullable="false" />
           <Property Name="roomID" Type="Int32" Nullable="false" />
           <Property Name="roleID" Type="Int32" Nullable="false" />
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Spa_Order" Relationship="Self.fk_Spa_Order_Active_RequestID" FromRole="Spa_Order_Active" ToRole="Spa_Order" />
           <NavigationProperty Name="Therapist" Relationship="Self.fk_Spa_Order_Active_RoleID" FromRole="Spa_Order_Active" ToRole="Therapist" />
           <NavigationProperty Name="Therapy" Relationship="Self.fk_Spa_Order_Active_Therapy" FromRole="Spa_Order_Active" ToRole="Therapy" />
           <NavigationProperty Name="Therapy_Room" Relationship="Self.fk_Spa_Order_Active_Therapy_Room" FromRole="Spa_Order_Active" ToRole="Therapy_Room" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Therapist">
           <Key>
@@ -2181,7 +2230,7 @@
           <Property Name="therapyID" Type="Int32" Nullable="false" />
           <Property Name="roomID" Type="Int32" Nullable="false" />
           <Property Name="roleID" Type="Int32" Nullable="false" />
-          <Property Name="requestID" Type="Int32" Nullable="false" />
+          <Property Name="requestID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Spa_Order" Relationship="Self.fk_Therapist_IN_Therapy_RequestID" FromRole="Therapist_IN_Therapy" ToRole="Spa_Order" />
           <NavigationProperty Name="Therapist" Relationship="Self.fk_Therapist_IN_Therapy_RoleID" FromRole="Therapist_IN_Therapy" ToRole="Therapist" />
           <NavigationProperty Name="Therapy" Relationship="Self.fk_Therapist_IN_Therapy_Therapy" FromRole="Therapist_IN_Therapy" ToRole="Therapy" />
@@ -2198,12 +2247,12 @@
           <Property Name="basePrice" Type="Double" />
           <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="priceForAdditional15" Type="Double" />
+          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hotelID" Type="Int32" />
           <NavigationProperty Name="Spa_Order_Active" Relationship="Self.fk_Spa_Order_Active_Therapy" FromRole="Therapy" ToRole="Spa_Order_Active" />
           <NavigationProperty Name="Therapist_IN_Therapy" Relationship="Self.fk_Therapist_IN_Therapy_Therapy" FromRole="Therapy" ToRole="Therapist_IN_Therapy" />
           <NavigationProperty Name="Therapy_Knowledge" Relationship="Self.fk_Therapy_Knowledge_Therapy" FromRole="Therapy" ToRole="Therapy_Knowledge" />
           <NavigationProperty Name="Therapy_Room" Relationship="Self.Room_Allowed" FromRole="Therapy" ToRole="Therapy_Room" />
-          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="hotelID" Type="Int32" />
         </EntityType>
         <EntityType Name="Therapy_Knowledge">
           <Key>
@@ -2490,6 +2539,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Facility__hotelI__6477ECF3">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+          <End Role="Facility" Type="Self.Facility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelID" />
+            </Principal>
+            <Dependent Role="Facility">
+              <PropertyRef Name="hotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Fault_Req__reque__0C85DE4D">
           <End Role="Request" Type="Self.Request" Multiplicity="1" />
           <End Role="Fault_Request" Type="Self.Fault_Request" Multiplicity="0..1" />
@@ -2583,6 +2644,18 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Health_Declaration_RequestID">
+          <End Role="Spa_Order" Type="Self.Spa_Order" Multiplicity="1" />
+          <End Role="Health_Declaration" Type="Self.Health_Declaration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spa_Order">
+              <PropertyRef Name="requestID" />
+            </Principal>
+            <Dependent Role="Health_Declaration">
+              <PropertyRef Name="requestID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2902,7 +2975,7 @@
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Questionnaire" Type="Self.Questionnaire" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="hotelAppDBContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="hotelAppDBContextNew" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Activities" EntityType="Self.Activity" />
           <EntitySet Name="Activity_hotel" EntityType="Self.Activity_hotel" />
           <EntitySet Name="Activity_nearBY" EntityType="Self.Activity_nearBY" />
@@ -2919,12 +2992,14 @@
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Drinks" EntityType="Self.Drink" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Facilities" EntityType="Self.Facility" />
           <EntitySet Name="Fault_Request" EntityType="Self.Fault_Request" />
           <EntitySet Name="Foods" EntityType="Self.Food" />
           <EntitySet Name="Food_And_Drinks" EntityType="Self.Food_And_Drinks" />
           <EntitySet Name="Food_And_Drinks_Room_Service" EntityType="Self.Food_And_Drinks_Room_Service" />
           <EntitySet Name="Free_Queue" EntityType="Self.Free_Queue" />
           <EntitySet Name="Guests" EntityType="Self.Guest" />
+          <EntitySet Name="Health_Declaration" EntityType="Self.Health_Declaration" />
           <EntitySet Name="Hot_Cold_Drinks" EntityType="Self.Hot_Cold_Drinks" />
           <EntitySet Name="Hotels" EntityType="Self.Hotel" />
           <EntitySet Name="HouseHold_Cleaning_Request" EntityType="Self.HouseHold_Cleaning_Request" />
@@ -2942,6 +3017,7 @@
           <EntitySet Name="Shifts" EntityType="Self.Shift" />
           <EntitySet Name="Spa_Order" EntityType="Self.Spa_Order" />
           <EntitySet Name="Spa_Order_Active" EntityType="Self.Spa_Order_Active" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Therapists" EntityType="Self.Therapist" />
           <EntitySet Name="Therapist_IN_Therapy" EntityType="Self.Therapist_IN_Therapy" />
           <EntitySet Name="Therapies" EntityType="Self.Therapy" />
@@ -3025,6 +3101,10 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="WorkingInShift" EntitySet="WorkingInShifts" />
           </AssociationSet>
+          <AssociationSet Name="FK__Facility__hotelI__6477ECF3" Association="Self.FK__Facility__hotelI__6477ECF3">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="Facility" EntitySet="Facilities" />
+          </AssociationSet>
           <AssociationSet Name="FK__Fault_Req__reque__0C85DE4D" Association="Self.FK__Fault_Req__reque__0C85DE4D">
             <End Role="Request" EntitySet="Requests" />
             <End Role="Fault_Request" EntitySet="Fault_Request" />
@@ -3056,6 +3136,10 @@
           <AssociationSet Name="FK__Order__email__2D27B809" Association="Self.FK__Order__email__2D27B809">
             <End Role="Guest" EntitySet="Guests" />
             <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Health_Declaration_RequestID" Association="Self.fk_Health_Declaration_RequestID">
+            <End Role="Spa_Order" EntitySet="Spa_Order" />
+            <End Role="Health_Declaration" EntitySet="Health_Declaration" />
           </AssociationSet>
           <AssociationSet Name="FK__Order__hotelID__2E1BDC42" Association="Self.FK__Order__hotelID__2E1BDC42">
             <End Role="Hotel" EntitySet="Hotels" />
@@ -3181,114 +3265,31 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Questionnaire" EntitySet="Questionnaires" />
           </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="igroup197_test1Model.sysdiagram" />
-          <EntitySet Name="Facilities" EntityType="igroup197_test1Model.Facility" />
-          <AssociationSet Name="FK__Facility__hotelI__6477ECF3" Association="igroup197_test1Model.FK__Facility__hotelI__6477ECF3">
-            <End Role="Hotel" EntitySet="Hotels" />
-            <End Role="Facility" EntitySet="Facilities" />
-          </AssociationSet>
-          <EntitySet Name="Health_Declaration" EntityType="igroup197_test1Model.Health_Declaration" />
-          <AssociationSet Name="fk_Health_Declaration_RequestID" Association="igroup197_test1Model.fk_Health_Declaration_RequestID">
-            <End Role="Spa_Order" EntitySet="Spa_Order" />
-            <End Role="Health_Declaration" EntitySet="Health_Declaration" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="Facility">
-          <Key>
-            <PropertyRef Name="facilityID" />
-          </Key>
-          <Property Name="facilityID" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="contactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="hotelID" Type="Int32" />
-          <Property Name="type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="openingHours" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Hotel" Relationship="igroup197_test1Model.FK__Facility__hotelI__6477ECF3" FromRole="Facility" ToRole="Hotel" />
-        </EntityType>
-        <Association Name="FK__Facility__hotelI__6477ECF3">
-          <End Type="igroup197_test1Model.Hotel" Role="Hotel" Multiplicity="0..1" />
-          <End Type="igroup197_test1Model.Facility" Role="Facility" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hotel">
-              <PropertyRef Name="hotelID" />
-            </Principal>
-            <Dependent Role="Facility">
-              <PropertyRef Name="hotelID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Health_Declaration">
-          <Key>
-            <PropertyRef Name="requestID" />
-            <PropertyRef Name="participantID" />
-          </Key>
-          <Property Name="requestID" Type="Int32" Nullable="false" />
-          <Property Name="participantID" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Back_problems" Type="Boolean" />
-          <Property Name="High_low_blood_pressure" Type="Boolean" />
-          <Property Name="Diabetes" Type="Boolean" />
-          <Property Name="Pregnancy" Type="Boolean" />
-          <Property Name="Pain_in_any_area" Type="Boolean" />
-          <Property Name="Under_any_medication" Type="Boolean" />
-          <Property Name="Asthma" Type="Boolean" />
-          <Property Name="Nerve_damage" Type="Boolean" />
-          <Property Name="Cancer" Type="Boolean" />
-          <Property Name="Epilepsy" Type="Boolean" />
-          <Property Name="Breast_feeding" Type="Boolean" />
-          <Property Name="Headaches_Migraines" Type="Boolean" />
-          <Property Name="Other" Type="Boolean" />
-          <Property Name="Allergies" Type="Boolean" />
-          <NavigationProperty Name="Spa_Order" Relationship="igroup197_test1Model.fk_Health_Declaration_RequestID" FromRole="Health_Declaration" ToRole="Spa_Order" />
-        </EntityType>
-        <Association Name="fk_Health_Declaration_RequestID">
-          <End Type="igroup197_test1Model.Spa_Order" Role="Spa_Order" Multiplicity="1" />
-          <End Type="igroup197_test1Model.Health_Declaration" Role="Health_Declaration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Spa_Order">
-              <PropertyRef Name="requestID" />
-            </Principal>
-            <Dependent Role="Health_Declaration">
-              <PropertyRef Name="requestID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="igroup197_test1ModelStoreContainer" CdmEntityContainer="hotelAppDBContext">
+        <EntityContainerMapping StorageEntityContainer="igroup197_test1ModelStoreContainer" CdmEntityContainer="hotelAppDBContextNew">
           <EntitySetMapping Name="Activities">
             <EntityTypeMapping TypeName="igroup197_test1Model.Activity">
               <MappingFragment StoreEntitySet="Activity">
-                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Activity_hotel">
             <EntityTypeMapping TypeName="igroup197_test1Model.Activity_hotel">
               <MappingFragment StoreEntitySet="Activity_hotel">
-                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="HallNum" ColumnName="HallNum" />
                 <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3430,6 +3431,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Facilities">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Facility">
+              <MappingFragment StoreEntitySet="Facility">
+                <ScalarProperty Name="facilityID" ColumnName="facilityID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="contactNumber" ColumnName="contactNumber" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="openingHours" ColumnName="openingHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Fault_Request">
             <EntityTypeMapping TypeName="igroup197_test1Model.Fault_Request">
               <MappingFragment StoreEntitySet="Fault_Request">
@@ -3488,6 +3503,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Health_Declaration">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Health_Declaration">
+              <MappingFragment StoreEntitySet="Health_Declaration">
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
+                <ScalarProperty Name="participantID" ColumnName="participantID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Back_problems" ColumnName="Back problems" />
+                <ScalarProperty Name="High_low_blood_pressure" ColumnName="High/low blood pressure" />
+                <ScalarProperty Name="Diabetes" ColumnName="Diabetes" />
+                <ScalarProperty Name="Pregnancy" ColumnName="Pregnancy" />
+                <ScalarProperty Name="Pain_in_any_area" ColumnName="Pain in any area" />
+                <ScalarProperty Name="Under_any_medication" ColumnName="Under any medication" />
+                <ScalarProperty Name="Asthma" ColumnName="Asthma" />
+                <ScalarProperty Name="Nerve_damage" ColumnName="Nerve damage" />
+                <ScalarProperty Name="Cancer" ColumnName="Cancer" />
+                <ScalarProperty Name="Epilepsy" ColumnName="Epilepsy" />
+                <ScalarProperty Name="Breast_feeding" ColumnName="Breast feeding" />
+                <ScalarProperty Name="Headaches_Migraines" ColumnName="Headaches/Migraines" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="Allergies" ColumnName="Allergies" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Hot_Cold_Drinks">
             <EntityTypeMapping TypeName="igroup197_test1Model.Hot_Cold_Drinks">
               <MappingFragment StoreEntitySet="Hot_Cold_Drinks">
@@ -3500,7 +3538,6 @@
           <EntitySetMapping Name="Hotels">
             <EntityTypeMapping TypeName="igroup197_test1Model.Hotel">
               <MappingFragment StoreEntitySet="Hotel">
-                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
                 <ScalarProperty Name="hotelID" ColumnName="hotelID" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="address" ColumnName="address" />
@@ -3509,6 +3546,7 @@
                 <ScalarProperty Name="contactNumber" ColumnName="contactNumber" />
                 <ScalarProperty Name="landmark" ColumnName="landmark" />
                 <ScalarProperty Name="joinDate" ColumnName="joinDate" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3551,7 +3589,6 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="igroup197_test1Model.Order">
               <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
                 <ScalarProperty Name="checkInDate" ColumnName="checkInDate" />
                 <ScalarProperty Name="checkOutDate" ColumnName="checkOutDate" />
@@ -3562,6 +3599,7 @@
                 <ScalarProperty Name="orderMethod" ColumnName="orderMethod" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="hotelID" ColumnName="hotelID" />
+                <ScalarProperty Name="price" ColumnName="price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3671,6 +3709,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="igroup197_test1Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Therapists">
             <EntityTypeMapping TypeName="igroup197_test1Model.Therapist">
               <MappingFragment StoreEntitySet="Therapist">
@@ -3691,8 +3740,6 @@
           <EntitySetMapping Name="Therapies">
             <EntityTypeMapping TypeName="igroup197_test1Model.Therapy">
               <MappingFragment StoreEntitySet="Therapy">
-                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
-                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
                 <ScalarProperty Name="therapyID" ColumnName="therapyID" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -3700,6 +3747,8 @@
                 <ScalarProperty Name="basePrice" ColumnName="basePrice" />
                 <ScalarProperty Name="tags" ColumnName="tags" />
                 <ScalarProperty Name="priceForAdditional15" ColumnName="priceForAdditional15" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3804,54 +3853,6 @@
               <ScalarProperty Name="questionnaireID" ColumnName="questionnaireID" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="igroup197_test1Model.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Facilities">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Facility">
-              <MappingFragment StoreEntitySet="Facility">
-                <ScalarProperty Name="openingHours" ColumnName="openingHours" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
-                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
-                <ScalarProperty Name="contactNumber" ColumnName="contactNumber" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="facilityID" ColumnName="facilityID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Health_Declaration">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Health_Declaration">
-              <MappingFragment StoreEntitySet="Health_Declaration">
-                <ScalarProperty Name="Allergies" ColumnName="Allergies" />
-                <ScalarProperty Name="Other" ColumnName="Other" />
-                <ScalarProperty Name="Headaches_Migraines" ColumnName="Headaches/Migraines" />
-                <ScalarProperty Name="Breast_feeding" ColumnName="Breast feeding" />
-                <ScalarProperty Name="Epilepsy" ColumnName="Epilepsy" />
-                <ScalarProperty Name="Cancer" ColumnName="Cancer" />
-                <ScalarProperty Name="Nerve_damage" ColumnName="Nerve damage" />
-                <ScalarProperty Name="Asthma" ColumnName="Asthma" />
-                <ScalarProperty Name="Under_any_medication" ColumnName="Under any medication" />
-                <ScalarProperty Name="Pain_in_any_area" ColumnName="Pain in any area" />
-                <ScalarProperty Name="Pregnancy" ColumnName="Pregnancy" />
-                <ScalarProperty Name="Diabetes" ColumnName="Diabetes" />
-                <ScalarProperty Name="High_low_blood_pressure" ColumnName="High/low blood pressure" />
-                <ScalarProperty Name="Back_problems" ColumnName="Back problems" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="participantID" ColumnName="participantID" />
-                <ScalarProperty Name="requestID" ColumnName="requestID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

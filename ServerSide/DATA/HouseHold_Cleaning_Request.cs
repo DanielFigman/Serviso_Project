@@ -14,7 +14,7 @@ namespace DATA
     
     public partial class HouseHold_Cleaning_Request
     {
-        public int requestID { get; set; }
+        public long requestID { get; set; }
         public Nullable<bool> toClear { get; set; }
         public Nullable<bool> anyTime { get; set; }
         public Nullable<System.DateTime> scheduleTime { get; set; }

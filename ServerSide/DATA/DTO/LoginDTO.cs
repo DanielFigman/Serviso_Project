@@ -11,7 +11,7 @@ namespace DATA
 {
     public class LoginDTO
     {
-        private readonly hotelAppDBContext db = new hotelAppDBContext();
+        private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
         public string userType { get; set; }
         public string fName { get; set; }

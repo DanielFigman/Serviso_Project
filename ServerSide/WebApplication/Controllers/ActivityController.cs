@@ -12,7 +12,7 @@ namespace WebApplication.Controllers
 {
     public class ActivityController : ApiController
     {
-        private readonly hotelAppDBContext db = new hotelAppDBContext();
+        private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
 
         [HttpGet]

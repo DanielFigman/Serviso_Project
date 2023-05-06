@@ -13,10 +13,10 @@ namespace DATA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class hotelAppDBContext : DbContext
+    public partial class hotelAppDBContextNew : DbContext
     {
-        public hotelAppDBContext()
-            : base("name=hotelAppDBContext")
+        public hotelAppDBContextNew()
+            : base("name=hotelAppDBContextNew")
         {
         }
     
@@ -41,12 +41,14 @@ namespace DATA
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Drink> Drinks { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<Fault_Request> Fault_Request { get; set; }
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<Food_And_Drinks> Food_And_Drinks { get; set; }
         public virtual DbSet<Food_And_Drinks_Room_Service> Food_And_Drinks_Room_Service { get; set; }
         public virtual DbSet<Free_Queue> Free_Queue { get; set; }
         public virtual DbSet<Guest> Guests { get; set; }
+        public virtual DbSet<Health_Declaration> Health_Declaration { get; set; }
         public virtual DbSet<Hot_Cold_Drinks> Hot_Cold_Drinks { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<HouseHold_Cleaning_Request> HouseHold_Cleaning_Request { get; set; }
@@ -64,6 +66,7 @@ namespace DATA
         public virtual DbSet<Shift> Shifts { get; set; }
         public virtual DbSet<Spa_Order> Spa_Order { get; set; }
         public virtual DbSet<Spa_Order_Active> Spa_Order_Active { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Therapist> Therapists { get; set; }
         public virtual DbSet<Therapist_IN_Therapy> Therapist_IN_Therapy { get; set; }
         public virtual DbSet<Therapy> Therapies { get; set; }
@@ -71,8 +74,5 @@ namespace DATA
         public virtual DbSet<Therapy_Room> Therapy_Room { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkingInShift> WorkingInShifts { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Facility> Facilities { get; set; }
-        public virtual DbSet<Health_Declaration> Health_Declaration { get; set; }
     }
 }

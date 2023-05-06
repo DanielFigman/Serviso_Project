@@ -14,7 +14,7 @@ namespace DATA
     
     public partial class HouseHold_Custom_Request
     {
-        public int requestID { get; set; }
+        public long requestID { get; set; }
         public int typeID { get; set; }
         public string description { get; set; }
         public int amount { get; set; }

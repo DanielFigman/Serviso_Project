@@ -13,7 +13,7 @@ namespace DATA
 {
     public partial class User
     {
-        private readonly hotelAppDBContext db = new hotelAppDBContext();
+        private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
         private readonly HelperFunctions dataHelper = new HelperFunctions();
 

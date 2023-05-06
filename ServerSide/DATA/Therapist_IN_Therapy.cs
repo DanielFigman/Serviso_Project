@@ -17,7 +17,7 @@ namespace DATA
         public int therapyID { get; set; }
         public int roomID { get; set; }
         public int roleID { get; set; }
-        public int requestID { get; set; }
+        public long requestID { get; set; }
     
         public virtual Spa_Order Spa_Order { get; set; }
         public virtual Therapist Therapist { get; set; }

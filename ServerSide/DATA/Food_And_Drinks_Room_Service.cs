@@ -14,7 +14,7 @@ namespace DATA
     
     public partial class Food_And_Drinks_Room_Service
     {
-        public int requestID { get; set; }
+        public long requestID { get; set; }
         public int ID { get; set; }
         public Nullable<int> amount { get; set; }
         public string changes { get; set; }

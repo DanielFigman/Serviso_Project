@@ -4,53 +4,56 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="74cb51f4d5224f1cbdace31ba9eb6109" Name="Diagram1" ZoomLevel="46">
-        <EntityTypeShape EntityType="igroup197_test1Model.Activity" Width="1.5" PointX="8.25" PointY="31.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Activity_hotel" Width="1.5" PointX="10.5" PointY="35.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Activity_nearBY" Width="1.5" PointX="7.5" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Activity_Update" Width="1.5" PointX="10.5" PointY="17.125" IsExpanded="true" />
+      <Diagram DiagramId="d37565070a784e0fa3883f32cead0a87" Name="Diagram1">
+        <EntityTypeShape EntityType="igroup197_test1Model.Activity" Width="1.5" PointX="8.25" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Activity_hotel" Width="1.5" PointX="10.5" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Activity_nearBY" Width="1.5" PointX="7.5" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Activity_Update" Width="1.5" PointX="10.5" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Additional_Items" Width="1.5" PointX="17.75" PointY="28.375" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Additional_Items_Room_Service" Width="1.5" PointX="20" PointY="22.75" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Alcohol" Width="1.5" PointX="17" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Category_rating" Width="1.5" PointX="10.5" PointY="37.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Chat" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.ChatLine" Width="1.5" PointX="9.75" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.CheckIn" Width="1.5" PointX="9.75" PointY="26.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Checkout" Width="1.5" PointX="9.75" PointY="28.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Custom_Request_Types" Width="1.5" PointX="12.75" PointY="38.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Department" Width="1.5" PointX="8.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Category_rating" Width="1.5" PointX="10.5" PointY="39.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Chat" Width="1.5" PointX="7.5" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.ChatLine" Width="1.5" PointX="9.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.CheckIn" Width="1.5" PointX="9.75" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Checkout" Width="1.5" PointX="9.75" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Custom_Request_Types" Width="1.5" PointX="17.75" PointY="31.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Department" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Drink" Width="1.5" PointX="17" PointY="17.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Employee" Width="1.5" PointX="7.5" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Fault_Request" Width="1.5" PointX="12.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Employee" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Facility" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Fault_Request" Width="1.5" PointX="12.75" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Food" Width="1.5" PointX="17" PointY="20" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Food_And_Drinks" Width="1.5" PointX="14.75" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Food_And_Drinks_Room_Service" Width="1.5" PointX="20" PointY="18.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Free_Queue" Width="1.5" PointX="15" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Guest" Width="1.5" PointX="3" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Free_Queue" Width="1.5" PointX="15" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Guest" Width="1.5" PointX="3" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Health_Declaration" Width="1.5" PointX="15" PointY="28.5" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Hot_Cold_Drinks" Width="1.5" PointX="17" PointY="25.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Hotel" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.HouseHold_Cleaning_Request" Width="1.5" PointX="15" PointY="35" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.HouseHold_Custom_Request" Width="1.5" PointX="15" PointY="38" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.HouseHold_Request" Width="1.5" PointX="12.75" PointY="35.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Language" Width="1.5" PointX="1.5" PointY="29.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Order" Width="1.5" PointX="5.25" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Questionnaire" Width="1.5" PointX="3" PointY="32.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Receipt" Width="1.5" PointX="7.5" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Request" Width="1.5" PointX="10.5" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Request_In_Order" Width="1.5" PointX="7.5" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Role" Width="1.5" PointX="10.5" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Room" Width="1.5" PointX="3" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Hotel" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.HouseHold_Cleaning_Request" Width="1.5" PointX="15" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.HouseHold_Custom_Request" Width="1.5" PointX="20" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.HouseHold_Request" Width="1.5" PointX="12.75" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Language" Width="1.5" PointX="1.5" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Order" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Questionnaire" Width="1.5" PointX="3" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Receipt" Width="1.5" PointX="7.5" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Request" Width="1.5" PointX="10.5" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Request_In_Order" Width="1.5" PointX="7.5" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Role" Width="1.5" PointX="10.5" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Room" Width="1.5" PointX="3" PointY="21.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Room_Service_Order" Width="1.5" PointX="17.75" PointY="22.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Shift" Width="1.5" PointX="10.5" PointY="21" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Spa_Order" Width="1.5" PointX="12.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Spa_Order_Active" Width="1.5" PointX="15" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Therapist" Width="1.5" PointX="12.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Therapist_IN_Therapy" Width="1.5" PointX="15" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Therapy" Width="1.5" PointX="12.75" PointY="31" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Therapy_Knowledge" Width="1.5" PointX="18" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Therapy_Room" Width="1.5" PointX="10.5" PointY="31.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.User" Width="1.5" PointX="0.75" PointY="24.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.WorkingInShift" Width="1.5" PointX="12.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Shift" Width="1.5" PointX="10.5" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Spa_Order" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Spa_Order_Active" Width="1.5" PointX="15" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Therapist" Width="1.5" PointX="12.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Therapist_IN_Therapy" Width="1.5" PointX="15" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Therapy" Width="1.5" PointX="12.75" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Therapy_Knowledge" Width="1.5" PointX="18" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Therapy_Room" Width="1.5" PointX="10.5" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.User" Width="1.5" PointX="0.75" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="igroup197_test1Model.WorkingInShift" Width="1.5" PointX="12.75" PointY="13.625" IsExpanded="true" />
         <AssociationConnector Association="igroup197_test1Model.FK__Activity___place__571DF1D5" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Activity___place__59FA5E80" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Activity___place__60A75C0F" ManuallyRouted="false" />
@@ -70,6 +73,7 @@
         <AssociationConnector Association="igroup197_test1Model.FK__Drinks__ID__14270015" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Employee__email__31EC6D26" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__WorkingIn__email__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="igroup197_test1Model.FK__Facility__hotelI__6477ECF3" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Fault_Req__reque__0C85DE4D" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Food__ID__17036CC0" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" ManuallyRouted="false" />
@@ -78,6 +82,7 @@
         <AssociationConnector Association="igroup197_test1Model.fk_Free_Queue_RoleID" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Guest__email__286302EC" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Order__email__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="igroup197_test1Model.fk_Health_Declaration_RequestID" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Order__hotelID__2E1BDC42" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Room__hotelID__6754599E" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__HouseHold__reque__09A971A2" ManuallyRouted="false" />
@@ -109,11 +114,6 @@
         <AssociationConnector Association="igroup197_test1Model.Room_Allowed" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.RoomFor" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.User_questionnaire" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="igroup197_test1Model.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Facility" Width="1.5" PointX="3" PointY="14" />
-        <AssociationConnector Association="igroup197_test1Model.FK__Facility__hotelI__6477ECF3" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Health_Declaration" Width="1.5" PointX="15" PointY="28.375" />
-        <AssociationConnector Association="igroup197_test1Model.fk_Health_Declaration_RequestID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

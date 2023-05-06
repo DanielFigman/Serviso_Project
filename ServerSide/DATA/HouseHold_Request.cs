@@ -20,7 +20,7 @@ namespace DATA
             this.HouseHold_Custom_Request = new HashSet<HouseHold_Custom_Request>();
         }
     
-        public int requestID { get; set; }
+        public long requestID { get; set; }
     
         public virtual HouseHold_Cleaning_Request HouseHold_Cleaning_Request { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
