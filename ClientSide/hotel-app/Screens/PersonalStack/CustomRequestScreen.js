@@ -4,7 +4,6 @@ import { Picker } from '@react-native-picker/picker';
 import CustomRequestCarusel from '../../FCComponents/CustomRequestCarusel';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
-import uuidRandom from 'uuid-random';
 
 const CustomRequestScreen = () => {
 
@@ -38,18 +37,47 @@ const CustomRequestScreen = () => {
     }, [isEnabled])
 
 
-    const handleContinue = () => {
+    const handleContinue = async () => {
+        if (Object.keys(customRequests).length !== 0) {
+            const postObject = GetRequestObject();
+            console.log(JSON.stringify(postObject))
+                try {
+                    const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/houseHoldCustomRequest', {
+                        method: 'POST',
+                        body: JSON.stringify(postObject),
+                        headers: new Headers({
+                            'Content-type': 'application/json; charset=UTF-8',
+                        })
+                    });
 
-        const postObject = GetRequestObject();
-        console.log(postObject);
+                    if (response.ok) {
+                        console.log("Request Created");
 
+                    } else {
+                        const errorMessage = await response.text();
+                        const errorObject = JSON.parse(errorMessage);
+                        const errorType = errorObject.type;
+                        const errorMessageText = errorObject.message;
+
+                        console.log(`Error: ${response.status} - ${errorType} - ${errorMessageText}`);
+                    }
+
+                } catch (error) {
+                    console.log(error);
+                }
+        }
     };
 
     const GetRequestObject = () => {
         //creating the parent
         let retVal = {};
-        const requestID = uuidRandom();
-        const requestDate = new Date(Date.now()).toLocaleDateString();
+        const requestID = parseInt(Date.now().toString() + Math.floor(Math.random() * 1000));
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const formattedDate = `${year}/${month}/${day}`;
+        const requestDate = formattedDate
         const requestHour = GetTimeNow();
         const status = "open";
 
@@ -62,20 +90,20 @@ const CustomRequestScreen = () => {
         const houseHold_Request = {};
         houseHold_Request["requestID"] = requestID;
 
-        const requestInOrder = {};
-        requestInOrder["requestID"] = requestID;
-        requestInOrder["orderID"] = order.orderID;
+        const requestInOrder = [];
 
         if (selectedTime) {
             const requestedDate = GetRequestedDate();
             const requestedHour = hour + ":" + minute + ":" + "00";
 
-            requestInOrder["requestedDate"] = requestedDate;
-            requestInOrder["requestedHour"] = requestedHour;
+            requestInOrder[0] = { requestID, orderID: order.orderID, requestedDate, requestedHour };
+        } else {
+            requestInOrder[0] = { requestID, orderID: order.orderID }
         }
 
         //creating the grand children
-        const houseHold_Custom_Request = JSON.stringify(customRequests);
+        const addedCustomRequests = customRequests.map(obj => ({ ...obj, requestID }));
+        const houseHold_Custom_Request = addedCustomRequests;
 
         // setting the grand child to his parent
         houseHold_Request["HouseHold_Custom_Request"] = houseHold_Custom_Request;
@@ -87,6 +115,12 @@ const CustomRequestScreen = () => {
 
         return retVal;
     }
+
+    function generateUniqueInt() {
+        const timestamp = Date.now();
+        const randomInt = Math.floor(Math.random() * 1000000); // Change the range as per your need
+        return parseInt(timestamp.toString() + randomInt.toString());
+      }
 
     const GetTimeNow = () => {
         const now = new Date();
@@ -129,7 +163,12 @@ const CustomRequestScreen = () => {
             retVal = new Date(now.getTime() + 24 * 60 * 60 * 1000);
         }
 
-        return retVal.toLocaleDateString();
+        const year = retVal.getFullYear();
+        const month = String(retVal.getMonth() + 1).padStart(2, '0');
+        const day = String(retVal.getDate()).padStart(2, '0');
+        const formattedDate = `${year}/${month}/${day}`;
+
+        return formattedDate;
     }
 
 
@@ -224,7 +263,6 @@ const CustomRequestScreen = () => {
                         <Text style={{ top: 130, fontSize: 11 }}>
                             We undertake to arrive within two hours of the requested time
                         </Text>
-                        {console.log(customRequests)}
                     </View>
                 </>
             }
