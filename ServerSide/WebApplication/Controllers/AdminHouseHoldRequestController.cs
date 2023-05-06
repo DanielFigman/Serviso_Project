@@ -44,7 +44,7 @@ namespace WebApplication.Controllers
         [HttpPut]
         [Route("api/CloseOpenRequest")]
 
-        public IHttpActionResult Put([FromUri] int requestID)
+        public IHttpActionResult Put([FromUri] long requestID)
         {
             try
             {

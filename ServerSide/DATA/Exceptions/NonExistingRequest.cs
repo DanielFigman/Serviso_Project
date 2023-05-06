@@ -9,7 +9,7 @@ namespace DATA
     public class NonExistingRequest : Exception
     {
 
-        public NonExistingRequest(int id) : base($"Request ID: {id}, is not exist in the system")
+        public NonExistingRequest(long id) : base($"Request ID: {id}, is not exist in the system")
         {
 
         }
