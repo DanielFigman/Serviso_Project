@@ -5,6 +5,7 @@ import CustomRequestCarusel from '../../FCComponents/CustomRequestCarusel';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import { useNavigation } from '@react-navigation/native';
+import ButtonMain from '../../FCComponents/Buttons';
 
 const CustomRequestScreen = () => {
 
@@ -42,31 +43,31 @@ const CustomRequestScreen = () => {
     const handleContinue = async () => {
         if (Object.keys(customRequests).length !== 0) {
             const postObject = GetRequestObject();
-                try {
-                    const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/houseHoldCustomRequest', {
-                        method: 'POST',
-                        body: JSON.stringify(postObject),
-                        headers: new Headers({
-                            'Content-type': 'application/json; charset=UTF-8',
-                        })
-                    });
+            try {
+                const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/houseHoldCustomRequest', {
+                    method: 'POST',
+                    body: JSON.stringify(postObject),
+                    headers: new Headers({
+                        'Content-type': 'application/json; charset=UTF-8',
+                    })
+                });
 
-                    if (response.ok) {
-                        navigation.navigate("CustomOrderConfirmation", {
-                            selectedTime,
-                            date: postObject.Request_In_Order[0].requestedDate,
-                            hour,
-                            minute
-                        })
+                if (response.ok) {
+                    navigation.navigate("CustomOrderConfirmation", {
+                        selectedTime,
+                        date: postObject.Request_In_Order[0].requestedDate,
+                        hour,
+                        minute
+                    })
 
 
-                    } else {
-                        showAlert();
-                    }
-
-                } catch (error) {
+                } else {
                     showAlert();
                 }
+
+            } catch (error) {
+                showAlert();
+            }
         }
     };
 
@@ -130,7 +131,7 @@ const CustomRequestScreen = () => {
         const timestamp = Date.now();
         const randomInt = Math.floor(Math.random() * 1000000); // Change the range as per your need
         return parseInt(timestamp.toString() + randomInt.toString());
-      }
+    }
 
     const GetTimeNow = () => {
         const now = new Date();
@@ -209,10 +210,10 @@ const CustomRequestScreen = () => {
                 <>
                     <View style={styles.container}>
 
-                        <View style={{ marginTop: 80, height: "100%" }}>
+                        <View style={{ marginTop: 130, height: "100%" }}>
                             <CustomRequestCarusel setCustomRequests={setCustomRequests} customRequests={customRequests} />
                         </View>
-                        <View style={{ height: 50, width: 120, marginTop: 50, right: '18%', top: -290, marginBottom: 10 }}>
+                        <View style={{ height: 50, width: 120, marginTop: 150, right: '18%', top: -290, marginBottom: 10 }}>
                             <Text style={{ fontSize: 24, marginBottom: 10, }}>When?</Text>
 
                             <View style={{ flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'center' }}>
@@ -227,7 +228,7 @@ const CustomRequestScreen = () => {
                             </View>
                             <Text style={{ fontSize: 14 }}>at:  </Text>
                         </View>
-                        <View style={{ backgroundColor: '#F0E8E6', top: -80, padding: 20, marginTop: -50, borderRadius: 40, opacity: isEnabled ? 0.5 : 1 }}>
+                        <View style={{ backgroundColor: '#F0E8E6', top: 0, padding: 20, marginTop: -50, borderRadius: 40, opacity: isEnabled ? 0.5 : 1 }}>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start' }}>
                                 <View style={[styles.pickerContainer, { opacity: isEnabled ? 0.5 : 1 }]}>
@@ -256,23 +257,8 @@ const CustomRequestScreen = () => {
                                 </View>
                             </View>
                         </View>
-
-                        <TouchableOpacity
-                            style={{
-                                marginTop: 30,
-                                backgroundColor: '#000000',
-                                padding: 20,
-                                alignItems: 'center',
-                                borderRadius: 40,
-                                marginTop: 16,
-                            }}
-                            onPress={handleContinue}
-                        >
-                            <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}>NEXT</Text>
-                        </TouchableOpacity>
-                        <Text style={{ top: 130, fontSize: 11 }}>
-                            We undertake to arrive within two hours of the requested time
-                        </Text>
+                        <ButtonMain onPress={handleContinue} text={"NEXT"} textStyle={{fontSize: 18, fontWeight: 'bold'}} buttonStyle={{marginTop:180}}/>
+                      
                     </View>
                 </>
             }

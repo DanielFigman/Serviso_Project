@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
 import { Keyboard, StyleSheet, View, Image, TouchableWithoutFeedback, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ArrowLeftCircleIcon, XCircleIcon } from 'react-native-heroicons/mini';
-import BottomMenu from './BottomMenu';
+import { ArrowLeftCircleIcon, XCircleIcon } from 'react-native-heroicons/outline';
 import Loading from './Loading';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 
@@ -78,7 +77,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
         default:
             topLeftButtonIcon = (
                 <TouchableOpacity onPress={navigation.goBack}>
-                    <ArrowLeftCircleIcon fill={topLeftButtonColor ? topLeftButtonColor : styles.topLeftButton.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
+                    <ArrowLeftCircleIcon color={"white"} fill={topLeftButtonColor ? topLeftButtonColor : styles.topLeftButtonColor.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton}/>
                 </TouchableOpacity>
             );
             break;
@@ -129,8 +128,10 @@ const styles = StyleSheet.create({
     container: {
         height: '100%',
     },
+    topLeftButtonColor:{
+        color: 'black',
+    },
     topLeftButton: {
-        color: '#8E8E8E',
         width: 20,
         fontSize: 30,
         left: 10,

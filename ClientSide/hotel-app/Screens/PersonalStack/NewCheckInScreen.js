@@ -29,7 +29,6 @@ export default function NewCheckInScreen() {
     return (
         <ScreenComponent
             topLeftButtonStyle={{ position: "absolute", zIndex: 1 }}
-            topLeftButtonColor={"black"}
             content={
                 <>
                     <View>

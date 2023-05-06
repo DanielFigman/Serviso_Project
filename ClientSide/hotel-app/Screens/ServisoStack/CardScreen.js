@@ -48,7 +48,6 @@ const CardScreen = () => {
     return (
         <ScreenComponent
             topLeftButtonStyle={{ position: "absolute", zIndex: 1 }}
-            topLeftButtonColor={"black"}
             content={
                 <View>
                     <View style={{ width: "100%", height: 300, top: -height * 0.07 }}>
