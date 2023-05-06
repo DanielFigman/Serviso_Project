@@ -42,7 +42,7 @@ const snackOptions = [
 const HomeScreen = () => {
 
     const navigation = useNavigation();
-    const {language, therapies, activities_nearBy } = useContext(HotelsAppContext);
+    const { language, therapies, activities_nearBy } = useContext(HotelsAppContext);
     const screenContent = Languages.HomeScreen;
 
     return (
@@ -61,7 +61,7 @@ const HomeScreen = () => {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flex: 1 }}>
-                                <MyCarousel data={activities_nearBy} type={'parallax'} cardStyle={{borderWidth:1}}/>
+                                <MyCarousel data={activities_nearBy} type={'parallax'} cardStyle={{ borderWidth: 1 }} />
                             </View>
                         </View>
                         <View style={{ marginVertical: 10, marginTop: 10 }}>
@@ -71,13 +71,17 @@ const HomeScreen = () => {
                                     <Text>{screenContent.MoreSpaTreatments[language]}</Text>
                                 </TouchableOpacity>
                             </View>
-                            <ScrollView horizontal={true}>
-                                {therapies.map((item) => (
-                                    <SmallCard key={item.therapyID} item={item} type={"SPA"}/>
-                                ))}
-                            </ScrollView>
+                            {therapies ?
+                                <ScrollView horizontal={true}>
+                                    {therapies.map((item) => (
+                                        <SmallCard key={item.therapyID} item={item} type={"SPA"} />
+                                    ))}
+                                </ScrollView>
+                                :
+                                ""
+                            }
                         </View>
-                        <View style={{ marginVertical: 10, marginTop: 10, paddingBottom:50}}>
+                        <View style={{ marginVertical: 10, marginTop: 10, paddingBottom: 50 }}>
                             <View style={{ flexDirection: "row", marginHorizontal: 40, marginBottom: 5, marginTop: 10 }}>
                                 <Text style={{ flex: 1, fontWeight: "bold" }}>{screenContent.SomethingToSnack[language]}</Text>
                                 <TouchableOpacity onPress={() => ""}>
@@ -86,14 +90,14 @@ const HomeScreen = () => {
                             </View>
                             <ScrollView horizontal={true}>
                                 {snackOptions.map((item) => (
-                                    <SmallCard key={item.id} item={item}/>
+                                    <SmallCard key={item.id} item={item} />
                                 ))}
                             </ScrollView>
                         </View>
                     </ScrollView >
                 </View >
             }
-/>
+        />
     )
 }
 

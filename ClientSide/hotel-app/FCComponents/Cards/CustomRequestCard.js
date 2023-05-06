@@ -1,9 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-const CustomRequestCard = ({ item }) => {
+const CustomRequestCard = ({ item, setCustomRequests, customRequests }) => {
 
     const [amount, setAmount] = useState(0);
+    const prevAmountRef = useRef(amount);
+
 
     const handleQuantityChange = (action) => {
         switch (action) {
@@ -17,6 +19,29 @@ const CustomRequestCard = ({ item }) => {
                 break;
         }
     };
+
+    useEffect(() => {
+        const addedObject = { typeID: item.id, amount };
+        const copyOfCustomRequests = Array.from(customRequests);
+        const thisObjectInCustomRequests = copyOfCustomRequests.filter(c => c.typeID === item.id);
+
+        if (amount > 0) {
+            if (thisObjectInCustomRequests.length > 0) {
+                const updatedCustomRequests = copyOfCustomRequests.filter(c => c.typeID !== item.id);
+                updatedCustomRequests.push(addedObject);
+                setCustomRequests(updatedCustomRequests);
+            } else {
+                copyOfCustomRequests.push(addedObject);
+                setCustomRequests(copyOfCustomRequests);
+            }
+        } else if (prevAmountRef.current > 0) {
+            const updatedCustomRequests = copyOfCustomRequests.filter(c => c.typeID !== item.id);
+            setCustomRequests(updatedCustomRequests);
+        }
+
+        prevAmountRef.current = amount;
+    }, [amount]);
+
 
     return (
         <View
@@ -52,7 +77,7 @@ const CustomRequestCard = ({ item }) => {
                     width: 100,
                     backgroundColor: '#F8F3F2',
                     borderRadius: 40,
-                    height:35
+                    height: 35
                 }}
             >
                 <TouchableOpacity

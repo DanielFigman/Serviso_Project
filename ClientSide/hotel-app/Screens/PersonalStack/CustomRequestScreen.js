@@ -1,28 +1,137 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, View, Text, Button, Platform, StyleSheet, Switch, TouchableOpacity, ScrollView, SafeAreaView, Pressable } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import CustomRequestCarusel from '../../FCComponents/CustomRequestCarusel';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
+import { HotelsAppContext } from '../../Context/HotelsAppContext';
+import uuidRandom from 'uuid-random';
 
 const CustomRequestScreen = () => {
-    const [hour, setHour] = useState(8);
-    const [minute, setMinute] = useState(0);
+
+    const { order } = useContext(HotelsAppContext)
+
+    const [hour, setHour] = useState(15);
+    const [minute, setMinute] = useState(1);
     const [isEnabled, setIsEnabled] = useState(false);
+    const [customRequests, setCustomRequests] = useState([]);
+    const [selectedTime, setSelectedTime] = useState(false);
 
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-    const handleContinue = () => {
-        let selectedTime;
+    useEffect(() => {
+        // set the current time after the initial render
+        const minuteTemp = parseInt(GetMinute());
+        const hourTemp = parseInt(GetHour());
 
+        setHour(hourTemp);
+        setMinute(minuteTemp);
+
+    }, [])
+
+    useEffect(() => {
         if (isEnabled) {
-            selectedTime = new Date();
+            setSelectedTime(false);
         } else {
-            selectedTime = new Date();
-            selectedTime.setHours(hour);
-            selectedTime.setMinutes(minute);
+            setSelectedTime(true);
         }
-        console.log(`at selected time: ${selectedTime}`);
+
+    }, [isEnabled])
+
+
+    const handleContinue = () => {
+
+        const postObject = GetRequestObject();
+        console.log(postObject);
+
     };
+
+    const GetRequestObject = () => {
+        //creating the parent
+        let retVal = {};
+        const requestID = uuidRandom();
+        const requestDate = new Date(Date.now()).toLocaleDateString();
+        const requestHour = GetTimeNow();
+        const status = "open";
+
+        retVal["requestID"] = requestID;
+        retVal["requestDate"] = requestDate;
+        retVal["requestHour"] = requestHour;
+        retVal["status"] = status;
+
+        //craeting the children
+        const houseHold_Request = {};
+        houseHold_Request["requestID"] = requestID;
+
+        const requestInOrder = {};
+        requestInOrder["requestID"] = requestID;
+        requestInOrder["orderID"] = order.orderID;
+
+        if (selectedTime) {
+            const requestedDate = GetRequestedDate();
+            const requestedHour = hour + ":" + minute + ":" + "00";
+
+            requestInOrder["requestedDate"] = requestedDate;
+            requestInOrder["requestedHour"] = requestedHour;
+        }
+
+        //creating the grand children
+        const houseHold_Custom_Request = JSON.stringify(customRequests);
+
+        // setting the grand child to his parent
+        houseHold_Request["HouseHold_Custom_Request"] = houseHold_Custom_Request;
+
+        //setting the childredn to the parent
+        retVal["HouseHold_Request"] = houseHold_Request;
+        retVal["Request_In_Order"] = requestInOrder;
+
+
+        return retVal;
+    }
+
+    const GetTimeNow = () => {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const timeNow = `${hours}:${minutes}:${seconds}`;
+
+        return timeNow;
+    }
+
+    const GetHour = () => {
+
+        const date = new Date();
+        const hour = date.getHours().toString().padStart(2, '0');
+
+        return hour;
+    }
+
+    const GetMinute = () => {
+        const date = new Date();
+        const minute = date.getMinutes().toString().padStart(2, '0');
+
+        return minute;
+    }
+
+    const GetRequestedDate = () => {
+        const now = new Date();
+        let retVal = null;
+
+        if (now.getHours() < hour) {
+            retVal = now;
+        } else if (now.getHours() === hour) {
+            if (now.getMinutes() <= minute) {
+                retVal = now;
+            } else {
+                retVal = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+            }
+        } else {
+            retVal = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+        }
+
+        return retVal.toLocaleDateString();
+    }
+
 
     const handleChangeMinute = (value) => {
         if (!isEnabled) {
@@ -35,14 +144,6 @@ const CustomRequestScreen = () => {
             setHour(value)
         }
     }
-
-    const renderHourItem = ({ item }) => (
-        <Text style={styles.carouselItem}>{`${item}:00`}</Text>
-    );
-
-    const renderMinuteItem = ({ item }) => (
-        <Text style={styles.carouselItem}>{item}</Text>
-    );
 
     return (
         <ScreenComponent
@@ -60,7 +161,7 @@ const CustomRequestScreen = () => {
                     <View style={styles.container}>
 
                         <View style={{ marginTop: 80, height: "100%" }}>
-                            <CustomRequestCarusel />
+                            <CustomRequestCarusel setCustomRequests={setCustomRequests} customRequests={customRequests} />
                         </View>
                         <View style={{ height: 50, width: 120, marginTop: 50, right: '18%', top: -290, marginBottom: 10 }}>
                             <Text style={{ fontSize: 24, marginBottom: 10, }}>When?</Text>
@@ -92,14 +193,14 @@ const CustomRequestScreen = () => {
                                         ))}
                                     </Picker>
                                 </View>
-                                <View style={[styles.pickerContainer, { opacity: isEnabled ? 0.5 : 1}]}>
+                                <View style={[styles.pickerContainer, { opacity: isEnabled ? 0.5 : 1 }]}>
                                     <Text style={styles.label}>Minute</Text>
                                     <Picker
-                                        style={[styles.picker, isEnabled && { opacity: 0.5, pointerEvents: "none"  }]}
+                                        style={[styles.picker, isEnabled && { opacity: 0.5, pointerEvents: "none" }]}
                                         selectedValue={minute}
                                         onValueChange={(value) => handleChangeMinute(value)}
                                     >
-                                        {Array.from({ length: 12 }, (_, i) => i).map((m) => (
+                                        {Array.from({ length: 60 }, (_, i) => i).map((m) => (
                                             <Picker.Item key={m} label={m.toString().padStart(2, '0')} value={m} />
                                         ))}
                                     </Picker>
@@ -123,6 +224,7 @@ const CustomRequestScreen = () => {
                         <Text style={{ top: 130, fontSize: 11 }}>
                             We undertake to arrive within two hours of the requested time
                         </Text>
+                        {console.log(customRequests)}
                     </View>
                 </>
             }
