@@ -1,4 +1,5 @@
 ﻿using DATA;
+using DATA.DTO;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ namespace WebApplication.Controllers
     public class AdminHouseHoldRequestController : ApiController
     {
         private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
-
 
         [HttpGet]
         [Route("api/GetHouseHoldCustomRequests")]
@@ -31,6 +31,32 @@ namespace WebApplication.Controllers
                 }
 
                 return BadRequest();
+
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("api/GetHouseHoldCustomTypes")]
+        public IHttpActionResult Get()
+        {
+            try
+            {
+                List<Custom_Request_Types> customTypeList =  db.Custom_Request_Types.ToList();
+
+                List<Custom_Request_Type_DTO> retVal = new List<Custom_Request_Type_DTO>();
+
+                customTypeList.ForEach(c =>
+                {
+                    Custom_Request_Type_DTO cDTO = new Custom_Request_Type_DTO();
+                    cDTO.setCustom_Request_Type_DTO(c);
+                    retVal.Add(cDTO);
+                });
+
+                return Content(HttpStatusCode.OK, retVal);
 
             }
             catch (Exception e)
