@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="igroup197_test1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="igroup197_test1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="placeID" />
@@ -309,6 +309,7 @@
           <Property Name="typeID" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar(max)" />
           <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="isMarked" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="HouseHold_Request">
           <Key>
@@ -1696,8 +1697,7 @@
             <End Role="Therapy_Knowledge" EntitySet="Therapy_Knowledge" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="igroup197_test1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2026,6 +2026,7 @@
           <Property Name="amount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Custom_Request_Types" Relationship="Self.FK__HouseHold__typeI__06CD04F7" FromRole="HouseHold_Custom_Request" ToRole="Custom_Request_Types" />
           <NavigationProperty Name="HouseHold_Request" Relationship="Self.FK__HouseHold__reque__05D8E0BE" FromRole="HouseHold_Custom_Request" ToRole="HouseHold_Request" />
+          <Property Name="isMarked" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="HouseHold_Request">
           <Key>
@@ -3563,6 +3564,7 @@
           <EntitySetMapping Name="HouseHold_Custom_Request">
             <EntityTypeMapping TypeName="igroup197_test1Model.HouseHold_Custom_Request">
               <MappingFragment StoreEntitySet="HouseHold_Custom_Request">
+                <ScalarProperty Name="isMarked" ColumnName="isMarked" />
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="typeID" ColumnName="typeID" />
                 <ScalarProperty Name="description" ColumnName="description" />

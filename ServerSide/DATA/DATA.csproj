@@ -139,6 +139,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Hotel.cs" />
+    <Compile Include="Entities\HouseHold_Custom_Request.cs" />
     <Compile Include="Entities\Questionnaire.cs" />
     <Compile Include="Entities\Request.cs" />
     <Compile Include="Entities\SuggestedActivities.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="Exceptions\NonExistingRequest.cs" />
     <Compile Include="Exceptions\NonExistingUser.cs" />
     <Compile Include="Exceptions\ObjectAlreadyExist.cs" />
+    <Compile Include="Exceptions\OrderNotFound.cs" />
     <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Facility.cs">
       <DependentUpon>Model.tt</DependentUpon>

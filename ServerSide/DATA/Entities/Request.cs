@@ -108,10 +108,14 @@ namespace DATA
             return true;
         }
 
-        public void CloseOpenRequest()
+        public void CheckIfCloseIsNeeded()
         {
-            status = "CLOSED";
+            List<HouseHold_Custom_Request> requests = db.HouseHold_Custom_Request.Where(r => r.requestID == requestID && r.isMarked == false).ToList();
 
+            if(requests.Count == 0)
+            {
+                status = "closed";
+            }
             try
             {
                 db.Requests.AddOrUpdate(this);
@@ -119,7 +123,6 @@ namespace DATA
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

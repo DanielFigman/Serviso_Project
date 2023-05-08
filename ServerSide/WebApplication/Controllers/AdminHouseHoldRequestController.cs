@@ -68,17 +68,18 @@ namespace WebApplication.Controllers
 
 
         [HttpPut]
-        [Route("api/CloseOpenRequest")]
+        [Route("api/MarkCustomRequest")]
 
-        public IHttpActionResult Put([FromUri] long requestID)
+        public IHttpActionResult Put([FromUri] long requestID, int typeID)
         {
             try
             {
-                Request request = db.Requests.FirstOrDefault(r => r.requestID == requestID);
+
+                HouseHold_Custom_Request request = db.HouseHold_Custom_Request.FirstOrDefault(r => r.requestID == requestID && r.typeID == typeID);
         
                 if (request != null)
                 {
-                    request.CloseOpenRequest();
+                    request.MarkRequest();
 
                     return Ok();
                 }

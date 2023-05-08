@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace DATA
         public long requestID { get; set; }
         public int amount { get; set; }
         public string name { get; set; }
+        public int typeID { get; set; }
         public bool isMarked { get; set; }
         public int roomNumber { get; set; }
         public DateTime? requestDate { get; set; }
@@ -29,9 +31,10 @@ namespace DATA
             Request r = request.HouseHold_Request.Request;
   
             requestID = request.requestID;
+            typeID = request.typeID;
             amount = request.amount;
             name = GetCustomRequestName(request);
-            isMarked = false;
+            isMarked = request.isMarked;
             requestDate = r.requestDate;
             requestHour = r.requestHour;
             roomNumber = GetRoomNumber(r);

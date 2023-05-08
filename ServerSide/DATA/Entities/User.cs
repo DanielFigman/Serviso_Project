@@ -120,11 +120,11 @@ namespace DATA
 
         public Order GetCurrentOrder()
         {
-            DateTime oneWeekAgo = DateTime.Now.AddDays(-7);
+            DateTime nextWeek = DateTime.Now.AddDays(7);
             DateTime tommorow = DateTime.Now.AddDays(1);
 
             Order currentOrder = Guest.Orders
-                .Where(order => order.checkInDate >= oneWeekAgo && order.checkOutDate >= tommorow)
+                .Where(order => order.checkInDate <= nextWeek && order.checkOutDate >= tommorow)
                 .OrderBy(order => order.checkInDate)
                 .ThenBy(order => order.checkOutDate)
                 .FirstOrDefault();
@@ -141,6 +141,10 @@ namespace DATA
             if (currentOrder != null)
             {
                 loginDTO.SetLoginDTO(this, currentOrder);
+            }
+            else
+            {
+                throw new OrderNotFound();
             }
 
             return loginDTO;

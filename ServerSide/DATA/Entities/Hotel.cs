@@ -28,7 +28,7 @@ namespace DATA
                 .ToArray();
 
 
-            List<HouseHold_Custom_Request> customRequests = db.HouseHold_Custom_Request.Where(x => requestsID.Contains(x.requestID)).ToList();
+            List<HouseHold_Custom_Request> customRequests = db.HouseHold_Custom_Request.Where(x => requestsID.Contains(x.requestID) && !x.isMarked).ToList();
 
             List<HouseCustomRequestDTO> customRequestsDTO = new List<HouseCustomRequestDTO>();
 
