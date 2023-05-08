@@ -21,6 +21,9 @@ namespace DATA
             //converting the Json to a dictionary
             Dictionary<string, Object> convertedDict = dataHelper.ConvertJsonToDictionary(data);
 
+            SetNewRequestIdToObject(ref convertedDict);
+
+
             //creating an instance of Request based on the Json properties
             Request request = dataHelper.CreateObjectFromDictionary<Request>(convertedDict);
 
@@ -58,26 +61,30 @@ namespace DATA
             //getting the order ID based on the room number
             int orderID = dataHelper.GetOrderIdByRoomNumber(roomNum, hotelID);
 
+            SetNewRequestIdToObject(ref convertedDict);
+
             if (convertedDict.ContainsKey("Request_In_Order"))
             {
-                //add the orderID property to the "Request_In_Order" list
+                // add the orderID property to the "Request_In_Order" list
                 List<object> requestInOrderList = (List<object>)convertedDict["Request_In_Order"];
 
-                //checking the json schema
-                if (requestInOrderList.Count() != 1) throw new InvalidJsonSchemaException();
+                // checking the json schema
+                if (requestInOrderList.Count() != 1)
+                {
+                    throw new InvalidJsonSchemaException();
+                }
 
-                Dictionary<string, Object> requestInOrder = (Dictionary<string, Object>)requestInOrderList[0];
+                Dictionary<string, object> requestInOrder = (Dictionary<string, object>)requestInOrderList[0];
 
-                //checking the json schema
-                if (!requestInOrder.ContainsKey("requestID")) throw new InvalidJsonSchemaException();
-
-                //adding the "orderID" key to the dictionary
+                // adding the "orderID" key to the dictionary
                 requestInOrder["orderID"] = orderID;
             }
             else
             {
                 throw new InvalidJsonSchemaException();
             }
+
+
 
             //creating an instance of Request based on the Json properties
             Request request = dataHelper.CreateObjectFromDictionary<Request>(convertedDict);
@@ -112,7 +119,7 @@ namespace DATA
         {
             List<HouseHold_Custom_Request> requests = db.HouseHold_Custom_Request.Where(r => r.requestID == requestID && r.isMarked == false).ToList();
 
-            if(requests.Count == 0)
+            if (requests.Count == 0)
             {
                 status = "closed";
             }
@@ -125,6 +132,74 @@ namespace DATA
             {
                 throw;
             }
+        }
+
+        public void SetNewRequestIdToObject(ref Dictionary<string, Object> convertedDict)
+        {
+            long requestID = db.Requests.ToList().Count() + 1;
+            convertedDict["requestID"] = requestID;
+
+            if (convertedDict.ContainsKey("HouseHold_Request"))
+            {
+                object houseHoldRequestObj = convertedDict["HouseHold_Request"];
+                if (houseHoldRequestObj is Dictionary<string, object> HouseHold_Request)
+                {
+                    HouseHold_Request["requestID"] = requestID;
+
+                    if (HouseHold_Request.ContainsKey("HouseHold_Custom_Request"))
+                    {
+                        var houseHoldCustomRequests = HouseHold_Request["HouseHold_Custom_Request"] as List<object>;
+                        if (houseHoldCustomRequests != null)
+                        {
+                            foreach (var customRequestObj in houseHoldCustomRequests)
+                            {
+                                if (customRequestObj is Dictionary<string, object> customRequestDict && customRequestDict.ContainsKey("typeID") && customRequestDict.ContainsKey("amount"))
+                                {
+                                    customRequestDict["requestID"] = requestID;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+
+            if (!convertedDict.ContainsKey("Request_In_Order"))
+            {
+                List<object> requestInOrderList = new List<object>();
+
+                Dictionary<string, object> requestInOrder = new Dictionary<string, object>
+                {
+                    // adding the "requestID" key to the dictionary
+                    ["requestID"] = requestID
+                };
+
+
+                requestInOrderList.Add(requestInOrder);
+
+
+
+                convertedDict["Request_In_Order"] = requestInOrderList;
+            }
+            else
+            {
+                // add the orderID property to the "Request_In_Order" list
+                List<object> requestInOrderList = (List<object>)convertedDict["Request_In_Order"];
+
+                // checking the json schema
+                if (requestInOrderList.Count() != 1)
+                {
+                    throw new InvalidJsonSchemaException();
+                }
+
+                Dictionary<string, object> requestInOrder = (Dictionary<string, object>)requestInOrderList[0];
+
+                // adding the "orderID" key to the dictionary
+                requestInOrder["requestID"] = requestID;
+            }
+
+
         }
     }
 }
