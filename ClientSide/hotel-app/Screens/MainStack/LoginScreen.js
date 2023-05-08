@@ -63,12 +63,17 @@ const LoginScreen = () => {
           setCustom_Request_Types(object.custom_Request_Types);
           setTherapies(object.therapies);
           setHotel(object.hotel)
+          setlanguage(object.languageShortName)
           navigation.navigate("MainScreen")
         } else {
-          showAlert();
+          const message = await response.text();
+          const object = JSON.parse(message);
+          if (object.type === "OrderNotFound") {
+            showAlert(object.message);
+          }
         }
       } catch (error) {
-        showAlert();
+        showAlert("Either the Email or the password wrong");
       }
       finally {
         setIsLoading(false);
@@ -76,10 +81,10 @@ const LoginScreen = () => {
     }
   }
 
-  const showAlert = () => {
+  const showAlert = (message) => {
     Alert.alert(
       "Login Failed",
-      "Either the Email or the password wrong",
+      message,
       [{ text: 'OK' }],
     );
   }
