@@ -41,7 +41,7 @@ const CustomRequestScreen = () => {
 
 
     const handleContinue = async () => {
-        if (Object.keys(customRequests).length !== 0) {
+        if (customRequests && Object.keys(customRequests).length !== 0) {
             const postObject = GetRequestObject();
             try {
                 const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/houseHoldCustomRequest', {
@@ -82,7 +82,6 @@ const CustomRequestScreen = () => {
     const GetRequestObject = () => {
         //creating the parent
         let retVal = {};
-        const requestID = parseInt(Date.now().toString() + Math.floor(Math.random() * 1000));
         const date = new Date();
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -92,14 +91,12 @@ const CustomRequestScreen = () => {
         const requestHour = GetTimeNow();
         const status = "open";
 
-        retVal["requestID"] = requestID;
         retVal["requestDate"] = requestDate;
         retVal["requestHour"] = requestHour;
         retVal["status"] = status;
 
         //craeting the children
         const houseHold_Request = {};
-        houseHold_Request["requestID"] = requestID;
 
         const requestInOrder = [];
 
@@ -107,14 +104,13 @@ const CustomRequestScreen = () => {
             const requestedDate = GetRequestedDate();
             const requestedHour = hour + ":" + minute + ":" + "00";
 
-            requestInOrder[0] = { requestID, orderID: order.orderID, requestedDate, requestedHour };
+            requestInOrder[0] = {orderID: order.orderID, requestedDate, requestedHour };
         } else {
-            requestInOrder[0] = { requestID, orderID: order.orderID }
+            requestInOrder[0] = {orderID: order.orderID }
         }
 
         //creating the grand children
-        const addedCustomRequests = customRequests.map(obj => ({ ...obj, requestID }));
-        const houseHold_Custom_Request = addedCustomRequests;
+        const houseHold_Custom_Request = customRequests;
 
         // setting the grand child to his parent
         houseHold_Request["HouseHold_Custom_Request"] = houseHold_Custom_Request;
