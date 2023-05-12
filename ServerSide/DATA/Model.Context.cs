@@ -31,7 +31,6 @@ namespace DATA
         public virtual DbSet<Activity_Update> Activity_Update { get; set; }
         public virtual DbSet<Additional_Items> Additional_Items { get; set; }
         public virtual DbSet<Additional_Items_Room_Service> Additional_Items_Room_Service { get; set; }
-        public virtual DbSet<Alcohol> Alcohols { get; set; }
         public virtual DbSet<Category_rating> Category_rating { get; set; }
         public virtual DbSet<Chat> Chats { get; set; }
         public virtual DbSet<ChatLine> ChatLines { get; set; }
@@ -39,17 +38,12 @@ namespace DATA
         public virtual DbSet<Checkout> Checkouts { get; set; }
         public virtual DbSet<Custom_Request_Types> Custom_Request_Types { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Drink> Drinks { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<Fault_Request> Fault_Request { get; set; }
-        public virtual DbSet<Food> Foods { get; set; }
-        public virtual DbSet<Food_And_Drinks> Food_And_Drinks { get; set; }
-        public virtual DbSet<Food_And_Drinks_Room_Service> Food_And_Drinks_Room_Service { get; set; }
         public virtual DbSet<Free_Queue> Free_Queue { get; set; }
         public virtual DbSet<Guest> Guests { get; set; }
         public virtual DbSet<Health_Declaration> Health_Declaration { get; set; }
-        public virtual DbSet<Hot_Cold_Drinks> Hot_Cold_Drinks { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<HouseHold_Cleaning_Request> HouseHold_Cleaning_Request { get; set; }
         public virtual DbSet<HouseHold_Custom_Request> HouseHold_Custom_Request { get; set; }
@@ -74,5 +68,11 @@ namespace DATA
         public virtual DbSet<Therapy_Room> Therapy_Room { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkingInShift> WorkingInShifts { get; set; }
+        public virtual DbSet<Alcohol> Alcohols { get; set; }
+        public virtual DbSet<Drink> Drinks { get; set; }
+        public virtual DbSet<Food> Foods { get; set; }
+        public virtual DbSet<Food_And_Drinks> Food_And_Drinks { get; set; }
+        public virtual DbSet<Food_And_Drinks_Room_Service> Food_And_Drinks_Room_Service { get; set; }
+        public virtual DbSet<Hot_Cold_Drinks> Hot_Cold_Drinks { get; set; }
     }
 }

@@ -25,8 +25,8 @@ namespace DATA
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Additional_Items_Room_Service> Additional_Items_Room_Service { get; set; }
+        public virtual Request Request { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Food_And_Drinks_Room_Service> Food_And_Drinks_Room_Service { get; set; }
-        public virtual Request Request { get; set; }
     }
 }

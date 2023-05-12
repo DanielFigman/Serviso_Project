@@ -25,8 +25,9 @@ namespace DATA
         public string allergicIngs { get; set; }
         public Nullable<decimal> price { get; set; }
         public Nullable<bool> inStock { get; set; }
-        public byte[] photo { get; set; }
+        public string imageURL { get; set; }
         public string tags { get; set; }
+        public int hotelID { get; set; }
     
         public virtual Alcohol Alcohol { get; set; }
         public virtual Drink Drink { get; set; }

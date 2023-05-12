@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="igroup197_test1Model.Activity_Update" Width="1.5" PointX="10.5" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Additional_Items" Width="1.5" PointX="17.75" PointY="28.375" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Additional_Items_Room_Service" Width="1.5" PointX="20" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Alcohol" Width="1.5" PointX="17" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Category_rating" Width="1.5" PointX="10.5" PointY="39.125" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Chat" Width="1.5" PointX="7.5" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.ChatLine" Width="1.5" PointX="9.75" PointY="13.5" IsExpanded="true" />
@@ -19,17 +18,12 @@
         <EntityTypeShape EntityType="igroup197_test1Model.Checkout" Width="1.5" PointX="9.75" PointY="29" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Custom_Request_Types" Width="1.5" PointX="17.75" PointY="31.875" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Department" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Drink" Width="1.5" PointX="17" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Employee" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Facility" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Fault_Request" Width="1.5" PointX="12.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Food" Width="1.5" PointX="17" PointY="20" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Food_And_Drinks" Width="1.5" PointX="14.75" PointY="18" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Food_And_Drinks_Room_Service" Width="1.5" PointX="20" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Free_Queue" Width="1.5" PointX="15" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Guest" Width="1.5" PointX="3" PointY="26" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Health_Declaration" Width="1.5" PointX="15" PointY="28.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Hot_Cold_Drinks" Width="1.5" PointX="17" PointY="25.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Hotel" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.HouseHold_Cleaning_Request" Width="1.5" PointX="15" PointY="22.75" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.HouseHold_Custom_Request" Width="1.5" PointX="20" PointY="25.625" IsExpanded="true" />
@@ -61,7 +55,6 @@
         <AssociationConnector Association="igroup197_test1Model.FK__Activity___order__619B8048" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Additional_I__ID__2645B050" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Additiona__reque__25518C17" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.FK__Alcohol__ID__19DFD96B" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Chat__orderID__3B75D760" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Chat__userEmail__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__ChatLine__chatID__4222D4EF" ManuallyRouted="false" />
@@ -70,15 +63,10 @@
         <AssociationConnector Association="igroup197_test1Model.fk_Checkout_ReceiptID" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__HouseHold__typeI__06CD04F7" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Role__department__6FE99F9F" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.FK__Drinks__ID__14270015" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Employee__email__31EC6D26" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__WorkingIn__email__36B12243" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Facility__hotelI__6477ECF3" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Fault_Req__reque__0C85DE4D" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.FK__Food__ID__17036CC0" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.FK__Hot_Cold_Dri__ID__1CBC4616" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.FK__Food_And___reque__2180FB33" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.fk_Free_Queue_RoleID" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Guest__email__286302EC" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Order__email__2D27B809" ManuallyRouted="false" />
@@ -114,6 +102,18 @@
         <AssociationConnector Association="igroup197_test1Model.Room_Allowed" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.RoomFor" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.User_questionnaire" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Alcohol" Width="1.5" PointX="15" PointY="34.625" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Drink" Width="1.5" PointX="15" PointY="20.25" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Food" Width="1.5" PointX="15" PointY="37" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Food_And_Drinks" Width="1.5" PointX="12.75" PointY="25.75" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Food_And_Drinks_Room_Service" Width="1.5" PointX="23" PointY="25" />
+        <AssociationConnector Association="igroup197_test1Model.FK__Alcohol__ID__19DFD96B" />
+        <AssociationConnector Association="igroup197_test1Model.FK__Drinks__ID__14270015" />
+        <AssociationConnector Association="igroup197_test1Model.FK__Food__ID__17036CC0" />
+        <AssociationConnector Association="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" />
+        <AssociationConnector Association="igroup197_test1Model.FK__Food_And___reque__2180FB33" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Hot_Cold_Drinks" Width="1.5" PointX="15" PointY="25.75" />
+        <AssociationConnector Association="igroup197_test1Model.FK__Hot_Cold_Dri__ID__1CBC4616" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

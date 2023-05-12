@@ -30,6 +30,7 @@ namespace DATA
         public List<Custom_Request_Type_DTO> custom_Request_Types { get; set; }
         public List<TherapyDTO> therapies { get; set; }
         public HotelDTO hotel { get; set; }
+        public List<FoodDTO> food { get; set; }
 
 
         public void SetLoginDTO(User user ,Order order)
@@ -53,6 +54,7 @@ namespace DATA
             custom_Request_Types = GetCustomTypes();
             therapies = GetTherapies(hotel.hotelID);
             this.hotel = GetHotel(hotel);
+            food = GetFood(hotel.hotelID);
         }
 
         private List<ActivityNearByDTO> GetActivitiesNearBy(string landmark)
@@ -194,6 +196,22 @@ namespace DATA
             hotelDTO.SetHotelDTO(hotel);
 
             return hotelDTO;
+        }
+
+        private List<FoodDTO> GetFood(int hotelID)
+        {
+            List<Food_And_Drinks> food = db.Food_And_Drinks.Where(f => f.hotelID == hotelID).ToList();
+
+            List<FoodDTO> retVal = new List<FoodDTO>();
+
+            food.ForEach(f =>
+            {
+                FoodDTO foodDTO = new FoodDTO();
+                foodDTO.SetFoodDTO(f);
+                retVal.Add(foodDTO);
+            });
+
+            return retVal;
         }
     }
 }

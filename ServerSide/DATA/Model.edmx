@@ -82,7 +82,6 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="alcoholPercent" Type="decimal" Precision="5" Scale="2" />
-          <Property Name="tags" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Category_rating">
           <Key>
@@ -148,7 +147,6 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="category" Type="varchar" MaxLength="255" />
-          <Property Name="tags" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -208,7 +206,6 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="description" Type="varchar(max)" />
           <Property Name="possibleChanges" Type="varchar(max)" />
-          <Property Name="tags" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Food_And_Drinks">
           <Key>
@@ -219,8 +216,9 @@
           <Property Name="allergicIngs" Type="varchar(max)" />
           <Property Name="price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="inStock" Type="bit" />
-          <Property Name="photo" Type="varbinary(max)" />
+          <Property Name="imageURL" Type="nvarchar(max)" />
           <Property Name="tags" Type="nvarchar(max)" />
+          <Property Name="hotelID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Food_And_Drinks_Room_Service">
           <Key>
@@ -275,7 +273,6 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="possibleChanges" Type="varchar(max)" />
-          <Property Name="tags" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Hotel">
           <Key>
@@ -1776,15 +1773,6 @@
           <NavigationProperty Name="Additional_Items" Relationship="Self.FK__Additional_I__ID__2645B050" FromRole="Additional_Items_Room_Service" ToRole="Additional_Items" />
           <NavigationProperty Name="Room_Service_Order" Relationship="Self.FK__Additiona__reque__25518C17" FromRole="Additional_Items_Room_Service" ToRole="Room_Service_Order" />
         </EntityType>
-        <EntityType Name="Alcohol">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="alcoholPercent" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Food_And_Drinks" Relationship="Self.FK__Alcohol__ID__19DFD96B" FromRole="Alcohol" ToRole="Food_And_Drinks" />
-        </EntityType>
         <EntityType Name="Category_rating">
           <Key>
             <PropertyRef Name="placeID" />
@@ -1854,15 +1842,6 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="Self.FK__Role__department__6FE99F9F" FromRole="Department" ToRole="Role" />
         </EntityType>
-        <EntityType Name="Drink">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Food_And_Drinks" Relationship="Self.FK__Drinks__ID__14270015" FromRole="Drinks" ToRole="Food_And_Drinks" />
-        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="email" />
@@ -1898,45 +1877,6 @@
           <Property Name="location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="solution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Request" Relationship="Self.FK__Fault_Req__reque__0C85DE4D" FromRole="Fault_Request" ToRole="Request" />
-        </EntityType>
-        <EntityType Name="Food">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="possibleChanges" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Food_And_Drinks" Relationship="Self.FK__Food__ID__17036CC0" FromRole="Food" ToRole="Food_And_Drinks" />
-        </EntityType>
-        <EntityType Name="Food_And_Drinks">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="allergicIngs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="inStock" Type="Boolean" />
-          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Alcohol" Relationship="Self.FK__Alcohol__ID__19DFD96B" FromRole="Food_And_Drinks" ToRole="Alcohol" />
-          <NavigationProperty Name="Drink" Relationship="Self.FK__Drinks__ID__14270015" FromRole="Food_And_Drinks" ToRole="Drinks" />
-          <NavigationProperty Name="Food" Relationship="Self.FK__Food__ID__17036CC0" FromRole="Food_And_Drinks" ToRole="Food" />
-          <NavigationProperty Name="Food_And_Drinks_Room_Service" Relationship="Self.FK__Food_And_Dri__ID__22751F6C" FromRole="Food_And_Drinks" ToRole="Food_And_Drinks_Room_Service" />
-          <NavigationProperty Name="Hot_Cold_Drinks" Relationship="Self.FK__Hot_Cold_Dri__ID__1CBC4616" FromRole="Food_And_Drinks" ToRole="Hot_Cold_Drinks" />
-        </EntityType>
-        <EntityType Name="Food_And_Drinks_Room_Service">
-          <Key>
-            <PropertyRef Name="requestID" />
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="requestID" Type="Int64" Nullable="false" />
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="amount" Type="Int32" />
-          <Property Name="changes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Food_And_Drinks" Relationship="Self.FK__Food_And_Dri__ID__22751F6C" FromRole="Food_And_Drinks_Room_Service" ToRole="Food_And_Drinks" />
-          <NavigationProperty Name="Room_Service_Order" Relationship="Self.FK__Food_And___reque__2180FB33" FromRole="Food_And_Drinks_Room_Service" ToRole="Room_Service_Order" />
         </EntityType>
         <EntityType Name="Free_Queue">
           <Key>
@@ -1978,15 +1918,6 @@
           <Property Name="Other" Type="Boolean" />
           <Property Name="Allergies" Type="Boolean" />
           <NavigationProperty Name="Spa_Order" Relationship="Self.fk_Health_Declaration_RequestID" FromRole="Health_Declaration" ToRole="Spa_Order" />
-        </EntityType>
-        <EntityType Name="Hot_Cold_Drinks">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="possibleChanges" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Food_And_Drinks" Relationship="Self.FK__Hot_Cold_Dri__ID__1CBC4616" FromRole="Hot_Cold_Drinks" ToRole="Food_And_Drinks" />
         </EntityType>
         <EntityType Name="Hotel">
           <Key>
@@ -2160,8 +2091,8 @@
           </Key>
           <Property Name="requestID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Additional_Items_Room_Service" Relationship="Self.FK__Additiona__reque__25518C17" FromRole="Room_Service_Order" ToRole="Additional_Items_Room_Service" />
-          <NavigationProperty Name="Food_And_Drinks_Room_Service" Relationship="Self.FK__Food_And___reque__2180FB33" FromRole="Room_Service_Order" ToRole="Food_And_Drinks_Room_Service" />
           <NavigationProperty Name="Request" Relationship="Self.FK__Room_Serv__reque__0F624AF8" FromRole="Room_Service_Order" ToRole="Request" />
+          <NavigationProperty Name="Food_And_Drinks_Room_Service" Relationship="igroup197_test1Model.FK__Food_And___reque__2180FB33" FromRole="Room_Service_Order" ToRole="Food_And_Drinks_Room_Service" />
         </EntityType>
         <EntityType Name="Shift">
           <Key>
@@ -2396,18 +2327,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Alcohol__ID__19DFD96B">
-          <End Role="Food_And_Drinks" Type="Self.Food_And_Drinks" Multiplicity="1" />
-          <End Role="Alcohol" Type="Self.Alcohol" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Food_And_Drinks">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Alcohol">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Chat__orderID__3B75D760">
           <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
           <End Role="Chat" Type="Self.Chat" Multiplicity="*" />
@@ -2504,18 +2423,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Drinks__ID__14270015">
-          <End Role="Food_And_Drinks" Type="Self.Food_And_Drinks" Multiplicity="1" />
-          <End Role="Drinks" Type="Self.Drink" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Food_And_Drinks">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Drinks">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Employee__email__31EC6D26">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
@@ -2560,54 +2467,6 @@
               <PropertyRef Name="requestID" />
             </Principal>
             <Dependent Role="Fault_Request">
-              <PropertyRef Name="requestID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Food__ID__17036CC0">
-          <End Role="Food_And_Drinks" Type="Self.Food_And_Drinks" Multiplicity="1" />
-          <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Food_And_Drinks">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Food">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Food_And_Dri__ID__22751F6C">
-          <End Role="Food_And_Drinks" Type="Self.Food_And_Drinks" Multiplicity="1" />
-          <End Role="Food_And_Drinks_Room_Service" Type="Self.Food_And_Drinks_Room_Service" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Food_And_Drinks">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Food_And_Drinks_Room_Service">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Hot_Cold_Dri__ID__1CBC4616">
-          <End Role="Food_And_Drinks" Type="Self.Food_And_Drinks" Multiplicity="1" />
-          <End Role="Hot_Cold_Drinks" Type="Self.Hot_Cold_Drinks" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Food_And_Drinks">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Hot_Cold_Drinks">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Food_And___reque__2180FB33">
-          <End Role="Room_Service_Order" Type="Self.Room_Service_Order" Multiplicity="1" />
-          <End Role="Food_And_Drinks_Room_Service" Type="Self.Food_And_Drinks_Room_Service" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Room_Service_Order">
-              <PropertyRef Name="requestID" />
-            </Principal>
-            <Dependent Role="Food_And_Drinks_Room_Service">
               <PropertyRef Name="requestID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2983,7 +2842,6 @@
           <EntitySet Name="Activity_Update" EntityType="Self.Activity_Update" />
           <EntitySet Name="Additional_Items" EntityType="Self.Additional_Items" />
           <EntitySet Name="Additional_Items_Room_Service" EntityType="Self.Additional_Items_Room_Service" />
-          <EntitySet Name="Alcohols" EntityType="Self.Alcohol" />
           <EntitySet Name="Category_rating" EntityType="Self.Category_rating" />
           <EntitySet Name="Chats" EntityType="Self.Chat" />
           <EntitySet Name="ChatLines" EntityType="Self.ChatLine" />
@@ -2991,17 +2849,12 @@
           <EntitySet Name="Checkouts" EntityType="Self.Checkout" />
           <EntitySet Name="Custom_Request_Types" EntityType="Self.Custom_Request_Types" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
-          <EntitySet Name="Drinks" EntityType="Self.Drink" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Facilities" EntityType="Self.Facility" />
           <EntitySet Name="Fault_Request" EntityType="Self.Fault_Request" />
-          <EntitySet Name="Foods" EntityType="Self.Food" />
-          <EntitySet Name="Food_And_Drinks" EntityType="Self.Food_And_Drinks" />
-          <EntitySet Name="Food_And_Drinks_Room_Service" EntityType="Self.Food_And_Drinks_Room_Service" />
           <EntitySet Name="Free_Queue" EntityType="Self.Free_Queue" />
           <EntitySet Name="Guests" EntityType="Self.Guest" />
           <EntitySet Name="Health_Declaration" EntityType="Self.Health_Declaration" />
-          <EntitySet Name="Hot_Cold_Drinks" EntityType="Self.Hot_Cold_Drinks" />
           <EntitySet Name="Hotels" EntityType="Self.Hotel" />
           <EntitySet Name="HouseHold_Cleaning_Request" EntityType="Self.HouseHold_Cleaning_Request" />
           <EntitySet Name="HouseHold_Custom_Request" EntityType="Self.HouseHold_Custom_Request" />
@@ -3054,10 +2907,6 @@
             <End Role="Room_Service_Order" EntitySet="Room_Service_Order" />
             <End Role="Additional_Items_Room_Service" EntitySet="Additional_Items_Room_Service" />
           </AssociationSet>
-          <AssociationSet Name="FK__Alcohol__ID__19DFD96B" Association="Self.FK__Alcohol__ID__19DFD96B">
-            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
-            <End Role="Alcohol" EntitySet="Alcohols" />
-          </AssociationSet>
           <AssociationSet Name="FK__Chat__orderID__3B75D760" Association="Self.FK__Chat__orderID__3B75D760">
             <End Role="Order" EntitySet="Orders" />
             <End Role="Chat" EntitySet="Chats" />
@@ -3090,10 +2939,6 @@
             <End Role="Department" EntitySet="Departments" />
             <End Role="Role" EntitySet="Roles" />
           </AssociationSet>
-          <AssociationSet Name="FK__Drinks__ID__14270015" Association="Self.FK__Drinks__ID__14270015">
-            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
-            <End Role="Drinks" EntitySet="Drinks" />
-          </AssociationSet>
           <AssociationSet Name="FK__Employee__email__31EC6D26" Association="Self.FK__Employee__email__31EC6D26">
             <End Role="User" EntitySet="Users" />
             <End Role="Employee" EntitySet="Employees" />
@@ -3109,22 +2954,6 @@
           <AssociationSet Name="FK__Fault_Req__reque__0C85DE4D" Association="Self.FK__Fault_Req__reque__0C85DE4D">
             <End Role="Request" EntitySet="Requests" />
             <End Role="Fault_Request" EntitySet="Fault_Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Food__ID__17036CC0" Association="Self.FK__Food__ID__17036CC0">
-            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
-            <End Role="Food" EntitySet="Foods" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Food_And_Dri__ID__22751F6C" Association="Self.FK__Food_And_Dri__ID__22751F6C">
-            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
-            <End Role="Food_And_Drinks_Room_Service" EntitySet="Food_And_Drinks_Room_Service" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Hot_Cold_Dri__ID__1CBC4616" Association="Self.FK__Hot_Cold_Dri__ID__1CBC4616">
-            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
-            <End Role="Hot_Cold_Drinks" EntitySet="Hot_Cold_Drinks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Food_And___reque__2180FB33" Association="Self.FK__Food_And___reque__2180FB33">
-            <End Role="Room_Service_Order" EntitySet="Room_Service_Order" />
-            <End Role="Food_And_Drinks_Room_Service" EntitySet="Food_And_Drinks_Room_Service" />
           </AssociationSet>
           <AssociationSet Name="fk_Free_Queue_RoleID" Association="Self.fk_Free_Queue_RoleID">
             <End Role="Therapist" EntitySet="Therapists" />
@@ -3266,7 +3095,172 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Questionnaire" EntitySet="Questionnaires" />
           </AssociationSet>
+          <EntitySet Name="Alcohols" EntityType="igroup197_test1Model.Alcohol" />
+          <EntitySet Name="Drinks" EntityType="igroup197_test1Model.Drink" />
+          <EntitySet Name="Foods" EntityType="igroup197_test1Model.Food" />
+          <EntitySet Name="Food_And_Drinks" EntityType="igroup197_test1Model.Food_And_Drinks" />
+          <EntitySet Name="Food_And_Drinks_Room_Service" EntityType="igroup197_test1Model.Food_And_Drinks_Room_Service" />
+          <AssociationSet Name="FK__Alcohol__ID__19DFD96B" Association="igroup197_test1Model.FK__Alcohol__ID__19DFD96B">
+            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
+            <End Role="Alcohol" EntitySet="Alcohols" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Drinks__ID__14270015" Association="igroup197_test1Model.FK__Drinks__ID__14270015">
+            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
+            <End Role="Drink" EntitySet="Drinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Food__ID__17036CC0" Association="igroup197_test1Model.FK__Food__ID__17036CC0">
+            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
+            <End Role="Food" EntitySet="Foods" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Food_And_Dri__ID__22751F6C" Association="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C">
+            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
+            <End Role="Food_And_Drinks_Room_Service" EntitySet="Food_And_Drinks_Room_Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Food_And___reque__2180FB33" Association="igroup197_test1Model.FK__Food_And___reque__2180FB33">
+            <End Role="Room_Service_Order" EntitySet="Room_Service_Order" />
+            <End Role="Food_And_Drinks_Room_Service" EntitySet="Food_And_Drinks_Room_Service" />
+          </AssociationSet>
+          <EntitySet Name="Hot_Cold_Drinks" EntityType="igroup197_test1Model.Hot_Cold_Drinks" />
+          <AssociationSet Name="FK__Hot_Cold_Dri__ID__1CBC4616" Association="igroup197_test1Model.FK__Hot_Cold_Dri__ID__1CBC4616">
+            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
+            <End Role="Hot_Cold_Drinks" EntitySet="Hot_Cold_Drinks" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Alcohol">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="alcoholPercent" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Food_And_Drinks" Relationship="igroup197_test1Model.FK__Alcohol__ID__19DFD96B" FromRole="Alcohol" ToRole="Food_And_Drinks" />
+        </EntityType>
+        <EntityType Name="Drink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Food_And_Drinks" Relationship="igroup197_test1Model.FK__Drinks__ID__14270015" FromRole="Drink" ToRole="Food_And_Drinks" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="possibleChanges" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Food_And_Drinks" Relationship="igroup197_test1Model.FK__Food__ID__17036CC0" FromRole="Food" ToRole="Food_And_Drinks" />
+        </EntityType>
+        <EntityType Name="Food_And_Drinks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="allergicIngs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="inStock" Type="Boolean" />
+          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hotelID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Alcohol" Relationship="igroup197_test1Model.FK__Alcohol__ID__19DFD96B" FromRole="Food_And_Drinks" ToRole="Alcohol" />
+          <NavigationProperty Name="Drink" Relationship="igroup197_test1Model.FK__Drinks__ID__14270015" FromRole="Food_And_Drinks" ToRole="Drink" />
+          <NavigationProperty Name="Food" Relationship="igroup197_test1Model.FK__Food__ID__17036CC0" FromRole="Food_And_Drinks" ToRole="Food" />
+          <NavigationProperty Name="Food_And_Drinks_Room_Service" Relationship="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" FromRole="Food_And_Drinks" ToRole="Food_And_Drinks_Room_Service" />
+          <NavigationProperty Name="Hot_Cold_Drinks" Relationship="igroup197_test1Model.FK__Hot_Cold_Dri__ID__1CBC4616" FromRole="Food_And_Drinks" ToRole="Hot_Cold_Drinks" />
+        </EntityType>
+        <EntityType Name="Food_And_Drinks_Room_Service">
+          <Key>
+            <PropertyRef Name="requestID" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="requestID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="changes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Food_And_Drinks" Relationship="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" FromRole="Food_And_Drinks_Room_Service" ToRole="Food_And_Drinks" />
+          <NavigationProperty Name="Room_Service_Order" Relationship="igroup197_test1Model.FK__Food_And___reque__2180FB33" FromRole="Food_And_Drinks_Room_Service" ToRole="Room_Service_Order" />
+        </EntityType>
+        <Association Name="FK__Alcohol__ID__19DFD96B">
+          <End Type="igroup197_test1Model.Food_And_Drinks" Role="Food_And_Drinks" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Alcohol" Role="Alcohol" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Food_And_Drinks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Alcohol">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Drinks__ID__14270015">
+          <End Type="igroup197_test1Model.Food_And_Drinks" Role="Food_And_Drinks" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Drink" Role="Drink" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Food_And_Drinks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Drink">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Food__ID__17036CC0">
+          <End Type="igroup197_test1Model.Food_And_Drinks" Role="Food_And_Drinks" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Food" Role="Food" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Food_And_Drinks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Food">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Food_And_Dri__ID__22751F6C">
+          <End Type="igroup197_test1Model.Food_And_Drinks" Role="Food_And_Drinks" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Food_And_Drinks_Room_Service" Role="Food_And_Drinks_Room_Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food_And_Drinks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Food_And_Drinks_Room_Service">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Food_And___reque__2180FB33">
+          <End Type="igroup197_test1Model.Room_Service_Order" Role="Room_Service_Order" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Food_And_Drinks_Room_Service" Role="Food_And_Drinks_Room_Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room_Service_Order">
+              <PropertyRef Name="requestID" />
+            </Principal>
+            <Dependent Role="Food_And_Drinks_Room_Service">
+              <PropertyRef Name="requestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Hot_Cold_Drinks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="possibleChanges" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Food_And_Drinks" Relationship="igroup197_test1Model.FK__Hot_Cold_Dri__ID__1CBC4616" FromRole="Hot_Cold_Drinks" ToRole="Food_And_Drinks" />
+        </EntityType>
+        <Association Name="FK__Hot_Cold_Dri__ID__1CBC4616">
+          <End Type="igroup197_test1Model.Food_And_Drinks" Role="Food_And_Drinks" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Hot_Cold_Drinks" Role="Hot_Cold_Drinks" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Food_And_Drinks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Hot_Cold_Drinks">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3340,15 +3334,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Alcohols">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Alcohol">
-              <MappingFragment StoreEntitySet="Alcohol">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="alcoholPercent" ColumnName="alcoholPercent" />
-                <ScalarProperty Name="tags" ColumnName="tags" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Category_rating">
             <EntityTypeMapping TypeName="igroup197_test1Model.Category_rating">
               <MappingFragment StoreEntitySet="Category_rating">
@@ -3413,15 +3398,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Drinks">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Drink">
-              <MappingFragment StoreEntitySet="Drinks">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="category" ColumnName="category" />
-                <ScalarProperty Name="tags" ColumnName="tags" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="igroup197_test1Model.Employee">
               <MappingFragment StoreEntitySet="Employee">
@@ -3453,39 +3429,6 @@
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="location" ColumnName="location" />
                 <ScalarProperty Name="solution" ColumnName="solution" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Foods">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Food">
-              <MappingFragment StoreEntitySet="Food">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="possibleChanges" ColumnName="possibleChanges" />
-                <ScalarProperty Name="tags" ColumnName="tags" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Food_And_Drinks">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Food_And_Drinks">
-              <MappingFragment StoreEntitySet="Food_And_Drinks">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="allergicIngs" ColumnName="allergicIngs" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="inStock" ColumnName="inStock" />
-                <ScalarProperty Name="photo" ColumnName="photo" />
-                <ScalarProperty Name="tags" ColumnName="tags" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Food_And_Drinks_Room_Service">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Food_And_Drinks_Room_Service">
-              <MappingFragment StoreEntitySet="Food_And_Drinks_Room_Service">
-                <ScalarProperty Name="requestID" ColumnName="requestID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="changes" ColumnName="changes" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3524,15 +3467,6 @@
                 <ScalarProperty Name="Headaches_Migraines" ColumnName="Headaches/Migraines" />
                 <ScalarProperty Name="Other" ColumnName="Other" />
                 <ScalarProperty Name="Allergies" ColumnName="Allergies" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Hot_Cold_Drinks">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Hot_Cold_Drinks">
-              <MappingFragment StoreEntitySet="Hot_Cold_Drinks">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="possibleChanges" ColumnName="possibleChanges" />
-                <ScalarProperty Name="tags" ColumnName="tags" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3855,6 +3789,63 @@
               <ScalarProperty Name="questionnaireID" ColumnName="questionnaireID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Alcohols">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Alcohol">
+              <MappingFragment StoreEntitySet="Alcohol">
+                <ScalarProperty Name="alcoholPercent" ColumnName="alcoholPercent" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drinks">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Drink">
+              <MappingFragment StoreEntitySet="Drinks">
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Foods">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Food">
+              <MappingFragment StoreEntitySet="Food">
+                <ScalarProperty Name="possibleChanges" ColumnName="possibleChanges" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food_And_Drinks">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Food_And_Drinks">
+              <MappingFragment StoreEntitySet="Food_And_Drinks">
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+                <ScalarProperty Name="inStock" ColumnName="inStock" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="allergicIngs" ColumnName="allergicIngs" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food_And_Drinks_Room_Service">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Food_And_Drinks_Room_Service">
+              <MappingFragment StoreEntitySet="Food_And_Drinks_Room_Service">
+                <ScalarProperty Name="changes" ColumnName="changes" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hot_Cold_Drinks">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Hot_Cold_Drinks">
+              <MappingFragment StoreEntitySet="Hot_Cold_Drinks">
+                <ScalarProperty Name="possibleChanges" ColumnName="possibleChanges" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
