@@ -23,7 +23,8 @@ const LoginScreen = () => {
     setFacilities,
     setCustom_Request_Types,
     setTherapies,
-    setHotel
+    setHotel,
+    setFood
   } = useContext(HotelsAppContext)
 
 
@@ -64,6 +65,7 @@ const LoginScreen = () => {
           setTherapies(object.therapies);
           setHotel(object.hotel)
           setlanguage(object.languageShortName)
+          setFood(object.food)
           navigation.navigate("MainScreen")
         } else {
           const message = await response.text();

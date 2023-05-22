@@ -7,6 +7,7 @@ import Languages from "../../Json_files/Languages";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import ButtonMain from "../../FCComponents/Buttons";
+import LoadingImage from "../../FCComponents/LoadingImage";
 
 
 const { height } = Dimensions.get('window');
@@ -51,11 +52,9 @@ const CardScreen = () => {
             content={
                 <View>
                     <View style={{ width: "100%", height: 300, top: -height * 0.07 }}>
-                        <Image
+                        <LoadingImage
                             style={{ width: "100%", height: "100%" }}
-                            source={{
-                                url: imageURL,
-                            }}
+                            imageURL={imageURL}
                         />
                         <Text style={[styles.titel, newTop()]}>{name}</Text>
                     </View>

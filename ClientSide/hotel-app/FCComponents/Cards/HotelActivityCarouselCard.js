@@ -1,13 +1,14 @@
 import { Text, View, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@rneui/base";
 import { HeartIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
+import LoadingImage from "../LoadingImage";
 
 const HotelActivityCarouselCard = ({ item, id}) => {
   const [favorite, setFavorite] = useState(item.favorite);
-
   const navigation = useNavigation();
+
   return (
     <TouchableOpacity onPress={() => navigation.navigate("CardScreen", {
       id,
@@ -26,8 +27,7 @@ const HotelActivityCarouselCard = ({ item, id}) => {
           backgroundColor: "#EDEDED",
         }}
       >
-        <Image
-          source={{ uri: item.imageURL }}
+        <LoadingImage
           style={{
             resizeMode: "cover",
             width: 180,
@@ -35,6 +35,7 @@ const HotelActivityCarouselCard = ({ item, id}) => {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
           }}
+          imageURL={item.imageURL}
         />
         <TouchableOpacity onPress={() => setFavorite(!favorite)}>
           <HeartIcon

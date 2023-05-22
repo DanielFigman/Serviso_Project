@@ -1,7 +1,8 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HeartIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
+import LoadingImage from "../LoadingImage";
 
 const ConciergeCarouselCard = ({ item, id}) => {
   const [favorite, setFavorite] = useState(item.favorite);
@@ -26,8 +27,7 @@ const ConciergeCarouselCard = ({ item, id}) => {
           backgroundColor: "#EDEDED",
         }}
       >
-        <Image
-          source={{ uri: item.imageURL }}
+        <LoadingImage
           style={{
             resizeMode: "cover",
             width: 180,
@@ -35,6 +35,7 @@ const ConciergeCarouselCard = ({ item, id}) => {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
           }}
+          imageURL={item.imageURL}
         />
         <TouchableOpacity onPress={() => setFavorite(!favorite)}>
           <HeartIcon

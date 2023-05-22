@@ -1,27 +1,29 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@rneui/base";
 import { HeartIcon } from "react-native-heroicons/outline";
+import LoadingImage from "../LoadingImage";
 
 const ConciergeCard = ({ item, id }) => {
   const [favorite, setFavorite] = useState(item.favorite);
+
   return (
     <TouchableOpacity>
-      <View style={[styles.rowView, {width:"100%"}]}>
-        <View style={{width:"20%"}}>
-          <Image
-            source={{ url: item.imageURL }}
+      <View style={[styles.rowView, { width: "100%" }]}>
+        <View style={{ width: "20%" }}>
+          <LoadingImage
             style={{ height: 90, borderRadius: 20 }}
+            imageURL={item.imageURL}
           />
         </View>
-        <View style={{width:"60%"}}>
+        <View style={{ width: "60%" }}>
           <Text style={styles.titeltext}>{item.name}</Text>
           <Text numberOfLines={2} style={styles.text}>
             {item.description}
           </Text>
           <Text style={styles.text}>{item.price}</Text>
         </View>
-        <View style={{width:"20%"}}>
+        <View style={{ width: "20%" }}>
           <TouchableOpacity onPress={() => setFavorite(!favorite)}>
             <HeartIcon
               size={30}

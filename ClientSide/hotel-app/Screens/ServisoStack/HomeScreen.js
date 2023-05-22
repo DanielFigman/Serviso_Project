@@ -10,39 +10,11 @@ import { useNavigation } from '@react-navigation/native';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import Languages from '../../Json_files/Languages';
 
-const snackOptions = [
-    {
-        id: 1,
-        name: "Cake",
-        price: 45,
-        imageURL: "https://www.pieceofcakeinc.com/images/products/lrg/redvelvetlayercake.jpg",
-    },
-    {
-        id: 2,
-        name: "Salad",
-        price: 65,
-        imageURL: "https://www.nonguiltypleasures.com/wp-content/uploads/2022/10/arabic-chopped-salad.jpg",
-    },
-    {
-        id: 3,
-        name: "French toast",
-        price: 40,
-        imageURL: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/french-toast_1-5bbce73.jpg?quality=90&webp=true&resize=375,341",
-    },
-    {
-        id: 4,
-        name: "Fries",
-        price: 30,
-        imageURL: "https://images.themodernproper.com/billowy-turkey/production/posts/2022/Homemade-French-Fries_8.jpg?w=800&q=82&fm=jpg&fit=crop&dm=1662474181&s=76f4dc7a5af1958d255ce8559579a6f2",
-    },
-];
-
-
 
 const HomeScreen = () => {
 
     const navigation = useNavigation();
-    const { language, therapies, activities_nearBy } = useContext(HotelsAppContext);
+    const { language, therapies, activities_nearBy, food } = useContext(HotelsAppContext);
     const screenContent = Languages.HomeScreen;
 
     return (
@@ -89,8 +61,8 @@ const HomeScreen = () => {
                                 </TouchableOpacity>
                             </View>
                             <ScrollView horizontal={true}>
-                                {snackOptions.map((item) => (
-                                    <SmallCard key={item.id} item={item} />
+                                {food.map((item) => (
+                                    <SmallCard key={item.ID} item={item} id={item.ID}/>
                                 ))}
                             </ScrollView>
                         </View>

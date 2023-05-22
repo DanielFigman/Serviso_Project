@@ -5,14 +5,16 @@ export const HotelsAppContext = createContext();
 export default function HotelsAppContextProvider(props) {
     const [language, setlanguage] = useState("EN")
     const [isLoading, setIsLoading] = useState(false);
-    const [user, setUser] = useState({email:"", fName:"", sName:"", gender:"", phone: "", dateOfBirth: ""});
-    const [order , setOrder] = useState({orderID: "", checkInDate:"", checkOutDate:"", hotelID: ""});
+    const [user, setUser] = useState({ email: "", fName: "", sName: "", gender: "", phone: "", dateOfBirth: "" });
+    const [order, setOrder] = useState({ orderID: "", checkInDate: "", checkOutDate: "", hotelID: "" });
     const [activities_nearBy, setActivities_nearBy] = useState(null);
     const [activities_hotel, setActivities_hotel] = useState(null);
     const [facilities, setFacilities] = useState(null);
     const [custom_Request_Types, setCustom_Request_Types] = useState(null);
     const [therapies, setTherapies] = useState(null);
     const [hotel, setHotel] = useState(null)
+    const [food, setFood] = useState(null)
+
 
 
     return (
@@ -34,10 +36,12 @@ export default function HotelsAppContextProvider(props) {
                 setFacilities,
                 custom_Request_Types,
                 setCustom_Request_Types,
-                therapies, 
+                therapies,
                 setTherapies,
                 hotel,
-                setHotel
+                setHotel,
+                food,
+                setFood
             }}
         >
             {props.children}

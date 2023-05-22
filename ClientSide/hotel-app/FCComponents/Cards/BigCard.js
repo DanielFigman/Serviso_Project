@@ -1,13 +1,14 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import LoadingImage from '../LoadingImage';
 
-const BigCard = ({item, cardStyle, id}) => {
+const BigCard = ({ item, cardStyle, id }) => {
 
     const navigation = useNavigation();
-
+    
     return (
-        <TouchableOpacity onPress={()=> navigation.navigate("CardScreen",{
+        <TouchableOpacity onPress={() => navigation.navigate("CardScreen", {
             id,
             name: item.name,
             description: item.description,
@@ -16,11 +17,11 @@ const BigCard = ({item, cardStyle, id}) => {
             price: item.price,
             rating: item.rating,
             hallNum: item.HallNum,
-            address:item.address,
+            address: item.address,
         })}
             style={cardStyle}
         >
-            <Image style={{ width: "100%", height: "100%" }} source={{ uri: item.imageURL }} />
+            <LoadingImage style={{ width: "100%", height: "100%" }} imageURL={item.imageURL}/>
         </TouchableOpacity>
     )
 }

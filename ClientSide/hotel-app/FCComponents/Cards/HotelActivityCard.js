@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@rneui/base";
 import { HeartIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
+import LoadingImage from "../LoadingImage";
 
 const HotelActivityCard = ({ item, id }) => {
   const [favorite, setFavorite] = useState(item.favorite);
@@ -20,9 +21,9 @@ const HotelActivityCard = ({ item, id }) => {
       hallNum: item.HallNum,
     })}>
       <View style={styles.rowView}>
-        <Image
-          source={{ url: item.imageURL }}
+        <LoadingImage
           style={{ width: 90, height: 95, borderRadius: 20 }}
+          imageURL={item.imageURL}
         />
         <View>
           <Text style={styles.titeltext}>{item.name}</Text>

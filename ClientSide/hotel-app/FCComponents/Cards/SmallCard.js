@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import LoadingImage from "../LoadingImage";
 
 const SmallCard = ({ item, id, type}) => {
   const navigation = useNavigation();
@@ -25,8 +27,7 @@ const SmallCard = ({ item, id, type}) => {
           backgroundColor: "#EDEDED",
         }}
       >
-        <Image
-          source={{ uri: item.imageURL }}
+        <LoadingImage
           style={{
             resizeMode: "cover",
             width: 180,
@@ -34,6 +35,7 @@ const SmallCard = ({ item, id, type}) => {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
           }}
+          imageURL={item.imageURL}
         />
         <View style={{ padding: 5, alignItems: "center" }}>
           <Text

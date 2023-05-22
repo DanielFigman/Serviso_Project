@@ -1,10 +1,11 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import ReservationCard from '../../FCComponents/Cards/ReservationCard';
 import ButtonMain from '../../FCComponents/Buttons';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import Languages from '../../Json_files/Languages';
+import LoadingImage from '../../FCComponents/LoadingImage';
 
 const { height } = Dimensions.get('window');
 
@@ -32,11 +33,9 @@ export default function NewCheckInScreen() {
             content={
                 <>
                     <View>
-                        <Image
+                        <LoadingImage
                             style={[styles.image, { top: -height * 0.07 }]}
-                            source={{
-                                uri: imageURL,
-                            }}
+                            imageURL={imageURL}
                         />
                         <Text style={[styles.textHeader, { top: -height * 0.15 }]}>
                             {screenContent.ContactlessCheckIn[language]}
