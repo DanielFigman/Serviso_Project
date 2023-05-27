@@ -28,15 +28,6 @@ const LoadingImage = ({ imageURL, style }) => {
       const cachedImagePath = FileSystem.cacheDirectory + fileName;
 
       try {
-        await FileSystem.getInfoAsync(cachedImagePath);
-        // File exists in cache, attempt to delete it
-        await FileSystem.deleteAsync(cachedImagePath, { idempotent: true });
-        console.log('Cache cleared successfully');
-      } catch (error) {
-        console.log('Failed to clear cache:', error);
-      }
-
-      try {
         const { uri } = await FileSystem.downloadAsync(imageURL, cachedImagePath);
         // Cache the downloaded image URI
         imageCache[imageURL] = uri;
@@ -80,5 +71,6 @@ const LoadingImage = ({ imageURL, style }) => {
   // Handle any other fallback case here
   return null;
 };
+
 
 export default LoadingImage;
