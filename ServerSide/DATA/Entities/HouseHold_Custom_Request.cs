@@ -12,7 +12,7 @@ namespace DATA
     {
         private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
-        public void MarkRequest()
+        public bool MarkRequest()
         {
             isMarked = true;
 
@@ -22,7 +22,7 @@ namespace DATA
                 db.SaveChanges();
 
                 Request request = db.Requests.FirstOrDefault(r => r.requestID == requestID);
-                request.CheckIfCloseIsNeeded();
+                return request.CheckIfCloseIsNeeded();
             }
             catch (Exception)
             {

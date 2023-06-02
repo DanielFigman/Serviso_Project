@@ -540,6 +540,7 @@
           <Property Name="languageID" Type="int" Nullable="false" />
           <Property Name="SaltValue" Type="varbinary(max)" Nullable="false" />
           <Property Name="PasswordValue" Type="varbinary(max)" Nullable="false" />
+          <Property Name="NotificationToken" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="User_questionnaire">
           <Key>
@@ -2229,6 +2230,7 @@
           <NavigationProperty Name="Guest" Relationship="Self.FK__Guest__email__286302EC" FromRole="User" ToRole="Guest" />
           <NavigationProperty Name="Language" Relationship="Self.FK__User__languageID__25869641" FromRole="User" ToRole="Language" />
           <NavigationProperty Name="Questionnaires" Relationship="Self.User_questionnaire" FromRole="User" ToRole="Questionnaire" />
+          <Property Name="NotificationToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WorkingInShift">
           <Key>
@@ -3709,6 +3711,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="igroup197_test1Model.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="NotificationToken" ColumnName="NotificationToken" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="fName" ColumnName="fName" />
                 <ScalarProperty Name="sName" ColumnName="sName" />

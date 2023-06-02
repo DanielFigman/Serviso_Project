@@ -21,6 +21,9 @@ namespace DATA
 {
     public class HelperFunctions
     {
+        hotelAppDBContextNew db = new hotelAppDBContextNew();
+
+
         //creating Object from Dictionary
         public T CreateObjectFromDictionary<T>(Dictionary<string, object> dict) where T : class, new()
         {
@@ -230,8 +233,6 @@ namespace DATA
 
         public int GetOrderIdByRoomNumber(int roomNum, int hotelID)
         {
-            hotelAppDBContextNew db = new hotelAppDBContextNew();
-
             int? retVal = db.Orders
                 .Where(order => order.checkInDate <= DateTime.Now && order.checkOutDate >= DateTime.Now)
                 .FirstOrDefault(order => order.Rooms.Any(r => r.roomNum == roomNum && r.hotelID == hotelID))
@@ -244,5 +245,40 @@ namespace DATA
 
             return (int) retVal;
         }
+
+        public List<string> getClientByRequestId(long requestId)
+        {
+            List<string> retVal = new List<string>();
+
+            Guest guest = db.Request_In_Order.Where(r => r.requestID == requestId).Select(r => r.Order.Guest).FirstOrDefault();
+
+            if(guest != null)
+            {
+                string email = guest.User.email;
+                retVal.Add(email);
+            }
+
+            return retVal;
+        }
+
+        public JObject GetClosedRequestNotification(long requestID)
+        {
+            List<string> items = db.HouseHold_Custom_Request
+                .Where(request => request.requestID == requestID)
+                .Select(request => request.Custom_Request_Types.name)
+                .ToList();
+
+            List<string> trimmedItems = items.Select(item => item.Replace("_", "")).ToList();
+
+            Dictionary<string, object> data = new Dictionary<string, object>();
+
+            JObject jsonObject = new JObject();
+            jsonObject["title"] = "Your request has been fulfilled";
+            jsonObject["body"] = $"The following items have been delivered: {string.Join(", ", trimmedItems)}";
+            jsonObject["data"] = JObject.FromObject(data); // Convert the dictionary to a JObject
+
+            return jsonObject;
+        }
+
     }
 }

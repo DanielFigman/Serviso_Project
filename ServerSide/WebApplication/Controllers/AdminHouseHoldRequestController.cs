@@ -14,6 +14,9 @@ namespace WebApplication.Controllers
     {
         private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
+        private readonly HelperFunctions dataHelper = new HelperFunctions();
+
+
         [HttpGet]
         [Route("api/GetHouseHoldCustomRequests")]
 
@@ -79,7 +82,17 @@ namespace WebApplication.Controllers
         
                 if (request != null)
                 {
-                    request.MarkRequest();
+                    bool isRequestClosed = request.MarkRequest();
+
+                    if (isRequestClosed) { 
+                        PushNotifications p = new PushNotifications();
+
+                        List<string> clients = dataHelper.getClientByRequestId(requestID);
+
+                        JObject notification = dataHelper.GetClosedRequestNotification(requestID);
+
+                        _ = p.SendMessageToClientsAsync(clients, notification);
+                    }
 
                     return Ok();
                 }

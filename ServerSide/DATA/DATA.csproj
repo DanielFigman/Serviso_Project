@@ -139,6 +139,7 @@
     <Compile Include="Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Custom_Request_Types.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\HouseHold_Custom_Request.cs" />
     <Compile Include="Entities\Questionnaire.cs" />
@@ -298,4 +299,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties fjson_4serviso-hotel-app-firebase-adminsdk-w2tn7-078a8460a6_1json__JsonSchema="https://docs.renovatebot.com/renovate-schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

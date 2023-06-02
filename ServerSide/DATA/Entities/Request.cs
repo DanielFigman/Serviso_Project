@@ -115,23 +115,27 @@ namespace DATA
             return true;
         }
 
-        public void CheckIfCloseIsNeeded()
+        public bool CheckIfCloseIsNeeded()
         {
             List<HouseHold_Custom_Request> requests = db.HouseHold_Custom_Request.Where(r => r.requestID == requestID && r.isMarked == false).ToList();
 
             if (requests.Count == 0)
             {
                 status = "closed";
+                try
+                {
+                    db.Requests.AddOrUpdate(this);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
             }
-            try
-            {
-                db.Requests.AddOrUpdate(this);
-                db.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+
+            return false;
         }
 
         public void SetNewRequestIdToObject(ref Dictionary<string, Object> convertedDict)

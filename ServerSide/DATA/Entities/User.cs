@@ -149,5 +149,19 @@ namespace DATA
 
             return loginDTO;
         }
+
+        public void UpdateNToken(JObject data)
+        {
+            string token = data["NTOKEN"].ToString();
+
+            if (NotificationToken != token)
+            {
+                NotificationToken = token;
+
+                db.Users.AddOrUpdate(this);
+                db.SaveChanges();
+
+            }
+        }
     }
 }

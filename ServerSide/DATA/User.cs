@@ -30,6 +30,7 @@ namespace DATA
         public int languageID { get; set; }
         public byte[] SaltValue { get; set; }
         public byte[] PasswordValue { get; set; }
+        public string NotificationToken { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chat> Chats { get; set; }

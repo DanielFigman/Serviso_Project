@@ -18,6 +18,7 @@ namespace DATA
         public string sName { get; set; }
         public string phone { get; set; }
         public string gender { get; set; }
+        public string Ntoken { get; set; }
         public DateTime dateOfBirth { get; set; }
         public string languageShortName { get; set; }
         public int orderID { get; set; }
@@ -42,6 +43,7 @@ namespace DATA
             sName = user.sName;
             phone = user.phone;
             gender = user.gender;
+            Ntoken = user.NotificationToken;
             dateOfBirth = user.dateOfBirth;
             languageShortName = user.Language.shortName;
             orderID = order.orderID;
