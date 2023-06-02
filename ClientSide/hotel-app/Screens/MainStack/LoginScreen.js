@@ -6,9 +6,6 @@ import ButtonMain, { ButtonText } from '../../FCComponents/Buttons';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import Languages from '../../Json_files/Languages';
-import axios from 'axios';
-
-
 
 const LoginScreen = () => {
 
@@ -24,7 +21,8 @@ const LoginScreen = () => {
     setCustom_Request_Types,
     setTherapies,
     setHotel,
-    setFood
+    setFood,
+    setRetrivedNtoken
   } = useContext(HotelsAppContext)
 
 
@@ -54,9 +52,11 @@ const LoginScreen = () => {
         });
 
         if (response.ok) {
+
           const message = await response.text();
           const object = JSON.parse(message);
           setUser({ email, fName: object.fName, sName: object.sName, gender: object.gender, phone: object.phone, dateOfBirth: object.dateOfBirth });
+          setRetrivedNtoken(object.Ntoken ? object.Ntoken : null)
           setOrder({ orderID: object.orderID, checkInDate: object.checkInDate, checkOutDate: object.checkOutDate, hotelID: object.hotelID });
           setActivities_nearBy(object.activities_nearBy);
           setActivities_hotel(object.activities_hotel);

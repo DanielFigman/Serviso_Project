@@ -25,6 +25,10 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "projectId": "3409e8f9-409f-447f-983e-b6f72fca89a6",
+      "experienceId": "@danielfig/hotel-app"
     }
   }
 }

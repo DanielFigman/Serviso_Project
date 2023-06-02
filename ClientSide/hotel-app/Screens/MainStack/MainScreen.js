@@ -8,6 +8,7 @@ import ServisoScreenStack from '../TabMenu/ServisoScreenStack'
 import SearchStackPage from '../TabMenu/SearchStackPage';
 import ChatScreen from '../TabMenu/ChatScreen';
 import PersonalPageStack from '../TabMenu/PersonalPageStack';
+import PushPage from '../../Firebase/PushPage';
 
 
 const Tab = createBottomTabNavigator();
@@ -24,12 +25,17 @@ const MainScreen = () => {
 
   return (
     <>
-      <Tab.Navigator tabBar={props => <BottomMenu {...props} />} >
-        <Tab.Screen name="ServisoScreenStack" component={ServisoScreenStack} />
-        <Tab.Screen name="SearchStackPage" component={SearchStackPage}/>
-        <Tab.Screen name="ChatScreen" component={ChatScreen}/>
-        <Tab.Screen name="PersonalPageStack" component={PersonalPageStack}/>
-      </Tab.Navigator>
+      <>
+        <Tab.Navigator tabBar={props => <BottomMenu {...props} />} >
+          <Tab.Screen name="ServisoScreenStack" component={ServisoScreenStack} />
+          <Tab.Screen name="SearchStackPage" component={SearchStackPage} />
+          <Tab.Screen name="ChatScreen" component={ChatScreen} />
+          <Tab.Screen name="PersonalPageStack" component={PersonalPageStack} />
+        </Tab.Navigator>
+      </>
+      <>
+        <PushPage />
+      </>
     </>
   )
 }
