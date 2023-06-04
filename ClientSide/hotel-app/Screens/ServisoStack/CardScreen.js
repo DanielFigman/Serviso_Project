@@ -51,13 +51,20 @@ const CardScreen = () => {
             topLeftButtonStyle={{ position: "absolute", zIndex: 1 }}
             content={
                 <View>
-                    <View style={{ width: "100%", height: 300, top: -height * 0.07 }}>
+                    <View style={{ width: "100%", height: 300, top: -height * 0.07, borderBottomColor:"#757575", borderBottomWidth:3 }}>
                         <LoadingImage
                             style={{ width: "100%", height: "100%" }}
                             imageURL={imageURL}
                         />
                         <Text style={[styles.titel, newTop()]}>{name}</Text>
                     </View>
+                    {/* <View
+                        style={{
+                            borderBottomColor: '#ECECEC',
+                            borderBottomWidth: 10,
+                            width: "100%", top: -height * 0.07 
+                        }}
+                    /> */}
                     <ScrollView style={{ top: -height * 0.07 }}>
                         {description ?
                             <>
@@ -139,7 +146,7 @@ const CardScreen = () => {
                             }
                             {
                                 buttonType === "SPA" ?
-                                    <ButtonMain text={"Pick this"} buttonStyle={{ marginTop: 75 }} onPress={()=> navigation.navigate("SpaOrder") } />
+                                    <ButtonMain text={"Pick this"} buttonStyle={{ marginTop: 75 }} onPress={() => navigation.navigate("SpaOrder")} />
                                     :
                                     ""
                             }
