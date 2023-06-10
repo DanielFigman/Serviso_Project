@@ -11,9 +11,23 @@ import { ButtonArrow, ButtonText } from "../../FCComponents/Buttons";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 import Languages from "../../Json_files/Languages";
 import HouseHold from "../../FCComponents/HouseHold";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import { Icon } from "@rneui/themed";
+import WelcomeScreen from "../MainStack/WelcomeScreen";
 
+const Drawer = createDrawerNavigator();
+
+export default function Setting() {
+  return (
+    <Drawer.Navigator initialRouteName="PersonalPageScreen">
+      <Drawer.Screen name="my Page" component={PersonalPageScreen} />
+      <Drawer.Screen name="loge out" component={WelcomeScreen} />
+    </Drawer.Navigator>
+  );
+}
 const PersonalPageScreen = () => {
-  const { language, user } = useContext(HotelsAppContext)
+  const { language, user } = useContext(HotelsAppContext);
 
   const navigation = useNavigation();
 
@@ -32,10 +46,28 @@ const PersonalPageScreen = () => {
       content={
         <View>
           <View style={{ marginBottom: 80 }}>
-            <Text style={styles.title}>{screenContent.MyPage[language]}</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.title}>{screenContent.MyPage[language]}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.openDrawer();
+                }}
+              >
+                <Icon name="settings" />
+              </TouchableOpacity>
+            </View>
             <Image
               style={styles.Image}
-              source={user.gender == "woman" ? require("../../assets/persona.png") : require("../../assets/male-avatar.png")}
+              source={
+                user.gender == "woman"
+                  ? require("../../assets/persona.png")
+                  : require("../../assets/male-avatar.png")
+              }
             />
             <Text style={styles.Details}>{user.fName + " " + user.sName}</Text>
             <Text style={styles.Details}>{user.email}</Text>
@@ -83,7 +115,11 @@ const PersonalPageScreen = () => {
                       </Text>
                     </View>
                     <View>
-                      <TouchableOpacity onPress={() => navigation.navigate("RoomCleaningScreen")}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("RoomCleaningScreen")
+                        }
+                      >
                         <ArrowRightCircleIcon
                           color={styles.arrow.color}
                           size={styles.arrow.fontSize}
@@ -104,7 +140,11 @@ const PersonalPageScreen = () => {
                       </Text>
                     </View>
                     <View>
-                      <TouchableOpacity onPress={() => navigation.navigate("CustomRequestScreen")}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("CustomRequestScreen")
+                        }
+                      >
                         <ArrowRightCircleIcon
                           color={styles.arrow.color}
                           size={styles.arrow.fontSize}
@@ -131,7 +171,7 @@ const PersonalPageScreen = () => {
   );
 };
 
-export default PersonalPageScreen;
+// export default PersonalPageScreen;
 const styles = StyleSheet.create({
   text: {
     fontSize: 20,
@@ -141,6 +181,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: "#000000",
     alignSelf: "center",
+    textAlign: "center",
   },
   Image: {
     alignSelf: "center",
