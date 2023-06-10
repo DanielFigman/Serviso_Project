@@ -9,6 +9,9 @@ import SearchStackPage from '../TabMenu/SearchStackPage';
 import ChatScreen from '../TabMenu/ChatScreen';
 import PersonalPageStack from '../TabMenu/PersonalPageStack';
 import PushPage from '../../Firebase/PushPage';
+import SSEComponent from '../../Firebase/SSEComponent';
+import { useFocusEffect } from '@react-navigation/core';
+import { BackHandler } from 'react-native';
 
 
 const Tab = createBottomTabNavigator();
@@ -22,7 +25,27 @@ const MainScreen = () => {
     });
   }, []);
 
+  const route = useRoute();
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (route.name === "MainScreen") {
+          return true; // Return true to indicate that the back action is handled
+        } else {
+          return false; // Allow the default back navigation
+        }
+      };
+
+      // Add the event listener for the back button press
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () => {
+        // Remove the event listener when the screen loses focus or unmounts
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+      };
+    }, [navigation, route])
+  );
   return (
     <>
       <>
@@ -35,6 +58,7 @@ const MainScreen = () => {
       </>
       <>
         <PushPage />
+        <SSEComponent />
       </>
     </>
   )

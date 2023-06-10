@@ -24,7 +24,7 @@ export default function App() {
             component={PasswordResetScreen}
           />
           <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
-          <Stack.Screen name="MainScreen" component={MainScreen} />
+          <Stack.Screen name="MainScreen" component={MainScreen} options={{ gestureEnabled:false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </HotelsAppContextProvider>
