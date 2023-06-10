@@ -9,6 +9,7 @@ import SearchStackPage from '../TabMenu/SearchStackPage';
 import ChatScreen from '../TabMenu/ChatScreen';
 import PersonalPageStack from '../TabMenu/PersonalPageStack';
 import PushPage from '../../Firebase/PushPage';
+import SSEComponent from '../../Firebase/SSEComponent';
 
 
 const Tab = createBottomTabNavigator();
@@ -35,6 +36,7 @@ const MainScreen = () => {
       </>
       <>
         <PushPage />
+        <SSEComponent/>
       </>
     </>
   )
