@@ -21,11 +21,12 @@ const Drawer = createDrawerNavigator();
 export default function Setting() {
   return (
     <Drawer.Navigator initialRouteName="PersonalPageScreen">
-      <Drawer.Screen name="my Page" component={PersonalPageScreen} />
-      <Drawer.Screen name="loge out" component={WelcomeScreen} />
+      <Drawer.Screen name="My Page" component={PersonalPageScreen} />
+      <Drawer.Screen name="Log Out" component={WelcomeScreen} />
     </Drawer.Navigator>
   );
 }
+
 const PersonalPageScreen = () => {
   const { language, user } = useContext(HotelsAppContext);
 
