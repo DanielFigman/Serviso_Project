@@ -30,6 +30,8 @@ const PersonalPageStack = () => {
         component={Setting}
         options={{ headerShown: false }}
       />
+      {/* <Stack.Screen name="PersonalPageScreen" component={PersonalPageScreen} /> */}
+
       <Stack.Screen name="NewCheckInScreen" component={NewCheckInScreen} />
       {/* <Stack.Screen name="CheckOutScreen" component={CheckOutScreen} /> */}
       <Stack.Screen name="PaymentScreen" component={PaymentScreen} />

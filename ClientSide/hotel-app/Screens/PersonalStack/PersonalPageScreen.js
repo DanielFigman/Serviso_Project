@@ -19,10 +19,18 @@ import WelcomeScreen from "../MainStack/WelcomeScreen";
 const Drawer = createDrawerNavigator();
 
 export default function Setting() {
+
   return (
-    <Drawer.Navigator initialRouteName="PersonalPageScreen">
-      <Drawer.Screen name="My Page" component={PersonalPageScreen} />
-      <Drawer.Screen name="Log Out" component={WelcomeScreen} />
+    <Drawer.Navigator initialRouteName="PersonalPageScreen"
+      screenOptions={{
+        drawerStyle: { width: "35%", backgroundColor: "white" },
+        overlayColor: 'transparent',
+        drawerType: "back",
+        drawerPosition: "right",
+      }}
+    >
+      <Drawer.Screen name="PersonalPageScreen" component={PersonalPageScreen} options={{title:"My Page", drawerItemStyle:{display:"none"}}}/>
+      <Drawer.Screen name="Log Out" component={WelcomeScreen}/>
     </Drawer.Navigator>
   );
 }
@@ -53,14 +61,18 @@ const PersonalPageScreen = () => {
                 alignItems: "center",
               }}
             >
-              <Text style={styles.title}>{screenContent.MyPage[language]}</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.openDrawer();
-                }}
-              >
-                <Icon name="settings" />
-              </TouchableOpacity>
+              <View style={{ display: "flex", flex: 1 }}>
+                <Text style={styles.title}>{screenContent.MyPage[language]}</Text>
+              </View>
+              <View style={{ right: 5 }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.openDrawer();
+                  }}
+                >
+                  <Icon name="settings" />
+                </TouchableOpacity>
+              </View>
             </View>
             <Image
               style={styles.Image}
