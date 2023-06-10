@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import LoadingImage from "../LoadingImage";
 
-const SmallCard = ({ item, id, type}) => {
+const SmallCard = ({ item, id, type, withPrice}) => {
   const navigation = useNavigation();
 
   return (
@@ -51,7 +51,7 @@ const SmallCard = ({ item, id, type}) => {
               fontSize: 17,
             }}
           >
-            {item.price ? item.price + "₪" : ""}
+            {withPrice !== false && item.price ? item.price + "₪" : ""}
           </Text>
         </View>
       </View>
