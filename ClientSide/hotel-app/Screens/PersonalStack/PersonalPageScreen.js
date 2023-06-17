@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useContext, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation, DrawerActions } from "@react-navigation/native";
 import { ArrowDownCircleIcon } from "react-native-heroicons/mini";
 import { ArrowRightCircleIcon } from "react-native-heroicons/mini";
 import "react-native-vector-icons/FontAwesome";
@@ -10,31 +10,55 @@ import { ListItem } from "@rneui/base";
 import { ButtonArrow, ButtonText } from "../../FCComponents/Buttons";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 import Languages from "../../Json_files/Languages";
-import HouseHold from "../../FCComponents/HouseHold";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Icon } from "@rneui/themed";
 import WelcomeScreen from "../MainStack/WelcomeScreen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Drawer = createDrawerNavigator();
 
 export default function Setting() {
+  const navigation = useNavigation();
+  const { clearContext } = useContext(HotelsAppContext);
+
+  const handleLogOut = () => {
+    console.log("log out pressed");
+    clearContext(); // Clear the context states
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "WelcomeScreen" }],
+    });
+  };
+
+  const CustomDrawerContent = (props) => {
+    return (
+      <SafeAreaView>
+        <DrawerItem
+          label="Log Out"
+          onPress={handleLogOut}
+          style={{ height: "100%", display: "flex", width: "100%"}}
+          labelStyle={{textAlign:"center", fontSize:20}}
+        />
+      </SafeAreaView>
+    );
+  };
+
   return (
     <Drawer.Navigator
       initialRouteName="PersonalPageScreen"
       screenOptions={{
         drawerStyle: { width: "35%", backgroundColor: "white" },
-        overlayColor: 'transparent',
+        overlayColor: "transparent",
         drawerType: "back",
         drawerPosition: "right",
       }}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen
         name="PersonalPageScreen"
         component={PersonalPageScreen}
         options={{ title: "My Page", drawerItemStyle: { display: "none" } }}
       />
-      <Drawer.Screen name="Log Out" component={WelcomeScreen} />
     </Drawer.Navigator>
   );
 }
@@ -46,14 +70,11 @@ const PersonalPageScreen = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleOptions = () => {
-    setIsOpen(!isOpen);
-  };
-
   const screenContent = Languages.PersonalPageScreen;
 
   return (
-    <ScreenComponent backgroundShapes={true}
+    <ScreenComponent
+      backgroundShapes={true}
       topLeftButton={"none"}
       bottomMenu={true}
       content={
@@ -71,7 +92,7 @@ const PersonalPageScreen = () => {
               <View style={{ right: 5 }}>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.openDrawer();
+                    navigation.dispatch(DrawerActions.openDrawer());
                   }}
                 >
                   <Icon name="settings" />
@@ -116,10 +137,7 @@ const PersonalPageScreen = () => {
               isExpanded={isOpen}
               onPress={() => setIsOpen(!isOpen)}
             >
-              <ListItem
-                key={1}
-                containerStyle={styles.listItemContainer}
-              >
+              <ListItem key={1} containerStyle={styles.listItemContainer}>
                 <ListItem.Content>
                   <View style={styles.listItemView}>
                     <View style={{ flex: 1 }}>
@@ -142,10 +160,7 @@ const PersonalPageScreen = () => {
                 </ListItem.Content>
               </ListItem>
 
-              <ListItem
-                key={2}
-                containerStyle={styles.listItemContainer}
-              >
+              <ListItem key={2} containerStyle={styles.listItemContainer}>
                 <ListItem.Content>
                   <View style={styles.listItemView}>
                     <View style={{ flex: 1 }}>

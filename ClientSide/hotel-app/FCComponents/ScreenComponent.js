@@ -6,7 +6,7 @@ import Loading from './Loading';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 
-const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower, topLeftButtonStyle, topLeftButtonColor, title, backgroundShapes }) => {
+const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower, topLeftButtonStyle, topLeftButtonColor, title, backgroundShapes, infoButton }) => {
 
     //use context to display Loading component 
     const { isLoading } = useContext(HotelsAppContext)
@@ -105,12 +105,18 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
                                 {topLeftButtonIcon}
                             </View>
                             :
-                            ""
+                            <></>
                         }
                         {title ?
                             title
                             :
-                            ""
+                            <></>
+                        }
+                        {
+                            infoButton ?
+                                infoButton
+                                :
+                                <></>
                         }
                     </View>
                     {

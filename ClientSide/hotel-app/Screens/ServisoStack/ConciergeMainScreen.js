@@ -84,6 +84,7 @@ const ConciergeMainScreen = () => {
             titleStyle={{ fontSize: 15, color: "#000000" }}
             containerStyle={{
             }}
+            onPress={() => navigation.navigate("QuestionaireScreen")}
           >
             {screenContent.Questionnaire[language]}
           </Button>

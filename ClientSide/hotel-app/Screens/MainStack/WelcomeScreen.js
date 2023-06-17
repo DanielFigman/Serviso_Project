@@ -1,17 +1,14 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useContext, useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import Languages from '../../Json_files/Languages';
 import ButtonMain from '../../FCComponents/Buttons';
 
 const WelcomeScreen = () => {
-
-
     ////////////////////////////////////////
     ////////Make screen without header//////
     ////////////////////////////////////////
-    const navigation = useNavigation();
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -21,6 +18,8 @@ const WelcomeScreen = () => {
     }, []);
     ///////////////////////////////////////
 
+    const navigation = useNavigation();
+    
     const screenContent = Languages.WelcomeScreen;
 
     const { language } = useContext(HotelsAppContext)
@@ -31,7 +30,7 @@ const WelcomeScreen = () => {
             <View>
                 <Image style={styles.mainImage} source={require('../../assets/ServisoMain.png')} />
             </View>
-            <ButtonMain text={screenContent.Start[language]} buttonStyle={{marginTop:300}} navigate={"LoginScreen"}/>
+            <ButtonMain text={screenContent.Start[language]} buttonStyle={{ marginTop: 300 }} navigate={"LoginScreen"} />
 
         </View>
     )
