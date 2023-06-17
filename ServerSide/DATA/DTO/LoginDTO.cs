@@ -227,10 +227,6 @@ namespace DATA
             {
                 retVal.SetQuestionaireDTO(userQuestionnaire);
             }
-            else
-            {
-                retVal = null;
-            }
 
             return retVal;
         }
