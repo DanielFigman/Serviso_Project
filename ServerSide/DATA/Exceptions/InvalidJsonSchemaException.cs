@@ -12,5 +12,10 @@ namespace DATA.Exceptions
         {
 
         }
+
+        public InvalidJsonSchemaException(string moreInfo) : base($"The JSON schema is not matched with the creation object, {moreInfo}")
+        {
+
+        }
     }
 }

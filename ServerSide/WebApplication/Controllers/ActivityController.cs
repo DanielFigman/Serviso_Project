@@ -1,4 +1,5 @@
 ﻿using DATA;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -21,12 +22,9 @@ namespace WebApplication.Controllers
         {
             try
             {
-
                 SuggestedActivities suggestedActivities = GetSuggestedActivities(email);
 
-
                 return Ok();
-
             }
             catch (Exception e)
             {
@@ -34,6 +32,22 @@ namespace WebApplication.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/updateQuestionnaire")]
+        public IHttpActionResult Post([FromBody] JObject questionnaire)
+        {
+            try
+            {
+                Questionnaire newQuestionnaire = new Questionnaire();
+                newQuestionnaire.CreateQuestionnaire(questionnaire);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
 
 
         private SuggestedActivities GetSuggestedActivities(string email)

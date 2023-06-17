@@ -32,6 +32,7 @@ namespace DATA
         public List<TherapyDTO> therapies { get; set; }
         public HotelDTO hotel { get; set; }
         public List<FoodDTO> food { get; set; }
+        public QuestionaireDTO questionnaire { get; set; }
 
 
         public void SetLoginDTO(User user ,Order order)
@@ -57,6 +58,7 @@ namespace DATA
             therapies = GetTherapies(hotel.hotelID);
             this.hotel = GetHotel(hotel);
             food = GetFood(hotel.hotelID);
+            questionnaire = GetQuestionnaire(user.email);
         }
 
         private List<ActivityNearByDTO> GetActivitiesNearBy(string landmark)
@@ -212,6 +214,23 @@ namespace DATA
                 foodDTO.SetFoodDTO(f);
                 retVal.Add(foodDTO);
             });
+
+            return retVal;
+        }
+
+        private QuestionaireDTO GetQuestionnaire(string email)
+        {
+            QuestionaireDTO retVal = new QuestionaireDTO();
+            Questionnaire userQuestionnaire = db.Questionnaires.FirstOrDefault(questionnaire => questionnaire.User.email == email);
+
+            if(userQuestionnaire != null)
+            {
+                retVal.SetQuestionaireDTO(userQuestionnaire);
+            }
+            else
+            {
+                retVal = null;
+            }
 
             return retVal;
         }

@@ -222,6 +222,7 @@
     <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\HouseHoldRequestController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\SSEController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\SuggestedActivitiesDTO.cs" />

@@ -135,11 +135,11 @@
     <Compile Include="DTO\HouseCustomRequestDTO.cs" />
     <Compile Include="DTO\LoginAdminDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
+    <Compile Include="DTO\QuestionaireDTO.cs" />
     <Compile Include="DTO\TherapyDTO.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Custom_Request_Types.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\HouseHold_Custom_Request.cs" />
     <Compile Include="Entities\Questionnaire.cs" />

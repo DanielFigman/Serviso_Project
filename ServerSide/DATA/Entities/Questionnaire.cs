@@ -1,5 +1,9 @@
-﻿using System;
+﻿using DATA.Exceptions;
+using Nest;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -96,6 +100,73 @@ namespace DATA
             List<User> topUsers = topSimilarities.Select(t => t.Item1).ToList();
 
             return topUsers;
+        }
+
+        public void CreateQuestionnaire(JObject questionnaire)
+        {
+            Dictionary<string, Object> convertedDict = dataHelper.ConvertJsonToDictionary(questionnaire);
+
+            if (convertedDict.ContainsKey("email"))
+            {
+                string userEmail = convertedDict["email"].ToString();
+
+                User user = db.Users.FirstOrDefault(u => u.email == userEmail);
+
+                if (user != null)
+                {
+                    Questionnaire userQuestionnaire = db.Questionnaires.FirstOrDefault(obj => obj.User.email == userEmail);
+
+                    SetQuestionnaireID(userQuestionnaire, ref convertedDict);
+
+                    //creating an instance of questionnaire based on the Json properties
+                    Questionnaire newQuestionnaire = dataHelper.CreateObjectFromDictionary<Questionnaire>(convertedDict);
+
+                    //link the user to the newQuestionnaire
+                    newQuestionnaire.User = user;
+
+                    //setting the instnce object values to this 
+                    dataHelper.SetObjectValuesFromObject(this, newQuestionnaire);
+
+                    try
+                    {
+                        db.Questionnaires.AddOrUpdate(this);
+                        db.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        throw new MissingFieldException();
+                    }
+                }
+                else
+                {
+                    throw new NonExistingUser(userEmail);
+                }
+            }
+            else
+            {
+                throw new InvalidJsonSchemaException("the json schema must contain the user email");
+            }
+
+
+        }
+
+        private void SetQuestionnaireID(Questionnaire userQuestionnaire, ref Dictionary<string, Object> convertedDict)
+        {
+            if (userQuestionnaire != null)
+            {
+                convertedDict["questionnaireID"] = userQuestionnaire.questionnaireID;
+            }
+            else
+            {
+                int newQuestionnaireID = db.Questionnaires.Count() + 1;
+
+                while (db.Questionnaires.FirstOrDefault(q => q.questionnaireID == newQuestionnaireID) != null)
+                {
+                    newQuestionnaireID += 1;
+                }
+
+                convertedDict["questionnaireID"] = newQuestionnaireID;
+            }
         }
     }
 }
