@@ -19,9 +19,9 @@ import WelcomeScreen from "../MainStack/WelcomeScreen";
 const Drawer = createDrawerNavigator();
 
 export default function Setting() {
-
   return (
-    <Drawer.Navigator initialRouteName="PersonalPageScreen"
+    <Drawer.Navigator
+      initialRouteName="PersonalPageScreen"
       screenOptions={{
         drawerStyle: { width: "35%", backgroundColor: "white" },
         overlayColor: 'transparent',
@@ -29,8 +29,12 @@ export default function Setting() {
         drawerPosition: "right",
       }}
     >
-      <Drawer.Screen name="PersonalPageScreen" component={PersonalPageScreen} options={{title:"My Page", drawerItemStyle:{display:"none"}}}/>
-      <Drawer.Screen name="Log Out" component={WelcomeScreen}/>
+      <Drawer.Screen
+        name="PersonalPageScreen"
+        component={PersonalPageScreen}
+        options={{ title: "My Page", drawerItemStyle: { display: "none" } }}
+      />
+      <Drawer.Screen name="Log Out" component={WelcomeScreen} />
     </Drawer.Navigator>
   );
 }
@@ -49,7 +53,7 @@ const PersonalPageScreen = () => {
   const screenContent = Languages.PersonalPageScreen;
 
   return (
-    <ScreenComponent
+    <ScreenComponent backgroundShapes={true}
       topLeftButton={"none"}
       bottomMenu={true}
       content={
@@ -93,20 +97,16 @@ const PersonalPageScreen = () => {
           </View>
           <View style={styles.rowView}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.text}>
-                {screenContent.CheckOut[language]}
-              </Text>
+              <Text style={styles.text}>{screenContent.CheckOut[language]}</Text>
             </View>
             <ButtonArrow navigate={""} />
           </View>
 
           <View>
             <ListItemAccordion
-              containerStyle={{ backgroundColor: "#F2F2F2" }}
+              containerStyle={styles.listAccordionContainer}
               icon={<ArrowRightCircleIcon style={styles.arrowList} size={30} />}
-              expandIcon={
-                <ArrowDownCircleIcon style={styles.arrowList} size={30} />
-              }
+              expandIcon={<ArrowDownCircleIcon style={styles.arrowList} size={30} />}
               noRotation={true}
               content={
                 <Text style={StyleSheet.flatten([styles.text, { left: 7 }])}>
@@ -118,7 +118,7 @@ const PersonalPageScreen = () => {
             >
               <ListItem
                 key={1}
-                containerStyle={{ backgroundColor: "#F2F2F2", marginTop: 0 }}
+                containerStyle={styles.listItemContainer}
               >
                 <ListItem.Content>
                   <View style={styles.listItemView}>
@@ -129,9 +129,7 @@ const PersonalPageScreen = () => {
                     </View>
                     <View>
                       <TouchableOpacity
-                        onPress={() =>
-                          navigation.navigate("RoomCleaningScreen")
-                        }
+                        onPress={() => navigation.navigate("RoomCleaningScreen")}
                       >
                         <ArrowRightCircleIcon
                           color={styles.arrow.color}
@@ -144,7 +142,10 @@ const PersonalPageScreen = () => {
                 </ListItem.Content>
               </ListItem>
 
-              <ListItem key={2} containerStyle={{ backgroundColor: "#F2F2F2" }}>
+              <ListItem
+                key={2}
+                containerStyle={styles.listItemContainer}
+              >
                 <ListItem.Content>
                   <View style={styles.listItemView}>
                     <View style={{ flex: 1 }}>
@@ -154,9 +155,7 @@ const PersonalPageScreen = () => {
                     </View>
                     <View>
                       <TouchableOpacity
-                        onPress={() =>
-                          navigation.navigate("CustomRequestScreen")
-                        }
+                        onPress={() => navigation.navigate("CustomRequestScreen")}
                       >
                         <ArrowRightCircleIcon
                           color={styles.arrow.color}
@@ -184,7 +183,6 @@ const PersonalPageScreen = () => {
   );
 };
 
-// export default PersonalPageScreen;
 const styles = StyleSheet.create({
   text: {
     fontSize: 20,
@@ -228,5 +226,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: "center",
     margin: 20,
+  },
+  listAccordionContainer: {
+    backgroundColor: "transparent",
+  },
+  listItemContainer: {
+    backgroundColor: "transparent",
+    marginTop: 0,
   },
 });

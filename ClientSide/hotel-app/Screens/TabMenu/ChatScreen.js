@@ -86,7 +86,7 @@ const ChatScreen = () => {
     const [keyBoardDidShow, setKeyBoardDidShow] = useState(false) 
 
     return (
-        <ScreenComponent bottomMenu={true} topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow}
+        <ScreenComponent bottomMenu={true} topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow} backgroundShapes={true}
             content={
                 <>
                     <View style={{ display: 'flex', justifyContent: "center", alignItems: "center", height: 35, width: "100%", textDecoration: "underline" }}>

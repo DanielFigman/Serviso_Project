@@ -6,7 +6,7 @@ import Loading from './Loading';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 
-const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower, topLeftButtonStyle, topLeftButtonColor, title }) => {
+const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower, topLeftButtonStyle, topLeftButtonColor, title, backgroundShapes }) => {
 
     //use context to display Loading component 
     const { isLoading } = useContext(HotelsAppContext)
@@ -30,12 +30,12 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
 
     const handleKeyboardDidShow = () => {
         setIsKeyBoardOpen(true);
-    
+
     };
 
     const handleKeyboardDidHide = () => {
         setIsKeyBoardOpen(false);
-      
+
     };
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
         default:
             topLeftButtonIcon = (
                 <TouchableOpacity onPress={navigation.goBack}>
-                    <ArrowLeftCircleIcon color={"white"} fill={topLeftButtonColor ? topLeftButtonColor : styles.topLeftButtonColor.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton}/>
+                    <ArrowLeftCircleIcon color={"white"} fill={topLeftButtonColor ? topLeftButtonColor : styles.topLeftButtonColor.color} size={styles.topLeftButton.fontSize} style={styles.topLeftButton} />
                 </TouchableOpacity>
             );
             break;
@@ -91,7 +91,15 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
         <>
             <TouchableWithoutFeedback disabled={!isKeyBoardOpen} onPress={dismissKeyboard}>
                 <SafeAreaView style={styles.container}>
-                    <View style={{flexDirection:"row", zIndex:5, width:"100%"}}>
+                    {backgroundShapes ?
+                        <View style={styles.backgroundContainer}>
+                            <View style={styles.shape} />
+                            <View style={styles.shape2} />
+                        </View>
+                        :
+                        <></>
+                    }
+                    <View style={{ flexDirection: "row", zIndex: 5, width: "100%" }}>
                         {topLeftButton != "none" ?
                             <View style={StyleSheet.flatten([styles.leftArrowView, topLeftButtonStyle])}>
                                 {topLeftButtonIcon}
@@ -127,10 +135,33 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
 export default ScreenComponent;
 
 const styles = StyleSheet.create({
+    backgroundContainer: {
+        ...StyleSheet.absoluteFillObject, // Position the container to cover the entire screen
+        zIndex: -1, // Set a negative zIndex to position the background behind other components
+    },
+    shape: {
+        position: 'absolute',
+        top: 30,
+        left: 10,
+        right: 0,
+        height: 400,
+        width: 400,
+        backgroundColor: '#F0E8E6',
+        borderRadius: 300,
+    },
+    shape2: {
+        position: 'absolute',
+        right: 50,
+        bottom: 60,
+        height: 400,
+        width: 400,
+        backgroundColor: '#F0E8E6',
+        borderRadius: 300,
+    },
     container: {
         height: '100%',
     },
-    topLeftButtonColor:{
+    topLeftButtonColor: {
         color: 'black',
     },
     topLeftButton: {
@@ -144,7 +175,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         width: "10%",
         height: 20,
-        flexDirection:"column",
+        flexDirection: "column",
     },
     servisoFlower: {
         width: 134,
