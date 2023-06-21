@@ -66,7 +66,7 @@ namespace DATA
 
             int roomNumber = -1;
 
-            if (o != null)
+            if (o != null && o.Rooms.FirstOrDefault() != null)
             {
                 roomNumber = o.Rooms.FirstOrDefault().roomNum;
             }
