@@ -8,6 +8,8 @@ namespace DATA
 {
     public class ActivityNearByDTO
     {
+        private readonly HelperFunctions dataHelper = new HelperFunctions();
+
         public int placeID { get; set; }
         public string name { get; set; }
         public string description { get; set; }
@@ -17,7 +19,12 @@ namespace DATA
         public string address { get; set; }
         public string category { get; set; }
         public string tags { get; set; }
-        public string landmark { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
+        public long? fbid { get; set; }
+        public string fUrl { get; set; }
+        public string instaUsername { get; set; }
+        public string webAddress { get; set; }
 
 
 
@@ -33,10 +40,12 @@ namespace DATA
             phone = activityNearBy.phone;
             address = activityNearBy.address;
             category = activityNearBy.category;
-            tags = activityNearBy.tags;
-            landmark = activityNearBy.landmark;
+            latitude = dataHelper.GetLatitude(activityNearBy.landmark);
+            longitude = dataHelper.GetLongitude(activityNearBy.landmark);
+            fbid = activityNearBy.fbid;
+            fUrl = activityNearBy.fUrl;
+            instaUsername = activityNearBy.instaUsername;
+            webAddress = activityNearBy.webAddress;
         }
     }
-
-
 }

@@ -34,6 +34,10 @@
           <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="tags" Type="nvarchar(max)" />
           <Property Name="landmark" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="fbid" Type="bigint" />
+          <Property Name="fUrl" Type="nvarchar(max)" />
+          <Property Name="instaUsername" Type="nvarchar(max)" />
+          <Property Name="webAddress" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Activity_Signed">
           <Key>
@@ -237,6 +241,8 @@
           </Key>
           <Property Name="roleID" Type="int" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="startTime" Type="time" Precision="4" Nullable="false" />
+          <Property Name="endTime" Type="time" Precision="4" Nullable="false" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
@@ -1735,6 +1741,10 @@
           <Property Name="landmark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Activity" Relationship="Self.FK__Activity___place__59FA5E80" FromRole="Activity_nearBY" ToRole="Activity" />
           <NavigationProperty Name="Orders" Relationship="Self.Activity_Signed" FromRole="Activity_nearBY" ToRole="Order" />
+          <Property Name="fbid" Type="Int64" />
+          <Property Name="fUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="instaUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="webAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Activity_Update">
           <Key>
@@ -1887,6 +1897,8 @@
           <Property Name="roleID" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Therapist" Relationship="Self.fk_Free_Queue_RoleID" FromRole="Free_Queue" ToRole="Therapist" />
+          <Property Name="startTime" Type="Time" Nullable="false" Precision="4" />
+          <Property Name="endTime" Type="Time" Nullable="false" Precision="4" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
@@ -3293,6 +3305,10 @@
           <EntitySetMapping Name="Activity_nearBY">
             <EntityTypeMapping TypeName="igroup197_test1Model.Activity_nearBY">
               <MappingFragment StoreEntitySet="Activity_nearBY">
+                <ScalarProperty Name="webAddress" ColumnName="webAddress" />
+                <ScalarProperty Name="instaUsername" ColumnName="instaUsername" />
+                <ScalarProperty Name="fUrl" ColumnName="fUrl" />
+                <ScalarProperty Name="fbid" ColumnName="fbid" />
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="address" ColumnName="address" />
@@ -3437,6 +3453,8 @@
           <EntitySetMapping Name="Free_Queue">
             <EntityTypeMapping TypeName="igroup197_test1Model.Free_Queue">
               <MappingFragment StoreEntitySet="Free_Queue">
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
                 <ScalarProperty Name="roleID" ColumnName="roleID" />
                 <ScalarProperty Name="date" ColumnName="date" />
               </MappingFragment>

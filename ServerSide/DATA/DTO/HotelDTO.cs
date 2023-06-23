@@ -8,6 +8,8 @@ namespace DATA
 {
     public class HotelDTO
     {
+        private readonly HelperFunctions dataHelper = new HelperFunctions();
+
         public int hotelID { get; set; }
         public string name { get; set; }
         public string address { get; set; }
@@ -23,25 +25,8 @@ namespace DATA
             address = hotel.address;
             phone = hotel.phone;
             imageURL = hotel.imageURL;
-            latitude = GetLatitude(hotel.landmark);
-            longitude = GetLongitude(hotel.landmark);
-        }
-
-        private double GetLatitude(string landmark)
-        {
-            landmark = landmark.Trim('(', ')');
-            string[] extractedLandMark = landmark.Split(',');
-
-            return double.Parse(extractedLandMark[0].Trim());
-        }
-
-        private double GetLongitude(string landmark)
-        {
-            landmark = landmark.Trim('(', ')');
-            string[] extractedLandMark = landmark.Split(',');
-
-            return double.Parse(extractedLandMark[1].Trim());
-
+            latitude = dataHelper.GetLatitude(hotel.landmark);
+            longitude = dataHelper.GetLongitude(hotel.landmark);
         }
     }
 }

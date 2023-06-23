@@ -280,5 +280,22 @@ namespace DATA
             return jsonObject;
         }
 
+        public double GetLatitude(string landmark)
+        {
+            landmark = landmark.Trim('(', ')');
+            string[] extractedLandMark = landmark.Split(',');
+
+            return double.Parse(extractedLandMark[0].Trim());
+        }
+
+        public double GetLongitude(string landmark)
+        {
+            landmark = landmark.Trim('(', ')');
+            string[] extractedLandMark = landmark.Split(',');
+
+            return double.Parse(extractedLandMark[1].Trim());
+
+        }
+
     }
 }

@@ -16,6 +16,8 @@ namespace DATA
     {
         public int roleID { get; set; }
         public System.DateTime date { get; set; }
+        public System.TimeSpan startTime { get; set; }
+        public System.TimeSpan endTime { get; set; }
     
         public virtual Therapist Therapist { get; set; }
     }
