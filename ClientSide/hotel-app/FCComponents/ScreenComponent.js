@@ -6,7 +6,7 @@ import Loading from './Loading';
 import { HotelsAppContext } from '../Context/HotelsAppContext';
 
 
-const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower, topLeftButtonStyle, topLeftButtonColor, title, backgroundShapes, infoButton }) => {
+const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlower, topLeftButtonStyle, topLeftButtonColor, title, backgroundShapes, additionalTopButton }) => {
 
     //use context to display Loading component 
     const { isLoading } = useContext(HotelsAppContext)
@@ -99,7 +99,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
                         :
                         <></>
                     }
-                    <View style={{ flexDirection: "row", zIndex: 5, width: "100%" }}>
+                    <View style={{ flexDirection: "row", zIndex: 5, width: "100%"}}>
                         {topLeftButton != "none" ?
                             <View style={StyleSheet.flatten([styles.leftArrowView, topLeftButtonStyle])}>
                                 {topLeftButtonIcon}
@@ -113,8 +113,8 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
                             <></>
                         }
                         {
-                            infoButton ?
-                                infoButton
+                            additionalTopButton ?
+                                additionalTopButton
                                 :
                                 <></>
                         }

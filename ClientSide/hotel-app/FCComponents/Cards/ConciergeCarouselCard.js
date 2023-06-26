@@ -9,16 +9,8 @@ const ConciergeCarouselCard = ({ item, id}) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("CardScreen", {
-      id,
-      name: item.name,
-      description: item.description,
-      openingHours: item.openingHours,
-      imageURL: item.imageURL,
-      price: item.price,
-      rating: item.rating,
-      hallNum: item.HallNum,
-      address:item.address,
+    <TouchableOpacity onPress={() => navigation.navigate("NearByScreen", {
+      item:item
     })}>
       <View
         style={{

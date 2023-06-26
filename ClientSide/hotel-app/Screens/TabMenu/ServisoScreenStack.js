@@ -14,6 +14,8 @@ import SpaMainScreen from '../ServisoStack/SpaMainScreen';
 import CardScreen from '../ServisoStack/CardScreen';
 import SpaOrder from '../ServisoStack/SpaOrder';
 import QuestionaireScreen from '../ServisoStack/QuestionaireScreen';
+import NearByScreen from '../ServisoStack/NearByScreen';
+import RoomServiceMenu from '../ServisoStack/RoomServiceMenu';
 
 const ServisoScreenStack = () => {
   const Stack = createNativeStackNavigator();
@@ -39,6 +41,8 @@ const ServisoScreenStack = () => {
       <Stack.Screen name="CardScreen" component={CardScreen} />
       <Stack.Screen name="SpaOrder" component={SpaOrder} />
       <Stack.Screen name="QuestionaireScreen" component={QuestionaireScreen} />
+      <Stack.Screen name="NearByScreen" component={NearByScreen} />
+      <Stack.Screen name="RoomServiceMenu" component={RoomServiceMenu} />
     </Stack.Navigator>
   )
 }

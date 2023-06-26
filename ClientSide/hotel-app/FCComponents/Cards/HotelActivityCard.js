@@ -53,7 +53,7 @@ const HotelActivityCard = ({ item, id }) => {
             }}
             //   onPress={""}
           >
-            Sing me up
+            Sign me up
           </Button>
         </View>
       </View>

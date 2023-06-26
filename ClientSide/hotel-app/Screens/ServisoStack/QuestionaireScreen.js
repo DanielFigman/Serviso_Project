@@ -30,7 +30,7 @@ const QuestionaireScreen = () => {
     </>
 
     return (
-        <ScreenComponent infoButton={infoButton} topLeftButtonStyle={{ flex: 1 }}
+        <ScreenComponent additionalTopButton={infoButton} topLeftButtonStyle={{ flex: 1 }}
             content={
                 <ScrollView style={{ flex: 1, paddingHorizontal: 20, marginTop: 10 }}>
                     <QuestionnaireDialog setModalVisible={setModalVisible} modalVisible={modalVisible}/>

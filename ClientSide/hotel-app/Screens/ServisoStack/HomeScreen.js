@@ -56,7 +56,7 @@ const HomeScreen = () => {
                         <View style={{ marginVertical: 10, marginTop: 10, paddingBottom: 50 }}>
                             <View style={{ flexDirection: "row", marginHorizontal: 40, marginBottom: 5, marginTop: 10 }}>
                                 <Text style={{ flex: 1, fontWeight: "bold" }}>{screenContent.SomethingToSnack[language]}</Text>
-                                <TouchableOpacity onPress={() => ""}>
+                                <TouchableOpacity onPress={() => navigation.navigate("RoomServiceMenu", {food})}>
                                     <Text>{screenContent.ToTheFullMenu[language]}</Text>
                                 </TouchableOpacity>
                             </View>
