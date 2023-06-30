@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Animated, Text, Dimensions, PanResponder, ScrollView, TouchableOpacity } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
@@ -22,8 +22,9 @@ const NearByScreen = () => {
         }
     };
 
+    const [panResponderEnabled, setPanResponderEnabled] = useState(true)
+
     const scrollY = useRef(new Animated.Value(0)).current;
-    const scrollViewRef = useRef(null);
     const panResponder = useRef(
         PanResponder.create({
             onMoveShouldSetPanResponder: (_, { dy }) => Math.abs(dy) > 5,
@@ -100,6 +101,7 @@ const NearByScreen = () => {
         </TouchableOpacity>
     </>
 
+
     return (
         <ScreenComponent additionalTopButton={mapButton}
             topLeftButtonStyle={{ position: 'absolute', zIndex: 10000, width: 100 }}
@@ -140,13 +142,13 @@ const NearByScreen = () => {
                         }}
                     >
                         <Animated.ScrollView
-                            ref={scrollViewRef}
                             contentContainerStyle={{ flexGrow: 1 }}
                             scrollEventThrottle={16} // Adjust the throttle value as needed
-                            {...panResponder.panHandlers} // Assign panHandlers to the ScrollView
+                            {...(panResponderEnabled ? panResponder.panHandlers : {})}
+                            scrollEnabled={false}
                         >
 
-                            <NearByBottom item={item} />
+                            <NearByBottom item={item} setPanResponderEnabled={setPanResponderEnabled} />
                         </Animated.ScrollView>
                     </Animated.View>
                 </View>

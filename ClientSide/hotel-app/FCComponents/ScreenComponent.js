@@ -91,6 +91,7 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
         <>
             <TouchableWithoutFeedback disabled={!isKeyBoardOpen} onPress={dismissKeyboard}>
                 <SafeAreaView style={styles.container}>
+
                     {backgroundShapes ?
                         <View style={styles.backgroundContainer}>
                             <View style={styles.shape} />
@@ -99,26 +100,30 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
                         :
                         <></>
                     }
-                    <View style={{ flexDirection: "row", zIndex: 5, width: "100%"}}>
-                        {topLeftButton != "none" ?
-                            <View style={StyleSheet.flatten([styles.leftArrowView, topLeftButtonStyle])}>
-                                {topLeftButtonIcon}
-                            </View>
-                            :
-                            <></>
-                        }
-                        {title ?
-                            title
-                            :
-                            <></>
-                        }
-                        {
-                            additionalTopButton ?
-                                additionalTopButton
+                    {!isLoading ?
+                        < View style={{ flexDirection: "row", zIndex: 5, width: "100%" }}>
+                            {topLeftButton != "none" ?
+                                <View style={StyleSheet.flatten([styles.leftArrowView, topLeftButtonStyle])}>
+                                    {topLeftButtonIcon}
+                                </View>
                                 :
                                 <></>
-                        }
-                    </View>
+                            }
+                            {title ?
+                                title
+                                :
+                                <></>
+                            }
+                            {
+                                additionalTopButton ?
+                                    additionalTopButton
+                                    :
+                                    <></>
+                            }
+                        </View>
+                        :
+                        <></>
+                    }
                     {
                         isLoading ?
                             <Loading />
@@ -126,11 +131,12 @@ const ScreenComponent = ({ content, topLeftButton, cancelNavigation, servisoFlow
                             content
                     }
                 </SafeAreaView>
-            </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback >
             {
                 servisoFlowerInternal
                     ?
-                    <Image style={styles.servisoFlower} source={require('../assets/ServisoFlower.png')} />
+                    <Image style={styles.servisoFlower
+                    } source={require('../assets/ServisoFlower.png')} />
                     :
                     ""
             }
