@@ -12,28 +12,21 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class Activity_nearBY
+    public partial class ApiProvider
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Activity_nearBY()
+        public ApiProvider()
         {
-            this.Orders = new HashSet<Order>();
+            this.ApiRequestCounts = new HashSet<ApiRequestCount>();
+            this.ApiRequestCountMonthlies = new HashSet<ApiRequestCountMonthly>();
         }
     
-        public int placeID { get; set; }
-        public string phone { get; set; }
-        public string address { get; set; }
-        public string category { get; set; }
-        public string tags { get; set; }
-        public string landmark { get; set; }
-        public Nullable<long> fbid { get; set; }
-        public string fUrl { get; set; }
-        public string instaUsername { get; set; }
-        public string webAddress { get; set; }
-        public Nullable<int> tripAdvisorLocationId { get; set; }
+        public int ProviderId { get; set; }
+        public string ProviderName { get; set; }
     
-        public virtual Activity Activity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<ApiRequestCount> ApiRequestCounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApiRequestCountMonthly> ApiRequestCountMonthlies { get; set; }
     }
 }

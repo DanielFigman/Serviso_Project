@@ -74,5 +74,8 @@ namespace DATA
         public virtual DbSet<Food_And_Drinks> Food_And_Drinks { get; set; }
         public virtual DbSet<Food_And_Drinks_Room_Service> Food_And_Drinks_Room_Service { get; set; }
         public virtual DbSet<Hot_Cold_Drinks> Hot_Cold_Drinks { get; set; }
+        public virtual DbSet<ApiProvider> ApiProviders { get; set; }
+        public virtual DbSet<ApiRequestCount> ApiRequestCounts { get; set; }
+        public virtual DbSet<ApiRequestCountMonthly> ApiRequestCountMonthlies { get; set; }
     }
 }

@@ -38,6 +38,7 @@
           <Property Name="fUrl" Type="nvarchar(max)" />
           <Property Name="instaUsername" Type="nvarchar(max)" />
           <Property Name="webAddress" Type="nvarchar(max)" />
+          <Property Name="tripAdvisorLocationId" Type="int" />
         </EntityType>
         <EntityType Name="Activity_Signed">
           <Key>
@@ -86,6 +87,31 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="alcoholPercent" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="ApiProvider">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="ProviderName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ApiRequestCount">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="RequestDate" />
+          </Key>
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="RequestDate" Type="date" Nullable="false" />
+          <Property Name="RequestCount" Type="int" />
+        </EntityType>
+        <EntityType Name="ApiRequestCountMonthly">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="RequestMonth" />
+          </Key>
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="RequestMonth" Type="date" Nullable="false" />
+          <Property Name="RequestCount" Type="int" />
         </EntityType>
         <EntityType Name="Category_rating">
           <Key>
@@ -668,6 +694,30 @@
             </Principal>
             <Dependent Role="Alcohol">
               <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ApiReques__Provi__02925FBF">
+          <End Role="ApiProvider" Type="Self.ApiProvider" Multiplicity="1" />
+          <End Role="ApiRequestCount" Type="Self.ApiRequestCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApiProvider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ApiRequestCount">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ApiReques__Provi__056ECC6A">
+          <End Role="ApiProvider" Type="Self.ApiProvider" Multiplicity="1" />
+          <End Role="ApiRequestCountMonthly" Type="Self.ApiRequestCountMonthly" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApiProvider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ApiRequestCountMonthly">
+              <PropertyRef Name="ProviderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1384,6 +1434,9 @@
           <EntitySet Name="Additional_Items" EntityType="Self.Additional_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Additional_Items_Room_Service" EntityType="Self.Additional_Items_Room_Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Alcohol" EntityType="Self.Alcohol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApiProvider" EntityType="Self.ApiProvider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApiRequestCount" EntityType="Self.ApiRequestCount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApiRequestCountMonthly" EntityType="Self.ApiRequestCountMonthly" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category_rating" EntityType="Self.Category_rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChatLine" EntityType="Self.ChatLine" Schema="dbo" store:Type="Tables" />
@@ -1467,6 +1520,14 @@
           <AssociationSet Name="FK__Alcohol__ID__19DFD96B" Association="Self.FK__Alcohol__ID__19DFD96B">
             <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
             <End Role="Alcohol" EntitySet="Alcohol" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ApiReques__Provi__02925FBF" Association="Self.FK__ApiReques__Provi__02925FBF">
+            <End Role="ApiProvider" EntitySet="ApiProvider" />
+            <End Role="ApiRequestCount" EntitySet="ApiRequestCount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ApiReques__Provi__056ECC6A" Association="Self.FK__ApiReques__Provi__056ECC6A">
+            <End Role="ApiProvider" EntitySet="ApiProvider" />
+            <End Role="ApiRequestCountMonthly" EntitySet="ApiRequestCountMonthly" />
           </AssociationSet>
           <AssociationSet Name="FK__Category___place__5441852A" Association="Self.FK__Category___place__5441852A">
             <End Role="Activity" EntitySet="Activity" />
@@ -1745,6 +1806,7 @@
           <Property Name="fUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="instaUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="webAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tripAdvisorLocationId" Type="Int32" />
         </EntityType>
         <EntityType Name="Activity_Update">
           <Key>
@@ -3139,6 +3201,17 @@
             <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
             <End Role="Hot_Cold_Drinks" EntitySet="Hot_Cold_Drinks" />
           </AssociationSet>
+          <EntitySet Name="ApiProviders" EntityType="igroup197_test1Model.ApiProvider" />
+          <EntitySet Name="ApiRequestCounts" EntityType="igroup197_test1Model.ApiRequestCount" />
+          <AssociationSet Name="FK__ApiReques__Provi__02925FBF" Association="igroup197_test1Model.FK__ApiReques__Provi__02925FBF">
+            <End Role="ApiProvider" EntitySet="ApiProviders" />
+            <End Role="ApiRequestCount" EntitySet="ApiRequestCounts" />
+          </AssociationSet>
+          <EntitySet Name="ApiRequestCountMonthlies" EntityType="igroup197_test1Model.ApiRequestCountMonthly" />
+          <AssociationSet Name="FK__ApiReques__Provi__056ECC6A" Association="igroup197_test1Model.FK__ApiReques__Provi__056ECC6A">
+            <End Role="ApiProvider" EntitySet="ApiProviders" />
+            <End Role="ApiRequestCountMonthly" EntitySet="ApiRequestCountMonthlies" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Alcohol">
           <Key>
@@ -3275,6 +3348,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ApiProvider">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="ProviderName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ApiRequestCounts" Relationship="igroup197_test1Model.FK__ApiReques__Provi__02925FBF" FromRole="ApiProvider" ToRole="ApiRequestCount" />
+          <NavigationProperty Name="ApiRequestCountMonthlies" Relationship="igroup197_test1Model.FK__ApiReques__Provi__056ECC6A" FromRole="ApiProvider" ToRole="ApiRequestCountMonthly" />
+        </EntityType>
+        <EntityType Name="ApiRequestCount">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="RequestDate" />
+          </Key>
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RequestCount" Type="Int32" />
+          <NavigationProperty Name="ApiProvider" Relationship="igroup197_test1Model.FK__ApiReques__Provi__02925FBF" FromRole="ApiRequestCount" ToRole="ApiProvider" />
+        </EntityType>
+        <Association Name="FK__ApiReques__Provi__02925FBF">
+          <End Type="igroup197_test1Model.ApiProvider" Role="ApiProvider" Multiplicity="1" />
+          <End Type="igroup197_test1Model.ApiRequestCount" Role="ApiRequestCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApiProvider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ApiRequestCount">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ApiRequestCountMonthly">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="RequestMonth" />
+          </Key>
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="RequestMonth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RequestCount" Type="Int32" />
+          <NavigationProperty Name="ApiProvider" Relationship="igroup197_test1Model.FK__ApiReques__Provi__056ECC6A" FromRole="ApiRequestCountMonthly" ToRole="ApiProvider" />
+        </EntityType>
+        <Association Name="FK__ApiReques__Provi__056ECC6A">
+          <End Type="igroup197_test1Model.ApiProvider" Role="ApiProvider" Multiplicity="1" />
+          <End Type="igroup197_test1Model.ApiRequestCountMonthly" Role="ApiRequestCountMonthly" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApiProvider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ApiRequestCountMonthly">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3305,6 +3431,7 @@
           <EntitySetMapping Name="Activity_nearBY">
             <EntityTypeMapping TypeName="igroup197_test1Model.Activity_nearBY">
               <MappingFragment StoreEntitySet="Activity_nearBY">
+                <ScalarProperty Name="tripAdvisorLocationId" ColumnName="tripAdvisorLocationId" />
                 <ScalarProperty Name="webAddress" ColumnName="webAddress" />
                 <ScalarProperty Name="instaUsername" ColumnName="instaUsername" />
                 <ScalarProperty Name="fUrl" ColumnName="fUrl" />
@@ -3864,6 +3991,32 @@
               <MappingFragment StoreEntitySet="Hot_Cold_Drinks">
                 <ScalarProperty Name="possibleChanges" ColumnName="possibleChanges" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApiProviders">
+            <EntityTypeMapping TypeName="igroup197_test1Model.ApiProvider">
+              <MappingFragment StoreEntitySet="ApiProvider">
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApiRequestCounts">
+            <EntityTypeMapping TypeName="igroup197_test1Model.ApiRequestCount">
+              <MappingFragment StoreEntitySet="ApiRequestCount">
+                <ScalarProperty Name="RequestCount" ColumnName="RequestCount" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApiRequestCountMonthlies">
+            <EntityTypeMapping TypeName="igroup197_test1Model.ApiRequestCountMonthly">
+              <MappingFragment StoreEntitySet="ApiRequestCountMonthly">
+                <ScalarProperty Name="RequestCount" ColumnName="RequestCount" />
+                <ScalarProperty Name="RequestMonth" ColumnName="RequestMonth" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

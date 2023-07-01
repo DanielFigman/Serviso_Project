@@ -114,6 +114,11 @@
         <AssociationConnector Association="igroup197_test1Model.FK__Food_And___reque__2180FB33" />
         <EntityTypeShape EntityType="igroup197_test1Model.Hot_Cold_Drinks" Width="1.5" PointX="15" PointY="25.75" />
         <AssociationConnector Association="igroup197_test1Model.FK__Hot_Cold_Dri__ID__1CBC4616" />
+        <EntityTypeShape EntityType="igroup197_test1Model.ApiProvider" Width="1.5" PointX="3.375" PointY="1" />
+        <EntityTypeShape EntityType="igroup197_test1Model.ApiRequestCount" Width="1.5" PointX="5.625" PointY="0.875" />
+        <AssociationConnector Association="igroup197_test1Model.FK__ApiReques__Provi__02925FBF" />
+        <EntityTypeShape EntityType="igroup197_test1Model.ApiRequestCountMonthly" Width="1.5" PointX="5.625" PointY="4" />
+        <AssociationConnector Association="igroup197_test1Model.FK__ApiReques__Provi__056ECC6A" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

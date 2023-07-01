@@ -102,6 +102,15 @@
     <Compile Include="Alcohol.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApiProvider.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApiRequestCount.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApiRequestCountMonthly.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Category_rating.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -140,6 +149,9 @@
     <Compile Include="Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\ApiProvider.cs" />
+    <Compile Include="Entities\ApiRequestCount.cs" />
+    <Compile Include="Entities\ApiRequestCountMonthly.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\HouseHold_Custom_Request.cs" />
     <Compile Include="Entities\Questionnaire.cs" />
@@ -197,6 +209,7 @@
     <Compile Include="Language.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Manager\ActivityNearByManager.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
