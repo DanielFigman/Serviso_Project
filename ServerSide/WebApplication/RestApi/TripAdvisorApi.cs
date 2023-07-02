@@ -1,13 +1,17 @@
 ﻿using DATA;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+
 
 namespace WebApplication
 {
@@ -17,12 +21,16 @@ namespace WebApplication
 
         private string ApiKey => "56016D3C32424CAD9BAE04BFE6AA4F8A";
         private string ProviderName => "TripAdvisor";
-        private int DailyMax => 1100;
+        private int DailyMax => 500;
         private int MonthlyMax => 4500;
 
         public int ProviderId;
         public int DailyRequestsCount;
         public int MonthlyRequestsCont;
+
+        public ApiRequestCount ApiRequestCount;
+        public ApiRequestCountMonthly ApiRequestCountMonthly;
+
 
         public TripAdvisorApi()
         {
@@ -33,89 +41,193 @@ namespace WebApplication
         private void SetProvider()
         {
             ApiProvider provider = db.ApiProviders.FirstOrDefault(obj => obj.ProviderName == ProviderName);
-            DateTime dateNow = DateTime.Now.Date; // Get the current date without the time portion
+            DateTime dateNow = DateTime.Now.Date;
+
+            ApiRequestCount apiRequestCount;
+            ApiRequestCountMonthly apiRequestCountMonthly;
 
             if (provider != null)
             {
-                ProviderId = provider.ProviderId;
-
                 int currentMonth = dateNow.Month;
                 int currentYear = dateNow.Year;
 
-                ApiRequestCount apiRequestCount = db.ApiRequestCounts.FirstOrDefault(obj =>
+                apiRequestCount = db.ApiRequestCounts.FirstOrDefault(obj =>
                     obj.ProviderId == provider.ProviderId &&
-                    obj.RequestDate.Date == dateNow
+                    DbFunctions.TruncateTime(obj.RequestDate) == dateNow
                 );
 
-                ApiRequestCountMonthly apiRequestCountMonthly = db.ApiRequestCountMonthlies.FirstOrDefault(obj =>
-                    obj.ProviderId == provider.ProviderId && 
+                apiRequestCountMonthly = db.ApiRequestCountMonthlies.FirstOrDefault(obj =>
+                    obj.ProviderId == provider.ProviderId &&
                     obj.RequestMonth.Month == currentMonth &&
                     obj.RequestMonth.Year == currentYear
                 );
 
-                if (apiRequestCount != null)
+                if (apiRequestCount == null)
                 {
-                    DailyRequestsCount = apiRequestCount.RequestCount != null ? (int)apiRequestCount.RequestCount : 0;
-                }
-                else
-                {
+                    apiRequestCount = new ApiRequestCount();
                     apiRequestCount.CreateApiRequestCount(provider.ProviderId, dateNow);
-                    DailyRequestsCount = (int)apiRequestCount.RequestCount;
                 }
 
-                if(apiRequestCountMonthly != null)
+                if (apiRequestCountMonthly == null)
                 {
-                    MonthlyRequestsCont = apiRequestCountMonthly.RequestCount != null ? (int)apiRequestCountMonthly.RequestCount : 0;
-                }
-                else
-                {
+                    apiRequestCountMonthly = new ApiRequestCountMonthly();
                     apiRequestCountMonthly.CreateApiMonthlyRequestCount(provider.ProviderId, dateNow);
-                    MonthlyRequestsCont = (int)apiRequestCountMonthly.RequestCount;
                 }
-
-
             }
             else
             {
                 provider.CreateProvider(ProviderName);
-                ProviderId = provider.ProviderId;
 
-                ApiRequestCount apiRequestCount = new ApiRequestCount();
+                apiRequestCount = new ApiRequestCount();
                 apiRequestCount.CreateApiRequestCount(provider.ProviderId, dateNow);
-                DailyRequestsCount = (int)apiRequestCount.RequestCount;
 
-                ApiRequestCountMonthly apiRequestCountMonthly = new ApiRequestCountMonthly();
+                apiRequestCountMonthly = new ApiRequestCountMonthly();
                 apiRequestCountMonthly.CreateApiMonthlyRequestCount(provider.ProviderId, dateNow);
-                MonthlyRequestsCont = (int)apiRequestCountMonthly.RequestCount;
             }
+
+            ProviderId = provider.ProviderId;
+
+            DailyRequestsCount = apiRequestCount?.RequestCount ?? 0;
+            ApiRequestCount = apiRequestCount;
+
+            MonthlyRequestsCont = apiRequestCountMonthly?.RequestCount ?? 0;
+            ApiRequestCountMonthly = apiRequestCountMonthly;
         }
 
 
-        public async Task<string> GetLocationID(ActivityNearByDTO activityNearBy)
+        private async Task<int?> GetLocationID(ActivityNearByDTO activityNearBy)
         {
-            var client = new RestClient("https://api.content.tripadvisor.com/api/v1/location/search?key=56016D3C32424CAD9BAE04BFE6AA4F8A&searchQuery=%22Park%20Timna%22&address=Israel&latLong=23-24&radius=5&radiusUnit=km&language=en");
-            var request = new RestRequest(Method.Get.ToString());
+            string urlEncodedString = GetUrlEncodedString(activityNearBy.name);
+
+
+            var options = new RestClientOptions($"https://api.content.tripadvisor.com/api/v1/location/search?key={ApiKey}&searchQuery={urlEncodedString}&address=Israel&language=en");
+            var client = new RestClient(options);
+            var request = new RestRequest("");
             request.AddHeader("accept", "application/json");
-            RestResponse response = await client.ExecuteAsync(request);
+            var response = await client.GetAsync(request);
 
-            // Extract the location ID from the response
-            string locationId = ""; // Set a default value or handle if no ID is found
+            int? locationId = null;
 
-            if (response.IsSuccessful) // Check if the response was successful
+            if (response.IsSuccessful)
             {
-                // Parse the response content and retrieve the location ID
                 var content = response.Content;
-                if(content != null && content.Contains("locationId"))
+                if (content != null)
                 {
+                    // Parse the response content and retrieve the location ID
+                    var responseObject = JObject.Parse(content);
+
+                    if (responseObject.ContainsKey("data"))
+                    {
+                        var data = responseObject["data"].FirstOrDefault();
+                        if (data != null && data["location_id"] != null)
+                        {
+                            locationId = int.Parse(data["location_id"].ToString());
+                        }
+                    }
                 }
             }
+
+            AddRequestToCount();
 
             return locationId;
         }
 
-        public async Task<List<string>> GetLocationImages(ActivityNearByDTO activityNearBy)
+        public async Task<List<string>> GetLocationImages(int? locationId)
         {
+            List<string> retVal = new List<string>();
 
+            if (locationId != null)
+            {
+                var options = new RestClientOptions($"https://api.content.tripadvisor.com/api/v1/location/{locationId}/photos?key={ApiKey}&language=en");
+                var client = new RestClient(options);
+                var request = new RestRequest("");
+                request.AddHeader("accept", "application/json");
+                var response = await client.GetAsync(request);
+
+                if (response.IsSuccessful)
+                {
+                    var content = response.Content;
+                    if (content != null)
+                    {
+                        // Parse the response content and retrieve the large image URLs
+                        var responseObject = JObject.Parse(content);
+
+                        if (responseObject.ContainsKey("data"))
+                        {
+                            var dataArray = (JArray)responseObject["data"];
+
+                            foreach (var dataItem in dataArray)
+                            {
+                                var images = dataItem["images"];
+                                var largeImage = images["large"];
+                                var largeImageUrl = (string)largeImage["url"];
+
+                                retVal.Add(largeImageUrl);
+                            }
+                        }
+                    }
+                }
+                AddRequestToCount();
+            }
+
+            return retVal;
+        }
+
+        public async Task SetLocationIdsAndMorePhotos(List<ActivityNearByDTO> activities_nearBy)
+        {
+            if (DailyRequestsCount < DailyMax && MonthlyRequestsCont < MonthlyMax)
+            {
+                try
+                {
+                    foreach (var item in activities_nearBy)
+                    {
+                        if (item.tripAdvisorLocationId == null && !item.IsNotFoundLocationId(db))
+                        {
+                            int? locationId = await GetLocationID(item);
+                            item.AddLocationIdToActicity(locationId, db);
+                        }
+
+                        if (item.morePhotosUrls.Count == 0 && item.tripAdvisorLocationId != null)
+                        {
+                            List<string> moreImages = await GetLocationImages(item.tripAdvisorLocationId);
+                            item.AddMoreImagesToActivity(moreImages, db);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                finally
+                {
+                    UpdateTheNewCounts();
+                }
+            }
+        }
+
+        private string GetUrlEncodedString(string name)
+        {
+            // Remove special characters and spaces, keep only words and numbers
+            string cleanedString = Regex.Replace(name, "[^a-zA-Z0-9]+", " ");
+
+            // URL encode the cleaned string and add double quotes
+            string urlEncodedString = Uri.EscapeDataString(cleanedString);
+            urlEncodedString = "%22" + urlEncodedString + "%22";
+
+            return urlEncodedString;
+        }
+
+        private void UpdateTheNewCounts()
+        {
+            ApiRequestCount.SaveNewCount(DailyRequestsCount);
+            ApiRequestCountMonthly.SaveNewCount(MonthlyRequestsCont);
+        }
+
+        private void AddRequestToCount()
+        {
+            DailyRequestsCount += 1;
+            MonthlyRequestsCont += 1;
         }
     }
 }

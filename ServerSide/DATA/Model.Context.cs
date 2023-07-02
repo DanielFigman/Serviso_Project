@@ -77,5 +77,6 @@ namespace DATA
         public virtual DbSet<ApiProvider> ApiProviders { get; set; }
         public virtual DbSet<ApiRequestCount> ApiRequestCounts { get; set; }
         public virtual DbSet<ApiRequestCountMonthly> ApiRequestCountMonthlies { get; set; }
+        public virtual DbSet<ActivityMoreImage> ActivityMoreImages { get; set; }
     }
 }

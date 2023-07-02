@@ -119,6 +119,8 @@
         <AssociationConnector Association="igroup197_test1Model.FK__ApiReques__Provi__02925FBF" />
         <EntityTypeShape EntityType="igroup197_test1Model.ApiRequestCountMonthly" Width="1.5" PointX="5.625" PointY="4" />
         <AssociationConnector Association="igroup197_test1Model.FK__ApiReques__Provi__056ECC6A" />
+        <EntityTypeShape EntityType="igroup197_test1Model.ActivityMoreImage" Width="1.5" PointX="10.5" PointY="24" />
+        <AssociationConnector Association="igroup197_test1Model.FK__ActivityM__place__084B3915" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

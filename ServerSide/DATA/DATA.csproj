@@ -84,6 +84,9 @@
     <Compile Include="Activity.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ActivityMoreImage.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Activity_hotel.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -149,6 +152,7 @@
     <Compile Include="Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\ActivityMoreImage.cs" />
     <Compile Include="Entities\ApiProvider.cs" />
     <Compile Include="Entities\ApiRequestCount.cs" />
     <Compile Include="Entities\ApiRequestCountMonthly.cs" />

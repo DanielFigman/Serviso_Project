@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,9 @@ namespace DATA
         public string instaUsername { get; set; }
         public string webAddress { get; set; }
 
+        public int? tripAdvisorLocationId { get; set; }
 
+        public List<string> morePhotosUrls { get; set; }
 
         public void SetActivityNearByDTO(Activity_nearBY activityNearBy)
         {
@@ -46,6 +49,64 @@ namespace DATA
             fUrl = activityNearBy.fUrl;
             instaUsername = activityNearBy.instaUsername;
             webAddress = activityNearBy.webAddress;
+            tripAdvisorLocationId = activityNearBy.tripAdvisorLocationId;
+            morePhotosUrls = activity.ActivityMoreImages.Select(x => x.Url).ToList();
+        }
+
+        public void AddLocationIdToActicity(int? locationId, hotelAppDBContextNew db)
+        {
+            if (locationId != null)
+            {
+                tripAdvisorLocationId = locationId;
+
+                Activity_nearBY thisActivity = db.Activity_nearBY.FirstOrDefault(obj => obj.placeID == placeID);
+
+                thisActivity.tripAdvisorLocationId = locationId;
+                thisActivity.isNotFoundLocationId = false;
+
+                db.Activity_nearBY.AddOrUpdate(thisActivity);
+                db.SaveChanges();
+            }
+            else
+            {
+                SetIsNotFoundLocationId(db);
+            }
+        }
+
+        public void AddMoreImagesToActivity(List<string> moreImages, hotelAppDBContextNew db)
+        {
+            if (moreImages != null && moreImages.Count > 0)
+            {
+
+                moreImages.ForEach(url =>
+                {
+                    ActivityMoreImage activityMoreImage = new ActivityMoreImage();
+                    activityMoreImage.SetActivityMoreImage(url, placeID);
+                    db.ActivityMoreImages.AddOrUpdate(activityMoreImage);
+                    db.SaveChanges();
+                });
+
+                morePhotosUrls = moreImages;
+            }
+        }
+
+        public bool IsNotFoundLocationId(hotelAppDBContextNew db)
+        {
+            Activity_nearBY activity = db.Activity_nearBY.FirstOrDefault(obj => obj.placeID == placeID);
+
+            bool isNotFoundLocationId = activity != null && activity.isNotFoundLocationId != null && activity.isNotFoundLocationId == true;
+
+            return isNotFoundLocationId;
+        }
+
+        private void SetIsNotFoundLocationId(hotelAppDBContextNew db)
+        {
+            Activity_nearBY thisActivity = db.Activity_nearBY.FirstOrDefault(obj => obj.placeID == placeID);
+
+            thisActivity.isNotFoundLocationId = true;
+
+            db.Activity_nearBY.AddOrUpdate(thisActivity);
+            db.SaveChanges();
         }
     }
 }

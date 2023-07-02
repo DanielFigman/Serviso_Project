@@ -20,5 +20,13 @@ namespace DATA
             db.ApiRequestCountMonthlies.AddOrUpdate(this);
             db.SaveChanges();
         }
+
+        public void SaveNewCount(int newCount)
+        {
+            RequestCount = newCount;
+
+            db.ApiRequestCountMonthlies.AddOrUpdate(this);
+            db.SaveChanges();
+        }
     }
 }

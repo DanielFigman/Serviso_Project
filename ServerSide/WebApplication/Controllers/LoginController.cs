@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace WebApplication.Controllers
@@ -17,7 +18,7 @@ namespace WebApplication.Controllers
         [HttpPost]
         [Route("api/login")]
 
-        public IHttpActionResult Post([FromBody] JObject data)
+        public async Task<IHttpActionResult> PostAsync([FromBody] JObject data)
         {
             try
             {
@@ -43,6 +44,9 @@ namespace WebApplication.Controllers
                         else
                         {
                             LoginDTO loginDTO = user.GetLoginDTO();
+                            TripAdvisorApi tripAdvisorApi = new TripAdvisorApi();
+                            await tripAdvisorApi.SetLocationIdsAndMorePhotos(loginDTO.activities_nearBy);
+
                             return Content(HttpStatusCode.OK, loginDTO);
                         }
                     }

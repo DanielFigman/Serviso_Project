@@ -19,6 +19,7 @@ namespace DATA
         {
             this.Activity_Update = new HashSet<Activity_Update>();
             this.Category_rating = new HashSet<Category_rating>();
+            this.ActivityMoreImages = new HashSet<ActivityMoreImage>();
         }
     
         public int placeID { get; set; }
@@ -33,5 +34,7 @@ namespace DATA
         public virtual ICollection<Activity_Update> Activity_Update { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category_rating> Category_rating { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActivityMoreImage> ActivityMoreImages { get; set; }
     }
 }

@@ -39,6 +39,7 @@
           <Property Name="instaUsername" Type="nvarchar(max)" />
           <Property Name="webAddress" Type="nvarchar(max)" />
           <Property Name="tripAdvisorLocationId" Type="int" />
+          <Property Name="isNotFoundLocationId" Type="bit" />
         </EntityType>
         <EntityType Name="Activity_Signed">
           <Key>
@@ -59,6 +60,14 @@
           <Property Name="rating" Type="float" />
           <Property Name="matchRating" Type="float" />
           <Property Name="doneBefore" Type="bit" />
+        </EntityType>
+        <EntityType Name="ActivityMoreImages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="255" />
+          <Property Name="placeID" Type="int" />
         </EntityType>
         <EntityType Name="Additional_Items">
           <Key>
@@ -657,6 +666,18 @@
               <PropertyRef Name="placeID" />
             </Principal>
             <Dependent Role="Activity_Update">
+              <PropertyRef Name="placeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ActivityM__place__084B3915">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="ActivityMoreImages" Type="Self.ActivityMoreImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="placeID" />
+            </Principal>
+            <Dependent Role="ActivityMoreImages">
               <PropertyRef Name="placeID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1431,6 +1452,7 @@
           <EntitySet Name="Activity_nearBY" EntityType="Self.Activity_nearBY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Activity_Signed" EntityType="Self.Activity_Signed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Activity_Update" EntityType="Self.Activity_Update" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActivityMoreImages" EntityType="Self.ActivityMoreImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Additional_Items" EntityType="Self.Additional_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Additional_Items_Room_Service" EntityType="Self.Additional_Items_Room_Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Alcohol" EntityType="Self.Alcohol" Schema="dbo" store:Type="Tables" />
@@ -1508,6 +1530,10 @@
           <AssociationSet Name="FK__Activity___place__60A75C0F" Association="Self.FK__Activity___place__60A75C0F">
             <End Role="Activity" EntitySet="Activity" />
             <End Role="Activity_Update" EntitySet="Activity_Update" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ActivityM__place__084B3915" Association="Self.FK__ActivityM__place__084B3915">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="ActivityMoreImages" EntitySet="ActivityMoreImages" />
           </AssociationSet>
           <AssociationSet Name="FK__Additiona__reque__25518C17" Association="Self.FK__Additiona__reque__25518C17">
             <End Role="Room_Service_Order" EntitySet="Room_Service_Order" />
@@ -1779,6 +1805,7 @@
           <NavigationProperty Name="Activity_nearBY" Relationship="Self.FK__Activity___place__59FA5E80" FromRole="Activity" ToRole="Activity_nearBY" />
           <NavigationProperty Name="Activity_Update" Relationship="Self.FK__Activity___place__60A75C0F" FromRole="Activity" ToRole="Activity_Update" />
           <NavigationProperty Name="Category_rating" Relationship="Self.FK__Category___place__5441852A" FromRole="Activity" ToRole="Category_rating" />
+          <NavigationProperty Name="ActivityMoreImages" Relationship="igroup197_test1Model.FK__ActivityM__place__084B3915" FromRole="Activity" ToRole="ActivityMoreImage" />
         </EntityType>
         <EntityType Name="Activity_hotel">
           <Key>
@@ -1807,6 +1834,7 @@
           <Property Name="instaUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="webAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="tripAdvisorLocationId" Type="Int32" />
+          <Property Name="isNotFoundLocationId" Type="Boolean" />
         </EntityType>
         <EntityType Name="Activity_Update">
           <Key>
@@ -3212,6 +3240,11 @@
             <End Role="ApiProvider" EntitySet="ApiProviders" />
             <End Role="ApiRequestCountMonthly" EntitySet="ApiRequestCountMonthlies" />
           </AssociationSet>
+          <EntitySet Name="ActivityMoreImages" EntityType="igroup197_test1Model.ActivityMoreImage" />
+          <AssociationSet Name="FK__ActivityM__place__084B3915" Association="igroup197_test1Model.FK__ActivityM__place__084B3915">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="ActivityMoreImage" EntitySet="ActivityMoreImages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Alcohol">
           <Key>
@@ -3401,6 +3434,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ActivityMoreImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="placeID" Type="Int32" />
+          <NavigationProperty Name="Activity" Relationship="igroup197_test1Model.FK__ActivityM__place__084B3915" FromRole="ActivityMoreImage" ToRole="Activity" />
+        </EntityType>
+        <Association Name="FK__ActivityM__place__084B3915">
+          <End Type="igroup197_test1Model.Activity" Role="Activity" Multiplicity="0..1" />
+          <End Type="igroup197_test1Model.ActivityMoreImage" Role="ActivityMoreImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="placeID" />
+            </Principal>
+            <Dependent Role="ActivityMoreImage">
+              <PropertyRef Name="placeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3431,6 +3485,7 @@
           <EntitySetMapping Name="Activity_nearBY">
             <EntityTypeMapping TypeName="igroup197_test1Model.Activity_nearBY">
               <MappingFragment StoreEntitySet="Activity_nearBY">
+                <ScalarProperty Name="isNotFoundLocationId" ColumnName="isNotFoundLocationId" />
                 <ScalarProperty Name="tripAdvisorLocationId" ColumnName="tripAdvisorLocationId" />
                 <ScalarProperty Name="webAddress" ColumnName="webAddress" />
                 <ScalarProperty Name="instaUsername" ColumnName="instaUsername" />
@@ -4017,6 +4072,15 @@
                 <ScalarProperty Name="RequestCount" ColumnName="RequestCount" />
                 <ScalarProperty Name="RequestMonth" ColumnName="RequestMonth" />
                 <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityMoreImages">
+            <EntityTypeMapping TypeName="igroup197_test1Model.ActivityMoreImage">
+              <MappingFragment StoreEntitySet="ActivityMoreImages">
+                <ScalarProperty Name="placeID" ColumnName="placeID" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
