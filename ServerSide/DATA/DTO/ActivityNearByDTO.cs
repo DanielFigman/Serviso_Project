@@ -10,7 +10,7 @@ namespace DATA
     public class ActivityNearByDTO
     {
         private readonly HelperFunctions dataHelper = new HelperFunctions();
-
+        private hotelAppDBContextNew db = new hotelAppDBContextNew();
         public int placeID { get; set; }
         public string name { get; set; }
         public string description { get; set; }
@@ -29,7 +29,7 @@ namespace DATA
 
         public int? tripAdvisorLocationId { get; set; }
 
-        public List<string> morePhotosUrls { get; set; }
+        public List<ActivityMoreImagesDTO> morePhotosUrls { get; set; }
 
         public void SetActivityNearByDTO(Activity_nearBY activityNearBy)
         {
@@ -50,7 +50,22 @@ namespace DATA
             instaUsername = activityNearBy.instaUsername;
             webAddress = activityNearBy.webAddress;
             tripAdvisorLocationId = activityNearBy.tripAdvisorLocationId;
-            morePhotosUrls = activity.ActivityMoreImages.Select(x => x.Url).ToList();
+            morePhotosUrls = GetImagesDTO();
+        }
+
+        private List<ActivityMoreImagesDTO> GetImagesDTO()
+        {
+            List<ActivityMoreImage> images = db.ActivityMoreImages.Where(x => x.placeID == placeID).ToList();
+            List<ActivityMoreImagesDTO> retVal = new List<ActivityMoreImagesDTO>();
+
+            images.ForEach(obj =>
+            {
+                ActivityMoreImagesDTO tempImage = new ActivityMoreImagesDTO();
+                tempImage.SetActivityMoreImagesDTO(obj);
+                retVal.Add(tempImage);
+            });
+
+            return retVal;
         }
 
         public void AddLocationIdToActicity(int? locationId, hotelAppDBContextNew db)
@@ -77,16 +92,22 @@ namespace DATA
         {
             if (moreImages != null && moreImages.Count > 0)
             {
+                List<ActivityMoreImagesDTO> moreImagesDTOs = new List<ActivityMoreImagesDTO>();
 
                 moreImages.ForEach(url =>
                 {
                     ActivityMoreImage activityMoreImage = new ActivityMoreImage();
                     activityMoreImage.SetActivityMoreImage(url, placeID);
+                   
                     db.ActivityMoreImages.AddOrUpdate(activityMoreImage);
                     db.SaveChanges();
+
+                    ActivityMoreImagesDTO activityMoreImagesDTO = new ActivityMoreImagesDTO();
+                    activityMoreImagesDTO.SetActivityMoreImagesDTO(activityMoreImage);
+                    moreImagesDTOs.Add(activityMoreImagesDTO);
                 });
 
-                morePhotosUrls = moreImages;
+                morePhotosUrls = moreImagesDTOs;
             }
         }
 

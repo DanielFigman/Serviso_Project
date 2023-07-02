@@ -139,6 +139,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\ActivityHotelDTO.cs" />
+    <Compile Include="DTO\ActivityMoreImagesDTO.cs" />
     <Compile Include="DTO\ActivityNearByDTO.cs" />
     <Compile Include="DTO\Custom_Request_Type_DTO.cs" />
     <Compile Include="DTO\FacilityDTO.cs" />
