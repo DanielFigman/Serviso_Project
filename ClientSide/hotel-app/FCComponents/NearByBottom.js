@@ -6,6 +6,8 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { FaceSmileIcon, HeartIcon } from 'react-native-heroicons/outline'
 import DescriptionDialaog from './Dialogs/DescriptionDialaog'
 import RatingIconsComp from './RatingIconsComp'
+import ImageNearBottomDialog from './Dialogs/ImageNearBottomDialog'
+import ImagesCarouselNearBottom from './ImagesCarouselNearBottom'
 
 
 
@@ -58,7 +60,10 @@ const NearByBottom = ({ item, setPanResponderEnabled }) => {
                             View Description</Text>
                     </TouchableOpacity>
                     <DescriptionDialaog setModalVisible={setModalVisible} modalVisible={modalVisible} description={item.description} name={item.name} />
-                    <View style={[styles.view, { top: "65%" }]}>
+                    <View style={[styles.view, { marginTop: 40, alignItems: "center", justifyContent:"center"}]}>
+                        <ImagesCarouselNearBottom urlList={item.morePhotosUrls} image={item.imageURL}/>
+                    </View>
+                    <View style={[styles.view, { top: "15%" }]}>
                         <RatingIconsComp />
                     </View>
                 </>

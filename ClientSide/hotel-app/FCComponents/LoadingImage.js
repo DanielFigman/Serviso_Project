@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
 import * as FileSystem from 'expo-file-system';
+import { MD5 } from 'crypto-js';
 
 const imageCache = {};
 
@@ -24,7 +25,7 @@ const LoadingImage = ({ imageURL, style }) => {
         return;
       }
 
-      const fileName = getFileNameFromURL(imageURL);
+      const fileName = generateUniqueFileName(imageURL);
       const cachedImagePath = FileSystem.cacheDirectory + fileName;
 
       try {
@@ -43,16 +44,27 @@ const LoadingImage = ({ imageURL, style }) => {
     cacheImage();
   }, [imageURL]);
 
-  const getFileNameFromURL = (url) => {
+  const generateUniqueFileName = (url) => {
     if (!url) {
       return 'image.jpg';
     }
 
-    const matches = url.match(/\/([^/]+)$/);
-    if (matches && matches.length > 1) {
-      return matches[1];
+    const hash = MD5(url).toString();
+    const extension = getExtensionFromURL(url);
+
+    return `${hash}.${extension}`;
+  };
+
+  const getExtensionFromURL = (url) => {
+    if (!url) {
+      return 'jpg';
     }
-    return 'image.jpg';
+
+    const matches = url.match(/\.[^/]+$/);
+    if (matches && matches.length > 0) {
+      return matches[0].substring(1);
+    }
+    return 'jpg';
   };
 
   if (isLoading) {
@@ -71,6 +83,5 @@ const LoadingImage = ({ imageURL, style }) => {
   // Handle any other fallback case here
   return null;
 };
-
 
 export default LoadingImage;
