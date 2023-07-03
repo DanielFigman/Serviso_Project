@@ -52,10 +52,10 @@
         <EntityType Name="Activity_Update">
           <Key>
             <PropertyRef Name="placeID" />
-            <PropertyRef Name="orderID" />
+            <PropertyRef Name="email" />
           </Key>
           <Property Name="placeID" Type="int" Nullable="false" />
-          <Property Name="orderID" Type="int" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="favorite" Type="bit" />
           <Property Name="rating" Type="float" />
           <Property Name="matchRating" Type="float" />
@@ -606,18 +606,6 @@
               <PropertyRef Name="orderID" />
             </Principal>
             <Dependent Role="Activity_Signed">
-              <PropertyRef Name="orderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Activity___order__619B8048">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="Activity_Update" Type="Self.Activity_Update" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="orderID" />
-            </Principal>
-            <Dependent Role="Activity_Update">
               <PropertyRef Name="orderID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1182,6 +1170,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Update___email__03072023">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Activity_Update" Type="Self.Activity_Update" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="Activity_Update">
+              <PropertyRef Name="email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__User__languageID__25869641">
           <End Role="Language" Type="Self.Language" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -1511,10 +1511,6 @@
             <End Role="Order" EntitySet="Order" />
             <End Role="Activity_Signed" EntitySet="Activity_Signed" />
           </AssociationSet>
-          <AssociationSet Name="FK__Activity___order__619B8048" Association="Self.FK__Activity___order__619B8048">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="Activity_Update" EntitySet="Activity_Update" />
-          </AssociationSet>
           <AssociationSet Name="FK__Activity___place__571DF1D5" Association="Self.FK__Activity___place__571DF1D5">
             <End Role="Activity" EntitySet="Activity" />
             <End Role="Activity_hotel" EntitySet="Activity_hotel" />
@@ -1699,6 +1695,10 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Therapist" EntitySet="Therapist" />
           </AssociationSet>
+          <AssociationSet Name="FK__Update___email__03072023" Association="Self.FK__Update___email__03072023">
+            <End Role="User" EntitySet="User" />
+            <End Role="Activity_Update" EntitySet="Activity_Update" />
+          </AssociationSet>
           <AssociationSet Name="FK__User__languageID__25869641" Association="Self.FK__User__languageID__25869641">
             <End Role="Language" EntitySet="Language" />
             <End Role="User" EntitySet="User" />
@@ -1803,9 +1803,9 @@
           <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Activity_hotel" Relationship="Self.FK__Activity___place__571DF1D5" FromRole="Activity" ToRole="Activity_hotel" />
           <NavigationProperty Name="Activity_nearBY" Relationship="Self.FK__Activity___place__59FA5E80" FromRole="Activity" ToRole="Activity_nearBY" />
-          <NavigationProperty Name="Activity_Update" Relationship="Self.FK__Activity___place__60A75C0F" FromRole="Activity" ToRole="Activity_Update" />
           <NavigationProperty Name="Category_rating" Relationship="Self.FK__Category___place__5441852A" FromRole="Activity" ToRole="Category_rating" />
           <NavigationProperty Name="ActivityMoreImages" Relationship="igroup197_test1Model.FK__ActivityM__place__084B3915" FromRole="Activity" ToRole="ActivityMoreImage" />
+          <NavigationProperty Name="Activity_Update" Relationship="igroup197_test1Model.FK__Activity___place__60A75C0F" FromRole="Activity" ToRole="Activity_Update" />
         </EntityType>
         <EntityType Name="Activity_hotel">
           <Key>
@@ -1835,20 +1835,6 @@
           <Property Name="webAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="tripAdvisorLocationId" Type="Int32" />
           <Property Name="isNotFoundLocationId" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="Activity_Update">
-          <Key>
-            <PropertyRef Name="placeID" />
-            <PropertyRef Name="orderID" />
-          </Key>
-          <Property Name="placeID" Type="Int32" Nullable="false" />
-          <Property Name="orderID" Type="Int32" Nullable="false" />
-          <Property Name="favorite" Type="Boolean" />
-          <Property Name="rating" Type="Double" />
-          <Property Name="matchRating" Type="Double" />
-          <Property Name="doneBefore" Type="Boolean" />
-          <NavigationProperty Name="Activity" Relationship="Self.FK__Activity___place__60A75C0F" FromRole="Activity_Update" ToRole="Activity" />
-          <NavigationProperty Name="Order" Relationship="Self.FK__Activity___order__619B8048" FromRole="Activity_Update" ToRole="Order" />
         </EntityType>
         <EntityType Name="Additional_Items">
           <Key>
@@ -2095,7 +2081,6 @@
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="hotelID" Type="Int32" />
           <Property Name="price" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Activity_Update" Relationship="Self.FK__Activity___order__619B8048" FromRole="Order" ToRole="Activity_Update" />
           <NavigationProperty Name="Chats" Relationship="Self.FK__Chat__orderID__3B75D760" FromRole="Order" ToRole="Chat" />
           <NavigationProperty Name="Guest" Relationship="Self.FK__Order__email__2D27B809" FromRole="Order" ToRole="Guest" />
           <NavigationProperty Name="Hotel" Relationship="Self.FK__Order__hotelID__2E1BDC42" FromRole="Order" ToRole="Hotel" />
@@ -2333,6 +2318,7 @@
           <NavigationProperty Name="Language" Relationship="Self.FK__User__languageID__25869641" FromRole="User" ToRole="Language" />
           <NavigationProperty Name="Questionnaires" Relationship="Self.User_questionnaire" FromRole="User" ToRole="Questionnaire" />
           <Property Name="NotificationToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Activity_Update" Relationship="igroup197_test1Model.FK__Update___email__03072023" FromRole="User" ToRole="Activity_Update" />
         </EntityType>
         <EntityType Name="WorkingInShift">
           <Key>
@@ -2371,18 +2357,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Activity___place__60A75C0F">
-          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
-          <End Role="Activity_Update" Type="Self.Activity_Update" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Activity">
-              <PropertyRef Name="placeID" />
-            </Principal>
-            <Dependent Role="Activity_Update">
-              <PropertyRef Name="placeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Category___place__5441852A">
           <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
           <End Role="Category_rating" Type="Self.Category_rating" Multiplicity="*" />
@@ -2392,18 +2366,6 @@
             </Principal>
             <Dependent Role="Category_rating">
               <PropertyRef Name="placeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Activity___order__619B8048">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="Activity_Update" Type="Self.Activity_Update" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="orderID" />
-            </Principal>
-            <Dependent Role="Activity_Update">
-              <PropertyRef Name="orderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2943,7 +2905,6 @@
           <EntitySet Name="Activities" EntityType="Self.Activity" />
           <EntitySet Name="Activity_hotel" EntityType="Self.Activity_hotel" />
           <EntitySet Name="Activity_nearBY" EntityType="Self.Activity_nearBY" />
-          <EntitySet Name="Activity_Update" EntityType="Self.Activity_Update" />
           <EntitySet Name="Additional_Items" EntityType="Self.Additional_Items" />
           <EntitySet Name="Additional_Items_Room_Service" EntityType="Self.Additional_Items_Room_Service" />
           <EntitySet Name="Category_rating" EntityType="Self.Category_rating" />
@@ -2991,17 +2952,9 @@
             <End Role="Activity" EntitySet="Activities" />
             <End Role="Activity_nearBY" EntitySet="Activity_nearBY" />
           </AssociationSet>
-          <AssociationSet Name="FK__Activity___place__60A75C0F" Association="Self.FK__Activity___place__60A75C0F">
-            <End Role="Activity" EntitySet="Activities" />
-            <End Role="Activity_Update" EntitySet="Activity_Update" />
-          </AssociationSet>
           <AssociationSet Name="FK__Category___place__5441852A" Association="Self.FK__Category___place__5441852A">
             <End Role="Activity" EntitySet="Activities" />
             <End Role="Category_rating" EntitySet="Category_rating" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Activity___order__619B8048" Association="Self.FK__Activity___order__619B8048">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="Activity_Update" EntitySet="Activity_Update" />
           </AssociationSet>
           <AssociationSet Name="FK__Additional_I__ID__2645B050" Association="Self.FK__Additional_I__ID__2645B050">
             <End Role="Additional_Items" EntitySet="Additional_Items" />
@@ -3245,6 +3198,15 @@
             <End Role="Activity" EntitySet="Activities" />
             <End Role="ActivityMoreImage" EntitySet="ActivityMoreImages" />
           </AssociationSet>
+          <EntitySet Name="Activity_Update" EntityType="igroup197_test1Model.Activity_Update" />
+          <AssociationSet Name="FK__Activity___place__60A75C0F" Association="igroup197_test1Model.FK__Activity___place__60A75C0F">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="Activity_Update" EntitySet="Activity_Update" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update___email__03072023" Association="igroup197_test1Model.FK__Update___email__03072023">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Activity_Update" EntitySet="Activity_Update" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Alcohol">
           <Key>
@@ -3455,6 +3417,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Activity_Update">
+          <Key>
+            <PropertyRef Name="placeID" />
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="placeID" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="favorite" Type="Boolean" />
+          <Property Name="rating" Type="Double" />
+          <Property Name="matchRating" Type="Double" />
+          <Property Name="doneBefore" Type="Boolean" />
+          <NavigationProperty Name="Activity" Relationship="igroup197_test1Model.FK__Activity___place__60A75C0F" FromRole="Activity_Update" ToRole="Activity" />
+          <NavigationProperty Name="User" Relationship="igroup197_test1Model.FK__Update___email__03072023" FromRole="Activity_Update" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Activity___place__60A75C0F">
+          <End Type="igroup197_test1Model.Activity" Role="Activity" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Activity_Update" Role="Activity_Update" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="placeID" />
+            </Principal>
+            <Dependent Role="Activity_Update">
+              <PropertyRef Name="placeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update___email__03072023">
+          <End Type="igroup197_test1Model.User" Role="User" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Activity_Update" Role="Activity_Update" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="Activity_Update">
+              <PropertyRef Name="email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3497,18 +3497,6 @@
                 <ScalarProperty Name="category" ColumnName="category" />
                 <ScalarProperty Name="tags" ColumnName="tags" />
                 <ScalarProperty Name="landmark" ColumnName="landmark" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Activity_Update">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Activity_Update">
-              <MappingFragment StoreEntitySet="Activity_Update">
-                <ScalarProperty Name="placeID" ColumnName="placeID" />
-                <ScalarProperty Name="orderID" ColumnName="orderID" />
-                <ScalarProperty Name="favorite" ColumnName="favorite" />
-                <ScalarProperty Name="rating" ColumnName="rating" />
-                <ScalarProperty Name="matchRating" ColumnName="matchRating" />
-                <ScalarProperty Name="doneBefore" ColumnName="doneBefore" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4081,6 +4069,18 @@
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Activity_Update">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Activity_Update">
+              <MappingFragment StoreEntitySet="Activity_Update">
+                <ScalarProperty Name="doneBefore" ColumnName="doneBefore" />
+                <ScalarProperty Name="matchRating" ColumnName="matchRating" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="favorite" ColumnName="favorite" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="placeID" ColumnName="placeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

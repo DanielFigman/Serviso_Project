@@ -15,13 +15,13 @@ namespace DATA
     public partial class Activity_Update
     {
         public int placeID { get; set; }
-        public int orderID { get; set; }
+        public string email { get; set; }
         public Nullable<bool> favorite { get; set; }
         public Nullable<double> rating { get; set; }
         public Nullable<double> matchRating { get; set; }
         public Nullable<bool> doneBefore { get; set; }
     
         public virtual Activity Activity { get; set; }
-        public virtual Order Order { get; set; }
+        public virtual User User { get; set; }
     }
 }

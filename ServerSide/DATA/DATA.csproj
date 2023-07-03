@@ -154,6 +154,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\ActivityMoreImage.cs" />
+    <Compile Include="Entities\Activity_Update.cs" />
     <Compile Include="Entities\ApiProvider.cs" />
     <Compile Include="Entities\ApiRequestCount.cs" />
     <Compile Include="Entities\ApiRequestCountMonthly.cs" />

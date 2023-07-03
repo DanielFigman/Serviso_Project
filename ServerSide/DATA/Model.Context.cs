@@ -28,7 +28,6 @@ namespace DATA
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<Activity_hotel> Activity_hotel { get; set; }
         public virtual DbSet<Activity_nearBY> Activity_nearBY { get; set; }
-        public virtual DbSet<Activity_Update> Activity_Update { get; set; }
         public virtual DbSet<Additional_Items> Additional_Items { get; set; }
         public virtual DbSet<Additional_Items_Room_Service> Additional_Items_Room_Service { get; set; }
         public virtual DbSet<Category_rating> Category_rating { get; set; }
@@ -78,5 +77,6 @@ namespace DATA
         public virtual DbSet<ApiRequestCount> ApiRequestCounts { get; set; }
         public virtual DbSet<ApiRequestCountMonthly> ApiRequestCountMonthlies { get; set; }
         public virtual DbSet<ActivityMoreImage> ActivityMoreImages { get; set; }
+        public virtual DbSet<Activity_Update> Activity_Update { get; set; }
     }
 }

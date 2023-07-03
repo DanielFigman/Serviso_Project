@@ -17,9 +17,9 @@ namespace DATA
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Activity()
         {
-            this.Activity_Update = new HashSet<Activity_Update>();
             this.Category_rating = new HashSet<Category_rating>();
             this.ActivityMoreImages = new HashSet<ActivityMoreImage>();
+            this.Activity_Update = new HashSet<Activity_Update>();
         }
     
         public int placeID { get; set; }
@@ -31,10 +31,10 @@ namespace DATA
         public virtual Activity_hotel Activity_hotel { get; set; }
         public virtual Activity_nearBY Activity_nearBY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Activity_Update> Activity_Update { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category_rating> Category_rating { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActivityMoreImage> ActivityMoreImages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Activity_Update> Activity_Update { get; set; }
     }
 }

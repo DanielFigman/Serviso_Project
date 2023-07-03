@@ -297,5 +297,21 @@ namespace DATA
 
         }
 
+        public List<ActivityUpdateDTO> GetActivitiesUpdate(string email)
+        {
+            List<Activity_Update> activitiesUpdate = db.Activity_Update.Where(obj => obj.email == email).ToList();
+
+            List<ActivityUpdateDTO> retVal = new List<ActivityUpdateDTO>();
+
+            activitiesUpdate.ForEach(obj =>
+            {
+                ActivityUpdateDTO activityUpdateDTO = new ActivityUpdateDTO();
+                activityUpdateDTO.SetActivityUpdateDTO(obj);
+                retVal.Add(activityUpdateDTO);
+            });
+
+            return retVal;
+        }
+
     }
 }

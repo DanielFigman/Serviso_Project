@@ -17,7 +17,6 @@ namespace DATA
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
-            this.Activity_Update = new HashSet<Activity_Update>();
             this.Chats = new HashSet<Chat>();
             this.Request_In_Order = new HashSet<Request_In_Order>();
             this.Receipts = new HashSet<Receipt>();
@@ -37,8 +36,6 @@ namespace DATA
         public Nullable<int> hotelID { get; set; }
         public int price { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Activity_Update> Activity_Update { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chat> Chats { get; set; }
         public virtual Guest Guest { get; set; }
