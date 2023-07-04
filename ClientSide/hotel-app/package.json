@@ -78,5 +78,15 @@
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
-  "private": true
+  "private": true,
+  "expo": {
+    "dependencies": {
+      "react-native-gesture-handler": {
+        "platforms": {
+          "android": null,
+          "ios": null
+        }
+      }
+    }
+  }
 }
