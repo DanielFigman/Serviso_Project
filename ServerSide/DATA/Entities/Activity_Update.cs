@@ -19,31 +19,27 @@ namespace DATA
 
         public Activity_Update(int placeId, string email)
         {
-            Activity_Update activityUpdate = db.Activity_Update.FirstOrDefault(obj => obj.placeID == placeID && obj.email == email);
+            Activity_Update activityUpdate = db.Activity_Update.FirstOrDefault(obj => obj.placeID == placeId && obj.email == email);
 
             if (activityUpdate == null)
             {
                 placeID = placeId;
                 this.email = email;
             }
-        }
-
-        public void SetFavorite()
-        {
-            if (favorite != null)
+            else
             {
-                favorite = !favorite;
-            } else
-            {
-                favorite = true;
+                placeID = activityUpdate.placeID;
+                this.email = activityUpdate.email;
+                favorite = activityUpdate.favorite;
+                rating = activityUpdate.rating;
             }
-
-            SaveChanges();
         }
 
-        public void SetRating(int rating)
+        public void SetRatingAndFav(int? rating, bool? fav)
         {
-            this.rating = rating;
+            this.rating = rating != null ? rating : this.rating;
+            favorite = fav != null ? fav : favorite;
+
             SaveChanges();
         }
 
