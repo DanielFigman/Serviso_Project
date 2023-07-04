@@ -11,8 +11,6 @@ const RatingIconsComp = ({ item }) => {
 
     const { setUpdatedActivities, updatedActivities } = useContext(HotelsAppContext)
 
-    let prevRatedRef = useRef(null);
-
     const getRatingFromIcon = (value) => {
         switch (value) {
             case "faFaceGrinHearts":
@@ -65,17 +63,13 @@ const RatingIconsComp = ({ item }) => {
             setCurrRated(getIconFromRating(rating));
         }
 
-        if(prevRatedRef.current === null){
-            prevRatedRef.current = rating ? rating : null;
-        }
-
     }, [updatedActivities]);
 
 
 
 
     useEffect(() => {
-        if (currRated !== undefined && currRated !== prevRatedRef.current) {
+        if (currRated !== undefined) {
             if (updatedActivities.filter(obj => obj.placeID === item.placeID).length > 0) {
                 const activities = updatedActivities.map(obj => {
                     if (obj.placeID === item.placeID) {
