@@ -1,27 +1,100 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { faFaceGrinHearts, faFaceAngry, faFaceFrown, faFaceSmile, faFaceMeh } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { HotelsAppContext } from '../Context/HotelsAppContext'
 
-const RatingIconsComp = ({ prevRated }) => {
+const RatingIconsComp = ({ item }) => {
 
 
     const [currRated, setCurrRated] = useState("")
 
+    const { setUpdatedActivities, updatedActivities } = useContext(HotelsAppContext)
+
+    let prevRated = updatedActivities?.rating;
+
+    const getRatingFromIcon = (value) => {
+        switch (value) {
+            case "faFaceGrinHearts":
+                return 5;
+            case "faFaceSmile":
+                return 4;
+            case "faFaceMeh":
+                return 3;
+            case "faFaceFrown":
+                return 2;
+            case "faFaceAngry":
+                return 1;
+            default:
+                return null;
+        }
+    }
+
+    const getIconFromRating = (value) => {
+        switch (value) {
+            case 5:
+                return "faFaceGrinHearts";
+            case 4:
+                return "faFaceSmile";
+            case 3:
+                return "faFaceMeh";
+            case 2:
+                return "faFaceFrown";
+            case 1:
+                return "faFaceAngry";
+            default:
+                return null;
+        }
+    }
+
     useEffect(() => {
         if (prevRated) {
-            setCurrRated(prevRated);
+            setCurrRated(getIconFromRating(prevRated));
         }
 
     }, [])
 
     const handleSelection = (value) => {
-        if (value !== currRated) {
+        if (value && value !== currRated) {
             setCurrRated(value)
         } else {
-            setCurrRated("")
+            setCurrRated(null)
         }
     }
+
+    useEffect(() => {
+        const filteredActivities = updatedActivities.filter(obj => obj.placeID === item.placeID);
+        const rating = filteredActivities.length > 0 ? filteredActivities[0].rating : null;
+
+        if (rating === undefined || rating === null) {
+            setCurrRated(null);
+        } else {
+            setCurrRated(getIconFromRating(rating));
+        }
+    }, [updatedActivities]);
+
+
+
+
+    useEffect(() => {
+        if (currRated != null || currRated === null && prevRated !== null) {
+            if (updatedActivities.filter(obj => obj.placeID === item.placeID).length > 0) {
+                const activities = updatedActivities.map(obj => {
+                    if (obj.placeID === item.placeID) {
+                        obj.rating = getRatingFromIcon(currRated);
+                    }
+                    return obj;
+                });
+                setUpdatedActivities(activities);
+            } else {
+                let newActivityUpdate = {
+                    placeID: item.placeID,
+                    rating: getRatingFromIcon(currRated)
+                };
+                setUpdatedActivities([...updatedActivities, newActivityUpdate]);
+            }
+        }
+    }, [currRated]);
 
 
     return (

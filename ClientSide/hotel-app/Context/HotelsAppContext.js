@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
 import * as Notifications from 'expo-notifications';
+import { AppState } from "react-native";
+import { isEqual } from "lodash";
 
 export const HotelsAppContext = createContext();
 
@@ -20,6 +22,7 @@ export default function HotelsAppContextProvider(props) {
     const [notificationToken, setNotificationToken] = useState(undefined);
     const [retrivedNtoken, setRetrivedNtoken] = useState(undefined);
     const [questionaire, setQuestionaire] = useState(null);
+    const [updatedActivities, setUpdatedActivities] = useState(null);
 
     const [firstSetQuestionnaire, setFirstSetQuestionnaire] = useState(false);
 
@@ -42,7 +45,9 @@ export default function HotelsAppContextProvider(props) {
         console.log("Context cleared")
     }
 
-
+    const updatedActivitiesRef = useRef(null)
+    const updatedActivitiesInitRef = useRef(null)
+    const emailRef = useRef(null)
 
     useEffect(() => {
         if (questionaire && !firstSetQuestionnaire) {
@@ -101,6 +106,9 @@ export default function HotelsAppContextProvider(props) {
 
     useEffect(() => {
         if (user && user.email) {
+
+            emailRef.current = user.email;
+
             if (notificationToken && notificationToken !== prevNotificationTokenRef.current) {
                 prevNotificationTokenRef.current = notificationToken;
 
@@ -111,6 +119,87 @@ export default function HotelsAppContextProvider(props) {
             }
         }
     }, [notificationToken, user]);
+
+    useEffect(() => {
+        if (updatedActivities !== null && updatedActivities !== undefined) {
+            updatedActivitiesRef.current = JSON.parse(JSON.stringify(updatedActivities));
+
+            if (updatedActivitiesInitRef.current === null) {
+                updatedActivitiesInitRef.current = JSON.parse(JSON.stringify(updatedActivities));
+            }
+        }
+    }, [updatedActivities]);
+
+    useEffect(() => {
+
+        // Subscribe to AppState change event
+        const handleAppStateChange = (nextAppState) => {
+            if (nextAppState === 'background') {
+                // App is being backgrounded or closed, execute the code that should run when closing the app
+                console.log("App is closing");
+
+                if (
+                    updatedActivitiesRef.current.length !== updatedActivitiesInitRef.current.length ||
+                    updatedActivitiesRef.current.some((activity, index) => !isEqual(activity, updatedActivitiesInitRef.current[index]))
+                ) {
+                    postFavorite();
+                }
+
+            }
+        };
+
+        // Add event listener for AppState change
+        AppState.addEventListener("change", handleAppStateChange);
+
+        // Cleanup function to remove the event listener
+        return () => {
+            AppState.removeEventListener("change", handleAppStateChange);
+        };
+    }, []);
+
+    const postFavorite = () => {
+        try {
+            console.log(getNeededFavsToPost());
+            fetch(`http://proj.ruppin.ac.il/cgroup97/test2/api/updateFavsAndRatings?&email=${emailRef.current}`, {
+                method: 'POST',
+                body: JSON.stringify(getNeededFavsToPost()),
+                headers: new Headers({
+                    'Content-type': 'application/json; charset=UTF-8',
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Favorites posted");
+                        updatedActivitiesInitRef.current = updatedActivitiesRef.current;
+                    } else {
+                        console.log(`Error in posting favorites`);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
+    const getNeededFavsToPost = () => {
+        const neededFavs = [];
+
+        updatedActivitiesRef.current.forEach(updatedActivityRef => {
+            const matchingInitActivity = updatedActivitiesInitRef.current.find(
+                initActivity => initActivity.placeID === updatedActivityRef.placeID
+            );
+
+            if (!matchingInitActivity || !isEqual(updatedActivityRef, matchingInitActivity)) {
+                neededFavs.push(updatedActivityRef);
+            }
+        });
+
+        return neededFavs;
+    };
 
     const fetchNToken = async () => {
         try {
@@ -137,6 +226,13 @@ export default function HotelsAppContextProvider(props) {
             console.log(error);
         }
     };
+
+    const getFavorite = (placeID) => {
+        const filteredActivities = updatedActivities.filter(obj => obj.placeID === placeID);
+        const fav = filteredActivities.length > 0 ? filteredActivities[0].favorite : null;
+
+        return fav;
+    }
 
     return (
         <HotelsAppContext.Provider
@@ -168,7 +264,10 @@ export default function HotelsAppContextProvider(props) {
                 questionaire,
                 setQuestionaire,
                 setNewQuestionnaire,
-                clearContext
+                clearContext,
+                updatedActivities,
+                setUpdatedActivities,
+                getFavorite
             }}
         >
             {props.children}

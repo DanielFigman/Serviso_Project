@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import ScreenComponent from './ScreenComponent'
 import NearByBottomBar from './NearByBottomBar'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -8,16 +8,17 @@ import DescriptionDialaog from './Dialogs/DescriptionDialaog'
 import RatingIconsComp from './RatingIconsComp'
 import ImageNearBottomDialog from './Dialogs/ImageNearBottomDialog'
 import ImagesCarouselNearBottom from './ImagesCarouselNearBottom'
+import { HotelsAppContext } from '../Context/HotelsAppContext'
 
 
 
 const NearByBottom = ({ item, setPanResponderEnabled }) => {
 
+
     var addressArray = item.address.split(" ");
     var lastElement = addressArray[addressArray.length - 1];
-    const [favorite, setFavorite] = useState(item.favorite);
+    const [favorite, setFavorite] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
-
 
     const MakeTheFirstLetterUpperCase = (word) => {
         const firstLetter = word.charAt(0);
@@ -29,6 +30,41 @@ const NearByBottom = ({ item, setPanResponderEnabled }) => {
         setPanResponderEnabled(!modalVisible)
     }, [modalVisible])
 
+    const { setUpdatedActivities, updatedActivities} = useContext(HotelsAppContext)
+
+    useEffect(() => {
+        const filteredActivities = updatedActivities.filter(obj => obj.placeID === item.placeID);
+        const fav = filteredActivities.length > 0 ? filteredActivities[0].favorite : null;
+
+        if (fav === undefined || fav === null) {
+            setFavorite(false);
+        } else {
+            setFavorite(fav);
+        }
+    }, [updatedActivities]);
+
+
+
+
+    useEffect(() => {
+        if (favorite != null) {
+            if (updatedActivities.filter(obj => obj.placeID === item.placeID).length > 0) {
+                const activities = updatedActivities.map(obj => {
+                    if (obj.placeID === item.placeID) {
+                        obj.favorite = favorite;
+                    }
+                    return obj;
+                });
+                setUpdatedActivities(activities);
+            } else {
+                let newActivityUpdate = {
+                    placeID: item.placeID,
+                    favorite: favorite
+                };
+                setUpdatedActivities([...updatedActivities, newActivityUpdate]);
+            }
+        }
+    }, [favorite]);
 
     const favoriteColor = favorite ? "red" : "black";
 
@@ -60,11 +96,11 @@ const NearByBottom = ({ item, setPanResponderEnabled }) => {
                             View Description</Text>
                     </TouchableOpacity>
                     <DescriptionDialaog setModalVisible={setModalVisible} modalVisible={modalVisible} description={item.description} name={item.name} />
-                    <View style={[styles.view, { marginTop: 40, alignItems: "center", justifyContent:"center"}]}>
-                        <ImagesCarouselNearBottom urlList={item.morePhotosUrls} image={item.imageURL}/>
+                    <View style={[styles.view, { marginTop: 40, alignItems: "center", justifyContent: "center" }]}>
+                        <ImagesCarouselNearBottom urlList={item.morePhotosUrls} image={item.imageURL} />
                     </View>
                     <View style={[styles.view, { top: "15%" }]}>
-                        <RatingIconsComp />
+                        <RatingIconsComp item={item}/>
                     </View>
                 </>
             }

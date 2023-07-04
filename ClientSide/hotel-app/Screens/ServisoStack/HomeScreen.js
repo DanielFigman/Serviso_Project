@@ -1,5 +1,5 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import CarouselData from '../../Json_files/CarouselData';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import MyCarousel from '../../FCComponents/MyCarousel';
@@ -14,8 +14,40 @@ import Languages from '../../Json_files/Languages';
 const HomeScreen = () => {
 
     const navigation = useNavigation();
-    const { language, therapies, activities_nearBy, food } = useContext(HotelsAppContext);
+    const { language, therapies, activities_nearBy, food, user, setUpdatedActivities} = useContext(HotelsAppContext);
     const screenContent = Languages.HomeScreen;
+
+    useEffect(() => {
+        GetUpdatedActivities();
+    }, [])
+
+
+    const GetUpdatedActivities = async () => {
+        try {
+            const response = await fetch(`http://proj.ruppin.ac.il/cgroup97/test2/api/getUpdatedActivities?email=${user.email}`, {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-type': 'application/json; charset=UTF-8',
+                })
+            });
+
+            if (response.ok) {
+                const message = await response.text();
+                const object = JSON.parse(message);
+                setUpdatedActivities(object);
+            } else {
+                const errorMessage = await response.text();
+                const errorObject = JSON.parse(errorMessage);
+                const errorType = errorObject.type;
+                const errorMessageText = errorObject.message;
+
+                console.log(`Error: ${response.status} - ${errorType} - ${errorMessageText}`);
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <ScreenComponent topLeftButton={"none"}
@@ -56,13 +88,13 @@ const HomeScreen = () => {
                         <View style={{ marginVertical: 10, marginTop: 10, paddingBottom: 50 }}>
                             <View style={{ flexDirection: "row", marginHorizontal: 40, marginBottom: 5, marginTop: 10 }}>
                                 <Text style={{ flex: 1, fontWeight: "bold" }}>{screenContent.SomethingToSnack[language]}</Text>
-                                <TouchableOpacity onPress={() => navigation.navigate("RoomServiceMenu", {food})}>
+                                <TouchableOpacity onPress={() => navigation.navigate("RoomServiceMenu", { food })}>
                                     <Text>{screenContent.ToTheFullMenu[language]}</Text>
                                 </TouchableOpacity>
                             </View>
                             <ScrollView horizontal={true}>
                                 {food.map((item) => (
-                                    <SmallCard key={item.ID} item={item} id={item.ID}/>
+                                    <SmallCard key={item.ID} item={item} id={item.ID} />
                                 ))}
                             </ScrollView>
                         </View>

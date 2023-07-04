@@ -1,11 +1,49 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "@rneui/base";
 import { HeartIcon } from "react-native-heroicons/outline";
 import LoadingImage from "../LoadingImage";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
 
 const ConciergeCard = ({ item, id }) => {
   const [favorite, setFavorite] = useState(item.favorite);
+
+
+  const { setUpdatedActivities, updatedActivities} = useContext(HotelsAppContext)
+
+  useEffect(() => {
+      const filteredActivities = updatedActivities.filter(obj => obj.placeID === item.placeID);
+      const fav = filteredActivities.length > 0 ? filteredActivities[0].favorite : null;
+
+      if (fav === undefined || fav === null) {
+          setFavorite(false);
+      } else {
+          setFavorite(fav);
+      }
+  }, [updatedActivities]);
+
+
+
+
+  useEffect(() => {
+      if (favorite != null) {
+          if (updatedActivities.filter(obj => obj.placeID === item.placeID).length > 0) {
+              const activities = updatedActivities.map(obj => {
+                  if (obj.placeID === item.placeID) {
+                      obj.favorite = favorite;
+                  }
+                  return obj;
+              });
+              setUpdatedActivities(activities);
+          } else {
+              let newActivityUpdate = {
+                  placeID: item.placeID,
+                  favorite: favorite
+              };
+              setUpdatedActivities([...updatedActivities, newActivityUpdate]);
+          }
+      }
+  }, [favorite]);
 
   return (
     <TouchableOpacity>

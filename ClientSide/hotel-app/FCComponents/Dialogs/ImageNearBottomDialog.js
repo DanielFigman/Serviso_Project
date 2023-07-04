@@ -10,7 +10,7 @@ const ImageNearBottomDialog = ({ imageURL, modalVisible, setModalVisible}) => {
             ModalComponent={Modal}
             isVisible={modalVisible}
             onBackdropPress={() => setModalVisible(!modalVisible)}
-            overlayStyle={{ maxHeight:400, minWidth:400, backgroundColor:"grey"}}
+            overlayStyle={{ maxHeight:400, minWidth:400, backgroundColor:"rgba(128, 128, 128, 0.5)"}}
         >
             <LoadingImage imageURL={imageURL} style={{height:"100%", width:"100%"}}/>
         </Dialog>
