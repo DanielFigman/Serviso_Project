@@ -139,8 +139,8 @@ export default function HotelsAppContextProvider(props) {
                 console.log("App is closing");
 
                 if (
-                    updatedActivitiesRef.current.length !== updatedActivitiesInitRef.current.length ||
-                    updatedActivitiesRef.current.some((activity, index) => !isEqual(activity, updatedActivitiesInitRef.current[index]))
+                    updatedActivitiesRef?.current?.length !== updatedActivitiesInitRef?.current?.length ||
+                    updatedActivitiesRef?.current?.some((activity, index) => !isEqual(activity, updatedActivitiesInitRef.current[index]))
                 ) {
                     postFavorite();
                 }

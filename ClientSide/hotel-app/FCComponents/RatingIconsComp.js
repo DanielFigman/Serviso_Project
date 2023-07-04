@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { faFaceGrinHearts, faFaceAngry, faFaceFrown, faFaceSmile, faFaceMeh } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { HotelsAppContext } from '../Context/HotelsAppContext'
@@ -7,11 +7,11 @@ import { HotelsAppContext } from '../Context/HotelsAppContext'
 const RatingIconsComp = ({ item }) => {
 
 
-    const [currRated, setCurrRated] = useState("")
+    const [currRated, setCurrRated] = useState(undefined)
 
     const { setUpdatedActivities, updatedActivities } = useContext(HotelsAppContext)
 
-    let prevRated = updatedActivities?.rating;
+    let prevRatedRef = useRef(null);
 
     const getRatingFromIcon = (value) => {
         switch (value) {
@@ -47,13 +47,6 @@ const RatingIconsComp = ({ item }) => {
         }
     }
 
-    useEffect(() => {
-        if (prevRated) {
-            setCurrRated(getIconFromRating(prevRated));
-        }
-
-    }, [])
-
     const handleSelection = (value) => {
         if (value && value !== currRated) {
             setCurrRated(value)
@@ -71,13 +64,18 @@ const RatingIconsComp = ({ item }) => {
         } else {
             setCurrRated(getIconFromRating(rating));
         }
+
+        if(prevRatedRef.current === null){
+            prevRatedRef.current = rating ? rating : null;
+        }
+
     }, [updatedActivities]);
 
 
 
 
     useEffect(() => {
-        if (currRated != null || currRated === null && prevRated !== null) {
+        if (currRated !== undefined && currRated !== prevRatedRef.current) {
             if (updatedActivities.filter(obj => obj.placeID === item.placeID).length > 0) {
                 const activities = updatedActivities.map(obj => {
                     if (obj.placeID === item.placeID) {
