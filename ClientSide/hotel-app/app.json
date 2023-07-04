@@ -30,6 +30,13 @@
     "extra": {
       "projectId": "3409e8f9-409f-447f-983e-b6f72fca89a6",
       "experienceId": "@danielfig/hotel-app"
+    },
+    "androidNavigationBar": {
+      "visible": "immersive",
+      "backgroundColor": "#000000"
+    },
+    "iosNavigationBar": {
+      "visible": false
     }
   }
 }

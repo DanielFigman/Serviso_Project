@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     dependencies: {
       'react-native-gesture-handler': {
         platforms: {
@@ -8,3 +8,4 @@ module.exports = {
       },
     },
   };
+  
