@@ -45,7 +45,7 @@ const ConciergeMainScreen = () => {
           >
             {screenContent.Questionnaire[language]}
           </Button>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("FavoritesScreen")}>
             <HeartIcon
               size={30}
               style={{ marginHorizontal: 10, top: 5 }}

@@ -1,12 +1,10 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
-import { ButtonArrow } from "../../FCComponents/Buttons";
 import { SearchBar } from "@rneui/themed";
 import { useState } from "react";
 import { useContext } from "react";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 import SmallCard from "../../FCComponents/Cards/SmallCard";
-import index from "uuid-random";
 import { useEffect } from "react";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Keyboard } from "react-native";
@@ -36,7 +34,14 @@ const SearchScreen = () => {
   const searchItems = () => {
     let retVal = [];
 
-    retVal = retVal.concat(food, therapies, facilities, activities_hotel, activities_nearBy).flat();
+    // Add the `type` prop to each object in `retVal`
+    retVal = retVal.concat(
+      food.map(item => ({ ...item, type: 'food' })),
+      therapies.map(item => ({ ...item, type: 'therapies' })),
+      facilities.map(item => ({ ...item, type: 'facilities' })),
+      activities_hotel.map(item => ({ ...item, type: 'activities_hotel' })),
+      activities_nearBy.map(item => ({ ...item, type: 'activities_nearBy' }))
+    ).flat();
 
     const filteredItems = retVal.filter(item => {
       return (
@@ -89,12 +94,27 @@ const SearchScreen = () => {
 
   const renderItems = () => {
 
+    const getID = (item) => {
+      switch (item.type) {
+        case "food":
+          return item.ID;
+        case "therapies":
+          return item.therapyID;
+        case "facilities":
+          return item.facilityID;
+        case "activities_hotel":
+        case "activities_nearBy":
+          return item.placeID;
+      }
+    }
+
+
     return (
       <TouchableWithoutFeedback disabled={!isKeyBoardOpen} onPress={dismissKeyboard}>
         <ScrollView>
           <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", paddingBottom: 90 }}>
             {cardsToShow?.map((item, index) => (
-              <View key={index} style={{ width: "50%" }}>
+              <View key={getID(item) + index + item.type} style={{ width: "50%" }}>
                 <SmallCard id={index} item={item} withPrice={false} />
               </View>
             ))}
@@ -118,9 +138,9 @@ const SearchScreen = () => {
               backgroundColor: "white",
               borderWidth: 1,
               borderRadius: 30,
-              height:45
+              height: 45
             }}
-            inputContainerStyle={{ backgroundColor: "white", height:20}}
+            inputContainerStyle={{ backgroundColor: "white", height: 20 }}
           />
         </View>
         {renderItems()}

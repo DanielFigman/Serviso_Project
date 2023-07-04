@@ -9,7 +9,6 @@ const SmallCard = ({ item, id, type, withPrice}) => {
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate("CardScreen", {
-      id,
       name: item.name,
       description: item.description,
       openingHours: item.openingHours,
