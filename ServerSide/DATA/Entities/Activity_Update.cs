@@ -37,8 +37,8 @@ namespace DATA
 
         public void SetRatingAndFav(int? rating, bool? fav)
         {
-            this.rating = rating != null ? rating : this.rating;
-            favorite = fav != null ? fav : favorite;
+            this.rating = rating;
+            favorite = fav;
 
             SaveChanges();
         }
