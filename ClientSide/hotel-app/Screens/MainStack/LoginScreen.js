@@ -23,7 +23,8 @@ const LoginScreen = () => {
     setHotel,
     setFood,
     setRetrivedNtoken,
-    setNewQuestionnaire
+    setNewQuestionnaire,
+    setSuggestedActivities
   } = useContext(HotelsAppContext)
 
 
@@ -60,6 +61,7 @@ const LoginScreen = () => {
           setRetrivedNtoken(object.Ntoken ? object.Ntoken : null)
           setOrder({ orderID: object.orderID, checkInDate: object.checkInDate, checkOutDate: object.checkOutDate, hotelID: object.hotelID });
           setActivities_nearBy(object.activities_nearBy);
+          setSuggestedActivities(object.suggestedActivities);
           setActivities_hotel(object.activities_hotel);
           setFacilities(object.facilities);
           setCustom_Request_Types(object.custom_Request_Types);

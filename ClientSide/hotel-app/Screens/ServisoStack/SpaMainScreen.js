@@ -81,8 +81,7 @@ const SpaMainScreen = () => {
       title={<View style={{flexDirection:"column", justifyContent:"center", width:"80%"}}><Text style={styles.title}>{screenContent.Spa[language]}</Text></View>}
       content={
         <ScrollView style={styles.container}>
-          {/* <Text style={styles.title}>{screenContent.Spa[language]}</Text> */}
-          <View><MyCarousel data={facilities.filter(x => x.type === "SPA")} /></View>
+          {/* <View><MyCarousel data={facilities.filter(x => x.type === "SPA")} /></View> */}
           <View style={styles.view1}>
             <Text style={styles.text}>{screenContent.MassageTreatments[language]}</Text>
             <TouchableOpacity onPress={() => navigation.navigate("SpaTreatmenScreen")}>

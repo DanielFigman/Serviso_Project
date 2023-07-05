@@ -14,7 +14,7 @@ import Languages from '../../Json_files/Languages';
 const HomeScreen = () => {
 
     const navigation = useNavigation();
-    const { language, therapies, activities_nearBy, food, user, setUpdatedActivities} = useContext(HotelsAppContext);
+    const { language, therapies, suggestedActivities, food, user, setUpdatedActivities} = useContext(HotelsAppContext);
     const screenContent = Languages.HomeScreen;
 
     useEffect(() => {
@@ -65,7 +65,7 @@ const HomeScreen = () => {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flex: 1 }}>
-                                <MyCarousel data={activities_nearBy} type={'parallax'} cardStyle={{ borderWidth: 1 }} />
+                                <MyCarousel data={suggestedActivities} type={'parallax'} cardStyle={{ borderWidth: 1 }} />
                             </View>
                         </View>
                         <View style={{ marginVertical: 10, marginTop: 10 }}>

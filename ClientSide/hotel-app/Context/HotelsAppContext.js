@@ -13,6 +13,7 @@ export default function HotelsAppContextProvider(props) {
     const [user, setUser] = useState(null);
     const [order, setOrder] = useState(null);
     const [activities_nearBy, setActivities_nearBy] = useState(null);
+    const [suggestedActivities, setSuggestedActivities] = useState(null);
     const [activities_hotel, setActivities_hotel] = useState(null);
     const [facilities, setFacilities] = useState(null);
     const [custom_Request_Types, setCustom_Request_Types] = useState(null);
@@ -267,7 +268,9 @@ export default function HotelsAppContextProvider(props) {
                 clearContext,
                 updatedActivities,
                 setUpdatedActivities,
-                getFavorite
+                getFavorite,
+                suggestedActivities,
+                setSuggestedActivities
             }}
         >
             {props.children}

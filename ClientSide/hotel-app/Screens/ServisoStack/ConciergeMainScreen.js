@@ -23,7 +23,7 @@ import { HotelsAppContext } from "../../Context/HotelsAppContext";
 const ConciergeMainScreen = () => {
   const navigation = useNavigation();
 
-  const { language, activities_nearBy, activities_hotel } = useContext(HotelsAppContext);
+  const { language, activities_nearBy, activities_hotel, suggestedActivities } = useContext(HotelsAppContext);
   const screenContent = Languages.ConciergeMainScreen;
 
   return (
@@ -56,40 +56,19 @@ const ConciergeMainScreen = () => {
       }
       content={
         <ScrollView>
-          {/* <View style={styles.topView}>
-            <Text style={styles.titel}>Concierge</Text>
-            <Button
-              buttonStyle={{
-                backgroundColor: "#ffffff",
-                borderColor: "#000000",
-                borderWidth: 1,
-                borderRadius: 10,
-              }}
-              titleStyle={{ fontSize: 15, color: "#000000" }}
-              containerStyle={{
-                left: 15,
-              }}
-            >
-              {screenContent.Questionnaire[language]}
-            </Button>
-            <TouchableOpacity>
-              <HeartIcon
-                size={30}
-                style={{ marginHorizontal: 10, top: 5 }}
-                color={"black"}
-              />
-            </TouchableOpacity>
-          </View> */}
           <View style={styles.view1}>
             <Text style={styles.text}> {screenContent.QuestionnaireRecommendations[language]}</Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate("ConciergeActivitiesScreen")}
+              onPress={() => navigation.navigate("ConciergeActivitiesScreen", {
+                data: suggestedActivities
+              }
+              )}
             >
               <Text style={styles.button}> {screenContent.More[language]}</Text>
             </TouchableOpacity>
           </View>
           <View>
-            <MyCarousel data={activities_nearBy} type={'default'} style={{ width: "90%", alignSelf: "center", borderRadius: 20, borderWidth: 1 }} />
+            <MyCarousel data={suggestedActivities} type={'default'} style={{ width: "90%", alignSelf: "center", borderRadius: 20, borderWidth: 1 }} />
           </View>
           <View style={styles.view1}>
             <Text style={styles.text}> {screenContent.WithoutLeavingTheHotel[language]}</Text>
@@ -104,7 +83,9 @@ const ConciergeMainScreen = () => {
           </ScrollView>
           <View style={styles.view1}>
             <Text style={styles.text}> {screenContent.RecommendedPlacesToVisit[language]}</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("ConciergeActivitiesScreen")}>
+            <TouchableOpacity onPress={() => navigation.navigate("ConciergeActivitiesScreen", {
+                data: activities_nearBy
+              })}>
               <Text style={styles.button}>{screenContent.More[language]}</Text>
             </TouchableOpacity>
           </View>

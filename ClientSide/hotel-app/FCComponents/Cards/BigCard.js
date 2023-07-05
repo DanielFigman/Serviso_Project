@@ -4,21 +4,13 @@ import { useNavigation } from '@react-navigation/native'
 import LoadingImage from '../LoadingImage';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-const BigCard = ({ item, cardStyle, id }) => {
+const BigCard = ({ item, cardStyle}) => {
 
     const navigation = useNavigation();
-    
+
     return (
-        <TouchableWithoutFeedback onPress={() => navigation.navigate("CardScreen", {
-            id,
-            name: item.name,
-            description: item.description,
-            openingHours: item.openingHours,
-            imageURL: item.imageURL,
-            price: item.price,
-            rating: item.rating,
-            hallNum: item.HallNum,
-            address: item.address,
+        <TouchableWithoutFeedback onPress={() => navigation.navigate("NearByScreen", {
+            item:item
         })}
             style={cardStyle}
         >
