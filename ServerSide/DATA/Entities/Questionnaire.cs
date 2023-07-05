@@ -19,20 +19,73 @@ namespace DATA
         private readonly HelperFunctions dataHelper = new HelperFunctions();
 
 
-        public SuggestedActivities GetSuggestedActivities(string email)
+        public List<ActivityNearByDTO> GetSuggestedActivities(string email, List<int> ids)
         {
             Questionnaire userQuestionnaire = db.Questionnaires.Where(q => q.User.email == email).FirstOrDefault();
 
-            SuggestedActivities SuggestedActivities = new SuggestedActivities();
+            List<ActivityNearByDTO> suggestedActivities = new List<ActivityNearByDTO>();
 
             if (userQuestionnaire != null)
             {
-                List<User> similarUser = GetTopSimlarUsers(userQuestionnaire);
+                List<User> similarUsers = GetTopSimlarUsers(userQuestionnaire, ids);
+                suggestedActivities = GetRelatedActivities(similarUsers, ids);
             }
 
+            return suggestedActivities;
+        }
 
+        private List<ActivityNearByDTO> GetRelatedActivities(List<User> similarUsers, List<int> ids)
+        {
+            double ratingWeight = 0.7;
+            double favWeight = 0.3;
 
-            return SuggestedActivities;
+            Dictionary<int, double> activitiesScore = new Dictionary<int, double>();
+
+            List<ActivityNearByDTO> retVal = new List<ActivityNearByDTO>();
+
+            similarUsers.ForEach(simUser =>
+            {
+                List<Activity_Update> activity_Updates = simUser.Activity_Update.Where(a => ids.Contains(a.placeID)).ToList();
+
+                activity_Updates.ForEach(a =>
+                {
+                    if (a.favorite == true || a.rating != null)
+                    {
+                        if (!activitiesScore.ContainsKey(a.placeID))
+                        {
+                            activitiesScore[a.placeID] = 0;
+                        }
+
+                        if (a.rating != null)
+                        {
+                            activitiesScore[a.placeID] += (int)a.rating * ratingWeight;
+                        }
+
+                        if (a.favorite == true)
+                        {
+                            activitiesScore[a.placeID] += favWeight;
+                        }
+
+                    }
+                });
+
+            });
+
+            List<int> top5PlaceIDs = activitiesScore.OrderByDescending(kv => kv.Value)
+                                .Take(5)
+                                .Select(kv => kv.Key)
+                                .ToList();
+
+            List <Activity_nearBY> activitiesToSuggest = db.Activity_nearBY.Where(obj => top5PlaceIDs.Contains(obj.placeID)).ToList();
+
+            activitiesToSuggest.ForEach(obj =>
+            {
+                ActivityNearByDTO actToAdd = new ActivityNearByDTO();
+                actToAdd.SetActivityNearByDTO(obj);
+                retVal.Add(actToAdd);
+            });
+
+            return retVal;
         }
 
         private double ComputeCosineSimilarity(Questionnaire a, Questionnaire b)
@@ -67,7 +120,7 @@ namespace DATA
         }
 
 
-        private List<User> GetTopSimlarUsers(Questionnaire userQuestionnaire)
+        private List<User> GetTopSimlarUsers(Questionnaire userQuestionnaire, List<int> ids)
         {
             string email = userQuestionnaire.User.email;
 
@@ -83,10 +136,14 @@ namespace DATA
                 .Select(uq => uq.User)
                 .ToList();
 
+            List<User> allRelatedUsers = allUsers.Where(obj =>
+                db.Activity_Update.FirstOrDefault(x => x.email == obj.email && ids.Contains(x.placeID) && (x.favorite == true || x.rating != null)) != null
+                ).ToList();
+
             // Computing the similarities between the user's questionnaire and all other users questionnaires
             List<Tuple<User, double>> similarities = new List<Tuple<User, double>>();
 
-            foreach (User u in allUsers)
+            foreach (User u in allRelatedUsers)
             {
                 Questionnaire otherQuestionnaire = db.Questionnaires.Where(q => q.User.email == u.email).FirstOrDefault();
                 double similarity = ComputeCosineSimilarity(userQuestionnaire, otherQuestionnaire);

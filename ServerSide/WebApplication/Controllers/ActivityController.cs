@@ -15,23 +15,6 @@ namespace WebApplication.Controllers
     {
         private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
-
-        [HttpGet]
-        [Route("api/getSuggestedActivities")]
-        public IHttpActionResult Get([FromUri] string email)
-        {
-            try
-            {
-                SuggestedActivities suggestedActivities = GetSuggestedActivities(email);
-
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
-            }
-        }
-
         [HttpPost]
         [Route("api/updateQuestionnaire")]
         public IHttpActionResult Post([FromBody] JObject questionnaire)
@@ -47,14 +30,6 @@ namespace WebApplication.Controllers
             {
                 return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
             }
-        }
-
-
-        private SuggestedActivities GetSuggestedActivities(string email)
-        {
-            Questionnaire questionnaire = new Questionnaire();
-
-            return questionnaire.GetSuggestedActivities(email);
         }
     }
 }

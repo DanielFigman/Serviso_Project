@@ -33,6 +33,8 @@ namespace DATA
         public HotelDTO hotel { get; set; }
         public List<FoodDTO> food { get; set; }
         public QuestionaireDTO questionnaire { get; set; }
+        public List<ActivityNearByDTO> suggestedActivities { get; set; }
+
 
 
         public void SetLoginDTO(User user ,Order order)
@@ -59,6 +61,39 @@ namespace DATA
             this.hotel = GetHotel(hotel);
             food = GetFood(hotel.hotelID);
             questionnaire = GetQuestionnaire(user.email);
+            suggestedActivities = GetSuggestedActivities(user.email);
+        }
+
+        private List<ActivityNearByDTO> GetSuggestedActivities(string email)
+        {
+            List<int> placesIds = activities_nearBy.Select(a => a.placeID).ToList();
+            Questionnaire q = new Questionnaire();
+
+            List<ActivityNearByDTO> retVal = q.GetSuggestedActivities(email, placesIds);
+
+            if (retVal.Count < 5)
+            {
+                List<ActivityNearByDTO> top5Act = activities_nearBy.OrderByDescending(obj => obj.rating).Take(5).ToList();
+
+                if(retVal.Count == 0)
+                {
+                    return top5Act;
+                }
+
+                int index = 0;
+
+                while (retVal.Count < 5 && index < top5Act.Count)
+                {
+                    int placeID = top5Act[index].placeID;
+                    if (!retVal.Any(a => a.placeID == placeID))
+                    {
+                        retVal.Add(top5Act[index]);
+                    }
+                    index++;
+                }
+            }
+
+            return retVal;
         }
 
         private List<ActivityNearByDTO> GetActivitiesNearBy(string landmark)
