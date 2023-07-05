@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Animated, Text, Dimensions, PanResponder, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Dimensions, PanResponder, ScrollView, TouchableOpacity } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import NearByBottom from '../../FCComponents/NearByBottom';
 import NearByBottomBar from '../../FCComponents/NearByBottomBar';
 import { MapIcon } from 'react-native-heroicons/outline';
+import Animated from 'react-native-reanimated';
 
 const { height } = Dimensions.get('window');
 
@@ -27,32 +28,24 @@ const NearByScreen = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const panResponder = useRef(
         PanResponder.create({
-            onMoveShouldSetPanResponder: (_, { dy }) => Math.abs(dy) > 5,
-            onPanResponderMove: (_, { dy }) => {
-                scrollY.setValue(dy);
-            },
-            onPanResponderRelease: (_, { dy }) => {
-                const threshold = 10 // Adjust the threshold value as needed
-
-                if (dy < 0 && Math.abs(dy) > threshold) {
-                    Animated.spring(scrollY, {
-                        toValue: 0,
-                        useNativeDriver: false,
-                        damping: 10, // Adjust the damping value as needed
-                        overshootClamping: true,
-
-                    }).start();
-                } else if (dy > height * 0.3 && dy - height * 0.3 > threshold) {
-                    Animated.spring(scrollY, {
-                        toValue: height * 0.3,
-                        useNativeDriver: false,
-                        damping: 10, // Adjust the damping value as needed
-                        overshootClamping: true,
-                    }).start();
-                }
-            },
+          onMoveShouldSetPanResponder: (_, { dy }) => Math.abs(dy) > 5,
+          onPanResponderMove: (_, { dy }) => {
+            scrollY.setValue(dy);
+          },
+          onPanResponderRelease: (_, { dy }) => {
+            if (dy > height * 0.3 && dy - height * 0.3) {
+              Animated.spring(scrollY, {
+                toValue: height * 0.3,
+                useNativeDriver: false,
+                damping: 10,
+                overshootClamping: true,
+              }).start();
+            }
+          },
         })
-    ).current;
+      ).current;
+      
+      
 
     const { params: { item } } = useRoute();
 
