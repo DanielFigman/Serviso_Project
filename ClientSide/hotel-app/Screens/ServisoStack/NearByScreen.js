@@ -28,24 +28,23 @@ const NearByScreen = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const panResponder = useRef(
         PanResponder.create({
-          onMoveShouldSetPanResponder: (_, { dy }) => Math.abs(dy) > 5,
-          onPanResponderMove: (_, { dy }) => {
-            scrollY.setValue(dy);
-          },
-          onPanResponderRelease: (_, { dy }) => {
-            if (dy > height * 0.3 && dy - height * 0.3) {
-              Animated.spring(scrollY, {
-                toValue: height * 0.3,
-                useNativeDriver: false,
-                damping: 10,
-                overshootClamping: true,
-              }).start();
-            }
-          },
+            onMoveShouldSetPanResponder: (_, { dy }) => Math.abs(dy) > 5,
+            onPanResponderMove: (_, { dy }) => {
+                scrollY.setValue(dy);
+            },
+            onPanResponderRelease: (_, { dy }) => {
+                if (dy > height * 0.3 && dy - height * 0.3) {
+                    Animated.spring(scrollY, {
+                        toValue: height * 0.3,
+                        damping: 10,
+                        overshootClamping: true,
+                    }).start();
+                }
+            },
         })
-      ).current;
-      
-      
+    ).current;
+
+
 
     const { params: { item } } = useRoute();
 
@@ -101,7 +100,7 @@ const NearByScreen = () => {
             content={
                 <View style={{ flex: 1 }}>
                     <Animated.View
-                        {...panResponder.panHandlers}
+                        {...(panResponderEnabled ? panResponder.panHandlers : {})}
                         style={{
                             width: '100%',
                             height: mapMaxHeight,
@@ -121,6 +120,8 @@ const NearByScreen = () => {
                                 mapType={mapTpye}
                                 showsCompass={false}
                                 mapPadding={{ bottom: 20 }}
+                                onTouchEnd={() => setPanResponderEnabled(true)}
+                                onTouchMove={() => setPanResponderEnabled(false)}
                             >
                                 <Marker coordinate={{ latitude, longitude }} />
                             </MapView>
