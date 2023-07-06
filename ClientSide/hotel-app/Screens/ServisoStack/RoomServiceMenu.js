@@ -11,27 +11,18 @@ import {
     Button,
     Alert,
 } from 'react-native';
+
 import { ScrollView } from 'react-native-gesture-handler';
 import LoadingImage from '../../FCComponents/LoadingImage';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
-
-// const food = [
-//     { ID: 1, name: 'pasta', price: 22, Description: 'alaalla', imageURL: require('./assets/food1.png') },
-//     { ID: 2, name: 'fish', price: 22, Description: 'alaalla', imageURL: require('./assets/food2.png') },
-//     { ID: 3, name: 'egg', price: 22, Description: 'alaalla', imageURL: require('./assets/food3.png') },
-//     { ID: 4, name: 'pizza', price: 22, Description: 'alaalla', imageURL: require('./assets/food1.png') },
-//     { ID: 5, name: 'cake', price: 22, Description: 'alaalla', imageURL: require('./assets/food2.png') },
-//     { ID: 6, name: 'sushi', price: 22, Description: 'alaalla', imageURL: require('./assets/food3.png') },
-//     { ID: 7, name: 'saled', price: 22, Description: 'alaalla', imageURL: require('./assets/food1.png') },
-//     { ID: 8, name: 'pancake', price: 22, Description: 'alaalla', imageURL: require('./assets/food2.png') },
-//     { ID: 9, name: 'banana', price: 22, Description: 'alaalla', imageURL: require('./assets/food3.png') },
-//     { ID: 10, name: 'apple', price: 22, Description: 'alaalla', imageURL: require('./assets/food1.png') },
-// ];
+import ImageNearBottomDialog from '../../FCComponents/Dialogs/ImageNearBottomDialog';
 
 export default RoomServiceMenu = () => {
     const [cart, setCart] = useState([]);
     const [showCart, setShowCart] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
+
+    const [modalVisible, setModalVisible] = useState(false)
 
     const { params: {
         food
@@ -105,26 +96,20 @@ export default RoomServiceMenu = () => {
                     margin: 2,
                 }}>
                 <View style={{ flex: 1, zIndex: 0 }}>
-
-                    <TouchableOpacity onPress={() => {
-                        Alert.alert(item.name, item.Description, [
-                            { text: 'OK', onPress: () => console.log("ok") },
-                        ]);
-                    }}>
+                    <TouchableOpacity onPress={() => setModalVisible(true)}>
                         <LoadingImage
                             imageURL={item.imageURL}
                             style={{
                                 height: 124,
+                                width: 70,
                                 resizeMode: 'cover',
                                 width: '90%',
                                 borderRadius: 10,
                             }}
                         />
                     </TouchableOpacity>
-
-
-
                 </View>
+                <ImageNearBottomDialog imageURL={item.imageURL} setModalVisible={setModalVisible} modalVisible={modalVisible}/>
                 <View style={{ justifyContent: 'center', backgroundColor: '#FBF9F8', padding: 6, borderRadius: 10, }}>
                     <Text style={{ fontWeight: 'bold', fontSize: 17 }}>{item.name}</Text>
                     <Text style={{ fontSize: 13 }}>Price: ${item.price}</Text>
@@ -175,125 +160,128 @@ export default RoomServiceMenu = () => {
 
 
     return (
-        <ScreenComponent content={
-            <View style={{ flex: 1 }}>
-                <View style={{ backgroundColor: '#FBF9F8', padding: 10, paddingLeft: '5%', paddingTop: Platform.OS === "android" ? StatusBar.TouchableHighlight : 50, flexDirection: 'row' }}>
-                    <Text
-                        style={{
-                            fontWeight: 'bold', color: '#000000',
-                            fontSize: 27, alignSelf: 'center', alignItems: 'center',
-                        }}>
-                        Food</Text>
-                    <TouchableOpacity onPress={() => setShowCart(!showCart)}>
-
-                        <Text style={{ color: '#000000', paddingLeft: '65%', paddingTop: 10 }}>Cart ({cart.length})</Text>
-                        <Image source={require('../../assets/food.png')} style={{ width: 15, height: 15, paddingLeft: 30, position: 'absolute', marginLeft: 190, paddingTop: 32, }} />
-                    </TouchableOpacity>
-                </View>
-
-                {showCart && (
-                    <ScrollView style={{ backgroundColor: '#F5EEEE', color: '#000000', padding: 20, borderRadius: 20, margin: 30, zIndex: 1, position: 'absolute', width: '85%', height: '50%', marginTop: 100, }}>
-                        <TouchableOpacity onPress={() => setShowCart(false)}>
-
-                            <Image source={require('../../assets/x.png')} style={{ width: 28, height: 28, paddingLeft: 20, position: 'absolute', zIndex: 2, marginLeft: -16, paddingTop: 28, marginTop: -19 }} />
+        <ScreenComponent topLeftButtonStyle={{ justifyContent: "center" }}
+            title={
+                <View style={{ flexDirection: 'row', display: "flex", width: "80%", alignItems: "center", paddingBottom: 10, left: 10 }}>
+                    <View style={{ flex: 1 }}>
+                        <Text
+                            style={{
+                                fontWeight: 'bold', color: '#000000',
+                                fontSize: 27, alignSelf: 'center', alignItems: 'center'
+                            }}>
+                            Food</Text>
+                    </View>
+                    <View style={{ flexDirection: "column" }}>
+                        <TouchableOpacity onPress={() => setShowCart(!showCart)}>
+                            <Image source={require('../../assets/food.png')} style={{ width: 35, height: 35, alignSelf: "center" }} />
+                            <Text style={{ color: '#000000', textAlign: "center" }}>Cart ({cart.length})</Text>
                         </TouchableOpacity>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', paddingBottom: 25, textAlign: 'center' }} >Your shopping cart</Text>
+                    </View>
+                </View>
+            }
+            content={
+                <View style={{ flex: 1 }}>
+                    {showCart && (
+                        <ScrollView style={{ backgroundColor: '#F5EEEE', color: '#000000', padding: 20, borderRadius: 20, margin: 30, zIndex: 1, position: 'absolute', width: '85%', height: '50%', marginTop: 100, }}>
+                            <TouchableOpacity onPress={() => setShowCart(false)}>
 
-                        {cart.map((item) => (
-                            <View style={{ flexDirection: 'column', }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', height: 75 }}>
-                                    <LoadingImage imageURL={item.imageURL} style={{ width: 70, height: 68, borderRadius: 10, margin: 2 }} />
-                                    <Text style={{ fontSize: 20, fontWeight: 'bold', paddingBottom: 25 }} >{item.name}</Text>
-                                    <Text style={{ paddingLeft: 10, fontSize: 15, paddingBottom: 20 }}>{`$${item.price} `}</Text>
-                                    <View style={{ flexDirection: 'column', height: 70, alignItems: 'center', position: 'absolute', margin: 20, paddingLeft: 170, }}>
-                                        <View style={{
+                                <Image source={require('../../assets/x.png')} style={{ width: 28, height: 28, paddingLeft: 20, position: 'absolute', zIndex: 2, marginLeft: -16, paddingTop: 28, marginTop: -19 }} />
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: 25, fontWeight: 'bold', paddingBottom: 25, textAlign: 'center' }} >Your shopping cart</Text>
 
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            margin: 4,
-                                            padding: 8,
-                                            width: 80,
-                                            backgroundColor: '#F0E8E6',
-                                            borderRadius: 40,
+                            {cart.map((item) => (
+                                <View style={{ flexDirection: 'column', }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', height: 75 }}>
+                                        <LoadingImage imageURL={item.imageURL} style={{ width: 70, height: 68, borderRadius: 10, margin: 2 }} />
+                                        <Text style={{ fontSize: 20, fontWeight: 'bold', paddingBottom: 25 }} >{item.name}</Text>
+                                        <Text style={{ paddingLeft: 10, fontSize: 15, paddingBottom: 20 }}>{`$${item.price} `}</Text>
+                                        <View style={{ flexDirection: 'column', height: 70, alignItems: 'center', position: 'absolute', margin: 20, paddingLeft: 170, }}>
+                                            <View style={{
 
-                                        }}
-                                        >
-                                            <TouchableOpacity
-                                                onPress={() => decreaseQuantity(item.ID)}
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                margin: 4,
+                                                padding: 8,
+                                                width: 80,
+                                                backgroundColor: '#F0E8E6',
+                                                borderRadius: 40,
+
+                                            }}
                                             >
-                                                <Text style={{ fontSize: 18 }}>-</Text>
-                                            </TouchableOpacity>
-                                            <Text style={{ marginHorizontal: 10, fontSize: 18 }}>
-                                                {item.quantity}
-                                            </Text>
-                                            <TouchableOpacity
-                                                onPress={() => addToCart(item)}
-                                            >
-                                                <Text style={{ fontSize: 18 }}>+</Text>
+                                                <TouchableOpacity
+                                                    onPress={() => decreaseQuantity(item.ID)}
+                                                >
+                                                    <Text style={{ fontSize: 18 }}>-</Text>
+                                                </TouchableOpacity>
+                                                <Text style={{ marginHorizontal: 10, fontSize: 18 }}>
+                                                    {item.quantity}
+                                                </Text>
+                                                <TouchableOpacity
+                                                    onPress={() => addToCart(item)}
+                                                >
+                                                    <Text style={{ fontSize: 18 }}>+</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            <TouchableOpacity onPress={() => deleteFromCart(item.ID)}>
+
+                                                <Image source={require('../../assets/delete.png')} style={{ width: 23, height: 23, }} />
+                                                {/* <Text style={{ color: '#000000', paddingLeft: 10 }}>Delete </Text> */}
+
                                             </TouchableOpacity>
                                         </View>
-                                        <TouchableOpacity onPress={() => deleteFromCart(item.ID)}>
-
-                                            <Image source={require('../../assets/delete.png')} style={{ width: 23, height: 23, }} />
-                                            {/* <Text style={{ color: '#000000', paddingLeft: 10 }}>Delete </Text> */}
-
-                                        </TouchableOpacity>
                                     </View>
+                                    <Image source={require('../../assets/line.png')} style={{ width: "100%", height: 0.7 }} />
                                 </View>
-                                <Image source={require('../../assets/line.png')} style={{ width: "100%", height: 0.7 }} />
+                            ))}
+                            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', marginBottom: 15 }}>
+                                <Image source={require('../../assets/line.png')} style={{ width: '100%', height: 0.9, marginTop: 1 }} />
+                                <Text style={{ marginTop: 10, fontSize: 18 }}>
+                                    Total Price: ${totalPrice}
+                                </Text>
                             </View>
-                        ))}
-                        <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', marginBottom: 15 }}>
-                            <Image source={require('../../assets/line.png')} style={{ width: '100%', height: 0.9, marginTop: 1 }} />
-                            <Text style={{ marginTop: 10, fontSize: 18 }}>
-                                Total Price: ${totalPrice}
-                            </Text>
-                        </View>
 
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-between", marginBottom: 35, }}>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-between", marginBottom: 35, }}>
+                                <TouchableOpacity
+                                    style={{
+                                        width: '48%',
+                                        zIndex: 2,
+                                        backgroundColor: '#000000',
+                                        padding: 20,
+                                        alignItems: 'center',
+                                        borderRadius: 40,
+                                        marginTop: 10,
+                                    }}
+                                    onPress={() => send(1)}
+                                >
+                                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>Send it to me now</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={{
+                                        width: '48%',
+                                        zIndex: 2,
+                                        backgroundColor: '#000000',
+                                        padding: 20,
+                                        alignItems: 'center',
+                                        borderRadius: 40,
+                                        marginTop: 10,
 
+                                    }}
+                                    onPress={() => send(1)}
+                                >
+                                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>Continue to schedule</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
+                    )}
+                    <FlatList
+                        data={products}
+                        renderItem={renderProductItem}
+                        keyExtractor={(item, index) => item.ID}
+                    />
 
-                            <TouchableOpacity
-                                style={{
-                                    width: '48%',
-                                    zIndex: 2,
-                                    backgroundColor: '#000000',
-                                    padding: 20,
-                                    alignItems: 'center',
-                                    borderRadius: 40,
-                                    marginTop: 10,
-                                }}
-                                onPress={() => send(1)}
-                            >
-                                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>Send it to me now</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{
-                                    width: '48%',
-                                    zIndex: 2,
-                                    backgroundColor: '#000000',
-                                    padding: 20,
-                                    alignItems: 'center',
-                                    borderRadius: 40,
-                                    marginTop: 10,
-
-                                }}
-                                onPress={() => send(1)}
-                            >
-                                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>Continue to schedule</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
-                )}
-                <FlatList
-                    data={products}
-                    renderItem={renderProductItem}
-                    keyExtractor={(item, index) => index}
-                />
-
-            </View>
-        }
+                </View>
+            }
         />
     );
 };
