@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { FaceSmileIcon, HeartIcon } from 'react-native-heroicons/outline'
 import DescriptionDialaog from './Dialogs/DescriptionDialaog'
 import RatingIconsComp from './RatingIconsComp'
+import ImageNearBottomDialog from './Dialogs/ImageNearBottomDialog'
 import ImagesCarouselNearBottom from './ImagesCarouselNearBottom'
 import { HotelsAppContext } from '../Context/HotelsAppContext'
 
@@ -18,8 +19,6 @@ const NearByBottom = ({ item, setPanResponderEnabled }) => {
     var lastElement = addressArray[addressArray.length - 1];
     const [favorite, setFavorite] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
-    const [imageModalVisible, setImageModalVisible] = useState(false);
-
 
     const MakeTheFirstLetterUpperCase = (word) => {
         const firstLetter = word.charAt(0);
@@ -30,10 +29,6 @@ const NearByBottom = ({ item, setPanResponderEnabled }) => {
     useEffect(() => {
         setPanResponderEnabled(!modalVisible)
     }, [modalVisible])
-
-    useEffect(() => {
-        setPanResponderEnabled(!imageModalVisible)
-    }, [imageModalVisible])
 
     const { setUpdatedActivities, updatedActivities} = useContext(HotelsAppContext)
 
@@ -102,7 +97,7 @@ const NearByBottom = ({ item, setPanResponderEnabled }) => {
                     </TouchableOpacity>
                     <DescriptionDialaog setModalVisible={setModalVisible} modalVisible={modalVisible} description={item.description} name={item.name} />
                     <View style={[styles.view, { marginTop: 40, alignItems: "center", justifyContent: "center" }]}>
-                        <ImagesCarouselNearBottom urlList={item.morePhotosUrls} image={item.imageURL} setModalVisible={setImageModalVisible} modalVisible={imageModalVisible}/>
+                        <ImagesCarouselNearBottom urlList={item.morePhotosUrls} image={item.imageURL} />
                     </View>
                     <View style={[styles.view, { top: "15%" }]}>
                         <RatingIconsComp item={item}/>

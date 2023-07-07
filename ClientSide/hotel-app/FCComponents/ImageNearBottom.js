@@ -3,21 +3,13 @@ import React, { useState } from 'react'
 import LoadingImage from './LoadingImage'
 import ImageNearBottomDialog from './Dialogs/ImageNearBottomDialog'
 
-const ImageNearBottom = ({ imageUrl, modalNear, setModalNearVisible }) => {
+const ImageNearBottom = ({ imageUrl }) => {
     const [modalVisible, setModalVisible] = useState(false)
-
-    const handlePress = () => {
-        if (modalNear !== undefined && setModalNearVisible !== undefined) {
-            setModalNearVisible(true);
-        } else {
-            setModalVisible(true)
-        }
-    }
 
     return (
         <View style={styles.container}>
-            <ImageNearBottomDialog imageURL={imageUrl} modalVisible={modalNear !== undefined ? modalNear : modalVisible} setModalVisible={setModalNearVisible !== undefined ? setModalNearVisible : setModalVisible} />
-            <TouchableOpacity onPress={handlePress}>
+            <ImageNearBottomDialog imageURL={imageUrl} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <LoadingImage imageURL={imageUrl} style={{ height: 150, width: 150, borderRadius: 5 }} />
             </TouchableOpacity>
         </View>
