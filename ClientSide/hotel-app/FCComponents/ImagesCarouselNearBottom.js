@@ -3,11 +3,11 @@ import React from 'react'
 import ImageNearBottom from './ImageNearBottom';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const ImagesCarouselNearBottom = ({ urlList, image }) => {
+const ImagesCarouselNearBottom = ({ urlList, image, setModalVisible, modalVisible }) => {
 
     const renderImages = () => {
         return urlList.map((obj) => (
-            <ImageNearBottom key={obj.imageID} imageUrl={obj.imageURL} />
+            <ImageNearBottom key={obj.imageID} imageUrl={obj.imageURL} setModalNearVisible={setModalVisible} modalNear={modalVisible}/>
         ));
     };
 
@@ -21,7 +21,7 @@ const ImagesCarouselNearBottom = ({ urlList, image }) => {
                         {renderImages()}
                     </ScrollView>
                     :
-                    <ImageNearBottom imageUrl={image} />
+                    <ImageNearBottom imageUrl={image} setModalNearVisible={setModalVisible} modalNear={modalVisible}/>
             }
         </>
     )
