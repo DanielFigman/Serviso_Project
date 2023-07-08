@@ -19,11 +19,14 @@ export default function HotelsAppContextProvider(props) {
     const [custom_Request_Types, setCustom_Request_Types] = useState(null);
     const [therapies, setTherapies] = useState(null);
     const [hotel, setHotel] = useState(null)
-    const [food, setFood] = useState(null)
     const [notificationToken, setNotificationToken] = useState(undefined);
     const [retrivedNtoken, setRetrivedNtoken] = useState(undefined);
     const [questionaire, setQuestionaire] = useState(null);
     const [updatedActivities, setUpdatedActivities] = useState(null);
+    const [food, setFood] = useState(null)
+    const [drinks, setDrinks] = useState(null)
+    const [alcohol, setAlcohol] = useState(null)
+    const [additionalItems, setAdditionalItems] = useState(null)
 
     const [firstSetQuestionnaire, setFirstSetQuestionnaire] = useState(false);
 
@@ -270,7 +273,13 @@ export default function HotelsAppContextProvider(props) {
                 setUpdatedActivities,
                 getFavorite,
                 suggestedActivities,
-                setSuggestedActivities
+                setSuggestedActivities,
+                drinks,
+                setDrinks,
+                alcohol,
+                setAlcohol,
+                additionalItems,
+                setAdditionalItems
             }}
         >
             {props.children}

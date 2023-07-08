@@ -14,7 +14,7 @@ import Languages from '../../Json_files/Languages';
 const HomeScreen = () => {
 
     const navigation = useNavigation();
-    const { language, therapies, suggestedActivities, food, user, setUpdatedActivities} = useContext(HotelsAppContext);
+    const { language, therapies, suggestedActivities, food, user, setUpdatedActivities, drinks, alcohol, additionalItems } = useContext(HotelsAppContext);
     const screenContent = Languages.HomeScreen;
 
     useEffect(() => {
@@ -47,6 +47,27 @@ const HomeScreen = () => {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const renderRoomServiceCards = () => {
+        let retVal = [];
+
+        retVal = retVal.concat(
+            food?.map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+            drinks?.map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+            alcohol?.map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+            additionalItems?.map(item => ({ ...item, typeOrder: 'additional_items' })),
+        ).flat();
+
+        return (
+            <ScrollView horizontal={true}>
+                {retVal.map((item) => {
+                    return (
+                        <SmallCard key={item.ID} item={item} id={item.ID} />
+                    );
+                })}
+            </ScrollView>
+        );
     }
 
     return (
@@ -92,11 +113,7 @@ const HomeScreen = () => {
                                     <Text>{screenContent.ToTheFullMenu[language]}</Text>
                                 </TouchableOpacity>
                             </View>
-                            <ScrollView horizontal={true}>
-                                {food.map((item) => (
-                                    <SmallCard key={item.ID} item={item} id={item.ID} />
-                                ))}
-                            </ScrollView>
+                            {renderRoomServiceCards()}
                         </View>
                     </ScrollView >
                 </View >

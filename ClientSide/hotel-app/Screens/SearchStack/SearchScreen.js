@@ -11,7 +11,7 @@ import { Keyboard } from "react-native";
 
 const SearchScreen = () => {
 
-  const { food, therapies, facilities, activities_hotel, activities_nearBy } = useContext(HotelsAppContext)
+  const { food, therapies, facilities, activities_hotel, activities_nearBy, drinks,alcohol,additionalItems } = useContext(HotelsAppContext)
 
   const [searchInput, setSearchInput] = useState("")
   const [cardsToShow, setCardsToShow] = useState([])
@@ -36,11 +36,14 @@ const SearchScreen = () => {
 
     // Add the `type` prop to each object in `retVal`
     retVal = retVal.concat(
-      food.map(item => ({ ...item, type: 'food' })),
-      therapies.map(item => ({ ...item, type: 'therapies' })),
-      facilities.map(item => ({ ...item, type: 'facilities' })),
-      activities_hotel.map(item => ({ ...item, type: 'activities_hotel' })),
-      activities_nearBy.map(item => ({ ...item, type: 'activities_nearBy' }))
+      food?.map(item => ({ ...item, type: 'room_service' })),
+      drinks?.map(item => ({ ...item, type: 'room_service' })),
+      alcohol?.map(item => ({ ...item, type: 'room_service' })),
+      additionalItems?.map(item => ({ ...item, type: 'room_service' })),
+      therapies?.map(item => ({ ...item, type: 'therapies' })),
+      facilities?.map(item => ({ ...item, type: 'facilities' })),
+      activities_hotel?.map(item => ({ ...item, type: 'activities_hotel' })),
+      activities_nearBy?.map(item => ({ ...item, type: 'activities_nearBy' }))
     ).flat();
 
     const filteredItems = retVal.filter(item => {
@@ -96,7 +99,7 @@ const SearchScreen = () => {
 
     const getID = (item) => {
       switch (item.type) {
-        case "food":
+        case "room_service":
           return item.ID;
         case "therapies":
           return item.therapyID;

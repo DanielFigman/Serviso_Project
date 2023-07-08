@@ -24,7 +24,10 @@ const LoginScreen = () => {
     setFood,
     setRetrivedNtoken,
     setNewQuestionnaire,
-    setSuggestedActivities
+    setSuggestedActivities,
+    setDrinks,
+    setAlcohol,
+    setAdditionalItems
   } = useContext(HotelsAppContext)
 
 
@@ -69,6 +72,9 @@ const LoginScreen = () => {
           setHotel(object.hotel)
           setlanguage(object.languageShortName)
           setFood(object.food)
+          setDrinks(object.drinks)
+          setAlcohol(object.alcohol)
+          setAdditionalItems(object.additionalItems)
           setNewQuestionnaire(object.questionnaire)
           navigation.navigate("MainScreen")
         } else {

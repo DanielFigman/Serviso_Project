@@ -44,7 +44,7 @@ const CustomRequestScreen = () => {
         if (customRequests && Object.keys(customRequests).length !== 0) {
             const postObject = GetRequestObject();
             try {
-                const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/houseHoldCustomRequest', {
+                const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/newRequest', {
                     method: 'POST',
                     body: JSON.stringify(postObject),
                     headers: new Headers({
