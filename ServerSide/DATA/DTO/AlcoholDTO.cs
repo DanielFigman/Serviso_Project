@@ -17,6 +17,8 @@ namespace DATA
         public string tags { get; set; }
         public string type { get; set; }
         public decimal? alcoholPercent { get; set; }
+        public string category { get; set; }
+
 
         public void SetAlcoholDTO(Food_And_Drinks drinkParent)
         {
@@ -30,6 +32,7 @@ namespace DATA
             tags = drinkParent.tags;
             type = "Alcohol";
             alcoholPercent = alcohol.alcoholPercent;
+            category = alcohol.category;
         }
     }
 }

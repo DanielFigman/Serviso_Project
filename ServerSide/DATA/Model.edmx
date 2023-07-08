@@ -98,6 +98,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="alcoholPercent" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="category" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ApiProvider">
           <Key>
@@ -3196,6 +3197,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="alcoholPercent" Type="Decimal" Precision="5" Scale="2" />
           <NavigationProperty Name="Food_And_Drinks" Relationship="igroup197_test1Model.FK__Alcohol__ID__19DFD96B" FromRole="Alcohol" ToRole="Food_And_Drinks" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Drink">
           <Key>
@@ -3981,6 +3983,7 @@
           <EntitySetMapping Name="Alcohols">
             <EntityTypeMapping TypeName="igroup197_test1Model.Alcohol">
               <MappingFragment StoreEntitySet="Alcohol">
+                <ScalarProperty Name="category" ColumnName="category" />
                 <ScalarProperty Name="alcoholPercent" ColumnName="alcoholPercent" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
