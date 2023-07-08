@@ -84,6 +84,10 @@ const AddToCartDialog = ({
                 let foodAndDrinksCount = cart?.filter(obj => obj.type !== undefined)?.length ?? 0;
                 foodAndDrinksCount++;
 
+                while (cart?.find(obj => obj.type && obj.itemsCount === foodAndDrinksCount)) {
+                    foodAndDrinksCount++;
+                }
+
                 objectToAdd.itemsCount = foodAndDrinksCount;
             }
             setCart([...cart, objectToAdd]);

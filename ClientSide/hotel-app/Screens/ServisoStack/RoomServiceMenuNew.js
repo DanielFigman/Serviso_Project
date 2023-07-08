@@ -59,11 +59,11 @@ const RoomServiceMenuNew = () => {
             if (selectedSecodaryTab === 'hot') {
                 return list.filter((item) => item.category === 'HOT');
             }
-        } else if(selectedTab === "alcohol"){
-            if(selectedAlcoholTab === 'cocktails'){
+        } else if (selectedTab === "alcohol") {
+            if (selectedAlcoholTab === 'cocktails') {
                 return list.filter((item) => item.category === 'COCKTAIL');
             }
-            if(selectedAlcoholTab === 'wine'){
+            if (selectedAlcoholTab === 'wine') {
                 return list.filter((item) => item.category === 'WINE');
             }
         }
@@ -175,7 +175,12 @@ const RoomServiceMenuNew = () => {
                         )}
                         keyExtractor={(item) => item.ID}
                     />
-                    <FoodCartDialog modalVisible={cartModalVisible} setModalVisible={setCartModalVisible} totalPrice={totalPrice} cart={cart} />
+                    <FoodCartDialog
+                        modalVisible={cartModalVisible}
+                        setModalVisible={setCartModalVisible}
+                        cart={cart}
+                        setCart={setCart}
+                    />
                 </>
             }
         />
