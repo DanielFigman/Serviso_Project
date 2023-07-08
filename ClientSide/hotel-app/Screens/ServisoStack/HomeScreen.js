@@ -53,10 +53,10 @@ const HomeScreen = () => {
         let retVal = [];
 
         retVal = retVal.concat(
-            food?.map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
-            drinks?.map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
-            alcohol?.map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
-            additionalItems?.map(item => ({ ...item, typeOrder: 'additional_items' })),
+            food?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+            drinks?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+            alcohol?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+            additionalItems?.slice(0, 5).map(item => ({ ...item, typeOrder: 'additional_items' })),
         ).flat();
 
         return (
@@ -98,7 +98,7 @@ const HomeScreen = () => {
                             </View>
                             {therapies ?
                                 <ScrollView horizontal={true}>
-                                    {therapies.map((item) => (
+                                    {therapies?.slice(0, 5).map((item) => (
                                         <SmallCard key={item.therapyID} item={item} type={"SPA"} />
                                     ))}
                                 </ScrollView>
@@ -108,7 +108,7 @@ const HomeScreen = () => {
                         </View>
                         <View style={{ marginVertical: 10, marginTop: 10, paddingBottom: 50 }}>
                             <View style={{ flexDirection: "row", marginHorizontal: 40, marginBottom: 5, marginTop: 10 }}>
-                                <Text style={{ flex: 1, fontWeight: "bold" }}>{screenContent.SomethingToSnack[language]}</Text>
+                                <Text style={{ flex: 1, fontWeight: "bold" }}>{screenContent.RoomService[language]}</Text>
                                 <TouchableOpacity onPress={() => navigation.navigate("RoomServiceMenuNew")}>
                                     <Text>{screenContent.ToTheFullMenu[language]}</Text>
                                 </TouchableOpacity>

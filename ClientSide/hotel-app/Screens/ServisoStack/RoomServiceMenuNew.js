@@ -9,11 +9,10 @@ import { SegmentedButtons } from 'react-native-paper';
 import { FlatList } from 'react-native';
 
 const RoomServiceMenuNew = () => {
-    const [cart, setCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [cartModalVisible, setCartModalVisible] = useState(false);
     const [imageUrlToShow, setImageUrlToShow] = useState(null);
-    const { food, drinks, alcohol, additionalItems } = useContext(HotelsAppContext);
+    const { food, drinks, alcohol, additionalItems, cart, setCart } = useContext(HotelsAppContext);
 
     useEffect(() => {
         let newTotalPrice = 0;
@@ -27,7 +26,7 @@ const RoomServiceMenuNew = () => {
         return (
             <View style={{ flexDirection: 'row', display: 'flex', width: '80%', alignItems: 'center', paddingBottom: 10, left: 10 }}>
                 <View style={{ flex: 1 }}>
-                    <Text style={{ fontWeight: 'bold', color: '#000000', fontSize: 27, alignSelf: 'center', alignItems: 'center' }}>Food</Text>
+                    <Text style={{ fontWeight: 'bold', color: '#000000', fontSize: 27, alignSelf: 'center', alignItems: 'center' }}>Room Service</Text>
                 </View>
                 <View style={{ flexDirection: 'column' }}>
                     <TouchableOpacity onPress={() => setCartModalVisible(!cartModalVisible)}>
@@ -176,7 +175,7 @@ const RoomServiceMenuNew = () => {
                         )}
                         keyExtractor={(item) => item.ID}
                     />
-                    <FoodCartDialog modalVisible={cartModalVisible} setModalVisible={setCartModalVisible} totalPrice={totalPrice} />
+                    <FoodCartDialog modalVisible={cartModalVisible} setModalVisible={setCartModalVisible} totalPrice={totalPrice} cart={cart} />
                 </>
             }
         />

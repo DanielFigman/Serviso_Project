@@ -27,6 +27,7 @@ export default function HotelsAppContextProvider(props) {
     const [drinks, setDrinks] = useState(null)
     const [alcohol, setAlcohol] = useState(null)
     const [additionalItems, setAdditionalItems] = useState(null)
+    const [cart, setCart] = useState([]);
 
     const [firstSetQuestionnaire, setFirstSetQuestionnaire] = useState(false);
 
@@ -279,7 +280,9 @@ export default function HotelsAppContextProvider(props) {
                 alcohol,
                 setAlcohol,
                 additionalItems,
-                setAdditionalItems
+                setAdditionalItems,
+                cart, 
+                setCart
             }}
         >
             {props.children}

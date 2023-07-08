@@ -954,16 +954,16 @@ export default Languages = {
       CH: "更多水疗护理",
       JP: "その他のスパ トリートメント",
     },
-    SomethingToSnack: {
-      EN: "Something to snack",
-      HE: "משהו לנשנש",
-      AR: "شيء لتناول وجبة خفيفة",
-      ES: "algo para picar",
-      RU: "Что-нибудь перекусить",
-      FR: "Quelque chose à grignoter",
-      POR: "Algo para lanche",
-      CH: "吃点东西",
-      JP: "おやつに何か",
+    RoomService: {
+      EN: "Room Service",
+      HE: "שירות חדרים",
+      AR: "خدمة الغرفة",
+      ES: "Servicio de Habitación",
+      RU: "Обслуживание в номере",
+      FR: "Service en Chambre",
+      POR: "Serviço de Quarto",
+      CH: "客房服务",
+      JP: "ルームサービス",
     },
     ToTheFullMenu: {
       EN: "To the full menu",
@@ -1257,7 +1257,7 @@ export default Languages = {
     //   JP: "",
     // },
   },
-  HotelNavigationScreen:{
+  HotelNavigationScreen: {
     Address: {
       EN: "Address:",
       HE: "כתובת:",

@@ -28,8 +28,9 @@ const AddToCartDialog = ({
         })
     ).current;
 
-    const [changes, setChanges] = useState("");
+    const [changes, setChanges] = useState(null);
     const [keyBoardDidShow, setKeyBoardDidShow] = useState(false)
+    const [added, setAdded] = useState(false)
 
 
 
@@ -56,11 +57,52 @@ const AddToCartDialog = ({
 
     const handleAddToCart = () => {
         if (quantity > 0) {
-            console.log(quantity)
+            addToCart();
         } else {
             setIsPressedWithZero(true)
         }
     }
+
+    const addToCart = () => {
+
+        let isSuchObjectInCart = cart?.find(obj => obj.ID === item.ID && obj.changes === changes);
+        if (isSuchObjectInCart) {
+            isSuchObjectInCart.amount += quantity;
+            const newCart = cart.filter(obj => !(obj.ID === item.ID && obj.changes === changes));
+            setCart([...newCart, isSuchObjectInCart]);
+        } else {
+            let objectToAdd = {};
+            objectToAdd.ID = item.ID;
+            objectToAdd.amount = quantity;
+            objectToAdd.changes = !changes || changes === "" ? null : changes;
+            objectToAdd.type = item.type;
+            objectToAdd.imageURL = item.imageURL;
+            objectToAdd.name = item.name;
+            objectToAdd.price = item.price
+
+            if (item.type) {
+                let foodAndDrinksCount = cart?.filter(obj => obj.type !== undefined)?.length ?? 0;
+                foodAndDrinksCount++;
+
+                objectToAdd.itemsCount = foodAndDrinksCount;
+            }
+            setCart([...cart, objectToAdd]);
+        }
+
+        setAdded(true);
+    };
+
+    useEffect(() => {
+        if (added) {
+            setChanges(null);
+            setQuantity(0);
+            setCartModalVisible(false);
+            setAdded(false);
+        }
+    }, [added])
+
+
+
 
 
     return (
@@ -98,17 +140,17 @@ const AddToCartDialog = ({
                         </TouchableOpacity>
                     </View>
                     {
-                        item.possibleChanges ? 
-                        <TextInput
-                            style={styles.textArea}
-                            multiline={true}
-                            numberOfLines={5} // You can adjust the number of lines to display
-                            placeholder='Enter dish notes, for example: "wihout egg".'
-                            value={changes}
-                            onChangeText={(value) => setChanges(value)}
-                        />
-                        :
-                        <></>
+                        item.possibleChanges ?
+                            <TextInput
+                                style={styles.textArea}
+                                multiline={true}
+                                numberOfLines={5} // You can adjust the number of lines to display
+                                placeholder='Enter dish notes, for example: "wihout egg".'
+                                value={changes}
+                                onChangeText={(value) => setChanges(value)}
+                            />
+                            :
+                            <></>
                     }
                     <View style={StyleSheet.flatten(styles.buttonStyle)}>
                         <TouchableOpacity onPress={handleAddToCart}>
