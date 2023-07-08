@@ -17,8 +17,9 @@ namespace DATA
         public long requestID { get; set; }
         public int ID { get; set; }
         public Nullable<int> amount { get; set; }
+        public Nullable<bool> isMarked { get; set; }
     
-        public virtual Additional_Items Additional_Items { get; set; }
         public virtual Room_Service_Order Room_Service_Order { get; set; }
+        public virtual Additional_Items Additional_Items { get; set; }
     }
 }

@@ -24,9 +24,10 @@ namespace DATA
         public string name { get; set; }
         public Nullable<decimal> price { get; set; }
         public Nullable<bool> inStock { get; set; }
-        public byte[] photo { get; set; }
+        public string imageURL { get; set; }
         public string tags { get; set; }
         public string description { get; set; }
+        public int hotelID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Additional_Items_Room_Service> Additional_Items_Room_Service { get; set; }

@@ -12,7 +12,7 @@ namespace WebApplication.Controllers
     public class HouseHoldRequestController : ApiController
     {
         [HttpPost]
-        [Route("api/houseHoldCustomRequest")]
+        [Route("api/newRequest")]
 
         public IHttpActionResult Post([FromBody] JObject data)
         {

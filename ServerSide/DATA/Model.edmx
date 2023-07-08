@@ -77,9 +77,10 @@
           <Property Name="name" Type="varchar" MaxLength="255" />
           <Property Name="price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="inStock" Type="bit" />
-          <Property Name="photo" Type="varbinary(max)" />
+          <Property Name="imageURL" Type="nvarchar(max)" />
           <Property Name="tags" Type="nvarchar(max)" />
           <Property Name="description" Type="varchar(max)" />
+          <Property Name="hotelID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Additional_Items_Room_Service">
           <Key>
@@ -89,6 +90,7 @@
           <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="amount" Type="int" />
+          <Property Name="isMarked" Type="bit" />
         </EntityType>
         <EntityType Name="Alcohol">
           <Key>
@@ -263,11 +265,14 @@
           <Key>
             <PropertyRef Name="requestID" />
             <PropertyRef Name="ID" />
+            <PropertyRef Name="itemsCount" />
           </Key>
           <Property Name="requestID" Type="bigint" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="amount" Type="int" />
-          <Property Name="changes" Type="varchar(max)" />
+          <Property Name="changes" Type="nvarchar(max)" />
+          <Property Name="itemsCount" Type="int" Nullable="false" />
+          <Property Name="isMarked" Type="bit" />
         </EntityType>
         <EntityType Name="Free_Queue">
           <Key>
@@ -1836,19 +1841,6 @@
           <Property Name="tripAdvisorLocationId" Type="Int32" />
           <Property Name="isNotFoundLocationId" Type="Boolean" />
         </EntityType>
-        <EntityType Name="Additional_Items">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="inStock" Type="Boolean" />
-          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Additional_Items_Room_Service" Relationship="Self.FK__Additional_I__ID__2645B050" FromRole="Additional_Items" ToRole="Additional_Items_Room_Service" />
-        </EntityType>
         <EntityType Name="Additional_Items_Room_Service">
           <Key>
             <PropertyRef Name="requestID" />
@@ -1857,8 +1849,9 @@
           <Property Name="requestID" Type="Int64" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="amount" Type="Int32" />
-          <NavigationProperty Name="Additional_Items" Relationship="Self.FK__Additional_I__ID__2645B050" FromRole="Additional_Items_Room_Service" ToRole="Additional_Items" />
           <NavigationProperty Name="Room_Service_Order" Relationship="Self.FK__Additiona__reque__25518C17" FromRole="Additional_Items_Room_Service" ToRole="Room_Service_Order" />
+          <Property Name="isMarked" Type="Boolean" />
+          <NavigationProperty Name="Additional_Items" Relationship="igroup197_test1Model.FK__Additional_I__ID__2645B050" FromRole="Additional_Items_Room_Service" ToRole="Additional_Items" />
         </EntityType>
         <EntityType Name="Category_rating">
           <Key>
@@ -2366,18 +2359,6 @@
             </Principal>
             <Dependent Role="Category_rating">
               <PropertyRef Name="placeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Additional_I__ID__2645B050">
-          <End Role="Additional_Items" Type="Self.Additional_Items" Multiplicity="1" />
-          <End Role="Additional_Items_Room_Service" Type="Self.Additional_Items_Room_Service" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Additional_Items">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Additional_Items_Room_Service">
-              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2905,7 +2886,6 @@
           <EntitySet Name="Activities" EntityType="Self.Activity" />
           <EntitySet Name="Activity_hotel" EntityType="Self.Activity_hotel" />
           <EntitySet Name="Activity_nearBY" EntityType="Self.Activity_nearBY" />
-          <EntitySet Name="Additional_Items" EntityType="Self.Additional_Items" />
           <EntitySet Name="Additional_Items_Room_Service" EntityType="Self.Additional_Items_Room_Service" />
           <EntitySet Name="Category_rating" EntityType="Self.Category_rating" />
           <EntitySet Name="Chats" EntityType="Self.Chat" />
@@ -2955,10 +2935,6 @@
           <AssociationSet Name="FK__Category___place__5441852A" Association="Self.FK__Category___place__5441852A">
             <End Role="Activity" EntitySet="Activities" />
             <End Role="Category_rating" EntitySet="Category_rating" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Additional_I__ID__2645B050" Association="Self.FK__Additional_I__ID__2645B050">
-            <End Role="Additional_Items" EntitySet="Additional_Items" />
-            <End Role="Additional_Items_Room_Service" EntitySet="Additional_Items_Room_Service" />
           </AssociationSet>
           <AssociationSet Name="FK__Additiona__reque__25518C17" Association="Self.FK__Additiona__reque__25518C17">
             <End Role="Room_Service_Order" EntitySet="Room_Service_Order" />
@@ -3156,7 +3132,6 @@
           <EntitySet Name="Drinks" EntityType="igroup197_test1Model.Drink" />
           <EntitySet Name="Foods" EntityType="igroup197_test1Model.Food" />
           <EntitySet Name="Food_And_Drinks" EntityType="igroup197_test1Model.Food_And_Drinks" />
-          <EntitySet Name="Food_And_Drinks_Room_Service" EntityType="igroup197_test1Model.Food_And_Drinks_Room_Service" />
           <AssociationSet Name="FK__Alcohol__ID__19DFD96B" Association="igroup197_test1Model.FK__Alcohol__ID__19DFD96B">
             <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
             <End Role="Alcohol" EntitySet="Alcohols" />
@@ -3168,14 +3143,6 @@
           <AssociationSet Name="FK__Food__ID__17036CC0" Association="igroup197_test1Model.FK__Food__ID__17036CC0">
             <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
             <End Role="Food" EntitySet="Foods" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Food_And_Dri__ID__22751F6C" Association="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C">
-            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
-            <End Role="Food_And_Drinks_Room_Service" EntitySet="Food_And_Drinks_Room_Service" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Food_And___reque__2180FB33" Association="igroup197_test1Model.FK__Food_And___reque__2180FB33">
-            <End Role="Room_Service_Order" EntitySet="Room_Service_Order" />
-            <End Role="Food_And_Drinks_Room_Service" EntitySet="Food_And_Drinks_Room_Service" />
           </AssociationSet>
           <EntitySet Name="Hot_Cold_Drinks" EntityType="igroup197_test1Model.Hot_Cold_Drinks" />
           <AssociationSet Name="FK__Hot_Cold_Dri__ID__1CBC4616" Association="igroup197_test1Model.FK__Hot_Cold_Dri__ID__1CBC4616">
@@ -3206,6 +3173,20 @@
           <AssociationSet Name="FK__Update___email__03072023" Association="igroup197_test1Model.FK__Update___email__03072023">
             <End Role="User" EntitySet="Users" />
             <End Role="Activity_Update" EntitySet="Activity_Update" />
+          </AssociationSet>
+          <EntitySet Name="Food_And_Drinks_Room_Service" EntityType="igroup197_test1Model.Food_And_Drinks_Room_Service" />
+          <AssociationSet Name="FK__Food_And_Dri__ID__22751F6C" Association="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C">
+            <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
+            <End Role="Food_And_Drinks_Room_Service" EntitySet="Food_And_Drinks_Room_Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Food_And___reque__2180FB33" Association="igroup197_test1Model.FK__Food_And___reque__2180FB33">
+            <End Role="Room_Service_Order" EntitySet="Room_Service_Order" />
+            <End Role="Food_And_Drinks_Room_Service" EntitySet="Food_And_Drinks_Room_Service" />
+          </AssociationSet>
+          <EntitySet Name="Additional_Items" EntityType="igroup197_test1Model.Additional_Items" />
+          <AssociationSet Name="FK__Additional_I__ID__2645B050" Association="igroup197_test1Model.FK__Additional_I__ID__2645B050">
+            <End Role="Additional_Items" EntitySet="Additional_Items" />
+            <End Role="Additional_Items_Room_Service" EntitySet="Additional_Items_Room_Service" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Alcohol">
@@ -3248,20 +3229,8 @@
           <NavigationProperty Name="Alcohol" Relationship="igroup197_test1Model.FK__Alcohol__ID__19DFD96B" FromRole="Food_And_Drinks" ToRole="Alcohol" />
           <NavigationProperty Name="Drink" Relationship="igroup197_test1Model.FK__Drinks__ID__14270015" FromRole="Food_And_Drinks" ToRole="Drink" />
           <NavigationProperty Name="Food" Relationship="igroup197_test1Model.FK__Food__ID__17036CC0" FromRole="Food_And_Drinks" ToRole="Food" />
-          <NavigationProperty Name="Food_And_Drinks_Room_Service" Relationship="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" FromRole="Food_And_Drinks" ToRole="Food_And_Drinks_Room_Service" />
           <NavigationProperty Name="Hot_Cold_Drinks" Relationship="igroup197_test1Model.FK__Hot_Cold_Dri__ID__1CBC4616" FromRole="Food_And_Drinks" ToRole="Hot_Cold_Drinks" />
-        </EntityType>
-        <EntityType Name="Food_And_Drinks_Room_Service">
-          <Key>
-            <PropertyRef Name="requestID" />
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="requestID" Type="Int64" Nullable="false" />
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="amount" Type="Int32" />
-          <Property Name="changes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Food_And_Drinks" Relationship="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" FromRole="Food_And_Drinks_Room_Service" ToRole="Food_And_Drinks" />
-          <NavigationProperty Name="Room_Service_Order" Relationship="igroup197_test1Model.FK__Food_And___reque__2180FB33" FromRole="Food_And_Drinks_Room_Service" ToRole="Room_Service_Order" />
+          <NavigationProperty Name="Food_And_Drinks_Room_Service" Relationship="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" FromRole="Food_And_Drinks" ToRole="Food_And_Drinks_Room_Service" />
         </EntityType>
         <Association Name="FK__Alcohol__ID__19DFD96B">
           <End Type="igroup197_test1Model.Food_And_Drinks" Role="Food_And_Drinks" Multiplicity="1" />
@@ -3296,30 +3265,6 @@
             </Principal>
             <Dependent Role="Food">
               <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Food_And_Dri__ID__22751F6C">
-          <End Type="igroup197_test1Model.Food_And_Drinks" Role="Food_And_Drinks" Multiplicity="1" />
-          <End Type="igroup197_test1Model.Food_And_Drinks_Room_Service" Role="Food_And_Drinks_Room_Service" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Food_And_Drinks">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Food_And_Drinks_Room_Service">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Food_And___reque__2180FB33">
-          <End Type="igroup197_test1Model.Room_Service_Order" Role="Room_Service_Order" Multiplicity="1" />
-          <End Type="igroup197_test1Model.Food_And_Drinks_Room_Service" Role="Food_And_Drinks_Room_Service" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Room_Service_Order">
-              <PropertyRef Name="requestID" />
-            </Principal>
-            <Dependent Role="Food_And_Drinks_Room_Service">
-              <PropertyRef Name="requestID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3455,6 +3400,71 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Food_And_Drinks_Room_Service">
+          <Key>
+            <PropertyRef Name="requestID" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="itemsCount" />
+          </Key>
+          <Property Name="requestID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="changes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="itemsCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Food_And_Drinks" Relationship="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" FromRole="Food_And_Drinks_Room_Service" ToRole="Food_And_Drinks" />
+          <NavigationProperty Name="Room_Service_Order" Relationship="igroup197_test1Model.FK__Food_And___reque__2180FB33" FromRole="Food_And_Drinks_Room_Service" ToRole="Room_Service_Order" />
+          <Property Name="isMarked" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK__Food_And_Dri__ID__22751F6C">
+          <End Type="igroup197_test1Model.Food_And_Drinks" Role="Food_And_Drinks" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Food_And_Drinks_Room_Service" Role="Food_And_Drinks_Room_Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food_And_Drinks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Food_And_Drinks_Room_Service">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Food_And___reque__2180FB33">
+          <End Type="igroup197_test1Model.Room_Service_Order" Role="Room_Service_Order" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Food_And_Drinks_Room_Service" Role="Food_And_Drinks_Room_Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room_Service_Order">
+              <PropertyRef Name="requestID" />
+            </Principal>
+            <Dependent Role="Food_And_Drinks_Room_Service">
+              <PropertyRef Name="requestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Additional_Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="inStock" Type="Boolean" />
+          <Property Name="imageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Additional_Items_Room_Service" Relationship="igroup197_test1Model.FK__Additional_I__ID__2645B050" FromRole="Additional_Items" ToRole="Additional_Items_Room_Service" />
+          <Property Name="hotelID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Additional_I__ID__2645B050">
+          <End Type="igroup197_test1Model.Additional_Items" Role="Additional_Items" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Additional_Items_Room_Service" Role="Additional_Items_Room_Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Additional_Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Additional_Items_Room_Service">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3500,22 +3510,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Additional_Items">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Additional_Items">
-              <MappingFragment StoreEntitySet="Additional_Items">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="inStock" ColumnName="inStock" />
-                <ScalarProperty Name="photo" ColumnName="photo" />
-                <ScalarProperty Name="tags" ColumnName="tags" />
-                <ScalarProperty Name="description" ColumnName="description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Additional_Items_Room_Service">
             <EntityTypeMapping TypeName="igroup197_test1Model.Additional_Items_Room_Service">
               <MappingFragment StoreEntitySet="Additional_Items_Room_Service">
+                <ScalarProperty Name="isMarked" ColumnName="isMarked" />
                 <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
@@ -4019,16 +4017,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Food_And_Drinks_Room_Service">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Food_And_Drinks_Room_Service">
-              <MappingFragment StoreEntitySet="Food_And_Drinks_Room_Service">
-                <ScalarProperty Name="changes" ColumnName="changes" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="requestID" ColumnName="requestID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Hot_Cold_Drinks">
             <EntityTypeMapping TypeName="igroup197_test1Model.Hot_Cold_Drinks">
               <MappingFragment StoreEntitySet="Hot_Cold_Drinks">
@@ -4081,6 +4069,32 @@
                 <ScalarProperty Name="favorite" ColumnName="favorite" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food_And_Drinks_Room_Service">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Food_And_Drinks_Room_Service">
+              <MappingFragment StoreEntitySet="Food_And_Drinks_Room_Service">
+                <ScalarProperty Name="isMarked" ColumnName="isMarked" />
+                <ScalarProperty Name="itemsCount" ColumnName="itemsCount" />
+                <ScalarProperty Name="changes" ColumnName="changes" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Additional_Items">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Additional_Items">
+              <MappingFragment StoreEntitySet="Additional_Items">
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="imageURL" ColumnName="imageURL" />
+                <ScalarProperty Name="inStock" ColumnName="inStock" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

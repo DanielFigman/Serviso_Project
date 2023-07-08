@@ -142,7 +142,10 @@
     <Compile Include="DTO\ActivityMoreImagesDTO.cs" />
     <Compile Include="DTO\ActivityNearByDTO.cs" />
     <Compile Include="DTO\ActivityUpdateDTO.cs" />
+    <Compile Include="DTO\AdditionalItemsDTO.cs" />
+    <Compile Include="DTO\AlcoholDTO.cs" />
     <Compile Include="DTO\Custom_Request_Type_DTO.cs" />
+    <Compile Include="DTO\DrinksDTO.cs" />
     <Compile Include="DTO\FacilityDTO.cs" />
     <Compile Include="DTO\FoodDTO.cs" />
     <Compile Include="DTO\HotelDTO.cs" />

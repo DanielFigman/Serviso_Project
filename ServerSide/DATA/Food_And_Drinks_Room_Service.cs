@@ -18,6 +18,8 @@ namespace DATA
         public int ID { get; set; }
         public Nullable<int> amount { get; set; }
         public string changes { get; set; }
+        public int itemsCount { get; set; }
+        public Nullable<bool> isMarked { get; set; }
     
         public virtual Food_And_Drinks Food_And_Drinks { get; set; }
         public virtual Room_Service_Order Room_Service_Order { get; set; }

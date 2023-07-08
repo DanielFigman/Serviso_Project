@@ -19,6 +19,8 @@ namespace DATA
         public string imageURL { get; set; }
         public string tags { get; set; }
 
+        public string type { get; set; }
+
         public void SetFoodDTO(Food_And_Drinks foodParent)
         {
             Food food = foodParent.Food;
@@ -31,6 +33,7 @@ namespace DATA
             tags = foodParent.tags;
             description = food.description;
             possibleChanges = food.possibleChanges;
+            type = "food";
         }
     }
 }

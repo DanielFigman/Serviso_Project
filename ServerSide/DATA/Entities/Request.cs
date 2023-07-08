@@ -141,34 +141,73 @@ namespace DATA
         public void SetNewRequestIdToObject(ref Dictionary<string, Object> convertedDict)
         {
             long requestID = db.Requests.ToList().Count() + 1;
+
+            while (db.Requests.FirstOrDefault(obj => obj.requestID == requestID) != null)
+            {
+                requestID++;
+            }
+
             convertedDict["requestID"] = requestID;
 
-            if (convertedDict.ContainsKey("HouseHold_Request"))
-            {
-                object houseHoldRequestObj = convertedDict["HouseHold_Request"];
-                if (houseHoldRequestObj is Dictionary<string, object> HouseHold_Request)
-                {
-                    HouseHold_Request["requestID"] = requestID;
+            //always add request id to request in order
+            AddRequestIdToRequestInOrder(ref convertedDict, requestID);
 
-                    if (HouseHold_Request.ContainsKey("HouseHold_Custom_Request"))
+            if (convertedDict.ContainsKey("Room_Service_Order"))
+            {
+                AddRequestIdIfRoomServiceRequest(ref convertedDict, requestID);
+            }
+            else if (convertedDict.ContainsKey("HouseHold_Request"))
+            {
+                AddRequestIdIfHouseHoldRequest(ref convertedDict, requestID);
+            }
+        }
+
+        private void AddRequestIdIfRoomServiceRequest(ref Dictionary<string, Object> convertedDict, long requestID)
+        {
+            object roomServiceOrderObj = convertedDict["Room_Service_Order"];
+            if (roomServiceOrderObj is Dictionary<string, object> Room_Service_Order)
+            {
+                Room_Service_Order["requestID"] = requestID;
+
+                if (Room_Service_Order.ContainsKey("Food_And_Drinks_Room_Service"))
+                {
+                    var foodAndDrinksRequest = Room_Service_Order["Food_And_Drinks_Room_Service"] as List<object>;
+                    if (foodAndDrinksRequest != null)
                     {
-                        var houseHoldCustomRequests = HouseHold_Request["HouseHold_Custom_Request"] as List<object>;
-                        if (houseHoldCustomRequests != null)
+                        foreach (var foodOrDrinkRequestObj in foodAndDrinksRequest)
                         {
-                            foreach (var customRequestObj in houseHoldCustomRequests)
+                            if (foodOrDrinkRequestObj is Dictionary<string, object> foodOrDrinkRequestDict && foodOrDrinkRequestDict.ContainsKey("ID") && foodOrDrinkRequestDict.ContainsKey("amount"))
                             {
-                                if (customRequestObj is Dictionary<string, object> customRequestDict && customRequestDict.ContainsKey("typeID") && customRequestDict.ContainsKey("amount"))
+                                if (!foodOrDrinkRequestDict.ContainsKey("itemCount"))
                                 {
-                                    customRequestDict["requestID"] = requestID;
+                                    throw new InvalidJsonSchemaException("Food and drinks must have itemCount key");
                                 }
+
+                                foodOrDrinkRequestDict["requestID"] = requestID;
                             }
                         }
                     }
+                }
 
+                if (Room_Service_Order.ContainsKey("Additional_Items_Room_Service"))
+                {
+                    var additionalItemsRequest = Room_Service_Order["Additional_Items_Room_Service"] as List<object>;
+                    if (additionalItemsRequest != null)
+                    {
+                        foreach (var additionalItemRequestObj in additionalItemsRequest)
+                        {
+                            if (additionalItemRequestObj is Dictionary<string, object> additionalItemRequestDict && additionalItemRequestDict.ContainsKey("ID") && additionalItemRequestDict.ContainsKey("amount"))
+                            {
+                                additionalItemRequestDict["requestID"] = requestID;
+                            }
+                        }
+                    }
                 }
             }
+        }
 
-
+        private void AddRequestIdToRequestInOrder(ref Dictionary<string, Object> convertedDict, long requestID)
+        {
             if (!convertedDict.ContainsKey("Request_In_Order"))
             {
                 List<object> requestInOrderList = new List<object>();
@@ -202,8 +241,30 @@ namespace DATA
                 // adding the "orderID" key to the dictionary
                 requestInOrder["requestID"] = requestID;
             }
+        }
 
+        private void AddRequestIdIfHouseHoldRequest(ref Dictionary<string, Object> convertedDict, long requestID)
+        {
+            object houseHoldRequestObj = convertedDict["HouseHold_Request"];
+            if (houseHoldRequestObj is Dictionary<string, object> HouseHold_Request)
+            {
+                HouseHold_Request["requestID"] = requestID;
 
+                if (HouseHold_Request.ContainsKey("HouseHold_Custom_Request"))
+                {
+                    var houseHoldCustomRequests = HouseHold_Request["HouseHold_Custom_Request"] as List<object>;
+                    if (houseHoldCustomRequests != null)
+                    {
+                        foreach (var customRequestObj in houseHoldCustomRequests)
+                        {
+                            if (customRequestObj is Dictionary<string, object> customRequestDict && customRequestDict.ContainsKey("typeID") && customRequestDict.ContainsKey("amount"))
+                            {
+                                customRequestDict["requestID"] = requestID;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
