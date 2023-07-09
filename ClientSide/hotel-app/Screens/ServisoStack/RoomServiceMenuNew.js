@@ -12,7 +12,7 @@ const RoomServiceMenuNew = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [cartModalVisible, setCartModalVisible] = useState(false);
     const [imageUrlToShow, setImageUrlToShow] = useState(null);
-    const { food, drinks, alcohol, additionalItems, cart, setCart } = useContext(HotelsAppContext);
+    const { food, drinks, alcohol, additionalItems, cart, setCart, order} = useContext(HotelsAppContext);
 
     useEffect(() => {
         let newTotalPrice = 0;
@@ -180,6 +180,7 @@ const RoomServiceMenuNew = () => {
                         setModalVisible={setCartModalVisible}
                         cart={cart}
                         setCart={setCart}
+                        order={order}
                     />
                 </>
             }

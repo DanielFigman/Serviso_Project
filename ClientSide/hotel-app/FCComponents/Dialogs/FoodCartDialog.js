@@ -1,13 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@rneui/base';
 import { Modal, PanResponder, ScrollView, StyleSheet, Text, View } from 'react-native';
 import RoomServiceCartCard from '../Cards/RoomServiceCartCard';
 import ButtonMain from '../Buttons';
 
-const tempCart = [{ "ID": 1002001, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/0bxA1za.png", "itemsCount": 1, "name": "Grilled Chicken Sandwich", "price": 55, "type": "food" }, { "ID": 1002002, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/MvOW2Kf.png", "itemsCount": 2, "name": "Shakshuka", "price": 45, "type": "food" }, { "ID": 1002003, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/OsqDbbO.png", "itemsCount": 3, "name": "Beef Stir-Fry", "price": 75, "type": "food" }, { "ID": 1002004, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/NfXCLfZ.png", "itemsCount": 4, "name": "Grilled Salmon Salad", "price": 65, "type": "food" }, { "ID": 1002005, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/LpTIiej.png", "itemsCount": 5, "name": "Vegetable Curry", "price": 40, "type": "food" }, { "ID": 1002006, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/8AXlUBP.png", "itemsCount": 6, "name": "Falafel Plate", "price": 30, "type": "food" }, { "ID": 1002007, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/YYOHGBCs.png", "itemsCount": 7, "name": "Beef Kebab", "price": 55, "type": "food" }, { "ID": 1002008, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/b5aTD7r.jpg", "itemsCount": 8, "name": "Tofu Pad Thai", "price": 45, "type": "food" }, { "ID": 1002010, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/oXI1QIO.jpg", "itemsCount": 9, "name": "Grilled Vegetable Platter", "price": 45, "type": "food" }, { "ID": 1002011, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/Jl0IJpt.png", "itemsCount": 10, "name": "Grilled Ribeye Steak", "price": 140, "type": "food" }, { "ID": 1002012, "amount": 1, "changes": null, "imageURL": "https://i.imgur.com/5j2Hmfu.jpg", "itemsCount": 11, "name": "Lemon-Herb Roasted Chicken", "price": 95, "type": "food" }]
-
-
-const FoodCartDialog = ({ modalVisible, setModalVisible, cart, setCart }) => {
+const FoodCartDialog = ({ modalVisible, setModalVisible, cart, setCart, order }) => {
 
     const handleScroll = (event) => {
         const offsetY = event.nativeEvent.contentOffset.y;
@@ -16,6 +13,17 @@ const FoodCartDialog = ({ modalVisible, setModalVisible, cart, setCart }) => {
                 setModalVisible(false)
             }
     };
+
+    const [isSucceed, setIsSucceed] = useState(false)
+
+    useEffect(() => {
+      if(isSucceed){
+        setCart([]);
+        setIsSucceed(false)
+        setModalVisible(false);
+      }
+    }, [isSucceed])
+    
 
     const renderCards = () => {
         return cart?.map((obj, index) => (
@@ -29,6 +37,105 @@ const FoodCartDialog = ({ modalVisible, setModalVisible, cart, setCart }) => {
         cart.forEach(obj => total += obj.amount * obj.price)
 
         return total;
+    }
+
+    const handleSendOrder = async () => {
+        if (cart?.length !== 0) {
+            const postObject = GetRequestObject();
+            try {
+                const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/newRequest', {
+                    method: 'POST',
+                    body: JSON.stringify(postObject),
+                    headers: new Headers({
+                        'Content-type': 'application/json; charset=UTF-8',
+                    })
+                });
+
+                if (response.ok) {
+                    setIsSucceed(true);
+                } else {
+                    const errorMessage = await response.text();
+                    const errorObject = JSON.parse(errorMessage);
+                    const errorType = errorObject.type;
+                    const errorMessageText = errorObject.message;
+
+                    console.log(`Error: ${response.status} - ${errorType} - ${errorMessageText}`);
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
+    const GetTimeNow = () => {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const timeNow = `${hours}:${minutes}:${seconds}`;
+
+        return timeNow;
+    }
+
+    const GetRequestObject = () => {
+        //creating the parent
+        let retVal = {};
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const formattedDate = `${year}/${month}/${day}`;
+        const requestDate = formattedDate
+        const requestHour = GetTimeNow();
+        const status = "open";
+
+        retVal["requestDate"] = requestDate;
+        retVal["requestHour"] = requestHour;
+        retVal["status"] = status;
+
+        //craeting the children
+        const room_Service_Order = {};
+        const requestInOrder = [];
+
+        requestInOrder[0] = { orderID: order.orderID, price: getTotal() }
+
+
+        //creating the grand children
+        const _ = require('lodash');
+
+        const foodAndDrinksRoomService = _.cloneDeep(getTheNeededPropsFromFoodAndDrinks());
+        const additionalItems = _.cloneDeep(getTheNeededPropsFromAdditional());
+
+        // setting the grand child to his parent
+        room_Service_Order["Food_And_Drinks_Room_Service"] = foodAndDrinksRoomService;
+        room_Service_Order["Additional_Items_Room_Service"] = additionalItems;
+
+        //setting the childredn to the parent
+        retVal["Room_Service_Order"] = room_Service_Order;
+        retVal["Request_In_Order"] = requestInOrder;
+
+        console.log(retVal)
+
+        return retVal;
+    }
+
+    const getTheNeededPropsFromFoodAndDrinks = () => {
+        const retVal = cart?.filter(obj => obj.type).map(({ ID, amount, changes, itemsCount }) => ({
+            ID,
+            amount,
+            changes,
+            itemsCount
+        }));
+        return retVal;
+    }
+
+    const getTheNeededPropsFromAdditional = () => {
+        const retVal = cart?.filter(obj => !obj.type).map(({ ID, amount, }) => ({
+            ID,
+            amount
+        }));
+        return retVal;
     }
 
     return (
@@ -58,7 +165,7 @@ const FoodCartDialog = ({ modalVisible, setModalVisible, cart, setCart }) => {
                         </Text>
                     </View>
                     <View style={{ paddingBottom: 100, marginTop: 20, justifyContent: "center" }}>
-                        <ButtonMain text={"Send Order"} buttonStyle={{ height: 40 }} textStyle={{ fontSize: 22 }} />
+                        <ButtonMain text={"Send Order"} buttonStyle={{ height: 40 }} textStyle={{ fontSize: 22 }} onPress={handleSendOrder} />
                     </View>
                 </ScrollView>
             </View>
