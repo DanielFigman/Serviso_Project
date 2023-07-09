@@ -36,7 +36,7 @@ const RoomServiceCartCard = ({ item, cart, setCart }) => {
         }
         break;
     }
-  }; 
+  };
 
   const handleDelete = () => {
     if (item.type) {
@@ -139,7 +139,8 @@ const RoomServiceCartCard = ({ item, cart, setCart }) => {
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <View style={styles.container}>
-        <LoadingImage imageURL={item.imageURL} style={{ height: 100, width: 100, borderRadius: 5, }} />
+        <LoadingImage imageURL={item.imageURL} style={{ height: 100, width: 100, borderRadius: 5, }} type={"food"}
+        />
         <View style={styles.info}>
           <View>
             <Text style={{ fontSize: 15, fontWeight: "bold", fontFamily: "Courier New" }}>{item.name}</Text>

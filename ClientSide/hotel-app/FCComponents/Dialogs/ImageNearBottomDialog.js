@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import LoadingImage from '../LoadingImage'
 import { Dialog } from '@rneui/base'
 
-const ImageNearBottomDialog = ({ imageURL, modalVisible, setModalVisible}) => {
+const ImageNearBottomDialog = ({ imageURL, modalVisible, setModalVisible, type}) => {
     return (
 
         <Dialog
@@ -12,7 +12,7 @@ const ImageNearBottomDialog = ({ imageURL, modalVisible, setModalVisible}) => {
             onBackdropPress={() => setModalVisible(!modalVisible)}
             overlayStyle={{ maxHeight:400, minWidth:400, backgroundColor:"rgba(128, 128, 128, 0.5)"}}
         >
-            <LoadingImage imageURL={imageURL} style={{height:"100%", width:"100%"}}/>
+            <LoadingImage imageURL={imageURL} style={{height:"100%", width:"100%"}} type={type}/>
         </Dialog>
 
     )

@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import LoadingImage from "../LoadingImage";
 
-const SmallCard = ({ item, id, type, withPrice}) => {
+const SmallCard = ({ item, id, type, withPrice, typeImage}) => {
   const navigation = useNavigation();
 
   return (
@@ -35,6 +35,7 @@ const SmallCard = ({ item, id, type, withPrice}) => {
             borderTopRightRadius: 20,
           }}
           imageURL={item.imageURL}
+          type={typeImage}
         />
         <View style={{ padding: 5, alignItems: "center" }}>
           <Text

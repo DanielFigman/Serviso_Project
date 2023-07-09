@@ -5,7 +5,7 @@ import { MD5 } from 'crypto-js';
 
 const imageCache = {};
 
-const LoadingImage = ({ imageURL, style }) => {
+const LoadingImage = ({ imageURL, style, type }) => {
   const [cachedImageURI, setCachedImageURI] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -68,7 +68,11 @@ const LoadingImage = ({ imageURL, style }) => {
   };
 
   if (isLoading) {
-    return <Image style={style} source={require('../assets/imageLoading.gif')} />;
+    if (type && type === "food") {
+      return <Image style={style} source={require('../assets/foodLoading.gif')} />;
+    } else {
+      return <Image style={style} source={require('../assets/imageLoading.gif')} />;
+    }
   }
 
   if (error) {

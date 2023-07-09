@@ -123,6 +123,7 @@ const AddToCartDialog = ({
                     <LoadingImage
                         imageURL={item.imageURL}
                         style={styles.image}
+                        type={"food"}
                     />
                     <View style={styles.titleContainer}>
                         <Text style={styles.name}>{item.name}</Text>
