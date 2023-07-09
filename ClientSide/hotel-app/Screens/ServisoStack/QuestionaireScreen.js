@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, TouchableOpacity,  ScrollView } from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import QuestionaireSlider from '../../FCComponents/QuestionaireSlider';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
@@ -33,8 +33,12 @@ const QuestionaireScreen = () => {
         <ScreenComponent additionalTopButton={infoButton} topLeftButtonStyle={{ flex: 1 }}
             content={
                 <ScrollView style={{ flex: 1, paddingHorizontal: 20, marginTop: 10 }}>
-                    <QuestionnaireDialog setModalVisible={setModalVisible} modalVisible={modalVisible}/>
-
+                    {
+                        modalVisible ?
+                            <QuestionnaireDialog setModalVisible={setModalVisible} modalVisible={modalVisible} />
+                            :
+                            <></>
+                    }
                     {Object.keys(tempQuestionnaire).map((key, index) => (
                         <View key={index} style={{ marginVertical: 16 }}>
                             <QuestionaireSlider

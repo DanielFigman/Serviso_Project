@@ -1,12 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import ScreenComponent from './ScreenComponent'
-import NearByBottomBar from './NearByBottomBar'
-import { ScrollView } from 'react-native-gesture-handler'
 import { FaceSmileIcon, HeartIcon } from 'react-native-heroicons/outline'
 import DescriptionDialaog from './Dialogs/DescriptionDialaog'
 import RatingIconsComp from './RatingIconsComp'
-import ImageNearBottomDialog from './Dialogs/ImageNearBottomDialog'
 import ImagesCarouselNearBottom from './ImagesCarouselNearBottom'
 import { HotelsAppContext } from '../Context/HotelsAppContext'
 

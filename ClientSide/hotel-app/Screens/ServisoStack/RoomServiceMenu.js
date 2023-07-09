@@ -1,15 +1,11 @@
 import { useRoute } from '@react-navigation/core';
-import React, { cloneElement, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
     FlatList,
     Image,
     TouchableOpacity,
-    Modal,
-    StyleSheet,
-    Button,
-    Alert,
 } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -109,7 +105,12 @@ export default RoomServiceMenu = () => {
                         />
                     </TouchableOpacity>
                 </View>
-                <ImageNearBottomDialog imageURL={item.imageURL} setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+                {
+                    modalVisible ?
+                        <ImageNearBottomDialog imageURL={item.imageURL} setModalVisible={setModalVisible} modalVisible={modalVisible} />
+                        :
+                        <></>
+                }
                 <View style={{ justifyContent: 'center', backgroundColor: '#FBF9F8', padding: 6, borderRadius: 10, }}>
                     <Text style={{ fontWeight: 'bold', fontSize: 17 }}>{item.name}</Text>
                     <Text style={{ fontSize: 13 }}>Price: ${item.price}</Text>

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useRoute } from '@react-navigation/core';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import FoodCard from '../../FCComponents/Cards/FoodCard';
@@ -12,7 +11,7 @@ const RoomServiceMenuNew = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [cartModalVisible, setCartModalVisible] = useState(false);
     const [imageUrlToShow, setImageUrlToShow] = useState(null);
-    const { food, drinks, alcohol, additionalItems, cart, setCart, order} = useContext(HotelsAppContext);
+    const { food, drinks, alcohol, additionalItems, cart, setCart, order } = useContext(HotelsAppContext);
 
     useEffect(() => {
         let newTotalPrice = 0;
@@ -175,13 +174,19 @@ const RoomServiceMenuNew = () => {
                         )}
                         keyExtractor={(item) => item.ID}
                     />
-                    <FoodCartDialog
-                        modalVisible={cartModalVisible}
-                        setModalVisible={setCartModalVisible}
-                        cart={cart}
-                        setCart={setCart}
-                        order={order}
-                    />
+                    {
+                        cartModalVisible ?
+                            <FoodCartDialog
+                                modalVisible={cartModalVisible}
+                                setModalVisible={setCartModalVisible}
+                                cart={cart}
+                                setCart={setCart}
+                                order={order}
+                            />
+                            :
+                            <></>
+                    }
+
                 </>
             }
         />

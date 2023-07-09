@@ -8,7 +8,12 @@ const ImageNearBottom = ({ imageUrl }) => {
 
     return (
         <View style={styles.container}>
-            <ImageNearBottomDialog imageURL={imageUrl} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            {
+                modalVisible ?
+                    <ImageNearBottomDialog imageURL={imageUrl} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+                    :
+                    <></>
+            }
             <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <LoadingImage imageURL={imageUrl} style={{ height: 150, width: 150, borderRadius: 5 }} />
             </TouchableOpacity>
