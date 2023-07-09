@@ -10,11 +10,6 @@ import PasswordResetScreen from "./Screens/MainStack/PasswordResetScreen";
 import CreateUserScreen from "./Screens/MainStack/CreateUserScreen";
 import MainScreen from "./Screens/MainStack/MainScreen";
 
-import 'react-native-gesture-handler';
-import { enableScreens } from 'react-native-screens';
-
-enableScreens();
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
