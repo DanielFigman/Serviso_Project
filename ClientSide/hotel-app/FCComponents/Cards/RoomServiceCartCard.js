@@ -139,7 +139,8 @@ const RoomServiceCartCard = ({ item, cart, setCart }) => {
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <View style={styles.container}>
-        <LoadingImage imageURL={item.imageURL} style={{ height: 100, width: 100, borderRadius: 5, }} type={"food"}
+        <LoadingImage imageURL={item.imageURL} style={{ height: 100, width: 100, borderRadius: 5, }}
+          type={item.type === "Drink" || item.type === "Alcohol" ? item.category : item.type ? item.type : "additional"}
         />
         <View style={styles.info}>
           <View>

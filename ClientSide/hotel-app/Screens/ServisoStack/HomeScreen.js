@@ -63,7 +63,8 @@ const HomeScreen = () => {
             <ScrollView horizontal={true}>
                 {retVal.map((item) => {
                     return (
-                        <SmallCard key={item.ID} item={item} id={item.ID} typeImage="food"/>
+                        <SmallCard key={item.ID} item={item} id={item.ID}
+                            typeImage={item.type === "Drink" ? item.category : item.type ? item.type : "additional"} />
                     );
                 })}
             </ScrollView>

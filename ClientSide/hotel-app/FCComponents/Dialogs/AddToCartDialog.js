@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@rneui/base';
 import LoadingImage from '../LoadingImage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import ButtonMain from '../Buttons';
 
 const AddToCartDialog = ({
     item,
@@ -123,8 +122,7 @@ const AddToCartDialog = ({
                     <LoadingImage
                         imageURL={item.imageURL}
                         style={styles.image}
-                        type={"food"}
-                    />
+                        type={item.type === "Drink" || item.type === "Alcohol" ? item.category : item.type ? item.type : "additional"}                    />
                     <View style={styles.titleContainer}>
                         <Text style={styles.name}>{item.name}</Text>
                     </View>

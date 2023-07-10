@@ -68,8 +68,21 @@ const LoadingImage = ({ imageURL, style, type }) => {
   };
 
   if (isLoading) {
-    if (type && type === "food") {
-      return <Image style={style} source={require('../assets/foodLoading.gif')} />;
+    if (type) {
+      switch (type) {
+        case "food":
+          return <Image style={style} source={require('../assets/foodLoading.gif')} />
+        case "HOT":
+          return <Image style={style} source={require('../assets/hot-loading.gif')} />;
+        case "COLD":
+          return <Image style={style} source={require('../assets/coca-cola-loading.gif')} />;
+        case "WINE":
+          return <Image style={style} source={require('../assets/wine-loading.gif')} />;
+        case "COCKTAIL":
+          return <Image style={style} source={require('../assets/cocktail-loading.gif')} />;
+        default:
+          return <Image style={style} source={require('../assets/cart-loading.gif')} />;
+      }
     } else {
       return <Image style={style} source={require('../assets/imageLoading.gif')} />;
     }

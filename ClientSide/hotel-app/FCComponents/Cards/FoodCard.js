@@ -39,8 +39,7 @@ const FoodCard = ({ item, setCart, cart }) => {
                         <LoadingImage
                             imageURL={item.imageURL}
                             style={styles.image}
-                            type={"food"}
-                        />
+                            type={item.type === "Drink" || item.type === "Alcohol" ? item.category : item.type ? item.type : "additional"} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.detailsContainer}>
@@ -72,8 +71,7 @@ const FoodCard = ({ item, setCart, cart }) => {
                             imageURL={item.imageURL}
                             modalVisible={modalVisible}
                             setModalVisible={setModalVisible}
-                            type={"food"}
-                        />
+                            type={item.type === "Drink" || item.type === "Alcohol" ? item.category : item.type ? item.type : "additional"} />
                         :
                         <></>
                 }
