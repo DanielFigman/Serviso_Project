@@ -71,30 +71,30 @@ const LoadingImage = ({ imageURL, style, type }) => {
     if (type) {
       switch (type) {
         case "food":
-          return <Image style={style} source={require('../assets/foodLoading.gif')} />
+          return <Image style={style} source={require('../assets/foodLoading.gif')} resizeMethod='scale'/>
         case "HOT":
-          return <Image style={style} source={require('../assets/hot-loading.gif')} />;
+          return <Image style={style} source={require('../assets/hot-loading.gif')} resizeMethod='scale'/>;
         case "COLD":
-          return <Image style={style} source={require('../assets/coca-cola-loading.gif')} />;
+          return <Image style={style} source={require('../assets/coca-cola-loading.gif')} resizeMethod='scale'/>;
         case "WINE":
-          return <Image style={style} source={require('../assets/wine-loading.gif')} />;
+          return <Image style={style} source={require('../assets/wine-loading.gif')} resizeMethod='scale'/>;
         case "COCKTAIL":
-          return <Image style={style} source={require('../assets/cocktail-loading.gif')} />;
+          return <Image style={style} source={require('../assets/cocktail-loading.gif')} resizeMethod='scale' />;
         default:
-          return <Image style={style} source={require('../assets/cart-loading.gif')} />;
+          return <Image style={style} source={require('../assets/cart-loading.gif')} resizeMethod='scale'/>;
       }
     } else {
-      return <Image style={style} source={require('../assets/imageLoading.gif')} />;
+      return <Image style={style} source={require('../assets/imageLoading.gif')} resizeMethod='scale'/>;
     }
   }
 
   if (error) {
     // Handle the error case here
-    return <Image style={style} source={require('../assets/errorImage.png')} />;
+    return <Image style={style} source={require('../assets/errorImage.png')} resizeMethod='scale'/>;
   }
 
   if (cachedImageURI) {
-    return <Image style={style} source={{ uri: cachedImageURI }} />;
+    return <Image style={style} source={{ uri: cachedImageURI }} resizeMethod='scale' />;
   }
 
   // Handle any other fallback case here

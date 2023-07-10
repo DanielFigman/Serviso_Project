@@ -51,13 +51,23 @@ const HomeScreen = () => {
 
     const renderRoomServiceCards = () => {
         let retVal = [];
+        console.log(alcohol)
 
-        retVal = retVal.concat(
-            food?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
-            drinks?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
-            alcohol?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
-            additionalItems?.slice(0, 5).map(item => ({ ...item, typeOrder: 'additional_items' })),
-        ).flat();
+        if(alcohol){
+            retVal = retVal.concat(
+                food?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+                drinks?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+                alcohol?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+                additionalItems?.slice(0, 5).map(item => ({ ...item, typeOrder: 'additional_items' })),
+            ).flat();
+        } else {
+            retVal = retVal.concat(
+                food?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+                drinks?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
+                additionalItems?.slice(0, 5).map(item => ({ ...item, typeOrder: 'additional_items' })),
+            ).flat();
+        }
+     
 
         return (
             <ScrollView horizontal={true}>
