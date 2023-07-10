@@ -178,7 +178,7 @@ namespace DATA
                         {
                             if (foodOrDrinkRequestObj is Dictionary<string, object> foodOrDrinkRequestDict && foodOrDrinkRequestDict.ContainsKey("ID") && foodOrDrinkRequestDict.ContainsKey("amount"))
                             {
-                                if (!foodOrDrinkRequestDict.ContainsKey("itemCount"))
+                                if (!foodOrDrinkRequestDict.ContainsKey("itemsCount"))
                                 {
                                     throw new InvalidJsonSchemaException("Food and drinks must have itemCount key");
                                 }

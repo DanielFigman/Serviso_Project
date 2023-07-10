@@ -228,6 +228,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\AdminHotelServicesController.cs" />
     <Compile Include="Controllers\AdminHouseHoldRequestController.cs" />
     <Compile Include="Controllers\FavsAndRatingController.cs" />
     <Compile Include="Controllers\FirebaseController.cs" />
