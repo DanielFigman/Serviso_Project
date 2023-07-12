@@ -50,6 +50,25 @@ export default function HotelsAppContextProvider(props) {
         console.log("Context cleared")
     }
 
+    const setLoginInfo = (email, object) => {
+        setUser({ email, fName: object.fName, sName: object.sName, gender: object.gender, phone: object.phone, dateOfBirth: object.dateOfBirth });
+        setRetrivedNtoken(object.Ntoken ? object.Ntoken : null)
+        setOrder({ orderID: object.orderID, checkInDate: object.checkInDate, checkOutDate: object.checkOutDate, hotelID: object.hotelID });
+        setActivities_nearBy(object.activities_nearBy);
+        setSuggestedActivities(object.suggestedActivities);
+        setActivities_hotel(object.activities_hotel);
+        setFacilities(object.facilities);
+        setCustom_Request_Types(object.custom_Request_Types);
+        setTherapies(object.therapies);
+        setHotel(object.hotel)
+        setlanguage(object.languageShortName)
+        setFood(object.food)
+        setDrinks(object.drinks)
+        setAlcohol(object.alcohol)
+        setAdditionalItems(object.additionalItems)
+        setNewQuestionnaire(object.questionnaire)
+    }
+
     const updatedActivitiesRef = useRef(null)
     const updatedActivitiesInitRef = useRef(null)
     const emailRef = useRef(null)
@@ -282,7 +301,8 @@ export default function HotelsAppContextProvider(props) {
                 additionalItems,
                 setAdditionalItems,
                 cart, 
-                setCart
+                setCart,
+                setLoginInfo
             }}
         >
             {props.children}

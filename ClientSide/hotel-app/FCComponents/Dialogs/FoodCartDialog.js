@@ -114,9 +114,7 @@ const FoodCartDialog = ({ modalVisible, setModalVisible, cart, setCart, order })
         //setting the childredn to the parent
         retVal["Room_Service_Order"] = room_Service_Order;
         retVal["Request_In_Order"] = requestInOrder;
-
-        console.log(retVal)
-
+        
         return retVal;
     }
 

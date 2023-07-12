@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CommonActions, useNavigation, DrawerActions } from "@react-navigation/native";
 import { ArrowDownCircleIcon } from "react-native-heroicons/mini";
 import { ArrowRightCircleIcon } from "react-native-heroicons/mini";
@@ -14,12 +14,14 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from "@rea
 import { Icon } from "@rneui/themed";
 import WelcomeScreen from "../MainStack/WelcomeScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
+import LanguageSelect from "../../FCComponents/LanguageSelect";
+import Loading from "../../FCComponents/Loading";
 
 const Drawer = createDrawerNavigator();
 
 export default function Setting() {
   const navigation = useNavigation();
-  const { clearContext } = useContext(HotelsAppContext);
+  const { clearContext, language, setlanguage, user, setIsLoading, isLoading} = useContext(HotelsAppContext);
 
   const handleLogOut = () => {
     console.log("log out pressed");
@@ -30,14 +32,23 @@ export default function Setting() {
     });
   };
 
+  useEffect(() => {
+    if(isLoading)
+    {
+      navigation.dispatch(DrawerActions.closeDrawer());
+    }
+  }, [isLoading])
+  
+
   const CustomDrawerContent = (props) => {
     return (
       <SafeAreaView>
+        <LanguageSelect languageContext={language} setlanguageContext={setlanguage} buttonStyle={{ width: "60%", backgroundColor: "transparent", alignItems: "center", left: "18%", marginTop: 120 }} updateServer={true} email={user.email} setIsLoading={setIsLoading}/>
         <DrawerItem
           label="Log Out"
           onPress={handleLogOut}
-          style={{ height: "100%", display: "flex", width: "100%"}}
-          labelStyle={{textAlign:"center", fontSize:20}}
+          style={{ height: "100%", display: "flex", width: "100%" }}
+          labelStyle={{ textAlign: "center", fontSize: 20 }}
         />
       </SafeAreaView>
     );
@@ -47,8 +58,8 @@ export default function Setting() {
     <Drawer.Navigator
       initialRouteName="PersonalPageScreen"
       screenOptions={{
-        drawerStyle: { width: "35%", backgroundColor: "white" },
-        overlayColor: "transparent",
+        drawerStyle: { width: "35%", backgroundColor: "#EBEBEB" },
+        overlayColor: "rgba(128, 128, 128, 0.5)",
         drawerType: "back",
         drawerPosition: "right",
       }}
@@ -64,7 +75,7 @@ export default function Setting() {
 }
 
 const PersonalPageScreen = () => {
-  const { language, user } = useContext(HotelsAppContext);
+  const { language, user, isLoading } = useContext(HotelsAppContext);
 
   const navigation = useNavigation();
 
@@ -74,125 +85,132 @@ const PersonalPageScreen = () => {
 
   return (
     <ScreenComponent
-      backgroundShapes={true}
+      backgroundShapes={!isLoading}
       topLeftButton={"none"}
       bottomMenu={true}
       content={
-        <View>
-          <View style={{ marginBottom: 80 }}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <View style={{ display: "flex", flex: 1 }}>
-                <Text style={styles.title}>{screenContent.MyPage[language]}</Text>
-              </View>
-              <View style={{ right: 5 }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.dispatch(DrawerActions.openDrawer());
-                  }}
-                >
-                  <Icon name="settings" />
-                </TouchableOpacity>
-              </View>
-            </View>
-            <Image
-              style={styles.Image}
-              source={
-                user.gender == "woman"
-                  ? require("../../assets/persona.png")
-                  : require("../../assets/male-avatar.png")
-              }
-            />
-            <Text style={styles.Details}>{user.fName + " " + user.sName}</Text>
-            <Text style={styles.Details}>{user.email}</Text>
-          </View>
-          <View style={styles.rowView}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.text}>{screenContent.CheckIn[language]}</Text>
-            </View>
-            <ButtonArrow navigate={"NewCheckInScreen"} />
-          </View>
-          <View style={styles.rowView}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.text}>{screenContent.CheckOut[language]}</Text>
-            </View>
-            <ButtonArrow navigate={""} />
-          </View>
-
-          <View>
-            <ListItemAccordion
-              containerStyle={styles.listAccordionContainer}
-              icon={<ArrowRightCircleIcon style={styles.arrowList} size={30} />}
-              expandIcon={<ArrowDownCircleIcon style={styles.arrowList} size={30} />}
-              noRotation={true}
-              content={
-                <Text style={StyleSheet.flatten([styles.text, { left: 7 }])}>
-                  {screenContent.HouseHold[language]}
-                </Text>
-              }
-              isExpanded={isOpen}
-              onPress={() => setIsOpen(!isOpen)}
-            >
-              <ListItem key={1} containerStyle={styles.listItemContainer}>
-                <ListItem.Content>
-                  <View style={styles.listItemView}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.text}>
-                        {screenContent.RoomCleaningSchedule[language]}
-                      </Text>
+        <>
+          {
+            isLoading ?
+              <Loading />
+              :
+              <View>
+                <View style={{ marginBottom: 80 }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View style={{ display: "flex", flex: 1 }}>
+                      <Text style={styles.title}>{screenContent.MyPage[language]}</Text>
                     </View>
-                    <View>
+                    <View style={{ right: 5 }}>
                       <TouchableOpacity
-                        onPress={() => navigation.navigate("RoomCleaningScreen")}
+                        onPress={() => {
+                          navigation.dispatch(DrawerActions.openDrawer());
+                        }}
                       >
-                        <ArrowRightCircleIcon
-                          color={styles.arrow.color}
-                          size={styles.arrow.fontSize}
-                          style={styles.arrow}
-                        />
+                        <Icon name="settings" />
                       </TouchableOpacity>
                     </View>
                   </View>
-                </ListItem.Content>
-              </ListItem>
-
-              <ListItem key={2} containerStyle={styles.listItemContainer}>
-                <ListItem.Content>
-                  <View style={styles.listItemView}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.text}>
-                        {screenContent.NewRequest[language]}
-                      </Text>
-                    </View>
-                    <View>
-                      <TouchableOpacity
-                        onPress={() => navigation.navigate("CustomRequestScreen")}
-                      >
-                        <ArrowRightCircleIcon
-                          color={styles.arrow.color}
-                          size={styles.arrow.fontSize}
-                          style={styles.arrow}
-                        />
-                      </TouchableOpacity>
-                    </View>
+                  <Image
+                    style={styles.Image}
+                    source={
+                      user.gender == "woman"
+                        ? require("../../assets/persona.png")
+                        : require("../../assets/male-avatar.png")
+                    }
+                  />
+                  <Text style={styles.Details}>{user.fName + " " + user.sName}</Text>
+                  <Text style={styles.Details}>{user.email}</Text>
+                </View>
+                <View style={styles.rowView}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.text}>{screenContent.CheckIn[language]}</Text>
                   </View>
-                </ListItem.Content>
-              </ListItem>
-            </ListItemAccordion>
-          </View>
-          <View style={styles.rowView}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.text}>
-                {screenContent.HotelNavigation[language]}
-              </Text>
-            </View>
-            <ButtonArrow navigate={"HotelNavigation"} />
-          </View>
-        </View>
+                  <ButtonArrow navigate={"NewCheckInScreen"} />
+                </View>
+                <View style={styles.rowView}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.text}>{screenContent.CheckOut[language]}</Text>
+                  </View>
+                  <ButtonArrow navigate={""} />
+                </View>
+
+                <View>
+                  <ListItemAccordion
+                    containerStyle={styles.listAccordionContainer}
+                    icon={<ArrowRightCircleIcon style={styles.arrowList} size={30} />}
+                    expandIcon={<ArrowDownCircleIcon style={styles.arrowList} size={30} />}
+                    noRotation={true}
+                    content={
+                      <Text style={StyleSheet.flatten([styles.text, { left: 7 }])}>
+                        {screenContent.HouseHold[language]}
+                      </Text>
+                    }
+                    isExpanded={isOpen}
+                    onPress={() => setIsOpen(!isOpen)}
+                  >
+                    <ListItem key={1} containerStyle={styles.listItemContainer}>
+                      <ListItem.Content>
+                        <View style={styles.listItemView}>
+                          <View style={{ flex: 1 }}>
+                            <Text style={styles.text}>
+                              {screenContent.RoomCleaningSchedule[language]}
+                            </Text>
+                          </View>
+                          <View>
+                            <TouchableOpacity
+                              onPress={() => navigation.navigate("RoomCleaningScreen")}
+                            >
+                              <ArrowRightCircleIcon
+                                color={styles.arrow.color}
+                                size={styles.arrow.fontSize}
+                                style={styles.arrow}
+                              />
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      </ListItem.Content>
+                    </ListItem>
+
+                    <ListItem key={2} containerStyle={styles.listItemContainer}>
+                      <ListItem.Content>
+                        <View style={styles.listItemView}>
+                          <View style={{ flex: 1 }}>
+                            <Text style={styles.text}>
+                              {screenContent.NewRequest[language]}
+                            </Text>
+                          </View>
+                          <View>
+                            <TouchableOpacity
+                              onPress={() => navigation.navigate("CustomRequestScreen")}
+                            >
+                              <ArrowRightCircleIcon
+                                color={styles.arrow.color}
+                                size={styles.arrow.fontSize}
+                                style={styles.arrow}
+                              />
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      </ListItem.Content>
+                    </ListItem>
+                  </ListItemAccordion>
+                </View>
+                <View style={styles.rowView}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.text}>
+                      {screenContent.HotelNavigation[language]}
+                    </Text>
+                  </View>
+                  <ButtonArrow navigate={"HotelNavigation"} />
+                </View>
+              </View>
+          }
+        </>
       }
     />
   );

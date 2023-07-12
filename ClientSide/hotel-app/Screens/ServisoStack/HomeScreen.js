@@ -51,7 +51,6 @@ const HomeScreen = () => {
 
     const renderRoomServiceCards = () => {
         let retVal = [];
-        console.log(alcohol)
 
         if(alcohol){
             retVal = retVal.concat(

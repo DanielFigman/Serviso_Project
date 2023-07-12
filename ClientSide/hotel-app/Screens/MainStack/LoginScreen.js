@@ -13,21 +13,7 @@ const LoginScreen = () => {
     language,
     setlanguage,
     setIsLoading,
-    setUser,
-    setOrder,
-    setActivities_nearBy,
-    setActivities_hotel,
-    setFacilities,
-    setCustom_Request_Types,
-    setTherapies,
-    setHotel,
-    setFood,
-    setRetrivedNtoken,
-    setNewQuestionnaire,
-    setSuggestedActivities,
-    setDrinks,
-    setAlcohol,
-    setAdditionalItems
+    setLoginInfo
   } = useContext(HotelsAppContext)
 
 
@@ -57,25 +43,9 @@ const LoginScreen = () => {
         });
 
         if (response.ok) {
-
           const message = await response.text();
           const object = JSON.parse(message);
-          setUser({ email, fName: object.fName, sName: object.sName, gender: object.gender, phone: object.phone, dateOfBirth: object.dateOfBirth });
-          setRetrivedNtoken(object.Ntoken ? object.Ntoken : null)
-          setOrder({ orderID: object.orderID, checkInDate: object.checkInDate, checkOutDate: object.checkOutDate, hotelID: object.hotelID });
-          setActivities_nearBy(object.activities_nearBy);
-          setSuggestedActivities(object.suggestedActivities);
-          setActivities_hotel(object.activities_hotel);
-          setFacilities(object.facilities);
-          setCustom_Request_Types(object.custom_Request_Types);
-          setTherapies(object.therapies);
-          setHotel(object.hotel)
-          setlanguage(object.languageShortName)
-          setFood(object.food)
-          setDrinks(object.drinks)
-          setAlcohol(object.alcohol)
-          setAdditionalItems(object.additionalItems)
-          setNewQuestionnaire(object.questionnaire)
+          setLoginInfo(email, object);
           navigation.navigate("MainScreen")
         } else {
           const message = await response.text();
