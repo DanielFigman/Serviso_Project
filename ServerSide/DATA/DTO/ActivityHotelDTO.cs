@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,16 @@ namespace DATA.DTO
             HallNum = activityHotel.HallNum;
             tags = activityHotel.tags;
             hotelID = activityHotel.hotelID;
+        }
+   
+        public Dictionary<string, string> GetActivityHotelToTranslate()
+        {
+            Dictionary<string, string> retVal = new Dictionary<string, string>();
+            retVal["name"] = name;
+            retVal["description"] = description;
+            retVal["tags"] = tags;
+
+            return retVal;
         }
     }
 }

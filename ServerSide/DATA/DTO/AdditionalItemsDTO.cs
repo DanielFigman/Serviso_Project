@@ -25,5 +25,13 @@ namespace DATA
             description = additional_Item.description;
         }
 
+        public Dictionary<string, string> GetAdditionalItemToTranslate()
+        {
+            Dictionary<string, string> retVal = new Dictionary<string, string>();
+            retVal["name"] = name;
+            retVal["description"] = description;
+            retVal["tags"] = tags;
+            return retVal;
+        }
     }
 }

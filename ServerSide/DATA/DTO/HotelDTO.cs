@@ -28,5 +28,15 @@ namespace DATA
             latitude = dataHelper.GetLatitude(hotel.landmark);
             longitude = dataHelper.GetLongitude(hotel.landmark);
         }
+
+
+        public Dictionary<string, string> GetHotelToTranslate()
+        {
+            Dictionary<string, string> retVal = new Dictionary<string, string>();
+            retVal["name"] = name;
+            retVal["address"] = address;
+
+            return retVal;
+        }
     }
 }

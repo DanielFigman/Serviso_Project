@@ -47,6 +47,36 @@ namespace WebApplication.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/changeLanguage")]
+        public async Task<IHttpActionResult> Put([FromUri] string email, [FromUri] string languageShortName)
+        {
+            try
+            {
+                User user = db.Users.FirstOrDefault(u => u.email == email);
+
+                bool isUserFound = user != null;
+
+                if (isUserFound)
+                {
+                    user.SetUserLanguage(languageShortName);
+                    LoginDTO loginDTO = user.GetLoginDTO();
+
+                    AzureTranslatorApi azureTranslator = new AzureTranslatorApi();
+                    await azureTranslator.TranslateLoginDTO(loginDTO);
+
+                    return Content(HttpStatusCode.OK, loginDTO);
+                }
+                else
+                {
+                    throw new NonExistingUser(email);
+                }
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
 
         [HttpPost]
         [Route("api/signUP")]

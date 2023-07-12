@@ -15,90 +15,19 @@ using System.Web;
 
 namespace WebApplication
 {
-    public class TripAdvisorApi
+    public class TripAdvisorApi : ApiProviderClass
     {
         private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
-        private string ApiKey => "56016D3C32424CAD9BAE04BFE6AA4F8A";
-        private string ProviderName => "TripAdvisor";
-        private int DailyMax => 500;
-        private int MonthlyMax => 4500;
-
-        public int ProviderId;
-        public int DailyRequestsCount;
-        public int MonthlyRequestsCont;
-
-        public ApiRequestCount ApiRequestCount;
-        public ApiRequestCountMonthly ApiRequestCountMonthly;
-
-
-        public TripAdvisorApi()
+        private static readonly string ApiKey = "56016D3C32424CAD9BAE04BFE6AA4F8A";
+        public TripAdvisorApi() : base("TripAdvisor", 4500, 500)
         {
-            SetProvider();
+
         }
-
-
-        private void SetProvider()
-        {
-            ApiProvider provider = db.ApiProviders.FirstOrDefault(obj => obj.ProviderName == ProviderName);
-            DateTime dateNow = DateTime.Now.Date;
-
-            ApiRequestCount apiRequestCount;
-            ApiRequestCountMonthly apiRequestCountMonthly;
-
-            if (provider != null)
-            {
-                int currentMonth = dateNow.Month;
-                int currentYear = dateNow.Year;
-
-                apiRequestCount = db.ApiRequestCounts.FirstOrDefault(obj =>
-                    obj.ProviderId == provider.ProviderId &&
-                    DbFunctions.TruncateTime(obj.RequestDate) == dateNow
-                );
-
-                apiRequestCountMonthly = db.ApiRequestCountMonthlies.FirstOrDefault(obj =>
-                    obj.ProviderId == provider.ProviderId &&
-                    obj.RequestMonth.Month == currentMonth &&
-                    obj.RequestMonth.Year == currentYear
-                );
-
-                if (apiRequestCount == null)
-                {
-                    apiRequestCount = new ApiRequestCount();
-                    apiRequestCount.CreateApiRequestCount(provider.ProviderId, dateNow);
-                }
-
-                if (apiRequestCountMonthly == null)
-                {
-                    apiRequestCountMonthly = new ApiRequestCountMonthly();
-                    apiRequestCountMonthly.CreateApiMonthlyRequestCount(provider.ProviderId, dateNow);
-                }
-            }
-            else
-            {
-                provider.CreateProvider(ProviderName);
-
-                apiRequestCount = new ApiRequestCount();
-                apiRequestCount.CreateApiRequestCount(provider.ProviderId, dateNow);
-
-                apiRequestCountMonthly = new ApiRequestCountMonthly();
-                apiRequestCountMonthly.CreateApiMonthlyRequestCount(provider.ProviderId, dateNow);
-            }
-
-            ProviderId = provider.ProviderId;
-
-            DailyRequestsCount = apiRequestCount?.RequestCount ?? 0;
-            ApiRequestCount = apiRequestCount;
-
-            MonthlyRequestsCont = apiRequestCountMonthly?.RequestCount ?? 0;
-            ApiRequestCountMonthly = apiRequestCountMonthly;
-        }
-
 
         private async Task<int?> GetLocationID(ActivityNearByDTO activityNearBy)
         {
             string urlEncodedString = GetUrlEncodedString(activityNearBy.name);
-
 
             var options = new RestClientOptions($"https://api.content.tripadvisor.com/api/v1/location/search?key={ApiKey}&searchQuery={urlEncodedString}&address=Israel&language=en");
             var client = new RestClient(options);
@@ -204,30 +133,6 @@ namespace WebApplication
                     UpdateTheNewCounts();
                 }
             }
-        }
-
-        private string GetUrlEncodedString(string name)
-        {
-            // Remove special characters and spaces, keep only words and numbers
-            string cleanedString = Regex.Replace(name, "[^a-zA-Z0-9]+", " ");
-
-            // URL encode the cleaned string and add double quotes
-            string urlEncodedString = Uri.EscapeDataString(cleanedString);
-            urlEncodedString = "%22" + urlEncodedString + "%22";
-
-            return urlEncodedString;
-        }
-
-        private void UpdateTheNewCounts()
-        {
-            ApiRequestCount.SaveNewCount(DailyRequestsCount);
-            ApiRequestCountMonthly.SaveNewCount(MonthlyRequestsCont);
-        }
-
-        private void AddRequestToCount()
-        {
-            DailyRequestsCount += 1;
-            MonthlyRequestsCont += 1;
         }
     }
 }

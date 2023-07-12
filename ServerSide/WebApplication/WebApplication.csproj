@@ -245,6 +245,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestApi\ApiProviderClass.cs" />
+    <Compile Include="RestApi\AzureTranslatorApi.cs" />
     <Compile Include="RestApi\TripAdvisorApi.cs" />
   </ItemGroup>
   <ItemGroup>

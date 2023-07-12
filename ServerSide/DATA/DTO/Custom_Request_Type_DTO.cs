@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,14 @@ namespace DATA.DTO
         {
             typeID = request.typeID;
             name = request.name;    
+        }
+
+        public Dictionary<string, string> GetCustomRequestToTranslate()
+        {
+            Dictionary<string, string> retVal = new Dictionary<string, string>();
+            retVal["name"] = name;
+
+            return retVal;
         }
     }
 }

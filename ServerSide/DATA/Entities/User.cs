@@ -58,10 +58,9 @@ namespace DATA
 
             dataHelper.SetObjectValuesFromObject(this, u);
 
-            db.Users.Add(this);
             try
             {
-                db.SaveChanges();
+                SaveChanges();
             }
             catch (Exception)
             {
@@ -100,8 +99,7 @@ namespace DATA
 
             dataHelper.EncryptPassword(this, givenPassword);
 
-            db.Users.AddOrUpdate(this);
-            db.SaveChanges();
+            SaveChanges();
         }
 
         public string GetHotelLocation()
@@ -158,10 +156,26 @@ namespace DATA
             {
                 NotificationToken = token;
 
-                db.Users.AddOrUpdate(this);
-                db.SaveChanges();
-
+                SaveChanges();
             }
+        }
+
+        public void SetUserLanguage(string languageShortName)
+        {
+            Language language = db.Languages.FirstOrDefault(obj => obj.shortName == languageShortName);
+
+            if(language != null)
+            {
+               Language = language;
+            }
+
+            SaveChanges();
+        }
+
+        private void SaveChanges()
+        {
+            db.Users.AddOrUpdate(this);
+            db.SaveChanges();
         }
     }
 }

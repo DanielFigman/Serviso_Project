@@ -53,6 +53,17 @@ namespace DATA
             morePhotosUrls = GetImagesDTO();
         }
 
+        public Dictionary<string, string> GetActivityNearByToTranslate()
+        {
+            Dictionary<string, string> retVal = new Dictionary<string, string>();
+            retVal["name"] = name;
+            retVal["description"] = description;
+            retVal["address"] = address;
+            retVal["tags"] = tags;
+
+            return retVal;
+        }
+
         private List<ActivityMoreImagesDTO> GetImagesDTO()
         {
             List<ActivityMoreImage> images = db.ActivityMoreImages.Where(x => x.placeID == placeID).ToList();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,15 @@ namespace DATA.DTO
             hotelID = facility.hotelID;
             type = facility.type;
             openingHours = facility.openingHours;
+        }
+
+        public Dictionary<string, string> GetFacilityToTranslate()
+        {
+            Dictionary<string, string> retVal = new Dictionary<string, string>();
+            retVal["name"] = name;
+            retVal["description"] = description;
+
+            return retVal;
         }
     }
 }

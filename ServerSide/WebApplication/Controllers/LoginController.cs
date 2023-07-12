@@ -47,6 +47,9 @@ namespace WebApplication.Controllers
                             TripAdvisorApi tripAdvisorApi = new TripAdvisorApi();
                             await tripAdvisorApi.SetLocationIdsAndMorePhotos(loginDTO.activities_nearBy);
 
+                            AzureTranslatorApi azureTranslator = new AzureTranslatorApi();
+                            await azureTranslator.TranslateLoginDTO(loginDTO);
+
                             return Content(HttpStatusCode.OK, loginDTO);
                         }
                     }

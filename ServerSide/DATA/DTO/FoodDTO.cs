@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,19 @@ namespace DATA
             description = food.description;
             possibleChanges = food.possibleChanges;
             type = "food";
+        }
+
+
+        public Dictionary<string, string> GetFoodToTranslate()
+        {
+            Dictionary<string, string> retVal = new Dictionary<string, string>();
+            retVal["name"] = name;
+            retVal["description"] = description;
+            retVal["possibleChanges"] = possibleChanges;
+            retVal["allergies"] = allergies;
+            retVal["tags"] = tags;
+
+            return retVal;
         }
     }
 }

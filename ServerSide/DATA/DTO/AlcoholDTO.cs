@@ -34,5 +34,14 @@ namespace DATA
             alcoholPercent = alcohol.alcoholPercent;
             category = alcohol.category;
         }
+
+        public Dictionary<string, string> GetDrinkToTranslate()
+        {
+            Dictionary<string, string> retVal = new Dictionary<string, string>();
+            retVal["name"] = name;
+            retVal["allergies"] = allergies;
+            retVal["tags"] = tags;
+            return retVal;
+        }
     }
 }
