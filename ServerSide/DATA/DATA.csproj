@@ -163,6 +163,7 @@
     <Compile Include="Entities\ApiProvider.cs" />
     <Compile Include="Entities\ApiRequestCount.cs" />
     <Compile Include="Entities\ApiRequestCountMonthly.cs" />
+    <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\HouseHold_Custom_Request.cs" />
     <Compile Include="Entities\Questionnaire.cs" />

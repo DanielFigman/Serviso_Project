@@ -193,11 +193,13 @@
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="email" />
+            <PropertyRef Name="hotelID" />
           </Key>
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="startingDate" Type="date" />
           <Property Name="isActive" Type="bit" Nullable="false" />
           <Property Name="image" Type="varchar" MaxLength="255" />
+          <Property Name="hotelID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee_Chat">
           <Key>
@@ -784,18 +786,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ChatLine__employ__4316F928">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-          <End Role="ChatLine" Type="Self.ChatLine" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="email" />
-            </Principal>
-            <Dependent Role="ChatLine">
-              <PropertyRef Name="employeeEmail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Drinks__ID__14270015">
           <End Role="Food_And_Drinks" Type="Self.Food_And_Drinks" Multiplicity="1" />
           <End Role="Drinks" Type="Self.Drinks" Multiplicity="0..1" />
@@ -834,7 +824,7 @@
         </Association>
         <Association Name="FK__Employee__email__31EC6D26">
           <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="email" />
@@ -1224,18 +1214,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__WorkingIn__email__36B12243">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="WorkingInShift" Type="Self.WorkingInShift" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="email" />
-            </Principal>
-            <Dependent Role="WorkingInShift">
-              <PropertyRef Name="email" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__WorkingInS__date__37A5467C">
           <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
           <End Role="WorkingInShift" Type="Self.WorkingInShift" Multiplicity="*" />
@@ -1269,6 +1247,18 @@
             </Principal>
             <Dependent Role="Checkout">
               <PropertyRef Name="receiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_hotelID_13072023">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="hotelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1573,10 +1563,6 @@
             <End Role="Chat" EntitySet="Chat" />
             <End Role="ChatLine" EntitySet="ChatLine" />
           </AssociationSet>
-          <AssociationSet Name="FK__ChatLine__employ__4316F928" Association="Self.FK__ChatLine__employ__4316F928">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="ChatLine" EntitySet="ChatLine" />
-          </AssociationSet>
           <AssociationSet Name="FK__Drinks__ID__14270015" Association="Self.FK__Drinks__ID__14270015">
             <End Role="Food_And_Drinks" EntitySet="Food_And_Drinks" />
             <End Role="Drinks" EntitySet="Drinks" />
@@ -1717,10 +1703,6 @@
             <End Role="Questionnaire" EntitySet="Questionnaire" />
             <End Role="User_questionnaire" EntitySet="User_questionnaire" />
           </AssociationSet>
-          <AssociationSet Name="FK__WorkingIn__email__36B12243" Association="Self.FK__WorkingIn__email__36B12243">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="WorkingInShift" EntitySet="WorkingInShift" />
-          </AssociationSet>
           <AssociationSet Name="FK__WorkingInS__date__37A5467C" Association="Self.FK__WorkingInS__date__37A5467C">
             <End Role="Shift" EntitySet="Shift" />
             <End Role="WorkingInShift" EntitySet="WorkingInShift" />
@@ -1732,6 +1714,10 @@
           <AssociationSet Name="fk_Checkout_ReceiptID" Association="Self.fk_Checkout_ReceiptID">
             <End Role="Receipt" EntitySet="Receipt" />
             <End Role="Checkout" EntitySet="Checkout" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_hotelID_13072023" Association="Self.FK_Employee_hotelID_13072023">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="fk_Free_Queue_RoleID" Association="Self.fk_Free_Queue_RoleID">
             <End Role="Therapist" EntitySet="Therapist" />
@@ -1888,7 +1874,6 @@
           <Property Name="isGuest" Type="Boolean" />
           <Property Name="employeeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Chat" Relationship="Self.FK__ChatLine__chatID__4222D4EF" FromRole="ChatLine" ToRole="Chat" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__ChatLine__employ__4316F928" FromRole="ChatLine" ToRole="Employee" />
         </EntityType>
         <EntityType Name="CheckIn">
           <Key>
@@ -1922,18 +1907,6 @@
           <Property Name="departmentID" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="Self.FK__Role__department__6FE99F9F" FromRole="Department" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="email" />
-          </Key>
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="startingDate" Type="DateTime" Precision="0" />
-          <Property Name="isActive" Type="Boolean" Nullable="false" />
-          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ChatLines" Relationship="Self.FK__ChatLine__employ__4316F928" FromRole="Employee" ToRole="ChatLine" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Employee__email__31EC6D26" FromRole="Employee" ToRole="User" />
-          <NavigationProperty Name="WorkingInShifts" Relationship="Self.FK__WorkingIn__email__36B12243" FromRole="Employee" ToRole="WorkingInShift" />
         </EntityType>
         <EntityType Name="Facility">
           <Key>
@@ -2018,6 +1991,7 @@
           <NavigationProperty Name="Facilities" Relationship="Self.FK__Facility__hotelI__6477ECF3" FromRole="Hotel" ToRole="Facility" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__hotelID__2E1BDC42" FromRole="Hotel" ToRole="Order" />
           <NavigationProperty Name="Rooms" Relationship="Self.FK__Room__hotelID__6754599E" FromRole="Hotel" ToRole="Room" />
+          <NavigationProperty Name="Employees" Relationship="igroup197_test1Model.FK_Employee_hotelID_13072023" FromRole="Hotel" ToRole="Employee" />
         </EntityType>
         <EntityType Name="HouseHold_Cleaning_Request">
           <Key>
@@ -2307,12 +2281,12 @@
           <Property Name="SaltValue" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="PasswordValue" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <NavigationProperty Name="Chats" Relationship="Self.FK__Chat__userEmail__3A81B327" FromRole="User" ToRole="Chat" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__email__31EC6D26" FromRole="User" ToRole="Employee" />
           <NavigationProperty Name="Guest" Relationship="Self.FK__Guest__email__286302EC" FromRole="User" ToRole="Guest" />
           <NavigationProperty Name="Language" Relationship="Self.FK__User__languageID__25869641" FromRole="User" ToRole="Language" />
           <NavigationProperty Name="Questionnaires" Relationship="Self.User_questionnaire" FromRole="User" ToRole="Questionnaire" />
           <Property Name="NotificationToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Activity_Update" Relationship="igroup197_test1Model.FK__Update___email__03072023" FromRole="User" ToRole="Activity_Update" />
+          <NavigationProperty Name="Employees" Relationship="igroup197_test1Model.FK__Employee__email__31EC6D26" FromRole="User" ToRole="Employee" />
         </EntityType>
         <EntityType Name="WorkingInShift">
           <Key>
@@ -2321,7 +2295,6 @@
           </Key>
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__WorkingIn__email__36B12243" FromRole="WorkingInShift" ToRole="Employee" />
           <NavigationProperty Name="Shift" Relationship="Self.FK__WorkingInS__date__37A5467C" FromRole="WorkingInShift" ToRole="Shift" />
           <NavigationProperty Name="Chats" Relationship="Self.Employee_Chat" FromRole="WorkingInShift" ToRole="Chat" />
           <NavigationProperty Name="Requests" Relationship="Self.Employee_handle_request" FromRole="WorkingInShift" ToRole="Request" />
@@ -2411,18 +2384,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ChatLine__employ__4316F928">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-          <End Role="ChatLine" Type="Self.ChatLine" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="email" />
-            </Principal>
-            <Dependent Role="ChatLine">
-              <PropertyRef Name="employeeEmail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_CheckIn_ReceiptID">
           <End Role="Receipt" Type="Self.Receipt" Multiplicity="1" />
           <End Role="CheckIn" Type="Self.CheckIn" Multiplicity="0..1" />
@@ -2468,30 +2429,6 @@
             </Principal>
             <Dependent Role="Role">
               <PropertyRef Name="departmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Employee__email__31EC6D26">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="email" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="email" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__WorkingIn__email__36B12243">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="WorkingInShift" Type="Self.WorkingInShift" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="email" />
-            </Principal>
-            <Dependent Role="WorkingInShift">
-              <PropertyRef Name="email" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2895,7 +2832,6 @@
           <EntitySet Name="Checkouts" EntityType="Self.Checkout" />
           <EntitySet Name="Custom_Request_Types" EntityType="Self.Custom_Request_Types" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
-          <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Facilities" EntityType="Self.Facility" />
           <EntitySet Name="Fault_Request" EntityType="Self.Fault_Request" />
           <EntitySet Name="Free_Queue" EntityType="Self.Free_Queue" />
@@ -2953,10 +2889,6 @@
             <End Role="Chat" EntitySet="Chats" />
             <End Role="ChatLine" EntitySet="ChatLines" />
           </AssociationSet>
-          <AssociationSet Name="FK__ChatLine__employ__4316F928" Association="Self.FK__ChatLine__employ__4316F928">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="ChatLine" EntitySet="ChatLines" />
-          </AssociationSet>
           <AssociationSet Name="fk_CheckIn_ReceiptID" Association="Self.fk_CheckIn_ReceiptID">
             <End Role="Receipt" EntitySet="Receipts" />
             <End Role="CheckIn" EntitySet="CheckIns" />
@@ -2972,14 +2904,6 @@
           <AssociationSet Name="FK__Role__department__6FE99F9F" Association="Self.FK__Role__department__6FE99F9F">
             <End Role="Department" EntitySet="Departments" />
             <End Role="Role" EntitySet="Roles" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Employee__email__31EC6D26" Association="Self.FK__Employee__email__31EC6D26">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK__WorkingIn__email__36B12243" Association="Self.FK__WorkingIn__email__36B12243">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="WorkingInShift" EntitySet="WorkingInShifts" />
           </AssociationSet>
           <AssociationSet Name="FK__Facility__hotelI__6477ECF3" Association="Self.FK__Facility__hotelI__6477ECF3">
             <End Role="Hotel" EntitySet="Hotels" />
@@ -3188,6 +3112,15 @@
           <AssociationSet Name="FK__Additional_I__ID__2645B050" Association="igroup197_test1Model.FK__Additional_I__ID__2645B050">
             <End Role="Additional_Items" EntitySet="Additional_Items" />
             <End Role="Additional_Items_Room_Service" EntitySet="Additional_Items_Room_Service" />
+          </AssociationSet>
+          <EntitySet Name="Employees" EntityType="igroup197_test1Model.Employee" />
+          <AssociationSet Name="FK__Employee__email__31EC6D26" Association="igroup197_test1Model.FK__Employee__email__31EC6D26">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_hotelID_13072023" Association="igroup197_test1Model.FK_Employee_hotelID_13072023">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Alcohol">
@@ -3467,6 +3400,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="email" />
+            <PropertyRef Name="hotelID" />
+          </Key>
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="startingDate" Type="DateTime" Precision="0" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="hotelID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="igroup197_test1Model.FK__Employee__email__31EC6D26" FromRole="Employee" ToRole="User" />
+          <NavigationProperty Name="Hotel" Relationship="igroup197_test1Model.FK_Employee_hotelID_13072023" FromRole="Employee" ToRole="Hotel" />
+        </EntityType>
+        <Association Name="FK__Employee__email__31EC6D26">
+          <End Type="igroup197_test1Model.User" Role="User" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_hotelID_13072023">
+          <End Type="igroup197_test1Model.Hotel" Role="Hotel" Multiplicity="1" />
+          <End Type="igroup197_test1Model.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="hotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3583,16 +3553,6 @@
               <MappingFragment StoreEntitySet="Department">
                 <ScalarProperty Name="departmentID" ColumnName="departmentID" />
                 <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="igroup197_test1Model.Employee">
-              <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="startingDate" ColumnName="startingDate" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="image" ColumnName="image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4098,6 +4058,17 @@
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="igroup197_test1Model.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="startingDate" ColumnName="startingDate" />
+                <ScalarProperty Name="email" ColumnName="email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

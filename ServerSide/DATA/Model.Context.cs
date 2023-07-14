@@ -36,7 +36,6 @@ namespace DATA
         public virtual DbSet<Checkout> Checkouts { get; set; }
         public virtual DbSet<Custom_Request_Types> Custom_Request_Types { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<Fault_Request> Fault_Request { get; set; }
         public virtual DbSet<Free_Queue> Free_Queue { get; set; }
@@ -78,5 +77,6 @@ namespace DATA
         public virtual DbSet<Activity_Update> Activity_Update { get; set; }
         public virtual DbSet<Food_And_Drinks_Room_Service> Food_And_Drinks_Room_Service { get; set; }
         public virtual DbSet<Additional_Items> Additional_Items { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
     }
 }

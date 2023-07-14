@@ -20,6 +20,7 @@ namespace DATA
             this.Facilities = new HashSet<Facility>();
             this.Orders = new HashSet<Order>();
             this.Rooms = new HashSet<Room>();
+            this.Employees = new HashSet<Employee>();
         }
     
         public int hotelID { get; set; }
@@ -38,5 +39,7 @@ namespace DATA
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Room> Rooms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

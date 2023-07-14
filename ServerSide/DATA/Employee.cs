@@ -14,22 +14,13 @@ namespace DATA
     
     public partial class Employee
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
-        {
-            this.ChatLines = new HashSet<ChatLine>();
-            this.WorkingInShifts = new HashSet<WorkingInShift>();
-        }
-    
         public string email { get; set; }
         public Nullable<System.DateTime> startingDate { get; set; }
         public bool isActive { get; set; }
         public string image { get; set; }
+        public int hotelID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChatLine> ChatLines { get; set; }
         public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkingInShift> WorkingInShifts { get; set; }
+        public virtual Hotel Hotel { get; set; }
     }
 }

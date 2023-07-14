@@ -22,6 +22,5 @@ namespace DATA
         public string employeeEmail { get; set; }
     
         public virtual Chat Chat { get; set; }
-        public virtual Employee Employee { get; set; }
     }
 }

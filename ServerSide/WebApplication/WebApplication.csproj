@@ -230,6 +230,7 @@
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AdminHotelServicesController.cs" />
     <Compile Include="Controllers\AdminHouseHoldRequestController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\FavsAndRatingController.cs" />
     <Compile Include="Controllers\FirebaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

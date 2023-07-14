@@ -20,6 +20,7 @@ namespace DATA
             this.Chats = new HashSet<Chat>();
             this.Questionnaires = new HashSet<Questionnaire>();
             this.Activity_Update = new HashSet<Activity_Update>();
+            this.Employees = new HashSet<Employee>();
         }
     
         public string email { get; set; }
@@ -35,12 +36,13 @@ namespace DATA
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chat> Chats { get; set; }
-        public virtual Employee Employee { get; set; }
         public virtual Guest Guest { get; set; }
         public virtual Language Language { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Questionnaire> Questionnaires { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity_Update> Activity_Update { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

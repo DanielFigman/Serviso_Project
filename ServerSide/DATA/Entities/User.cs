@@ -164,9 +164,10 @@ namespace DATA
         {
             Language language = db.Languages.FirstOrDefault(obj => obj.shortName == languageShortName);
 
-            if(language != null)
+            if (language != null)
             {
-               Language = language;
+                Language = language;
+                languageID = language.languageID;
             }
 
             SaveChanges();

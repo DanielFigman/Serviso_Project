@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -37,9 +38,9 @@ namespace WebApplication.Controllers
 
                     if (passwordVerification)
                     {
-                        bool isEmployeeFound = user.Employee != null;
+                        Employee employee = db.Employees.FirstOrDefault(obj => obj.User.email == userEmail);
 
-                        if (isEmployeeFound)
+                        if (employee != null)
                             return Content(HttpStatusCode.OK, new { userType = "EMPLOYEE" });
                         else
                         {

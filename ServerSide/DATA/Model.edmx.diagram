@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="igroup197_test1Model.Checkout" Width="1.5" PointX="9.75" PointY="29" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Custom_Request_Types" Width="1.5" PointX="17.75" PointY="31.875" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Department" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="igroup197_test1Model.Employee" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Facility" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Fault_Request" Width="1.5" PointX="12.75" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="igroup197_test1Model.Free_Queue" Width="1.5" PointX="15" PointY="6.625" IsExpanded="true" />
@@ -53,13 +52,10 @@
         <AssociationConnector Association="igroup197_test1Model.FK__Chat__orderID__3B75D760" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Chat__userEmail__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__ChatLine__chatID__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.FK__ChatLine__employ__4316F928" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.fk_CheckIn_ReceiptID" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.fk_Checkout_ReceiptID" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__HouseHold__typeI__06CD04F7" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Role__department__6FE99F9F" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.FK__Employee__email__31EC6D26" ManuallyRouted="false" />
-        <AssociationConnector Association="igroup197_test1Model.FK__WorkingIn__email__36B12243" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Facility__hotelI__6477ECF3" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.FK__Fault_Req__reque__0C85DE4D" ManuallyRouted="false" />
         <AssociationConnector Association="igroup197_test1Model.fk_Free_Queue_RoleID" ManuallyRouted="false" />
@@ -121,6 +117,9 @@
         <AssociationConnector Association="igroup197_test1Model.FK__Food_And___reque__2180FB33" />
         <EntityTypeShape EntityType="igroup197_test1Model.Additional_Items" Width="1.5" PointX="0.75" PointY="4" />
         <AssociationConnector Association="igroup197_test1Model.FK__Additional_I__ID__2645B050" />
+        <EntityTypeShape EntityType="igroup197_test1Model.Employee" Width="1.5" PointX="3" PointY="18.25" />
+        <AssociationConnector Association="igroup197_test1Model.FK__Employee__email__31EC6D26" />
+        <AssociationConnector Association="igroup197_test1Model.FK_Employee_hotelID_13072023" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
