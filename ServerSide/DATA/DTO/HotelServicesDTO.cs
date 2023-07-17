@@ -43,7 +43,7 @@ namespace DATA.DTO
         {
             List<AdditionalItemsDTO> retVal = new List<AdditionalItemsDTO>();
 
-            List<Additional_Items> additionalItems = db.Additional_Items.Where(obj => obj.hotelID == _hotel.hotelID).ToList();
+            List<Additional_Items> additionalItems = db.Additional_Items.Where(obj => obj.hotelID == _hotel.hotelID && obj.isDeleted != true).ToList();
 
             additionalItems.ForEach(a =>
             {
@@ -59,7 +59,7 @@ namespace DATA.DTO
         {
             List<AlcoholDTO> retVal = new List<AlcoholDTO>();
 
-            List<Food_And_Drinks> alcohol = db.Food_And_Drinks.Where(obj => obj.hotelID == _hotel.hotelID && obj.Alcohol != null).ToList();
+            List<Food_And_Drinks> alcohol = db.Food_And_Drinks.Where(obj => obj.hotelID == _hotel.hotelID && obj.Alcohol != null && obj.isDeleted != true).ToList();
 
             alcohol.ForEach(a =>
             {
@@ -75,7 +75,7 @@ namespace DATA.DTO
         {
             List<DrinksDTO> retVal = new List<DrinksDTO>();
 
-            List<Food_And_Drinks> food = db.Food_And_Drinks.Where(obj => obj.hotelID == _hotel.hotelID && obj.Drink != null).ToList();
+            List<Food_And_Drinks> food = db.Food_And_Drinks.Where(obj => obj.hotelID == _hotel.hotelID && obj.Drink != null && obj.isDeleted != true).ToList();
 
             food.ForEach(d =>
             {
@@ -91,7 +91,7 @@ namespace DATA.DTO
         {
             List<FoodDTO> retVal = new List<FoodDTO>();
 
-            List<Food_And_Drinks> food = db.Food_And_Drinks.Where(obj => obj.hotelID == _hotel.hotelID && obj.Food != null).ToList();
+            List<Food_And_Drinks> food = db.Food_And_Drinks.Where(obj => obj.hotelID == _hotel.hotelID && obj.Food != null && obj.isDeleted != true).ToList();
 
             food.ForEach(f =>
             {
@@ -107,7 +107,7 @@ namespace DATA.DTO
         {
             List<ActivityHotelDTO> retVal = new List<ActivityHotelDTO>();
 
-            List<Activity_hotel> activities = db.Activity_hotel.Where(obj => obj.hotelID == _hotel.hotelID).ToList();
+            List<Activity_hotel> activities = db.Activity_hotel.Where(obj => obj.hotelID == _hotel.hotelID && obj.isDeleted != true).ToList();
 
             activities.ForEach(a =>
             {
@@ -123,7 +123,7 @@ namespace DATA.DTO
         {
             List<FacilityDTO> retVal = new List<FacilityDTO>();
 
-            List<Facility> facilities = db.Facilities.Where(obj => obj.hotelID == _hotel.hotelID).ToList();
+            List<Facility> facilities = db.Facilities.Where(obj => obj.hotelID == _hotel.hotelID && obj.isDeleted != true).ToList();
 
             facilities.ForEach(f =>
             {
@@ -139,7 +139,7 @@ namespace DATA.DTO
         {
             List<TherapyDTO> retVal = new List<TherapyDTO>();
 
-            List<Therapy> therapies = db.Therapies.Where(obj => obj.hotelID == _hotel.hotelID).ToList();
+            List<Therapy> therapies = db.Therapies.Where(obj => obj.hotelID == _hotel.hotelID && obj.isDeleted != true).ToList();
 
             therapies.ForEach(t =>
             {

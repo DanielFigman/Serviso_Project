@@ -121,6 +121,11 @@ namespace DATA
             DateTime nextWeek = DateTime.Now.AddDays(7);
             DateTime tommorow = DateTime.Now.AddDays(1);
 
+            if(Guest == null)
+            {
+                return null;
+            }
+
             Order currentOrder = Guest.Orders
                 .Where(order => order.checkInDate <= nextWeek && order.checkOutDate >= tommorow)
                 .OrderBy(order => order.checkInDate)

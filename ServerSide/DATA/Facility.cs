@@ -22,6 +22,7 @@ namespace DATA
         public Nullable<int> hotelID { get; set; }
         public string type { get; set; }
         public string openingHours { get; set; }
+        public Nullable<bool> isDeleted { get; set; }
     
         public virtual Hotel Hotel { get; set; }
     }

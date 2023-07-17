@@ -168,7 +168,7 @@ namespace DATA
 
         private List<ActivityHotelDTO> GetActivitiesHotel(int hotelID)
         {
-            List<Activity_hotel> activities = db.Activity_hotel.Where(x => x.hotelID == hotelID).ToList();
+            List<Activity_hotel> activities = db.Activity_hotel.Where(x => x.hotelID == hotelID && x.isDeleted != true).ToList();
 
             List<ActivityHotelDTO> retVal = new List<ActivityHotelDTO>();
 
@@ -187,7 +187,7 @@ namespace DATA
 
         private List<FacilityDTO> GetFacilities(Hotel hotel)
         {
-            List<Facility> facilties = hotel.Facilities.ToList();
+            List<Facility> facilties = hotel.Facilities.Where(x => x.isDeleted != true && x.hotelID == hotel.hotelID).ToList();
 
             List<FacilityDTO> retVal = new List<FacilityDTO>();
 
@@ -224,7 +224,7 @@ namespace DATA
 
         private List<TherapyDTO> GetTherapies(int hotelID)
         {
-            List<Therapy> therapies = db.Therapies.Where(t => t.hotelID == hotelID).ToList();
+            List<Therapy> therapies = db.Therapies.Where(t => t.hotelID == hotelID && t.isDeleted != true).ToList();
 
             List<TherapyDTO> retVal = new List<TherapyDTO>();
 
@@ -251,17 +251,17 @@ namespace DATA
 
         private List<int> GetFoodAndDrinksOOS(int hotelID)
         {
-            return db.Food_And_Drinks.Where(f => f.hotelID == hotelID && f.inStock == false).Select(obj => obj.ID).ToList();
+            return db.Food_And_Drinks.Where(f => f.hotelID == hotelID && f.inStock == false && f.isDeleted != true).Select(obj => obj.ID).ToList();
         }
 
         private List<int> GetAdditionalItemsOOS(int hotelID)
         {
-            return db.Additional_Items.Where(f => f.hotelID == hotelID && f.inStock == false).Select(obj => obj.ID).ToList();
+            return db.Additional_Items.Where(f => f.hotelID == hotelID && f.inStock == false && f.isDeleted != true).Select(obj => obj.ID).ToList();
         }
 
         private List<FoodDTO> GetFood(int hotelID)
         {
-            List<Food_And_Drinks> food = db.Food_And_Drinks.Where(f => f.hotelID == hotelID && f.Food != null).ToList();
+            List<Food_And_Drinks> food = db.Food_And_Drinks.Where(f => f.hotelID == hotelID && f.Food != null && f.isDeleted != true).ToList();
 
             List<FoodDTO> retVal = new List<FoodDTO>();
 
@@ -276,7 +276,7 @@ namespace DATA
         }
         private List<DrinksDTO> GetDrinks(int hotelID)
         {
-            List<Food_And_Drinks> drinks = db.Food_And_Drinks.Where(f => f.hotelID == hotelID && f.Drink != null).ToList();
+            List<Food_And_Drinks> drinks = db.Food_And_Drinks.Where(f => f.hotelID == hotelID && f.Drink != null && f.isDeleted != true).ToList();
 
             List<DrinksDTO> retVal = new List<DrinksDTO>();
 
@@ -301,7 +301,7 @@ namespace DATA
             if (age < 18)
                 return null;
 
-            List<Food_And_Drinks> alcohol = db.Food_And_Drinks.Where(f => f.hotelID == hotelID && f.Alcohol != null).ToList();
+            List<Food_And_Drinks> alcohol = db.Food_And_Drinks.Where(f => f.hotelID == hotelID && f.Alcohol != null && f.isDeleted != true).ToList();
 
             List<AlcoholDTO> retVal = new List<AlcoholDTO>();
 
@@ -316,7 +316,7 @@ namespace DATA
         }
         private List<AdditionalItemsDTO> GetAdditionalItems(int hotelID)
         {
-            List<Additional_Items> additionalItems = db.Additional_Items.Where(f => f.hotelID == hotelID).ToList();
+            List<Additional_Items> additionalItems = db.Additional_Items.Where(f => f.hotelID == hotelID && f.isDeleted != true).ToList();
 
             List<AdditionalItemsDTO> retVal = new List<AdditionalItemsDTO>();
 

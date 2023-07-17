@@ -87,7 +87,7 @@ namespace WebApplication.Controllers
                     if (isRequestClosed) { 
                         PushNotifications p = new PushNotifications();
 
-                        List<string> clients = dataHelper.getClientByRequestId(requestID);
+                        List<string> clients = dataHelper.GetClientByRequestId(requestID);
 
                         JObject notification = dataHelper.GetClosedRequestNotification(requestID);
 

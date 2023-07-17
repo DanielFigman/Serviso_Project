@@ -28,6 +28,7 @@ namespace DATA
         public string imageURL { get; set; }
         public string tags { get; set; }
         public int hotelID { get; set; }
+        public Nullable<bool> isDeleted { get; set; }
     
         public virtual Alcohol Alcohol { get; set; }
         public virtual Drink Drink { get; set; }

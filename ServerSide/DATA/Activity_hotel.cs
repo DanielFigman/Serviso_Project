@@ -18,6 +18,7 @@ namespace DATA
         public Nullable<int> HallNum { get; set; }
         public string tags { get; set; }
         public int hotelID { get; set; }
+        public Nullable<bool> isDeleted { get; set; }
     
         public virtual Activity Activity { get; set; }
     }

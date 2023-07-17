@@ -23,6 +23,7 @@
           <Property Name="HallNum" Type="int" />
           <Property Name="tags" Type="nvarchar(max)" />
           <Property Name="hotelID" Type="int" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Activity_nearBY">
           <Key>
@@ -81,6 +82,7 @@
           <Property Name="tags" Type="nvarchar(max)" />
           <Property Name="description" Type="varchar(max)" />
           <Property Name="hotelID" Type="int" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Additional_Items_Room_Service">
           <Key>
@@ -233,6 +235,7 @@
           <Property Name="hotelID" Type="int" />
           <Property Name="type" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="openingHours" Type="nvarchar(max)" />
+          <Property Name="isDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Fault_Request">
           <Key>
@@ -263,6 +266,7 @@
           <Property Name="imageURL" Type="nvarchar(max)" />
           <Property Name="tags" Type="nvarchar(max)" />
           <Property Name="hotelID" Type="int" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Food_And_Drinks_Room_Service">
           <Key>
@@ -557,6 +561,7 @@
           <Property Name="priceForAdditional15" Type="float" />
           <Property Name="imageURL" Type="nvarchar(max)" />
           <Property Name="hotelID" Type="int" />
+          <Property Name="isDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Therapy_Knowledge">
           <Key>
@@ -1808,6 +1813,7 @@
           <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="hotelID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Activity" Relationship="Self.FK__Activity___place__571DF1D5" FromRole="Activity_hotel" ToRole="Activity" />
+          <Property Name="isDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="Activity_nearBY">
           <Key>
@@ -1921,6 +1927,7 @@
           <Property Name="type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="openingHours" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Hotel" Relationship="Self.FK__Facility__hotelI__6477ECF3" FromRole="Facility" ToRole="Hotel" />
+          <Property Name="isDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="Fault_Request">
           <Key>
@@ -2241,6 +2248,7 @@
           <NavigationProperty Name="Therapist_IN_Therapy" Relationship="Self.fk_Therapist_IN_Therapy_Therapy" FromRole="Therapy" ToRole="Therapist_IN_Therapy" />
           <NavigationProperty Name="Therapy_Knowledge" Relationship="Self.fk_Therapy_Knowledge_Therapy" FromRole="Therapy" ToRole="Therapy_Knowledge" />
           <NavigationProperty Name="Therapy_Room" Relationship="Self.Room_Allowed" FromRole="Therapy" ToRole="Therapy_Room" />
+          <Property Name="isDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="Therapy_Knowledge">
           <Key>
@@ -3166,6 +3174,7 @@
           <NavigationProperty Name="Food" Relationship="igroup197_test1Model.FK__Food__ID__17036CC0" FromRole="Food_And_Drinks" ToRole="Food" />
           <NavigationProperty Name="Hot_Cold_Drinks" Relationship="igroup197_test1Model.FK__Hot_Cold_Dri__ID__1CBC4616" FromRole="Food_And_Drinks" ToRole="Hot_Cold_Drinks" />
           <NavigationProperty Name="Food_And_Drinks_Room_Service" Relationship="igroup197_test1Model.FK__Food_And_Dri__ID__22751F6C" FromRole="Food_And_Drinks" ToRole="Food_And_Drinks_Room_Service" />
+          <Property Name="isDeleted" Type="Boolean" />
         </EntityType>
         <Association Name="FK__Alcohol__ID__19DFD96B">
           <End Type="igroup197_test1Model.Food_And_Drinks" Role="Food_And_Drinks" Multiplicity="1" />
@@ -3387,6 +3396,7 @@
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Additional_Items_Room_Service" Relationship="igroup197_test1Model.FK__Additional_I__ID__2645B050" FromRole="Additional_Items" ToRole="Additional_Items_Room_Service" />
           <Property Name="hotelID" Type="Int32" Nullable="false" />
+          <Property Name="isDeleted" Type="Boolean" />
         </EntityType>
         <Association Name="FK__Additional_I__ID__2645B050">
           <End Type="igroup197_test1Model.Additional_Items" Role="Additional_Items" Multiplicity="1" />
@@ -3457,6 +3467,7 @@
           <EntitySetMapping Name="Activity_hotel">
             <EntityTypeMapping TypeName="igroup197_test1Model.Activity_hotel">
               <MappingFragment StoreEntitySet="Activity_hotel">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="placeID" ColumnName="placeID" />
                 <ScalarProperty Name="HallNum" ColumnName="HallNum" />
                 <ScalarProperty Name="tags" ColumnName="tags" />
@@ -3559,6 +3570,7 @@
           <EntitySetMapping Name="Facilities">
             <EntityTypeMapping TypeName="igroup197_test1Model.Facility">
               <MappingFragment StoreEntitySet="Facility">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="facilityID" ColumnName="facilityID" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -3826,6 +3838,7 @@
           <EntitySetMapping Name="Therapies">
             <EntityTypeMapping TypeName="igroup197_test1Model.Therapy">
               <MappingFragment StoreEntitySet="Therapy">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="therapyID" ColumnName="therapyID" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -3969,6 +3982,7 @@
           <EntitySetMapping Name="Food_And_Drinks">
             <EntityTypeMapping TypeName="igroup197_test1Model.Food_And_Drinks">
               <MappingFragment StoreEntitySet="Food_And_Drinks">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="hotelID" ColumnName="hotelID" />
                 <ScalarProperty Name="tags" ColumnName="tags" />
                 <ScalarProperty Name="imageURL" ColumnName="imageURL" />
@@ -4050,6 +4064,7 @@
           <EntitySetMapping Name="Additional_Items">
             <EntityTypeMapping TypeName="igroup197_test1Model.Additional_Items">
               <MappingFragment StoreEntitySet="Additional_Items">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="hotelID" ColumnName="hotelID" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="tags" ColumnName="tags" />

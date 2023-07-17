@@ -203,6 +203,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HelperFunctions.cs" />
+    <Compile Include="Helpers\HotelServicesHelper.cs" />
     <Compile Include="Hotel.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -221,7 +222,6 @@
     <Compile Include="Language.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Manager\ActivityNearByManager.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

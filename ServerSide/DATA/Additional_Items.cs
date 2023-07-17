@@ -28,6 +28,7 @@ namespace DATA
         public string tags { get; set; }
         public string description { get; set; }
         public int hotelID { get; set; }
+        public Nullable<bool> isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Additional_Items_Room_Service> Additional_Items_Room_Service { get; set; }

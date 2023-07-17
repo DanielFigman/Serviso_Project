@@ -32,6 +32,7 @@ namespace DATA
         public Nullable<double> priceForAdditional15 { get; set; }
         public string imageURL { get; set; }
         public Nullable<int> hotelID { get; set; }
+        public Nullable<bool> isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Spa_Order_Active> Spa_Order_Active { get; set; }

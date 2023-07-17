@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using DATA.Exceptions;
+using Elasticsearch.Net.Specification.SearchableSnapshotsApi;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -21,8 +23,7 @@ namespace DATA
 {
     public class HelperFunctions
     {
-        hotelAppDBContextNew db = new hotelAppDBContextNew();
-
+        private readonly hotelAppDBContextNew db = new hotelAppDBContextNew();
 
         //creating Object from Dictionary
         public T CreateObjectFromDictionary<T>(Dictionary<string, object> dict) where T : class, new()
@@ -230,6 +231,24 @@ namespace DATA
                 property.SetValue(obj, value);
             }
         }
+        public void SetObjectValuesFromObjectWithoutNull<T>(T obj, T values)
+        {
+            // Get all the properties of the object
+            PropertyInfo[] properties = typeof(T).GetProperties();
+
+            // Loop through each property
+            foreach (PropertyInfo property in properties)
+            {
+                // Get the value from the values object
+                object value = property.GetValue(values);
+
+                // Set the value of the property
+                if (value != null)
+                {
+                    property.SetValue(obj, value);
+                }
+            }
+        }
 
         public int GetOrderIdByRoomNumber(int roomNum, int hotelID)
         {
@@ -243,16 +262,16 @@ namespace DATA
                 throw new NonActiveRoom(roomNum);
             }
 
-            return (int) retVal;
+            return (int)retVal;
         }
 
-        public List<string> getClientByRequestId(long requestId)
+        public List<string> GetClientByRequestId(long requestId)
         {
             List<string> retVal = new List<string>();
 
             Guest guest = db.Request_In_Order.Where(r => r.requestID == requestId).Select(r => r.Order.Guest).FirstOrDefault();
 
-            if(guest != null)
+            if (guest != null)
             {
                 string email = guest.User.email;
                 retVal.Add(email);
@@ -312,6 +331,5 @@ namespace DATA
 
             return retVal;
         }
-
     }
 }
