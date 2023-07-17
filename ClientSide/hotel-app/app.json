@@ -7,8 +7,11 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "notification":{
+      "icon":"./assets/servisoFlowerSquare.png"
+   },
     "splash": {
-      "image": "./assets/splash.png",
+      "image":  "./assets/servisoFlowerSquare.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,12 +23,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/servisoFlowerSquare.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/servisoFlowerSquare.png"
     },
     "extra": {
       "projectId": "3409e8f9-409f-447f-983e-b6f72fca89a6",

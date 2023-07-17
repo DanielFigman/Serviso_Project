@@ -1,21 +1,25 @@
 import { View, Text, StyleSheet, KeyboardAvoidingView, Keyboard } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import ScreenComponent from '../../FCComponents/ScreenComponent'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { keyBy } from 'lodash';
+import { HotelsAppContext } from '../../Context/HotelsAppContext';
 
 const ChatScreen = () => {
 
     const [messages, setMessages] = useState([]);
+    const { user } = useContext(HotelsAppContext)
+
+    const { email } = user;
 
     useEffect(() => {
 
         const keyboardWillShow = Keyboard.addListener('keyboardWillShow', handleKeyboardWillShow);
         const keyboardWillHide = Keyboard.addListener('keyboardWillHide', handleKeyboardWillHide);
 
-        
+
 
         // Set up listeners for incoming push notifications
         // PushNotification.configure({
@@ -35,19 +39,21 @@ const ChatScreen = () => {
         //         );
 
         // For this example, we'll use mock data
-        const initialMessages = [
-            {
-                _id: 1,
-                text: 'Hello',
-                createdAt: new Date(),
-                user: {
-                    _id: 2,
-                    name: 'React Native',
-                    avatar: "https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFufGVufDB8fDB8fHww&w=1000&q=80"
+        if (messages.length == 0) {
+            const initialMessages = [
+                {
+                    _id: 1,
+                    text: 'Hello',
+                    createdAt: new Date(),
+                    user: {
+                        _id: 2,
+                        name: 'React Native',
+                        avatar: "https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFufGVufDB8fDB8fHww&w=1000&q=80"
+                    },
                 },
-            },
-        ];
-        setMessages(initialMessages);
+            ];
+            setMessages(initialMessages);
+        }
 
 
         return () => {
@@ -58,11 +64,11 @@ const ChatScreen = () => {
         };
     }, []);
 
-    const handleKeyboardWillShow  = () => {
+    const handleKeyboardWillShow = () => {
         setKeyBoardDidShow(true)
     }
 
-    const handleKeyboardWillHide  = () => {
+    const handleKeyboardWillHide = () => {
         setKeyBoardDidShow(false)
     }
 
@@ -83,7 +89,7 @@ const ChatScreen = () => {
         // sendPushNotification(notification);
     };
 
-    const [keyBoardDidShow, setKeyBoardDidShow] = useState(false) 
+    const [keyBoardDidShow, setKeyBoardDidShow] = useState(false)
 
     return (
         <ScreenComponent bottomMenu={true} topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow} backgroundShapes={true}
@@ -92,13 +98,13 @@ const ChatScreen = () => {
                     <View style={{ display: 'flex', justifyContent: "center", alignItems: "center", height: 35, width: "100%", textDecoration: "underline" }}>
                         <Text style={{ fontSize: 30 }}>Reception</Text>
                     </View>
-                    <View style={{ flex: 1, bottom: keyBoardDidShow ? -61 : 0}}>
+                    <View style={{ flex: 1, bottom: keyBoardDidShow ? -61 : 0 }}>
                         <GiftedChat
                             // isTyping={true}
                             messages={messages}
                             onSend={onSend}
                             user={{
-                                _id: 1,
+                                _id: email,
                                 name: "Daniel"
                             }}
                             on

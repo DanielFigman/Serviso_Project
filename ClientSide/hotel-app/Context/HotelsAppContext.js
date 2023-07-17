@@ -29,7 +29,16 @@ export default function HotelsAppContextProvider(props) {
     const [additionalItems, setAdditionalItems] = useState(null)
     const [cart, setCart] = useState([]);
 
+    const [foodAndDrinksOOS, setFoodAndDrinksOOS] = useState([]);
+    const [additionalItemsOOS, setAdditionalItemsOOS] = useState([]);
+
     const [firstSetQuestionnaire, setFirstSetQuestionnaire] = useState(false);
+
+    const prevFoodRef = useRef(null);
+    const prevDrinkRef = useRef(null);
+    const prevAlcoholRef = useRef(null);
+    const prevAdditionalItemsRef = useRef(null);
+    const prevCartRef = useRef(null);
 
     const clearContext = () => {
         setIsLoading(false);
@@ -67,7 +76,93 @@ export default function HotelsAppContextProvider(props) {
         setAlcohol(object.alcohol)
         setAdditionalItems(object.additionalItems)
         setNewQuestionnaire(object.questionnaire)
+        setFoodAndDrinksOOS(object.foodAndDrinksOOS)
+        setAdditionalItemsOOS(object.additionalItemsOOS)
     }
+
+    useEffect(() => {
+        prevCartRef.current = cart;
+    }, [cart])
+
+
+    useEffect(() => {
+        prevFoodRef.current = food;
+    }, [food])
+
+    useEffect(() => {
+        prevDrinkRef.current = drinks;
+    }, [drinks])
+
+    useEffect(() => {
+        prevAlcoholRef.current = alcohol;
+    }, [alcohol])
+
+    useEffect(() => {
+        prevAdditionalItemsRef.current = additionalItems;
+    }, [additionalItems])
+
+    useEffect(() => {
+        let newCartFood = [];
+        let newCartadditional = [];
+
+        console.log(foodAndDrinksOOS)
+
+        if (foodAndDrinksOOS && foodAndDrinksOOS.length > 0) {
+
+            if (food) {
+                const newFood = food.filter(obj => !foodAndDrinksOOS.includes(obj.ID));
+
+                if (newFood && prevFoodRef.current != newFood) {
+                    setFood(newFood);
+                }
+            }
+            if (drinks) {
+                const newDrinks = drinks.filter(obj => !foodAndDrinksOOS.includes(obj.ID));
+
+                if (newDrinks && prevDrinkRef.current != newDrinks) {
+                    setDrinks(newDrinks);
+                }
+            }
+            if (alcohol) {
+                const newAlcohol = alcohol.filter(obj => !foodAndDrinksOOS.includes(obj.ID));
+
+                if (newAlcohol && prevAlcoholRef.current != newAlcohol) {
+                    setAlcohol(newAlcohol)
+                }
+            }
+
+            if (cart && cart.length > 0) {
+                newCartFood = cart.filter(obj => !foodAndDrinksOOS?.includes(obj.ID));
+            }
+        }
+
+        if (additionalItemsOOS && additionalItemsOOS.length > 0) {
+            if (additionalItems) {
+                const newAdditional = additionalItems?.filter(obj => !additionalItemsOOS.includes(obj.ID))
+
+                if (newAdditional && prevAdditionalItemsRef.current != newAdditional) {
+                    setAdditionalItems(newAdditional);
+                }
+            }
+
+            if (cart && cart.length > 0) {
+                newCartadditional = cart.filter(obj =>  !additionalItemsOOS?.includes(obj.ID));
+
+            }
+        }
+
+        const newCart = [...newCartFood, ...newCartadditional];
+
+        if (cart && cart.length > 0) {
+        
+            if (newCart && prevCartRef.current != newCart) {
+                setCart(newCart);
+            }
+        }
+
+
+    }, [foodAndDrinksOOS, additionalItemsOOS])
+
 
     const updatedActivitiesRef = useRef(null)
     const updatedActivitiesInitRef = useRef(null)
@@ -300,7 +395,7 @@ export default function HotelsAppContextProvider(props) {
                 setAlcohol,
                 additionalItems,
                 setAdditionalItems,
-                cart, 
+                cart,
                 setCart,
                 setLoginInfo
             }}
