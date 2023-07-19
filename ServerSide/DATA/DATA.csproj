@@ -154,16 +154,20 @@
     <Compile Include="DTO\LoginAdminDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
     <Compile Include="DTO\QuestionaireDTO.cs" />
+    <Compile Include="DTO\RoomServiceMenuTyps.cs" />
+    <Compile Include="DTO\RoomServiceRequestsDTO.cs" />
     <Compile Include="DTO\TherapyDTO.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\ActivityMoreImage.cs" />
     <Compile Include="Entities\Activity_Update.cs" />
+    <Compile Include="Entities\Additional_Items_Room_Service.cs" />
     <Compile Include="Entities\ApiProvider.cs" />
     <Compile Include="Entities\ApiRequestCount.cs" />
     <Compile Include="Entities\ApiRequestCountMonthly.cs" />
     <Compile Include="Entities\Employee.cs" />
+    <Compile Include="Entities\Food_And_Drinks_Room_Service.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\HouseHold_Custom_Request.cs" />
     <Compile Include="Entities\Questionnaire.cs" />

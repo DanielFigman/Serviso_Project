@@ -17,6 +17,7 @@ namespace DATA
         public string tags { get; set; }
         public double? priceForAdditional15 { get; set; }
         public string imageURL { get; set; }
+        public bool? isDeleted { get; set; }
 
 
         public void SetTherapyDTO(Therapy therapy)
@@ -29,6 +30,7 @@ namespace DATA
             tags = therapy.tags;
             priceForAdditional15 = therapy.priceForAdditional15;
             imageURL = therapy.imageURL;
+            isDeleted = therapy.isDeleted;
         }
 
 

@@ -16,6 +16,7 @@ namespace DATA.DTO
         public int? HallNum { get; set; }
         public string tags { get; set; }
         public int hotelID { get; set; }
+        public bool? isDeleted { get; set; }
 
 
         public void SetActivityHotelDTO(Activity_hotel activityHotel)
@@ -29,6 +30,7 @@ namespace DATA.DTO
             HallNum = activityHotel.HallNum;
             tags = activityHotel.tags;
             hotelID = activityHotel.hotelID;
+            isDeleted = activityHotel.isDeleted;
         }
    
         public Dictionary<string, string> GetActivityHotelToTranslate()

@@ -14,6 +14,9 @@ namespace DATA
         public string imageURL { get; set; }
         public string tags { get; set; }
         public string description { get; set; }
+        public bool? isDeleted { get; set; }
+        public bool? inStock { get; set; }
+
 
         public void SetAdditionalItemsDTO(Additional_Items additional_Item)
         {
@@ -23,6 +26,8 @@ namespace DATA
             imageURL = additional_Item.imageURL;
             tags = additional_Item.tags;
             description = additional_Item.description;
+            isDeleted = additional_Item.isDeleted;
+            inStock = additional_Item.inStock;
         }
 
         public Dictionary<string, string> GetAdditionalItemToTranslate()

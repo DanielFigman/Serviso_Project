@@ -17,6 +17,9 @@ namespace DATA
         public string tags { get; set; }
         public string type { get; set; }
         public string category { get; set; }
+        public bool? isDeleted { get; set; }
+        public bool? inStock { get; set; }
+
 
         public void SetDrinksDTO(Food_And_Drinks drinkParent)
         {
@@ -30,6 +33,8 @@ namespace DATA
             tags = drinkParent.tags;
             type = "Drink";
             category = drink.category;
+            isDeleted = drinkParent.isDeleted;
+            inStock = drinkParent.inStock;
         }
 
         public Dictionary<string, string> GetDrinkToTranslate()

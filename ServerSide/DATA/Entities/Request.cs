@@ -117,7 +117,53 @@ namespace DATA
 
         public bool CheckIfCloseIsNeeded()
         {
-            List<HouseHold_Custom_Request> requests = db.HouseHold_Custom_Request.Where(r => r.requestID == requestID && r.isMarked == false).ToList();
+            List<HouseHold_Custom_Request> requests = db.HouseHold_Custom_Request.Where(r => r.requestID == requestID && r.isMarked != true).ToList();
+
+            if (requests.Count == 0)
+            {
+                status = "closed";
+                try
+                {
+                    db.Requests.AddOrUpdate(this);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+            }
+
+            return false;
+        }
+
+        public bool CheckIfRoomServiceCloseIsNeeded()
+        {
+            List<Food_And_Drinks_Room_Service> requests = db.Food_And_Drinks_Room_Service.Where(r => r.requestID == requestID && r.isMarked != true).ToList();
+
+            if (requests.Count == 0)
+            {
+                status = "closed";
+                try
+                {
+                    db.Requests.AddOrUpdate(this);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+            }
+
+            return false;
+        }
+
+        public bool CheckIfRoomServiceAdditilanCloseIsNeeded()
+        {
+            List<Additional_Items_Room_Service> requests = db.Additional_Items_Room_Service.Where(r => r.requestID == requestID && r.isMarked != true).ToList();
 
             if (requests.Count == 0)
             {

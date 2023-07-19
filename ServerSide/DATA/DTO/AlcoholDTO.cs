@@ -18,6 +18,9 @@ namespace DATA
         public string type { get; set; }
         public decimal? alcoholPercent { get; set; }
         public string category { get; set; }
+        public bool? isDeleted { get; set; }
+        public bool? inStock { get; set; }
+
 
 
         public void SetAlcoholDTO(Food_And_Drinks drinkParent)
@@ -33,6 +36,8 @@ namespace DATA
             type = "Alcohol";
             alcoholPercent = alcohol.alcoholPercent;
             category = alcohol.category;
+            isDeleted = drinkParent.isDeleted;
+            inStock = drinkParent.inStock;
         }
 
         public Dictionary<string, string> GetDrinkToTranslate()

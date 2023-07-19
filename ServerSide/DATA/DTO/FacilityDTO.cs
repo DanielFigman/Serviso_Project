@@ -17,6 +17,7 @@ namespace DATA.DTO
         public int? hotelID { get; set; }
         public string type { get; set; }
         public string openingHours { get; set; }
+        public bool? isDeleted { get; set; }
 
 
         public void setFacilityDTO(Facility facility)
@@ -29,6 +30,7 @@ namespace DATA.DTO
             hotelID = facility.hotelID;
             type = facility.type;
             openingHours = facility.openingHours;
+            isDeleted = facility.isDeleted;
         }
 
         public Dictionary<string, string> GetFacilityToTranslate()

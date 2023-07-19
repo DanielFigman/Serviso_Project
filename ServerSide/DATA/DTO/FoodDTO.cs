@@ -21,6 +21,8 @@ namespace DATA
         public string tags { get; set; }
 
         public string type { get; set; }
+        public bool? isDeleted { get; set; }
+        public bool? inStock { get; set; }
 
         public void SetFoodDTO(Food_And_Drinks foodParent)
         {
@@ -35,6 +37,8 @@ namespace DATA
             description = food.description;
             possibleChanges = food.possibleChanges;
             type = "food";
+            isDeleted = food.Food_And_Drinks.isDeleted;
+            inStock = foodParent.inStock;
         }
 
 

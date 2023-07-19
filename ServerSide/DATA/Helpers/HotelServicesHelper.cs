@@ -294,7 +294,7 @@ namespace DATA
 
                 if (newOrUpdatedFood.Food == null && newOrUpdatedFood.Drink == null && newOrUpdatedFood.Alcohol == null)
                 {
-                    throw new InvalidJsonSchemaException("Food_And_Drinks object must have one of the following list: [Food, Drink, Alcohol]");
+                    throw new InvalidJsonSchemaException("Food_And_Drinks object must have one of the following object: [Food, Drink, Alcohol]");
                 }
 
                 if(newOrUpdatedFood.hotelID == 0)
@@ -358,6 +358,31 @@ namespace DATA
             {
                 throw new InvalidJsonSchemaException();
             }
+        }
+        public JObject GetClosedRequestRoomServiceNotification(long requestID)
+        {
+            List<string> items = db.Food_And_Drinks_Room_Service
+                .Where(request => request.requestID == requestID)
+                .Select(request => request.Food_And_Drinks.name)
+                .ToList();
+
+            List<string> additionalItems = db.Additional_Items_Room_Service
+                .Where(request => request.requestID == requestID)
+                .Select(request => request.Additional_Items.name)
+                .ToList();
+
+            items.AddRange(additionalItems);
+
+            List<string> trimmedItems = items.Select(item => item.Replace("_", "")).ToList();
+
+            Dictionary<string, object> data = new Dictionary<string, object>();
+
+            JObject jsonObject = new JObject();
+            jsonObject["title"] = "Your request has been fulfilled";
+            jsonObject["body"] = $"The following items have been delivered: {string.Join(", ", trimmedItems)}";
+            jsonObject["data"] = JObject.FromObject(data); // Convert the dictionary to a JObject
+
+            return jsonObject;
         }
     }
 }

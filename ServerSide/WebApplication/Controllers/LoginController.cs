@@ -41,7 +41,9 @@ namespace WebApplication.Controllers
                         Employee employee = db.Employees.FirstOrDefault(obj => obj.User.email == userEmail);
 
                         if (employee != null)
-                            return Content(HttpStatusCode.OK, new { userType = "EMPLOYEE" });
+                        {
+                            return Content(HttpStatusCode.OK, new { fName = employee.User.fName, sName = employee.User.sName, hotelID = employee.hotelID});
+                        }
                         else
                         {
                             LoginDTO loginDTO = user.GetLoginDTO();

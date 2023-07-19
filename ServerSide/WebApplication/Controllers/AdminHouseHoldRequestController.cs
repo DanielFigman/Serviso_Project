@@ -43,6 +43,31 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
+        [Route("api/GetRoomCleaningSchedule")]
+
+        public IHttpActionResult GetRoomCleaningSchedule([FromUri] int hotelID)
+        {
+            try
+            {
+                Hotel hotel = db.Hotels.FirstOrDefault(h => h.hotelID == hotelID);
+
+                if (hotel != null)
+                {
+                    List<HouseCustomRequestDTO> customRequests = hotel.GetHouseCustomReqeustDto();
+
+                    return Content(HttpStatusCode.OK, customRequests);
+                }
+
+                return BadRequest();
+
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
+
+        [HttpGet]
         [Route("api/GetHouseHoldCustomTypes")]
         public IHttpActionResult Get()
         {
