@@ -21,7 +21,7 @@ const Drawer = createDrawerNavigator();
 
 export default function Setting() {
   const navigation = useNavigation();
-  const { clearContext, language, setlanguage, user, setIsLoading, isLoading} = useContext(HotelsAppContext);
+  const { clearContext, language, setlanguage, user, setIsLoading, isLoading } = useContext(HotelsAppContext);
 
   const handleLogOut = () => {
     console.log("log out pressed");
@@ -33,17 +33,16 @@ export default function Setting() {
   };
 
   useEffect(() => {
-    if(isLoading)
-    {
+    if (isLoading) {
       navigation.dispatch(DrawerActions.closeDrawer());
     }
   }, [isLoading])
-  
+
 
   const CustomDrawerContent = (props) => {
     return (
       <SafeAreaView>
-        <LanguageSelect languageContext={language} setlanguageContext={setlanguage} buttonStyle={{ width: "60%", backgroundColor: "transparent", alignItems: "center", left: "18%", marginTop: 120 }} updateServer={true} email={user.email} setIsLoading={setIsLoading}/>
+        <LanguageSelect languageContext={language} setlanguageContext={setlanguage} buttonStyle={{ width: "60%", backgroundColor: "transparent", alignItems: "center", left: "18%", marginTop: 120 }} updateServer={true} email={user.email} setIsLoading={setIsLoading} />
         <DrawerItem
           label="Log Out"
           onPress={handleLogOut}
@@ -75,13 +74,18 @@ export default function Setting() {
 }
 
 const PersonalPageScreen = () => {
-  const { language, user, isLoading } = useContext(HotelsAppContext);
+  const { language, user, isLoading, checkIfAlreadyScheduledAcleaning, scheduledOrder } = useContext(HotelsAppContext);
 
   const navigation = useNavigation();
 
   const [isOpen, setIsOpen] = useState(false);
 
   const screenContent = Languages.PersonalPageScreen;
+
+  useEffect(() => {
+    if (!scheduledOrder)
+      checkIfAlreadyScheduledAcleaning();
+  }, [])
 
   return (
     <ScreenComponent

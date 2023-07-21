@@ -58,6 +58,32 @@ export default function HotelsAppContextProvider(props) {
 
         console.log("Context cleared")
     }
+    const [scheduledOrder, setSheduledOrder] = useState(null);
+
+
+
+    const checkIfAlreadyScheduledAcleaning = async () => {
+        try {
+            const response = await fetch(`http://proj.ruppin.ac.il/cgroup97/test2/api/getCleaningRequest?email=${user.email}`, {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-type': 'application/json; charset=UTF-8',
+                })
+            });
+
+            if (response.ok) {
+                const message = await response.text();
+                const object = JSON.parse(message);
+                setSheduledOrder(object);
+            } else {
+                const message = await response.text();
+                const object = JSON.parse(message);
+                console.log(object)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const setLoginInfo = (email, object) => {
         setUser({ email, fName: object.fName, sName: object.sName, gender: object.gender, phone: object.phone, dateOfBirth: object.dateOfBirth });
@@ -250,7 +276,6 @@ export default function HotelsAppContextProvider(props) {
     }, [updatedActivities]);
 
     useEffect(() => {
-
         // Subscribe to AppState change event
         const handleAppStateChange = (nextAppState) => {
             if (nextAppState === 'background') {
@@ -397,7 +422,9 @@ export default function HotelsAppContextProvider(props) {
                 setAdditionalItems,
                 cart,
                 setCart,
-                setLoginInfo
+                setLoginInfo,
+                checkIfAlreadyScheduledAcleaning,
+                scheduledOrder
             }}
         >
             {props.children}
