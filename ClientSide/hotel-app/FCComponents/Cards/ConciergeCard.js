@@ -61,32 +61,14 @@ const ConciergeCard = ({ item, id }) => {
           </Text>
           <Text style={styles.text}>{item.price}</Text>
         </View>
-        <View style={{ width: "20%" }}>
+        <View style={{ width: "20%", justifyContent:"center" }}>
           <TouchableOpacity onPress={() => setFavorite(!favorite)}>
             <HeartIcon
               size={30}
               color={favorite ? "red" : "black"}
-              style={{ top: -25, left: 20 }}
+              style={{ left: 20 }}
             />
           </TouchableOpacity>
-
-          <Button
-            buttonStyle={{
-              backgroundColor: "#a9a9a9",
-              borderColor: "#c0c0c0",
-              borderWidth: 1,
-              borderRadius: 10,
-            }}
-            titleStyle={{ fontSize: 15, color: "#ffffff" }}
-            containerStyle={{
-              position: "absolute",
-              right: 20,
-              top: 10,
-            }}
-          //   onPress={""}
-          >
-            Call
-          </Button>
         </View>
       </View>
     </TouchableOpacity>

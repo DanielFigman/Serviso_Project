@@ -6,44 +6,44 @@ import { useNavigation } from "@react-navigation/native";
 import LoadingImage from "../LoadingImage";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 
-const HotelActivityCarouselCard = ({ item, id}) => {
+const HotelActivityCarouselCard = ({ item, id }) => {
   const [favorite, setFavorite] = useState(item.favorite);
   const navigation = useNavigation();
 
-  const { setUpdatedActivities, updatedActivities} = useContext(HotelsAppContext)
+  const { setUpdatedActivities, updatedActivities } = useContext(HotelsAppContext)
 
   useEffect(() => {
-      const filteredActivities = updatedActivities.filter(obj => obj.placeID === item.placeID);
-      const fav = filteredActivities.length > 0 ? filteredActivities[0].favorite : null;
+    const filteredActivities = updatedActivities.filter(obj => obj.placeID === item.placeID);
+    const fav = filteredActivities.length > 0 ? filteredActivities[0].favorite : null;
 
-      if (fav === undefined || fav === null) {
-          setFavorite(false);
-      } else {
-          setFavorite(fav);
-      }
+    if (fav === undefined || fav === null) {
+      setFavorite(false);
+    } else {
+      setFavorite(fav);
+    }
   }, [updatedActivities]);
 
 
 
 
   useEffect(() => {
-      if (favorite != null) {
-          if (updatedActivities.filter(obj => obj.placeID === item.placeID).length > 0) {
-              const activities = updatedActivities.map(obj => {
-                  if (obj.placeID === item.placeID) {
-                      obj.favorite = favorite;
-                  }
-                  return obj;
-              });
-              setUpdatedActivities(activities);
-          } else {
-              let newActivityUpdate = {
-                  placeID: item.placeID,
-                  favorite: favorite
-              };
-              setUpdatedActivities([...updatedActivities, newActivityUpdate]);
+    if (favorite != null) {
+      if (updatedActivities.filter(obj => obj.placeID === item.placeID).length > 0) {
+        const activities = updatedActivities.map(obj => {
+          if (obj.placeID === item.placeID) {
+            obj.favorite = favorite;
           }
+          return obj;
+        });
+        setUpdatedActivities(activities);
+      } else {
+        let newActivityUpdate = {
+          placeID: item.placeID,
+          favorite: favorite
+        };
+        setUpdatedActivities([...updatedActivities, newActivityUpdate]);
       }
+    }
   }, [favorite]);
 
   return (
@@ -83,43 +83,16 @@ const HotelActivityCarouselCard = ({ item, id}) => {
           />
         </TouchableOpacity>
         <View style={{ padding: 5, alignItems: "center" }}>
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View>
-              <Text
-                numberOfLines={2}
-                style={{
-                  marginVertical: 4,
-                  fontSize: 16,
-                  width: 100,
-                }}
-              >
-                {item.name}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  fontWeight: "bold",
-                }}
-              >
-                FREE
-              </Text>
-            </View>
-            <Button
-              buttonStyle={{
-                backgroundColor: "#a9a9a9",
-                borderColor: "#c0c0c0",
-                borderWidth: 1,
-                borderRadius: 10,
+          <View style={{ flex: 1}}>
+            <Text
+              numberOfLines={1}
+              style={{
+                marginVertical: 4,
+                fontSize: 16,
               }}
-              titleStyle={{ fontSize: 15, color: "#ffffff" }}
-              containerStyle={{
-                width: 70,
-                padding: 2,
-              }}
-            //   onPress={""}
             >
-              Sign me up
-            </Button>
+              {item.name}
+            </Text>
           </View>
         </View>
       </View>

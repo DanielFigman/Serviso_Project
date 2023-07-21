@@ -4,6 +4,8 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  Image,
+  Dimensions,
 } from "react-native";
 import React, { useContext } from "react";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
@@ -13,95 +15,47 @@ import MyCarousel from "../../FCComponents/MyCarousel";
 import Languages from "../../Json_files/Languages";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 
-const spaOptions = [
-  {
-    id: 1,
-    name: "Swedish Massage",
-    price: "250₪",
-    url: "https://smb.ibsrv.net/imageresizer/image/article_manager/1200x1200/17220/291800/heroimage0.190644001621610009.jpg",
-    imageUrl: "https://smb.ibsrv.net/imageresizer/image/article_manager/1200x1200/17220/291800/heroimage0.190644001621610009.jpg"
-  },
-  {
-    id: 2,
-    name: "Hot Stone Massage",
-    price: "320₪",
-    url: "https://img1.wsimg.com/isteam/stock/BNQKEo8/:/rs=w:984,h:738",
-    imageUrl: "https://img1.wsimg.com/isteam/stock/BNQKEo8/:/rs=w:984,h:738"
-
-  },
-  {
-    id: 3,
-    name: "Prenatal Massage",
-    price: "340₪",
-    url: "https://www.somanovo.com/wp-content/uploads/2018/11/feature_prenatal-640x380.jpg",
-    imageUrl: "https://www.somanovo.com/wp-content/uploads/2018/11/feature_prenatal-640x380.jpg"
-
-  },
-  {
-    id: 4,
-    name: "Combined Massage",
-    price: "250₪",
-    url: "https://massageofsantafe.com/wp-content/uploads/2022/09/deep-tissue-massage.jpg",
-    imageUrl: "https://massageofsantafe.com/wp-content/uploads/2022/09/deep-tissue-massage.jpg"
-
-  },
-];
-
-const SpaFacilities = [
-  {
-    id: 1,
-    name: "Dry sauna",
-    url: "https://img-aws.ehowcdn.com/640x425/photos.demandstudios.com/getty/article/240/146/178560558.jpg?type=webp",
-  },
-  {
-    id: 2,
-    name: "Turkish Hammam",
-    url: "https://cdn.shopify.com/s/files/1/0013/5603/8193/files/turkish-bath-1.jpg?v=1548915220",
-  },
-  {
-    id: 3,
-    name: "Jacuzzi",
-    url: "https://images.squarespace-cdn.com/content/v1/58a215afe58c62800b04d4f7/1524079127047-RT0EHGPAVYDQ0EDC9UUV/IMGP3128-650px.jpg?format=750w",
-  },
-  {
-    id: 4,
-    name: "Indoor swimming pool",
-    url: "https://www.rismedia.com/wp-content/uploads/2022/01/render-of-a-luxury-hotel-swimming-pool-picture-id1331465591-1024x594.jpg",
-  },
-];
+const { height } = Dimensions.get('window');
 
 const SpaMainScreen = () => {
   const navigation = useNavigation();
+
+  const upperViewHeight = height * 0.4; // the height of the image
+  const lowerViewMarginTop = upperViewHeight - 250; // 50px margin
 
   const { language, facilities, therapies } = useContext(HotelsAppContext);
   const screenContent = Languages.SpaMainScreen;
 
   return (
     <ScreenComponent
-      title={<View style={{flexDirection:"column", justifyContent:"center", width:"80%"}}><Text style={styles.title}>{screenContent.Spa[language]}</Text></View>}
+      title={<View style={{ flexDirection: "column", justifyContent: "center", width: "80%" }}></View>}
       content={
-        <ScrollView style={styles.container}>
-          {/* <View><MyCarousel data={facilities.filter(x => x.type === "SPA")} /></View> */}
-          <View style={styles.view1}>
-            <Text style={styles.text}>{screenContent.MassageTreatments[language]}</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("SpaTreatmenScreen")}>
-              <Text style={styles.textBT}>{screenContent.ForMoreTreatments[language]}</Text>
-            </TouchableOpacity>
+        <View style={{height:"100%"}}>
+          <Image style={{ width: "100%", height: "35%", top: -height * 0.12 }}
+            source={{ uri: "https://media.istockphoto.com/id/1286682876/photo/beauty-treatment-items-for-spa-procedures-on-white-wooden-table-massage-stones-essential-oils.jpg?s=170667a&w=0&k=20&c=NtUpn6FnnwpwtUzNfl0rpd1bFs6B30sBQGsOMlOnX_I=" }}
+          />
+          <View style={[styles.container, {top:- lowerViewMarginTop -10}]}>
+            <View style={styles.view1}>
+              <Text style={styles.text}>{screenContent.MassageTreatments[language]}</Text>
+              <TouchableOpacity onPress={() => navigation.navigate("SpaTreatmenScreen")}>
+                <Text style={styles.textBT}>{screenContent.ForMoreTreatments[language]}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ marginVertical: 10 }}>
+              <ScrollView horizontal={true}>
+                {therapies.map((item) => (
+                  <SmallCard key={item.therapyID} item={item} id={item.therapyID} type={"SPA"} />
+                ))}
+              </ScrollView>
+              <Text style={styles.textC}>{screenContent.TheSpaFacilities[language]}</Text>
+              <ScrollView horizontal={true}>
+                {facilities.map((item) => item.type === "SPA" && (
+                  <SmallCard key={item.facilityID} item={item} id={item.facilityID} />
+                ))}
+              </ScrollView>
+            </View>
           </View>
-          <View style={{ marginVertical: 10 }}>
-            <ScrollView horizontal={true}>
-              {therapies.map((item) => (
-                <SmallCard key={item.therapyID} item={item} id={item.therapyID} type={"SPA"}/>
-              ))}
-            </ScrollView>
-            <Text style={styles.textC}>{screenContent.TheSpaFacilities[language]}</Text>
-            <ScrollView horizontal={true}>
-              {facilities.map((item) => item.type === "SPA" && (
-                <SmallCard key={item.facilityID} item={item} id={item.facilityID} />
-              ))}
-            </ScrollView>
-          </View>
-        </ScrollView>
+        </View>
       }
     />
   );
