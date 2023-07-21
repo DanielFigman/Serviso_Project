@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Input } from "@rneui/themed";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
 import HealthDeclarationCard from "../../FCComponents/Cards/HealthDeclarationCard";
@@ -6,6 +12,7 @@ import { useContext } from "react";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 import Languages from "../../Json_files/Languages";
 import ButtonMain from "../../FCComponents/Buttons";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const HealthDetails = [
   {
@@ -28,15 +35,27 @@ const HealthDetails = [
 ];
 const HealthDeclarationScreen = () => {
 
+  const navigation = useNavigation();
+
+  const { params: {
+    objSpa
+  } } = useRoute();
+
+  const mycup = objSpa
+  console.log(mycup);
+
+  const check = mycup.coupleRoom;
+
   const { language } = useContext(HotelsAppContext);
   const screenContent = Languages.HealthDeclarationScreen;
-
 
   return (
     <ScreenComponent
       content={
         <ScrollView>
-          <Text style={styles.mainTitel}>{screenContent.HealthDeclarationForm[language]}</Text>
+          <Text style={styles.mainTitel}>
+            {screenContent.HealthDeclarationForm[language]}
+          </Text>
           <View style={{ top: 25 }}>
             <Input placeholder={screenContent.FullName[language]} />
           </View>
@@ -50,8 +69,30 @@ const HealthDeclarationScreen = () => {
           {HealthDetails.map((item) => (
             <HealthDeclarationCard key={item.id} item={item} />
           ))}
-          <View style={{marginTop:20, paddingBottom:20}}>
-            <ButtonMain text={"NEXT"} navigate={"SpaConfirmationScreen"} />
+          <View style={{ marginTop: 20, paddingBottom: 20 }}>
+            {mycup.coupleRoom == true && mycup.counter < 2 ? (
+              <TouchableOpacity
+                onPress={() => {
+                  mycup.counter++;
+                  console.log(mycup.coupleRoom);
+                  navigation.push("HealthDeclarationScreen", {
+                    objSpa: mycup,
+                  });
+                }}
+              >
+                <Text style={styles.btnNext}>NEXT</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("SpaConfirmationScreen", {
+                    objSpa: mycup,
+                  });
+                }}
+              >
+                <Text style={styles.btnNext}>NEXT</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </ScrollView>
       }
@@ -75,7 +116,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     top: 12,
     textAlign: "center",
-    // color: "#D3B9B3",
     fontWeight: "bold",
     fontStyle: "italic",
     textShadowColor: "#F0E8E6",
@@ -87,5 +127,15 @@ const styles = StyleSheet.create({
     shadowRadius: 1.05,
     elevation: 7,
     textShadowRadius: 25,
+  },
+  btnNext: {
+    backgroundColor: "#D3B9B3",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 30,
+    color: "#F0E8E6",
+    alignSelf: "center",
+    padding: 10,
+    marginBottom: 15,
   },
 });

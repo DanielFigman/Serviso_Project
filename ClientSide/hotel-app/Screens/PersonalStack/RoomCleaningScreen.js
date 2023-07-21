@@ -130,7 +130,7 @@ const RoomCleaningScreen = () => {
                                 <Text style={{ fontWeight: "bold", fontSize: 18, top: 2 }}> {getFormattedDate()}</Text>
                             </View>
                             {
-                                scheduledOrder.requestedHour ?
+                                scheduledOrder.requestedHour && scheduledOrder.toClear?
                                     <View style={{ flexDirection: "row", marginTop: 20, display: "flex", alignItems: "center", marginLeft: 10 }}>
                                         <Text style={{ fontSize: 22 }}>Hour:</Text>
                                         <Text style={{ fontWeight: "bold", fontSize: 18, top: 2 }}> {getFormattedHour()}</Text>

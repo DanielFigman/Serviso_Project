@@ -5,8 +5,26 @@ import ScreenComponent from "../../FCComponents/ScreenComponent";
 import Languages from "../../Json_files/Languages";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 import ButtonMain from "../../FCComponents/Buttons";
+import { useRoute } from "@react-navigation/native";
 
 const SpaConfirmationScreen = () => {
+
+  const { params: {
+    objSpa
+  } } = useRoute();
+
+  const spaOrder = objSpa;
+  console.log("spaOrder: " + JSON.stringify(spaOrder))
+  const orderTime = new Date(spaOrder.dateSpa);
+  let month = orderTime.getMonth() + 1;
+  month.toString();
+  const dateStr =
+    orderTime.getFullYear().toString() +
+    "-" +
+    month +
+    "-" +
+    orderTime.getDate().toString();
+
   const [treatmentType, setTreatmentType] = useState("Deep Tissue Massage");
   const [time, setTime] = useState("60");
   const [date, setDate] = useState("25/09/23");
@@ -17,7 +35,8 @@ const SpaConfirmationScreen = () => {
   const screenContent = Languages.SpaConfirmationScreen;
 
   return (
-    <ScreenComponent topLeftButton={"none"}
+    <ScreenComponent
+      topLeftButton={"none"}
       content={
         <View>
           <Image
@@ -33,15 +52,32 @@ const SpaConfirmationScreen = () => {
           >
             <Text style={styles.title}>{screenContent.YOUR[language]}</Text>
             <Text style={styles.title}>{screenContent.MASSAGE[language]}</Text>
-            <Text style={styles.title}>{screenContent.TREATMENT[language]}</Text>
-            <Text style={styles.textTitle}>{screenContent.OrderDetails[language]}</Text>
+            <Text style={styles.title}>
+              {screenContent.TREATMENT[language]}
+            </Text>
+            <Text style={styles.textTitle}>
+              {screenContent.OrderDetails[language]}:
+            </Text>
             <Text style={styles.text}>{treatmentType}</Text>
-            <Text style={styles.text}>{screenContent.Duration[language]} {time} {screenContent.minutes[language]}</Text>
-            <Text style={styles.text}>{date}</Text>
-            <Text style={styles.text}>{hour}</Text>
+            {spaOrder.duration != null && (
+              <Text style={styles.text}>
+                {screenContent.Duration[language]} {spaOrder.duration}{" "}
+                {screenContent.minutes[language]}
+              </Text>
+            )}
+
+            <Text style={styles.text}>{spaOrder.coupleRoom ? "Couple massage" : "Single massage"}</Text>
+            {spaOrder.gender != null && (
+              <Text style={styles.text}>
+                {/* {screenContent.gender[language]} */}
+                {": "} {spaOrder.gender}
+              </Text>
+            )}
+            <Text style={styles.text}>{dateStr}</Text>
+            <Text style={styles.text}>{spaOrder.queue}</Text>
             <Text style={styles.text}>{price}₪</Text>
           </View>
-          <View style={{marginTop:50}}>
+          <View style={{ marginTop: 50 }}>
             <ButtonMain text={"Continue"} navigate={"HomeScreen"} />
           </View>
         </View>
