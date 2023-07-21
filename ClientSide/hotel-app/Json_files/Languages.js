@@ -745,7 +745,7 @@ export default Languages = {
       POR: "Número do Salão",
       CH: "大厅编号",
       JP: "ホール番号",
-    }
+    },
   },
   ConciergeActivitiesScreen: {
     RecommendedActivitiesInTheArea: {
@@ -1070,6 +1070,48 @@ export default Languages = {
       CH: "分钟",
       JP: "分",
     },
+    Gender: {
+      EN: "Gender:",
+      HE: ":מגדר",
+      AR: "جنس:",
+      ES: "género:",
+      RU: "гендер:",
+      FR: "genre:",
+      POR: "género:",
+      CH: "性别:",
+      JP: "ジェンダ:",
+    },
+    CoupleMassage: {
+      EN: "Couple massage",
+      HE: "מסאז' זוגי",
+      AR: "مساج للزوجين",
+      ES: "Masaje de pareja",
+      RU: "Парный массаж",
+      FR: "Massage en couple",
+      POR: "Massagem para casal",
+      CH: "双人按摩 ",
+      JP: "カップルマッサージ ",
+    },
+    SingleMassage: {
+      EN: "Single massage",
+      HE: "מסאז' יחיד",
+      AR: "مساج فردي",
+      ES: "Masaje individual",
+      RU: "Одиночный массаж",
+      FR: "Massage individuel",
+      POR: "Massagem individual",
+      CH: "单人按摩",
+      JP: "シングルマッサージ ",
+    },
+    // EN: "",
+    //   HE: "",
+    //   AR: "",
+    //   ES: "",
+    //   RU: "",
+    //   FR: "",
+    //   POR: "",
+    //   CH: "",
+    //   JP: "",
   },
   SpaMainScreen: {
     Spa: {
@@ -1302,5 +1344,5 @@ export default Languages = {
       CH: "始终在这里",
       JP: "常にここに",
     },
-  }
+  },
 };

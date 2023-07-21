@@ -15,7 +15,7 @@ import MyCarousel from "../../FCComponents/MyCarousel";
 import Languages from "../../Json_files/Languages";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 const SpaMainScreen = () => {
   const navigation = useNavigation();
@@ -28,30 +28,61 @@ const SpaMainScreen = () => {
 
   return (
     <ScreenComponent
-      title={<View style={{ flexDirection: "column", justifyContent: "center", width: "80%" }}></View>}
+      title={
+        <View
+          style={{
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "80%",
+          }}
+        ></View>
+      }
       content={
-        <View style={{height:"100%"}}>
-          <Image style={{ width: "100%", height: "35%", top: -height * 0.12 }}
-            source={{ uri: "https://media.istockphoto.com/id/1286682876/photo/beauty-treatment-items-for-spa-procedures-on-white-wooden-table-massage-stones-essential-oils.jpg?s=170667a&w=0&k=20&c=NtUpn6FnnwpwtUzNfl0rpd1bFs6B30sBQGsOMlOnX_I=" }}
+        <View style={{ height: "100%" }}>
+          <Image
+            style={{ width: "100%", height: "35%", top: -height * 0.12 }}
+            source={{
+              uri: "https://media.istockphoto.com/id/1286682876/photo/beauty-treatment-items-for-spa-procedures-on-white-wooden-table-massage-stones-essential-oils.jpg?s=170667a&w=0&k=20&c=NtUpn6FnnwpwtUzNfl0rpd1bFs6B30sBQGsOMlOnX_I=",
+            }}
           />
-          <View style={[styles.container, {top:- lowerViewMarginTop -10}]}>
+          <View style={[styles.container, { top: -lowerViewMarginTop - 10 }]}>
             <View style={styles.view1}>
-              <Text style={styles.text}>{screenContent.MassageTreatments[language]}</Text>
-              <TouchableOpacity onPress={() => navigation.navigate("SpaTreatmenScreen")}>
-                <Text style={styles.textBT}>{screenContent.ForMoreTreatments[language]}</Text>
+              <Text style={styles.text}>
+                {screenContent.MassageTreatments[language]}
+              </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("SpaTreatmenScreen")}
+              >
+                <Text style={styles.textBT}>
+                  {screenContent.ForMoreTreatments[language]}
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={{ marginVertical: 10 }}>
               <ScrollView horizontal={true}>
                 {therapies.map((item) => (
-                  <SmallCard key={item.therapyID} item={item} id={item.therapyID} type={"SPA"} />
+                  <SmallCard
+                    key={item.therapyID}
+                    item={item}
+                    id={item.therapyID}
+                    type={"SPA"}
+                  />
                 ))}
               </ScrollView>
-              <Text style={styles.textC}>{screenContent.TheSpaFacilities[language]}</Text>
+              <Text style={styles.textC}>
+                {screenContent.TheSpaFacilities[language]}
+              </Text>
               <ScrollView horizontal={true}>
-                {facilities.map((item) => item.type === "SPA" && (
-                  <SmallCard key={item.facilityID} item={item} id={item.facilityID} />
-                ))}
+                {facilities.map(
+                  (item) =>
+                    item.type === "SPA" && (
+                      <SmallCard
+                        key={item.facilityID}
+                        item={item}
+                        id={item.facilityID}
+                      />
+                    )
+                )}
               </ScrollView>
             </View>
           </View>
