@@ -46,6 +46,27 @@ namespace WebApplication.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/GetAdminDashboard")]
+        public IHttpActionResult GetAdminDashboard([FromUri] int hotelID)
+        {
+            try
+            {
+                if (db.Hotels.FirstOrDefault(obj => obj.hotelID == hotelID) == null)
+                {
+                    throw new Exception($"Hotel with ID: {hotelID} is not exist");
+                }
+
+                AdminDashboardDTO retVal = new AdminDashboardDTO(hotelID);
+
+                return Content(HttpStatusCode.OK, retVal);
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
+
 
         [HttpGet]
         [Route("api/GetFoodTypes")]
