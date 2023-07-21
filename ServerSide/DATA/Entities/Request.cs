@@ -310,7 +310,20 @@ namespace DATA
                         }
                     }
                 }
+                else if (HouseHold_Request.ContainsKey("HouseHold_Cleaning_Request"))
+                {
+                    var houseHoldCleaningRequests = HouseHold_Request["HouseHold_Cleaning_Request"] as Dictionary<string, object>;
+                    houseHoldCleaningRequests["requestID"] = requestID;
+                }
             }
+        }
+
+        public void MarkCleaningRequest()
+        {
+            status = "CLOSED";
+
+            db.Requests.AddOrUpdate(this);
+            db.SaveChanges();
         }
     }
 }

@@ -42,6 +42,35 @@ namespace DATA
 
             return customRequestsDTO;
         }
+         
+        public List<HouseholdCleaningRequestsDTO> GetHouseholdCleaningRequests()
+        {
+            int[] ordersID = db.Orders
+              .Where(order => order.hotelID == hotelID)
+              .Select(y => y.orderID)
+              .Distinct()
+              .ToArray();
+
+            long[] requestsID = db.Request_In_Order
+              .Where(request => ordersID
+              .Contains(request.orderID) && request.Request.status == "open")
+              .Select(y => y.requestID)
+              .Distinct()
+              .ToArray();
+
+            List<HouseHold_Cleaning_Request> cleaningRequests = db.HouseHold_Cleaning_Request.Where(x => requestsID.Contains(x.requestID) && x.HouseHold_Request.Request.status == "open").ToList();
+
+            List<HouseholdCleaningRequestsDTO> cleaningRequestsDTO = new List<HouseholdCleaningRequestsDTO>();
+
+            cleaningRequests.ForEach(c =>
+            {
+                HouseholdCleaningRequestsDTO hcd = new HouseholdCleaningRequestsDTO();
+                hcd.SetHouseholdCleaningRequestsDTO(c);
+                cleaningRequestsDTO.Add(hcd);
+            });
+
+            return cleaningRequestsDTO;
+        }
 
         public List<RoomServiceRequestsDTO> GetRoomServiceRequests()
         {

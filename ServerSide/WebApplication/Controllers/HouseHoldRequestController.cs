@@ -11,6 +11,8 @@ namespace WebApplication.Controllers
 {
     public class HouseHoldRequestController : ApiController
     {
+        hotelAppDBContextNew db = new hotelAppDBContextNew();
+
         [HttpPost]
         [Route("api/newRequest")]
 
@@ -22,6 +24,34 @@ namespace WebApplication.Controllers
                 r.CraeteNewRequestEntity(data);
 
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("api/getCleaningRequest")]
+
+        public IHttpActionResult Get([FromUri] string email)
+        {
+            try
+            {
+                HouseholdCleaningRequestsDTO retVal;
+                User user = db.Users.FirstOrDefault(obj => obj.email == email);
+                if (user != null)
+                {
+                    Order order = user.GetCurrentOrder();
+                    retVal = order.GetRoomCleaningRequest();
+                }
+                else
+                {
+                    throw new NonExistingUser(email);
+                }
+
+
+                return Content(HttpStatusCode.OK, retVal);
             }
             catch (Exception e)
             {

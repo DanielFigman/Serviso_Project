@@ -151,6 +151,7 @@
     <Compile Include="DTO\HotelDTO.cs" />
     <Compile Include="DTO\HotelServicesDTO.cs" />
     <Compile Include="DTO\HouseCustomRequestDTO.cs" />
+    <Compile Include="DTO\HouseholdCleaningRequestsDTO.cs" />
     <Compile Include="DTO\LoginAdminDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
     <Compile Include="DTO\QuestionaireDTO.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Entities\Food_And_Drinks_Room_Service.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\HouseHold_Custom_Request.cs" />
+    <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Questionnaire.cs" />
     <Compile Include="Entities\Request.cs" />
     <Compile Include="Entities\SuggestedActivities.cs" />

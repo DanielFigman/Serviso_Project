@@ -299,6 +299,24 @@ namespace DATA
             return jsonObject;
         }
 
+        public JObject GetCleaningCloseNotification(long requestID)
+        {
+            Request_In_Order requestInOrder = db.Request_In_Order.FirstOrDefault(obj => obj.requestID == requestID);
+            Order order = requestInOrder?.Order;
+            int? roomNum = order?.Rooms?.FirstOrDefault()?.roomNum;
+
+
+
+            Dictionary<string, object> data = new Dictionary<string, object>();
+
+            JObject jsonObject = new JObject(); 
+            jsonObject["title"] = "Cleaning notification";
+            jsonObject["body"] = roomNum != null ? $"Room {roomNum} has been cleaned" : "Your Room has been cleaned";
+            jsonObject["data"] = JObject.FromObject(data); // Convert the dictionary to a JObject
+
+            return jsonObject;
+        }
+
         public double GetLatitude(string landmark)
         {
             landmark = landmark.Trim('(', ')');

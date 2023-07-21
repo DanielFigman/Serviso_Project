@@ -53,9 +53,9 @@ namespace WebApplication.Controllers
 
                 if (hotel != null)
                 {
-                    List<HouseCustomRequestDTO> customRequests = hotel.GetHouseCustomReqeustDto();
+                    List<HouseholdCleaningRequestsDTO> cleaningRequests = hotel.GetHouseholdCleaningRequests();
 
-                    return Content(HttpStatusCode.OK, customRequests);
+                    return Content(HttpStatusCode.OK, cleaningRequests);
                 }
 
                 return BadRequest();
@@ -73,7 +73,7 @@ namespace WebApplication.Controllers
         {
             try
             {
-                List<Custom_Request_Types> customTypeList =  db.Custom_Request_Types.ToList();
+                List<Custom_Request_Types> customTypeList = db.Custom_Request_Types.ToList();
 
                 List<Custom_Request_Type_DTO> retVal = new List<Custom_Request_Type_DTO>();
 
@@ -104,12 +104,13 @@ namespace WebApplication.Controllers
             {
 
                 HouseHold_Custom_Request request = db.HouseHold_Custom_Request.FirstOrDefault(r => r.requestID == requestID && r.typeID == typeID);
-        
+
                 if (request != null)
                 {
                     bool isRequestClosed = request.MarkRequest();
 
-                    if (isRequestClosed) { 
+                    if (isRequestClosed)
+                    {
                         PushNotifications p = new PushNotifications();
 
                         List<string> clients = dataHelper.GetClientByRequestId(requestID);
@@ -117,6 +118,47 @@ namespace WebApplication.Controllers
                         JObject notification = dataHelper.GetClosedRequestNotification(requestID);
 
                         _ = p.SendMessageToClientsAsync(clients, notification);
+                    }
+
+                    return Ok();
+                }
+
+                throw new NonExistingRequest(requestID);
+
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.BadRequest, new { type = e.GetType().Name, message = e.Message });
+            }
+        }
+
+
+        [HttpPut]
+        [Route("api/MarkCleaningRequest")]
+
+        public IHttpActionResult MarkCleaningRequest([FromUri] long requestID)
+        {
+            try
+            {
+
+                Request request = db.Requests.FirstOrDefault(r => r.requestID == requestID);
+
+                if (request != null)
+                {
+                    request.MarkCleaningRequest();
+
+                    bool? shouldHaveBeenCleaned = db.HouseHold_Cleaning_Request.FirstOrDefault(obj => obj.requestID == request.requestID)?.toClear;
+
+                    if(shouldHaveBeenCleaned == true)
+                    {
+                        PushNotifications p = new PushNotifications();
+
+                        List<string> clients = dataHelper.GetClientByRequestId(requestID);
+
+                        JObject notification = dataHelper.GetCleaningCloseNotification(requestID);
+
+                        _ = p.SendMessageToClientsAsync(clients, notification);
+
                     }
 
                     return Ok();
@@ -139,7 +181,7 @@ namespace WebApplication.Controllers
             try
             {
                 Request r = new Request();
-                r.CraeteNewRequestEntity(roomNum,hotelID, data);
+                r.CraeteNewRequestEntity(roomNum, hotelID, data);
 
                 return Ok();
             }
