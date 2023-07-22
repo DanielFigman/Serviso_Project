@@ -5,13 +5,15 @@ import ScreenComponent from "../../FCComponents/ScreenComponent";
 import Languages from "../../Json_files/Languages";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
 import ButtonMain from "../../FCComponents/Buttons";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const SpaConfirmationScreen = () => {
 
   const { params: {
     objSpa,
   } } = useRoute();
+
+  const navigation = useNavigation();
 
   const spaOrder = objSpa;
   console.log("spaOrder: " + JSON.stringify(spaOrder))
@@ -27,14 +29,56 @@ const SpaConfirmationScreen = () => {
 
   const treatmentType = objSpa?.name
 
-  const { language } = useContext(HotelsAppContext);
+  const { language, user, order } = useContext(HotelsAppContext);
   const screenContent = Languages.SpaConfirmationScreen;
   console.log(objSpa)
   let price;
+  const isDouble = spaOrder.coupleRoom ? 2 : 1;
   if (parseInt(objSpa.duration) > 45) {
-    price = objSpa.basePrice + ((objSpa.duration - 45) / 15 * objSpa.priceForAdditional15);
+    price = (objSpa.basePrice + ((objSpa.duration - 45) / 15 * objSpa.priceForAdditional15)) * isDouble;
   } else {
     price = objSpa.basePrice;
+  }
+
+
+  const handleConfirm = () => {
+    postAppointment();
+    navigation.navigate("HomeScreen")
+  }
+
+  const postAppointment = async () => {
+    try {
+      const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/AppointSpaTreatment', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: user.email,
+          Date: objSpa.dateSpa,
+          StartTime: objSpa.queue,
+          EndTime: objSpa.EndTime,
+          Therapy1Gender: objSpa.gender,
+          Therapy2Gender: objSpa.secondaryGender,
+          hotelID: order.hotelID,
+          orderID: order.orderID,
+          price: price,
+        }),
+        headers: new Headers({
+          'Content-type': 'application/json; charset=UTF-8',
+        })
+      });
+
+      if (response.ok) {
+        console.log("Spa appointment succeed");
+      } else {
+        const errorMessage = await response.text();
+        const errorObject = JSON.parse(errorMessage);
+        const errorType = errorObject.type;
+        const errorMessageText = errorObject.message;
+
+        console.log(`Error: ${response.status} - ${errorType} - ${errorMessageText}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -50,7 +94,7 @@ const SpaConfirmationScreen = () => {
             style={{
               marginTop: 60,
               backgroundColor: "#EDEDED",
-              paddingBottom:15,
+              paddingBottom: 15,
             }}
           >
             <Text style={styles.title}>{screenContent.YOUR[language]}</Text>
@@ -90,9 +134,9 @@ const SpaConfirmationScreen = () => {
             <Text style={styles.text}>{spaOrder.queue?.substring(0, 5)}</Text>
             <Text style={styles.text}>{price}₪</Text>
           </View>
-          <View style={{ marginTop: 5, flexDirection:"row", justifyContent:"space-around"}}>
-            <ButtonMain text={"Confirm"} navigate={"HomeScreen"} buttonStyle={{height:50}} />
-            <ButtonMain text={"Cancel"} navigate={"back"} buttonStyle={{height:50, color:"#CE3838"}} />
+          <View style={{ marginTop: 5, flexDirection: "row", justifyContent: "space-around" }}>
+            <ButtonMain text={"Confirm"} onPress={handleConfirm} buttonStyle={{ height: 50 }} />
+            <ButtonMain text={"Cancel"} navigate={"back"} buttonStyle={{ height: 50, color: "#CE3838" }} />
           </View>
         </View>
       }
@@ -106,7 +150,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     textAlign: "center",
-    marginBottom:5
+    marginBottom: 5
   },
   textTitle: {
     fontSize: 20,

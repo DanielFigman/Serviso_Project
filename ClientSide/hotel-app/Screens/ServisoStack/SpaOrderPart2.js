@@ -37,7 +37,15 @@ function SpaOrderPart2() {
         setDoubleRoom((prevValue) => !prevValue);
     };
 
+    useEffect(() => {
+        if (!doubleRoom) {
+            setSelectedSecondaryGender(null)
+        }
+    }, [doubleRoom])
+
+
     const handleNext = () => {
+        console.log(selectedSecondaryGender)
         if (selectedQueue) {
             const objSpa = {
                 coupleRoom: doubleRoom,
@@ -51,6 +59,7 @@ function SpaOrderPart2() {
                 basePrice,
                 priceForAdditional15,
                 ScheduleID: selectedQueue?.ScheduleID,
+                EndTime: calculateEndTime(selectedQueue?.StartTime, selectedDuration)
             };
             navigation.navigate("HealthDeclarationScreen", {
                 objSpa,
@@ -369,7 +378,7 @@ const styles = StyleSheet.create({
     },
     filterButton: {
         paddingVertical: 5,
-        marginTop:2
+        marginTop: 2
     },
     horizontalScrollViewContent: {
         flexDirection: "row",
