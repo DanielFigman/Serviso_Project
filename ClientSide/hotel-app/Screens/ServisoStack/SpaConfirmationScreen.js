@@ -70,15 +70,15 @@ const SpaConfirmationScreen = () => {
               {spaOrder.coupleRoom ? "Couple massage" : "Single massage"}
             </Text>
             <Text style={styles.text}>
-              {"Date: "}
+              {screenContent.Date[language]}
               {dateStr}
             </Text>
             <Text style={styles.text}>
-              {"Hour: "}
+              {screenContent.Hour[language]}
               {spaOrder.queue}
             </Text>
             <Text style={styles.text}>
-              {"Price: "}
+              {screenContent.Price[language]}
               {price}₪
             </Text>
           </View>
