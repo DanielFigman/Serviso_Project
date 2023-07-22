@@ -8,12 +8,13 @@ import ButtonMain from "../../FCComponents/Buttons";
 import { useRoute } from "@react-navigation/native";
 
 const SpaConfirmationScreen = () => {
-  const {
-    params: { objSpa },
-  } = useRoute();
+
+  const { params: {
+    objSpa,
+  } } = useRoute();
 
   const spaOrder = objSpa;
-  console.log("spaOrder: " + JSON.stringify(spaOrder));
+  console.log("spaOrder: " + JSON.stringify(spaOrder))
   const orderTime = new Date(spaOrder.dateSpa);
   let month = orderTime.getMonth() + 1;
   month.toString();
@@ -24,11 +25,17 @@ const SpaConfirmationScreen = () => {
     "-" +
     orderTime.getDate().toString();
 
-  const [treatmentType, setTreatmentType] = useState("Deep Tissue Massage");
-  const [price, setPrice] = useState("300");
+  const treatmentType = objSpa?.name
 
   const { language } = useContext(HotelsAppContext);
   const screenContent = Languages.SpaConfirmationScreen;
+  console.log(objSpa)
+  let price;
+  if (parseInt(objSpa.duration) > 45) {
+    price = objSpa.basePrice + ((objSpa.duration - 45) / 15 * objSpa.priceForAdditional15);
+  } else {
+    price = objSpa.basePrice;
+  }
 
   return (
     <ScreenComponent
@@ -43,7 +50,7 @@ const SpaConfirmationScreen = () => {
             style={{
               marginTop: 60,
               backgroundColor: "#EDEDED",
-              height: 400,
+              paddingBottom:15,
             }}
           >
             <Text style={styles.title}>{screenContent.YOUR[language]}</Text>
@@ -61,29 +68,31 @@ const SpaConfirmationScreen = () => {
                 {screenContent.minutes[language]}
               </Text>
             )}
-            {spaOrder.gender != null && (
+            <Text style={styles.text}>{spaOrder.coupleRoom ? "Couple massage" : "Single massage"}</Text>
+            {spaOrder.gender != null && !spaOrder.coupleRoom ?
               <Text style={styles.text}>
-                {screenContent.Gender[language]} {spaOrder.gender}
+                {/* {screenContent.gender[language]} */}
+                {"Therapist gender: "} {spaOrder.gender}
               </Text>
-            )}
-            <Text style={styles.text}>
-              {spaOrder.coupleRoom ? "Couple massage" : "Single massage"}
-            </Text>
-            <Text style={styles.text}>
-              {"Date: "}
-              {dateStr}
-            </Text>
-            <Text style={styles.text}>
-              {"Hour: "}
-              {spaOrder.queue}
-            </Text>
-            <Text style={styles.text}>
-              {"Price: "}
-              {price}₪
-            </Text>
+              :
+              <>
+                <Text style={styles.text}>
+                  {/* {screenContent.gender[language]} */}
+                  {"Therapist 1 gender: "} {spaOrder.gender}
+                </Text>
+                <Text style={styles.text}>
+                  {/* {screenContent.gender[language]} */}
+                  {"Therapist 2 gender: "} {spaOrder.secondaryGender}
+                </Text>
+              </>
+            }
+            <Text style={styles.text}>{dateStr}</Text>
+            <Text style={styles.text}>{spaOrder.queue?.substring(0, 5)}</Text>
+            <Text style={styles.text}>{price}₪</Text>
           </View>
-          <View style={{ marginTop: 15 }}>
-            <ButtonMain text={"Continue"} navigate={"HomeScreen"} />
+          <View style={{ marginTop: 5, flexDirection:"row", justifyContent:"space-around"}}>
+            <ButtonMain text={"Confirm"} navigate={"HomeScreen"} buttonStyle={{height:50}} />
+            <ButtonMain text={"Cancel"} navigate={"back"} buttonStyle={{height:50, color:"#CE3838"}} />
           </View>
         </View>
       }
@@ -95,12 +104,12 @@ export default SpaConfirmationScreen;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 22,
+    fontSize: 20,
     textAlign: "center",
-    paddingTop: 2.5,
+    marginBottom:5
   },
   textTitle: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 15,

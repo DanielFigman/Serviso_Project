@@ -146,7 +146,7 @@ const CardScreen = () => {
                             }
                             {
                                 buttonType === "SPA" ?
-                                    <ButtonMain text={"Pick this"} buttonStyle={{ marginTop: 75 }} onPress={() => navigation.navigate("SpaOrder")} />
+                                    <ButtonMain text={"Pick this"} buttonStyle={{ marginTop: 75 }} onPress={() => navigation.navigate("SpaOrder", {name, basePrice, priceForAdditional15})} />
                                     :
                                     ""
                             }

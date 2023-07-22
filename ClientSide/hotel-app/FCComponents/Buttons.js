@@ -8,7 +8,7 @@ const ButtonMain = ({ textStyle, buttonStyle, text, onPress, navigate }) => {
     const navigation = useNavigation();
 
     let buttonStyleConverted = {};
-    const onPressConverted = navigate ? (() => { { navigation.navigate(navigate) } }) : onPress;
+    const onPressConverted = navigate ?  navigate === "back" ?  navigation.goBack : (() => { { navigation.navigate(navigate) } }) : onPress;
 
     if (buttonStyle) {
         buttonStyleConverted = { ...buttonStyle };
