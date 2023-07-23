@@ -2,14 +2,18 @@ import { View, Text, SafeAreaView, StyleSheet } from "react-native";
 import HouseHoldProducts from "../FCComponents/HouseHoldProducts";
 import "react-native-vector-icons/FontAwesome";
 import ScreenComponent from "../FCComponents/ScreenComponent";
+import { HotelsAppContext } from "../Context/HotelsAppContext";
+import Languages from "../../Json_files/Languages";
 
 const RoomProductsScreen = () => {
+  const { language } = useContext(HotelsAppContext);
+  const screenContent = Languages.RoomProductsScreen;
   return (
     <ScreenComponent
       content={
         <SafeAreaView>
           <View>
-            <Text style={styles.title}>Request</Text>
+            <Text style={styles.title}>{screenContent.Request[language]}</Text>
             <HouseHoldProducts />
           </View>
         </SafeAreaView>

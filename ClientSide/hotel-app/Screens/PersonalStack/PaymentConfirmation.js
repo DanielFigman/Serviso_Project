@@ -3,10 +3,15 @@ import React from "react";
 import { CheckCircleIcon } from "react-native-heroicons/outline";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
 import ButtonMain from "../../FCComponents/Buttons";
+import Languages from "../../Json_files/Languages";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
 
 const PaymentConfirmation = () => {
+  const { language } = useContext(HotelsAppContext);
+  const screenContent = Languages.PaymentConfirmation;
   return (
-    <ScreenComponent topLeftButton={"none"}
+    <ScreenComponent
+      topLeftButton={"none"}
       content={
         <View style={{ paddingTop: 120 }}>
           <CheckCircleIcon
@@ -19,10 +24,12 @@ const PaymentConfirmation = () => {
             color={"#D3B9B3"}
             style={{ left: 170, top: 20 }}
           /> */}
-          <Text style={styles.text}>Thank you!</Text>
-          <Text style={styles.text}>The payment was successfully received</Text>
-          <View style={{marginTop:100}}>
-            <ButtonMain text={"Continue"} navigate={"PersonalPageScreen"}/>
+          <Text style={styles.text}>{screenContent.ThankYou[language]}</Text>
+          <Text style={styles.text}>
+            {screenContent.ThePaymentWasSuccessfullyReceived[language]}
+          </Text>
+          <View style={{ marginTop: 100 }}>
+            <ButtonMain text={"Continue"} navigate={"PersonalPageScreen"} />
           </View>
         </View>
       }

@@ -158,7 +158,7 @@ const RoomCleaningScreen = () => {
                   textDecorationLine: "underline",
                 }}
               >
-                Requested Cleaning Schedule
+                {screenContent.RequestedCleaningSchedule[language]}
               </Text>
               <View
                 style={{
@@ -169,7 +169,9 @@ const RoomCleaningScreen = () => {
                   marginLeft: 10,
                 }}
               >
-                <Text style={{ fontSize: 22 }}>Date:</Text>
+                <Text style={{ fontSize: 22 }}>
+                  {screenContent.Date[language]}
+                </Text>
                 <Text style={{ fontWeight: "bold", fontSize: 18, top: 2 }}>
                   {" "}
                   {getFormattedDate()}
@@ -185,7 +187,9 @@ const RoomCleaningScreen = () => {
                     marginLeft: 10,
                   }}
                 >
-                  <Text style={{ fontSize: 22 }}>Hour:</Text>
+                  <Text style={{ fontSize: 22 }}>
+                    {screenContent.Hour[language]}
+                  </Text>
                   <Text style={{ fontWeight: "bold", fontSize: 18, top: 2 }}>
                     {" "}
                     {getFormattedHour()}
@@ -206,7 +210,7 @@ const RoomCleaningScreen = () => {
                   }}
                 >
                   <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                    We will not clean you room as requested
+                    {screenContent.WeWillNotCleanYouRoomAsRequested[language]}
                   </Text>
                 </View>
               ) : (
@@ -227,7 +231,9 @@ const RoomCleaningScreen = () => {
         ) : (
           <View style={styles.container}>
             <View style={{}}>
-              <Text className="font-bold">Cleaning schedule for tommorow</Text>
+              <Text className="font-bold">
+                {screenContent.CleaningScheduleForTommorow[language]}
+              </Text>
             </View>
             <View
               style={{
@@ -243,7 +249,9 @@ const RoomCleaningScreen = () => {
                 ]}
               >
                 <View style={styles.pickerContainer}>
-                  <Text style={[styles.label, { left: 40 }]}>Hour</Text>
+                  <Text style={[styles.label, { left: 40 }]}>
+                    {screenContent.Hour2[language]}
+                  </Text>
                   <Picker
                     style={styles.picker}
                     selectedValue={hour}
@@ -255,7 +263,9 @@ const RoomCleaningScreen = () => {
                   </Picker>
                 </View>
                 <View style={styles.pickerContainer}>
-                  <Text style={[styles.label, { left: 40 }]}>Minute</Text>
+                  <Text style={[styles.label, { left: 40 }]}>
+                    {screenContent.Minute[language]}
+                  </Text>
                   <Picker
                     style={styles.picker}
                     selectedValue={minute}
@@ -279,7 +289,9 @@ const RoomCleaningScreen = () => {
                     marginTop: 50,
                   }}
                 >
-                  <Text style={{ fontSize: 14 }}>Do not clean my room</Text>
+                  <Text style={{ fontSize: 14 }}>
+                    {screenContent.DoNotCleanMyRoom[language]}
+                  </Text>
                   <Switch
                     trackColor={{ false: "#767577", true: "#D3B9B3" }}
                     thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
