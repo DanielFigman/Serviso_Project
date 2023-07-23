@@ -24,7 +24,7 @@ namespace WebApplication
 
         private static readonly int aproxCharsToTranslate = 20000;
 
-        public AzureTranslatorApi() : base("AzureTranslator", 1000000)
+        public AzureTranslatorApi() : base("AzureTranslator", 1500000)
         {
 
         }
@@ -64,6 +64,11 @@ namespace WebApplication
             }
         }
 
+        public async Task<string> TranslateMessage(string str, string targetLanguage)
+        {
+            string retVal = await Translate(str, targetLanguage);
+            return retVal;
+        }
         public async Task TranslateLoginDTO(LoginDTO loginDTO)
         {
             try

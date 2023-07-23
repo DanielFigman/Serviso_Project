@@ -17,8 +17,9 @@ namespace DATA
         public double latitude { get; set; }
         public double longitude { get; set; }
         public string imageURL { get; set; }
+        public int? roomNumber { get; set; }
 
-        public void SetHotelDTO(Hotel hotel)
+        public void SetHotelDTO(Hotel hotel, User user)
         {
             hotelID = hotel.hotelID;
             name = hotel.name;
@@ -27,6 +28,7 @@ namespace DATA
             imageURL = hotel.imageURL;
             latitude = dataHelper.GetLatitude(hotel.landmark);
             longitude = dataHelper.GetLongitude(hotel.landmark);
+            roomNumber = user.GetCurrentOrder()?.Rooms.FirstOrDefault()?.roomNum;
         }
 
 

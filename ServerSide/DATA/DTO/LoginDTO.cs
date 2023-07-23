@@ -64,7 +64,7 @@ namespace DATA
             facilities = GetFacilities(hotel);
             custom_Request_Types = GetCustomTypes();
             therapies = GetTherapies(hotel.hotelID);
-            this.hotel = GetHotel(hotel);
+            this.hotel = GetHotel(hotel, user);
             food = GetFood(hotel.hotelID);
             drinks = GetDrinks(hotel.hotelID);
             alcohol = GetAlcohol(hotel.hotelID, user.dateOfBirth);
@@ -241,10 +241,10 @@ namespace DATA
             return retVal;
         }
 
-        private HotelDTO GetHotel(Hotel hotel)
+        private HotelDTO GetHotel(Hotel hotel, User user)
         {
             HotelDTO hotelDTO = new HotelDTO();
-            hotelDTO.SetHotelDTO(hotel);
+            hotelDTO.SetHotelDTO(hotel, user);
 
             return hotelDTO;
         }
