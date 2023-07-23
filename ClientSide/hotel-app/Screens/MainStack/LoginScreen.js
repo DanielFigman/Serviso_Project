@@ -6,6 +6,8 @@ import ButtonMain, { ButtonText } from '../../FCComponents/Buttons';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import Languages from '../../Json_files/Languages';
+import { auth, provider } from '../../Firebase/firebase-config'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 const LoginScreen = () => {
 
@@ -13,7 +15,8 @@ const LoginScreen = () => {
     language,
     setlanguage,
     setIsLoading,
-    setLoginInfo
+    setLoginInfo,
+    setAuthToken
   } = useContext(HotelsAppContext)
 
 
@@ -22,6 +25,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState(null)
 
   const navigation = useNavigation();
+
 
 
   const handleLogin = async () => {
@@ -45,6 +49,19 @@ const LoginScreen = () => {
         if (response.ok) {
           const message = await response.text();
           const object = JSON.parse(message);
+          await signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              // The user has been signed in successfully without any popups
+              const user = userCredential.user;
+              console.log('User signed in:', user.uid);
+              setAuthToken(userCredential._tokenResponse.refreshToken)
+              // Do whatever you need to do after successful sign-in
+            })
+            .catch((error) => {
+              // Handle sign-in errors
+              console.error('Sign-in error:', error.message);
+            });
+
           setLoginInfo(email, object);
           navigation.navigate("MainScreen")
         } else {

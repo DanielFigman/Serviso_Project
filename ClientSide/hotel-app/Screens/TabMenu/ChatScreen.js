@@ -1,66 +1,80 @@
 import { View, Text, StyleSheet, KeyboardAvoidingView, Keyboard } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import ScreenComponent from '../../FCComponents/ScreenComponent'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
-import { keyBy } from 'lodash';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
+import {
+    collection,
+    addDoc,
+    where,
+    onSnapshot,
+    query,
+    orderBy,
+} from "firebase/firestore";
+import { db } from "../../Firebase/firebase-config";
+
 
 const ChatScreen = () => {
 
-    const [messages, setMessages] = useState([]);
-    const { user } = useContext(HotelsAppContext)
+    const [messages, setMessages] = useState(null);
+    const { user, hotel } = useContext(HotelsAppContext)
 
-    const { email } = user;
+    const chatsRef = collection(db, "chats");
+
+    useEffect(() => {
+        if (messages && messages.length === 0) {
+            const initialMessage = {
+                _id: "serviso4u@gmail.com",
+                text: 'Hello how can I help you?',
+                createdAt: new Date(),
+                user: {
+                    _id: "serviso4u@gmail.com",
+                    name: 'React Native',
+                    avatar: "https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFufGVufDB8fDB8fHww&w=1000&q=80"
+                },
+            };
+            // Set the initial message to state
+            setMessages([initialMessage]);
+
+            // Add the initial message to the database
+            addDoc(chatsRef, {
+                createdAt: initialMessage.createdAt.toISOString(),
+                text: initialMessage.text,
+                email: initialMessage.user._id,
+                name: initialMessage.user.name,
+                room: hotel.roomNumber,
+                user: { _id: initialMessage.user._id, name: initialMessage.user.name, avatar: initialMessage.user.avatar }
+            });
+        }
+    }, [messages])
+
 
     useEffect(() => {
 
         const keyboardWillShow = Keyboard.addListener('keyboardWillShow', handleKeyboardWillShow);
         const keyboardWillHide = Keyboard.addListener('keyboardWillHide', handleKeyboardWillHide);
 
-
-
-        // Set up listeners for incoming push notifications
-        // PushNotification.configure({
-        //     onNotification: (notification) => {
-        //         // Handle the received notification and update the chat state
-        //         const newMessage = {
-        //             _id: notification.id,
-        //             text: notification.message,
-        //             createdAt: new Date(notification.date),
-        //             user: {
-        //                 _id: notification.senderId,
-        //                 name: notification.senderName,
-        //             },
-        //         };
-        //         setMessages((previousMessages) =>
-        //             GiftedChat.append(previousMessages, newMessage)
-        //         );
-
-        // For this example, we'll use mock data
-        if (messages.length == 0) {
-            const initialMessages = [
-                {
-                    _id: 1,
-                    text: 'Hello',
-                    createdAt: new Date(),
-                    user: {
-                        _id: 2,
-                        name: 'React Native',
-                        avatar: "https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFufGVufDB8fDB8fHww&w=1000&q=80"
-                    },
-                },
-            ];
-            setMessages(initialMessages);
-        }
-
+        const queryMessages = query(
+            chatsRef,
+            where("room", "==", hotel.roomNumber),
+            orderBy("createdAt", "desc")
+        );
+        const unsuscribe = onSnapshot(queryMessages, (snapshot) => {
+            let messages = [];
+            snapshot.forEach((doc) => {
+                messages.push({ ...doc.data(), _id: doc.id });
+            });
+            console.log(messages);
+            setMessages(messages);
+        });
 
         return () => {
             // Clean up any listeners or subscriptions if needed
             keyboardWillShow.remove();
             keyboardWillHide.remove();
-
+            unsuscribe();
         };
     }, []);
 
@@ -72,21 +86,21 @@ const ChatScreen = () => {
         setKeyBoardDidShow(false)
     }
 
-    const onSend = (newMessages = []) => {
-        setMessages((previousMessages) =>
-            GiftedChat.append(previousMessages, newMessages)
+    const onSend = async (messages = []) => {
+        setMessages(previousMessages =>
+            GiftedChat.append(previousMessages, messages)
         );
 
-        // Send push notification to notify other users
-        // const { _id, text, createdAt, user } = newMessages[0];
-        // const notification = {
-        //     id: _id,
-        //     message: text,
-        //     date: createdAt.toISOString(),
-        //     senderId: user._id,
-        //     senderName: user.name,
-        // };
-        // sendPushNotification(notification);
+        const { user, text, createdAt } = messages[0];
+        console.log({ ...user, text, createdAt })
+        await addDoc(chatsRef, {
+            createdAt: createdAt.toISOString(),
+            text,
+            email: user._id,
+            name: user.name,
+            room: user.room,
+            user: { _id: user._id }
+        });
     };
 
     const [keyBoardDidShow, setKeyBoardDidShow] = useState(false)
@@ -104,10 +118,10 @@ const ChatScreen = () => {
                             messages={messages}
                             onSend={onSend}
                             user={{
-                                _id: email,
-                                name: "Daniel"
+                                _id: user.email,
+                                name: user.fName + " " + user.sName,
+                                room: hotel.roomNumber
                             }}
-                            on
                         />
                     </View>
                 </>
@@ -117,16 +131,3 @@ const ChatScreen = () => {
 }
 
 export default ChatScreen
-
-const styles = StyleSheet.create({
-    container: {
-        top: -30,
-        backgroundColor: "white"
-    },
-    header: {
-    },
-    headerText: {
-        alignSelf: "center",
-        fontSize: 40
-    }
-})

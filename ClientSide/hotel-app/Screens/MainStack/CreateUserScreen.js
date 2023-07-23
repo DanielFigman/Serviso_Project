@@ -7,6 +7,8 @@ import { HotelsAppContext } from '../../Context/HotelsAppContext'
 import { useNavigation } from '@react-navigation/core'
 import GetPersonalInfo from '../../FCComponents/GetPersonalInfo'
 import GetLoginInfo from '../../FCComponents/GetLoginInfo'
+import { auth } from '../../Firebase/firebase-config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const CreateUserScreen = () => {
     const navigation = useNavigation();
@@ -89,6 +91,18 @@ const CreateUserScreen = () => {
 
             if (response.ok) {
                 console.log("User created successfully");
+                // Create a new user account with email and password
+                await createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        // The user account has been created successfully
+                        const user = userCredential.user;
+                        console.log('New user created:', user.uid);
+                        // You can perform any additional actions for a successful sign-up here
+                    })
+                    .catch((error) => {
+                        // Handle sign-up errors
+                        console.error('Sign-up error:', error.message);
+                    });
                 setCreationSucceed(true)
 
             } else {

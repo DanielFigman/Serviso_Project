@@ -2,6 +2,8 @@ import React, { createContext, useEffect, useRef, useState } from "react";
 import * as Notifications from 'expo-notifications';
 import { AppState } from "react-native";
 import { isEqual } from "lodash";
+import { signOut } from 'firebase/auth'
+import { auth } from '../Firebase/firebase-config'
 
 export const HotelsAppContext = createContext();
 
@@ -28,6 +30,7 @@ export default function HotelsAppContextProvider(props) {
     const [alcohol, setAlcohol] = useState(null)
     const [additionalItems, setAdditionalItems] = useState(null)
     const [cart, setCart] = useState([]);
+    const [authToken, setAuthToken] = useState(null)
 
     const [foodAndDrinksOOS, setFoodAndDrinksOOS] = useState([]);
     const [additionalItemsOOS, setAdditionalItemsOOS] = useState([]);
@@ -40,7 +43,7 @@ export default function HotelsAppContextProvider(props) {
     const prevAdditionalItemsRef = useRef(null);
     const prevCartRef = useRef(null);
 
-    const clearContext = () => {
+    const clearContext = async () => {
         setIsLoading(false);
         setUser(null);
         setOrder(null);
@@ -55,11 +58,11 @@ export default function HotelsAppContextProvider(props) {
         setRetrivedNtoken(undefined);
         setQuestionaire(null);
         setFirstSetQuestionnaire(false);
-
+        signOut(auth);
+        setAuthToken(null);
         console.log("Context cleared")
     }
     const [scheduledOrder, setSheduledOrder] = useState(null);
-
 
 
     const checkIfAlreadyScheduledAcleaning = async () => {
@@ -172,7 +175,7 @@ export default function HotelsAppContextProvider(props) {
             }
 
             if (cart && cart.length > 0) {
-                newCartadditional = cart.filter(obj =>  !additionalItemsOOS?.includes(obj.ID));
+                newCartadditional = cart.filter(obj => !additionalItemsOOS?.includes(obj.ID));
 
             }
         }
@@ -180,7 +183,7 @@ export default function HotelsAppContextProvider(props) {
         const newCart = [...newCartFood, ...newCartadditional];
 
         if (cart && cart.length > 0) {
-        
+
             if (newCart && prevCartRef.current != newCart) {
                 setCart(newCart);
             }
@@ -424,7 +427,9 @@ export default function HotelsAppContextProvider(props) {
                 setCart,
                 setLoginInfo,
                 checkIfAlreadyScheduledAcleaning,
-                scheduledOrder
+                scheduledOrder,
+                authToken,
+                setAuthToken
             }}
         >
             {props.children}
