@@ -21,6 +21,7 @@ namespace DATA
             this.Questionnaires = new HashSet<Questionnaire>();
             this.Activity_Update = new HashSet<Activity_Update>();
             this.Employees = new HashSet<Employee>();
+            this.SpaAppointments = new HashSet<SpaAppointment>();
         }
     
         public string email { get; set; }
@@ -44,5 +45,7 @@ namespace DATA
         public virtual ICollection<Activity_Update> Activity_Update { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SpaAppointment> SpaAppointments { get; set; }
     }
 }

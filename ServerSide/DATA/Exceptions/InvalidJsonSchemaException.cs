@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DATA.Exceptions
+namespace DATA
 {
     internal class InvalidJsonSchemaException : Exception
     {

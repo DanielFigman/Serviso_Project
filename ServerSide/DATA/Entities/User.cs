@@ -118,8 +118,8 @@ namespace DATA
 
         public Order GetCurrentOrder()
         {
-            DateTime nextWeek = DateTime.Now.AddDays(7);
-            DateTime tommorow = DateTime.Now.AddDays(1);
+            DateTime nextWeek = DateTime.Now.AddDays(7).Date;
+            DateTime tommorow = DateTime.Now.AddDays(1).Date;
 
             if(Guest == null)
             {
@@ -127,7 +127,7 @@ namespace DATA
             }
 
             Order currentOrder = Guest.Orders
-                .Where(order => order.checkInDate <= nextWeek && order.checkOutDate >= tommorow)
+                .Where(order => order.checkInDate.Date <= nextWeek && order.checkOutDate.Date >= tommorow)
                 .OrderBy(order => order.checkInDate)
                 .ThenBy(order => order.checkOutDate)
                 .FirstOrDefault();

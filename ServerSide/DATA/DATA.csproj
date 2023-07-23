@@ -158,6 +158,8 @@
     <Compile Include="DTO\QuestionaireDTO.cs" />
     <Compile Include="DTO\RoomServiceMenuTyps.cs" />
     <Compile Include="DTO\RoomServiceRequestsDTO.cs" />
+    <Compile Include="DTO\SpaOrdersDTO.cs" />
+    <Compile Include="DTO\SpaScheduleDTO.cs" />
     <Compile Include="DTO\TherapyDTO.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -175,6 +177,8 @@
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Questionnaire.cs" />
     <Compile Include="Entities\Request.cs" />
+    <Compile Include="Entities\SpaAppointment.cs" />
+    <Compile Include="Entities\SpaSchedule.cs" />
     <Compile Include="Entities\SuggestedActivities.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Exceptions\InvalidJsonSchemaException.cs" />
@@ -270,6 +274,12 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Shift.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpaAppointment.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpaSchedule.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Spa_Order.cs">

@@ -148,5 +148,50 @@ namespace DATA
 
             return retVal;
         }
+
+        public List<SpaScheduleDTO> GetSpaScheduleDTO(string email)
+        {
+            // making the table rows if not added already 
+            SpaSchedule spaSchedule = new SpaSchedule(hotelID, email);
+
+            DateTime? checkoutDate = db.Users.FirstOrDefault(obj => obj.email == email)?.GetCurrentOrder()?.checkOutDate.Date;
+
+            // Get the current time
+            DateTime today = DateTime.Now.Date;
+            TimeSpan currentTime = DateTime.Now.TimeOfDay;
+            TimeSpan fifteenMinutesLater = currentTime.Add(TimeSpan.FromMinutes(15));
+
+
+            List<SpaSchedule> spaSchedules = SpaSchedules
+                .Where(obj => (obj.Date.Date == today && obj.StartTime >= fifteenMinutesLater || obj.Date.Date <= checkoutDate && obj.Date.Date > today) && (obj.AvailableMaleTherapist > 0 || obj.AvailableFemaleTherapist > 0))
+                .ToList();
+
+            List<SpaScheduleDTO> retVal = new List<SpaScheduleDTO>();
+
+            spaSchedules.ForEach(obj =>
+            {
+                SpaScheduleDTO scheduleDTO = new SpaScheduleDTO();
+                scheduleDTO.SetSpaScheduleDTO(obj);
+                retVal.Add(scheduleDTO);
+            });
+
+            retVal = retVal.OrderBy(scheduleDTO => scheduleDTO.Date).ToList();
+
+            return retVal;
+        }
+
+        public List<SpaOrdersDTO> GetHolesSpaOrders()
+        {
+            List<SpaAppointment> spaOrders = db.SpaAppointments.Where(obj => obj.hotelID == hotelID).ToList();
+            List<SpaOrdersDTO> retVal = new List<SpaOrdersDTO>();
+            spaOrders.ForEach(obj =>
+            {
+                SpaOrdersDTO objToAdd = new SpaOrdersDTO(obj);
+                retVal.Add(objToAdd);
+            });
+
+            return retVal;
+        }
+
     }
 }

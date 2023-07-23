@@ -78,5 +78,7 @@ namespace DATA
         public virtual DbSet<Food_And_Drinks_Room_Service> Food_And_Drinks_Room_Service { get; set; }
         public virtual DbSet<Additional_Items> Additional_Items { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<SpaSchedule> SpaSchedules { get; set; }
+        public virtual DbSet<SpaAppointment> SpaAppointments { get; set; }
     }
 }

@@ -520,6 +520,35 @@
           <Property Name="roleID" Type="int" Nullable="false" />
           <Property Name="requestID" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="SpaAppointment">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="int" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="ScheduleID" Type="int" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndTime" Type="time" Precision="7" />
+          <Property Name="Therapy1Gender" Type="nvarchar" MaxLength="6" />
+          <Property Name="Therapy2Gender" Type="nvarchar" MaxLength="6" />
+          <Property Name="hotelID" Type="int" Nullable="false" />
+          <Property Name="orderID" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="SpaSchedules">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="HotelID" Type="int" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="AvailableMaleTherapist" Type="int" />
+          <Property Name="AvailableFemaleTherapist" Type="int" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -1159,6 +1188,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__SpaAppoin__email__28B808A7">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SpaAppointment" Type="Self.SpaAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="SpaAppointment">
+              <PropertyRef Name="email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SpaSchedu__Hotel__25DB9BFC">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+          <End Role="SpaSchedules" Type="Self.SpaSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelID" />
+            </Principal>
+            <Dependent Role="SpaSchedules">
+              <PropertyRef Name="HotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Therapist__roleI__76969D2E">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="Therapist" Type="Self.Therapist" Multiplicity="0..1" />
@@ -1499,6 +1552,8 @@
           <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Spa_Order" EntityType="Self.Spa_Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Spa_Order_Active" EntityType="Self.Spa_Order_Active" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpaAppointment" EntityType="Self.SpaAppointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpaSchedules" EntityType="Self.SpaSchedules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Therapist" EntityType="Self.Therapist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Therapist_IN_Therapy" EntityType="Self.Therapist_IN_Therapy" Schema="dbo" store:Type="Tables" />
@@ -1687,6 +1742,14 @@
           <AssociationSet Name="FK__RoomFor__orderID__6B24EA82" Association="Self.FK__RoomFor__orderID__6B24EA82">
             <End Role="Order" EntitySet="Order" />
             <End Role="RoomFor" EntitySet="RoomFor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SpaAppoin__email__28B808A7" Association="Self.FK__SpaAppoin__email__28B808A7">
+            <End Role="User" EntitySet="User" />
+            <End Role="SpaAppointment" EntitySet="SpaAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SpaSchedu__Hotel__25DB9BFC" Association="Self.FK__SpaSchedu__Hotel__25DB9BFC">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="SpaSchedules" EntitySet="SpaSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK__Therapist__roleI__76969D2E" Association="Self.FK__Therapist__roleI__76969D2E">
             <End Role="Role" EntitySet="Role" />
@@ -1999,6 +2062,7 @@
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__hotelID__2E1BDC42" FromRole="Hotel" ToRole="Order" />
           <NavigationProperty Name="Rooms" Relationship="Self.FK__Room__hotelID__6754599E" FromRole="Hotel" ToRole="Room" />
           <NavigationProperty Name="Employees" Relationship="igroup197_test1Model.FK_Employee_hotelID_13072023" FromRole="Hotel" ToRole="Employee" />
+          <NavigationProperty Name="SpaSchedules" Relationship="igroup197_test1Model.FK__SpaSchedu__Hotel__25DB9BFC" FromRole="Hotel" ToRole="SpaSchedule" />
         </EntityType>
         <EntityType Name="HouseHold_Cleaning_Request">
           <Key>
@@ -2295,6 +2359,7 @@
           <Property Name="NotificationToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Activity_Update" Relationship="igroup197_test1Model.FK__Update___email__03072023" FromRole="User" ToRole="Activity_Update" />
           <NavigationProperty Name="Employees" Relationship="igroup197_test1Model.FK__Employee__email__31EC6D26" FromRole="User" ToRole="Employee" />
+          <NavigationProperty Name="SpaAppointments" Relationship="igroup197_test1Model.FK__SpaAppoin__email__28B808A7" FromRole="User" ToRole="SpaAppointment" />
         </EntityType>
         <EntityType Name="WorkingInShift">
           <Key>
@@ -3130,6 +3195,16 @@
             <End Role="Hotel" EntitySet="Hotels" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
+          <EntitySet Name="SpaSchedules" EntityType="igroup197_test1Model.SpaSchedule" />
+          <AssociationSet Name="FK__SpaSchedu__Hotel__25DB9BFC" Association="igroup197_test1Model.FK__SpaSchedu__Hotel__25DB9BFC">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="SpaSchedule" EntitySet="SpaSchedules" />
+          </AssociationSet>
+          <EntitySet Name="SpaAppointments" EntityType="igroup197_test1Model.SpaAppointment" />
+          <AssociationSet Name="FK__SpaAppoin__email__28B808A7" Association="igroup197_test1Model.FK__SpaAppoin__email__28B808A7">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SpaAppointment" EntitySet="SpaAppointments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Alcohol">
           <Key>
@@ -3444,6 +3519,61 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="hotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SpaSchedule">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HotelID" Type="Int32" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="AvailableMaleTherapist" Type="Int32" />
+          <Property Name="AvailableFemaleTherapist" Type="Int32" />
+          <NavigationProperty Name="Hotel" Relationship="igroup197_test1Model.FK__SpaSchedu__Hotel__25DB9BFC" FromRole="SpaSchedule" ToRole="Hotel" />
+        </EntityType>
+        <Association Name="FK__SpaSchedu__Hotel__25DB9BFC">
+          <End Type="igroup197_test1Model.Hotel" Role="Hotel" Multiplicity="0..1" />
+          <End Type="igroup197_test1Model.SpaSchedule" Role="SpaSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="hotelID" />
+            </Principal>
+            <Dependent Role="SpaSchedule">
+              <PropertyRef Name="HotelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SpaAppointment">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="ScheduleID" Type="Int32" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <Property Name="Therapy1Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Therapy2Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="hotelID" Type="Int32" Nullable="false" />
+          <Property Name="orderID" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="User" Relationship="igroup197_test1Model.FK__SpaAppoin__email__28B808A7" FromRole="SpaAppointment" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__SpaAppoin__email__28B808A7">
+          <End Type="igroup197_test1Model.User" Role="User" Multiplicity="1" />
+          <End Type="igroup197_test1Model.SpaAppointment" Role="SpaAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="SpaAppointment">
+              <PropertyRef Name="email" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4084,6 +4214,36 @@
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="startingDate" ColumnName="startingDate" />
                 <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpaSchedules">
+            <EntityTypeMapping TypeName="igroup197_test1Model.SpaSchedule">
+              <MappingFragment StoreEntitySet="SpaSchedules">
+                <ScalarProperty Name="AvailableFemaleTherapist" ColumnName="AvailableFemaleTherapist" />
+                <ScalarProperty Name="AvailableMaleTherapist" ColumnName="AvailableMaleTherapist" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpaAppointments">
+            <EntityTypeMapping TypeName="igroup197_test1Model.SpaAppointment">
+              <MappingFragment StoreEntitySet="SpaAppointment">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="orderID" ColumnName="orderID" />
+                <ScalarProperty Name="hotelID" ColumnName="hotelID" />
+                <ScalarProperty Name="Therapy2Gender" ColumnName="Therapy2Gender" />
+                <ScalarProperty Name="Therapy1Gender" ColumnName="Therapy1Gender" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
