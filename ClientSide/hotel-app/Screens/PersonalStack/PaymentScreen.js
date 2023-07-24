@@ -62,7 +62,7 @@ const PaymentScreen = () => {
                   borderRadius: 6,
                 }}
                 center
-                title="Credit Card"
+                title={screenContent.CreditCard[language]}
                 checkedIcon="dot-circle-o"
                 uncheckedIcon="circle-o"
                 uncheckedColor="#D3B9B3"
@@ -75,7 +75,7 @@ const PaymentScreen = () => {
                   flex: 1,
                 }}
                 center
-                title="Apple Pay"
+                title={screenContent.ApplePay[language]}
                 checkedIcon="dot-circle-o"
                 uncheckedIcon="circle-o"
                 uncheckedColor="#D3B9B3"
@@ -86,14 +86,14 @@ const PaymentScreen = () => {
             </View>
             <View style={{ marginTop: 35 }}>
               <ButtonMain
-                text="Pay"
+                text={screenContent.Pay[language]}
                 onPress={() =>
-                  Alert.alert("Payment", "Continue with the payment?", [
+                  Alert.alert(screenContent.Payment[language], screenContent.ContinueWithPayment[language], [
                     {
-                      text: "Yes",
+                      text: screenContent.Yes[language],
                       onPress: () => navigation.navigate("PaymentConfirmation"),
                     },
-                    { text: "No" },
+                    { text: screenContent.No[language]},
                   ])
                 }
               />

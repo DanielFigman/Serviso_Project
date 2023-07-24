@@ -6,11 +6,14 @@ import ScreenComponent from '../../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import { useNavigation } from '@react-navigation/native';
 import ButtonMain from '../../FCComponents/Buttons';
+import Languages from '../../Json_files/Languages';
 
 const CustomRequestScreen = () => {
 
     const navigation = useNavigation();
-    const { order } = useContext(HotelsAppContext)
+    const { order, language } = useContext(HotelsAppContext);
+
+    const screenContent = Languages.CustomRequestScreen;
 
     const [hour, setHour] = useState(15);
     const [minute, setMinute] = useState(1);
@@ -104,9 +107,9 @@ const CustomRequestScreen = () => {
             const requestedDate = GetRequestedDate();
             const requestedHour = hour + ":" + minute + ":" + "00";
 
-            requestInOrder[0] = {orderID: order.orderID, requestedDate, requestedHour };
+            requestInOrder[0] = { orderID: order.orderID, requestedDate, requestedHour };
         } else {
-            requestInOrder[0] = {orderID: order.orderID }
+            requestInOrder[0] = { orderID: order.orderID }
         }
 
         //creating the grand children
@@ -123,11 +126,7 @@ const CustomRequestScreen = () => {
         return retVal;
     }
 
-    function generateUniqueInt() {
-        const timestamp = Date.now();
-        const randomInt = Math.floor(Math.random() * 1000000); // Change the range as per your need
-        return parseInt(timestamp.toString() + randomInt.toString());
-    }
+ 
 
     const GetTimeNow = () => {
         const now = new Date();
@@ -210,10 +209,10 @@ const CustomRequestScreen = () => {
                             <CustomRequestCarusel setCustomRequests={setCustomRequests} customRequests={customRequests} />
                         </View>
                         <View style={{ height: 50, width: 120, marginTop: 150, right: '18%', top: -290, marginBottom: 10 }}>
-                            <Text style={{ fontSize: 24, marginBottom: 10, }}>When?</Text>
+                            <Text style={{ fontSize: 24, marginBottom: 10, }}>{screenContent.When[language]}?</Text>
 
                             <View style={{ flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 14 }}>now </Text>
+                                <Text style={{ fontSize: 14 }}>{screenContent.Now[language]}</Text>
                                 <Switch
                                     trackColor={{ false: '#767577', true: '#D3B9B3' }}
                                     thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
@@ -222,7 +221,7 @@ const CustomRequestScreen = () => {
                                     value={isEnabled}
                                 />
                             </View>
-                            <Text style={{ fontSize: 14 }}>at:  </Text>
+                            <Text style={{ fontSize: 14 }}>{screenContent.At[language]}</Text>
                         </View>
                         <View style={{ backgroundColor: '#F0E8E6', top: 0, padding: 20, marginTop: -50, borderRadius: 40, opacity: isEnabled ? 0.5 : 1 }}>
 
@@ -253,8 +252,8 @@ const CustomRequestScreen = () => {
                                 </View>
                             </View>
                         </View>
-                        <ButtonMain onPress={handleContinue} text={"NEXT"} textStyle={{fontSize: 18, fontWeight: 'bold'}} buttonStyle={{marginTop:180}}/>
-                      
+                        <ButtonMain onPress={handleContinue} text={[screenContent.NEXT[language]]} textStyle={{ fontSize: 18, fontWeight: 'bold' }} buttonStyle={{ marginTop: 180 }} />
+
                     </View>
                 </>
             }
