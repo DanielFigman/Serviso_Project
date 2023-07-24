@@ -118,7 +118,7 @@ const ChatScreen = () => {
         setKeyBoardDidShow(false)
     }
 
-    const onSend = async (messages = []) => {
+    const onSend = useCallback(async (messages = []) => {
         setMessages(previousMessages =>
             GiftedChat.append(previousMessages, messages)
         );
@@ -134,27 +134,26 @@ const ChatScreen = () => {
             room: user.room,
             user: { _id: user._id }
         });
-    };
+    }, [setMessages]);
 
     const [keyBoardDidShow, setKeyBoardDidShow] = useState(false)
 
     return (
-        <ScreenComponent bottomMenu={true} topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow} backgroundShapes={true}
+        <ScreenComponent topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow} backgroundShapes={true} title={
+            <Text style={{ fontSize: 30, textDecorationLine: "underline", left:120, flexDirection:"row"}}>Reception</Text>
+        }
             content={
                 <>
-                    <View style={{ display: 'flex', justifyContent: "center", alignItems: "center", height: 35, width: "100%" }}>
-                        <Text style={{ fontSize: 30, textDecorationLine: "underline" }}>Reception</Text>
-                    </View>
-                    <View style={{ flex: 1, bottom: keyBoardDidShow ? -61 : 0 }}>
+                    <View style={{ flexDirection:"column", paddingBottom: keyBoardDidShow ? 0 : 30, marginTop: keyBoardDidShow? 25 : 0, height: "100%", }}>
                         <GiftedChat
                             // isTyping={true}
                             messages={messages && messages.map((message) => ({
                                 ...message,
                                 text: message.email === user.email ? message.text : message.translatedText,
                             }))}
-                            onSend={onSend}
+                            onSend={messages => onSend(messages)}
                             user={{
-                                _id: user.email,
+                                _id: user.email.toLowerCase(),
                                 name: user.fName + " " + user.sName,
                                 room: hotel.roomNumber
                             }}
