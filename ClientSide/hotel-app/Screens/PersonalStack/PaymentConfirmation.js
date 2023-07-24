@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { CheckCircleIcon } from "react-native-heroicons/outline";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
 import ButtonMain from "../../FCComponents/Buttons";
