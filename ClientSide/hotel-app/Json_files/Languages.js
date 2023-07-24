@@ -1688,6 +1688,17 @@ export default Languages = {
       CH: "付款已成功收到",
       JP: "お支払いは正常に受け取られました",
     },
+    Continue: {
+      EN: "Continue",
+      HE: "המשך",
+      AR: "استمر",
+      ES: "Continuar",
+      RU: "Продолжить",
+      FR: "Continuer",
+      POR: "Continuar",
+      CH: "继续",
+      JP: "続ける",
+    },
   },
   CustomOrderConfirmation: {
     WeRecievedYourRequest: {

@@ -19,17 +19,12 @@ const PaymentConfirmation = () => {
             color={"#D3B9B3"}
             style={{ left: 170, top: 20 }}
           />
-          {/* <CheckIcon
-            size={180}
-            color={"#D3B9B3"}
-            style={{ left: 170, top: 20 }}
-          /> */}
           <Text style={styles.text}>{screenContent.ThankYou[language]}</Text>
           <Text style={styles.text}>
             {screenContent.ThePaymentWasSuccessfullyReceived[language]}
           </Text>
           <View style={{ marginTop: 100 }}>
-            <ButtonMain text={"Continue"} navigate={"PersonalPageScreen"} />
+            <ButtonMain text={screenContent.Continue[language]} navigate={"PersonalPageScreen"} />
           </View>
         </View>
       }
