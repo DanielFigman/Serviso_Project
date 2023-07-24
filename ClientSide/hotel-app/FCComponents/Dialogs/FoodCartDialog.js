@@ -212,7 +212,7 @@ const FoodCartDialog = ({
             }}
           >
             <ButtonMain
-              text={"Send Order"}
+              text={screenContent.SendOrder[language]}
               buttonStyle={{ height: 40 }}
               textStyle={{ fontSize: 22 }}
               onPress={handleSendOrder}
