@@ -317,6 +317,19 @@ namespace DATA
             return jsonObject;
         }
 
+        public JObject GetMessageNotification(string message)
+        {
+
+            Dictionary<string, object> data = new Dictionary<string, object>();
+
+            JObject jsonObject = new JObject();
+            jsonObject["title"] = "New meesage from reception";
+            jsonObject["body"] = $"{message}";
+            jsonObject["data"] = JObject.FromObject(data); // Convert the dictionary to a JObject
+
+            return jsonObject;
+        }
+
         public double GetLatitude(string landmark)
         {
             landmark = landmark.Trim('(', ')');

@@ -26,11 +26,13 @@ namespace WebApplication.Controllers
                 if (convertedDict.ContainsKey("message") && convertedDict.ContainsKey("email"))
                 {
                     string targetLanguage;
+                    List<string> clients = new List<string>();
 
                     if (convertedDict["email"].ToString().ToLower() != "serviso4u@gmail.com")
                     {
                         string email = convertedDict["email"].ToString();
                         targetLanguage = db.Users.FirstOrDefault(user => user.email == email)?.Language.shortName;
+                        clients.Add(email);
                     }
                     else
                     {
@@ -41,6 +43,15 @@ namespace WebApplication.Controllers
                     {
                         AzureTranslatorApi azureTranslatorApi = new AzureTranslatorApi();
                         string retVal = await azureTranslatorApi.TranslateMessage(convertedDict["message"].ToString(), targetLanguage);
+
+                        if (retVal != null && retVal != "")
+                        {
+                            PushNotifications p = new PushNotifications();
+
+                            JObject notification = dataHelpers.GetMessageNotification(retVal);
+
+                            _ = p.SendMessageToClientsAsync(clients, notification);
+                        }
 
                         return Content(HttpStatusCode.OK, retVal);
                     }
