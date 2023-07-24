@@ -149,7 +149,7 @@ const ChatScreen = () => {
                             // isTyping={true}
                             messages={messages && messages.map((message) => ({
                                 ...message,
-                                text: message.email === user.email ? message.text : message.translatedText,
+                                text: message.translatedText == "" || !message.translatedText ? message.text : message.email === user.email ? message.text : message.translatedText,
                             }))}
                             onSend={messages => onSend(messages)}
                             user={{
