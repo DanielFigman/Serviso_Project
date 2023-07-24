@@ -13,23 +13,28 @@ import { CheckBox } from "@rneui/themed";
 import ScreenComponent from "../../FCComponents/ScreenComponent";
 import ButtonMain from "../../FCComponents/Buttons";
 import { useNavigation } from "@react-navigation/native";
+import Languages from "../../Json_files/Languages";
+import { HotelsAppContext } from "../../Context/HotelsAppContext";
 
 const PaymentScreen = () => {
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
 
+  const { language } = useContext(HotelsAppContext);
+  const screenContent = Languages.PaymentScreen;
+
   const handleCheck = (from) => {
-      switch (from) {
-        case "check1":
-          setCheck1(true);
-          setCheck2(false);
-          break;
-        case "check2":
-          setCheck1(false);
-          setCheck2(true);
-          break;
+    switch (from) {
+      case "check1":
+        setCheck1(true);
+        setCheck2(false);
+        break;
+      case "check2":
+        setCheck1(false);
+        setCheck2(true);
+        break;
     }
-  }
+  };
 
   const navigation = useNavigation();
 
@@ -38,9 +43,15 @@ const PaymentScreen = () => {
       content={
         <>
           <View>
-            <Text style={styles.text}>Choose a payment method</Text>
+            <Text style={styles.text}>
+              {screenContent.ChooseAPaymentMethod[language]}
+            </Text>
             <Text style={styles.title}>
-              You won't be charged until you click the payment button
+              {
+                screenContent.YouWontBeChargedUntilYouClickThePaymentButton[
+                  language
+                ]
+              }
             </Text>
             <View style={{ top: 30 }}>
               <CheckBox
@@ -76,11 +87,13 @@ const PaymentScreen = () => {
             <View style={{ marginTop: 35 }}>
               <ButtonMain
                 text="Pay"
-
                 onPress={() =>
                   Alert.alert("Payment", "Continue with the payment?", [
-                    { text: "Yes", onPress: () => navigation.navigate("PaymentConfirmation") },
-                    { text: "No"},
+                    {
+                      text: "Yes",
+                      onPress: () => navigation.navigate("PaymentConfirmation"),
+                    },
+                    { text: "No" },
                   ])
                 }
               />

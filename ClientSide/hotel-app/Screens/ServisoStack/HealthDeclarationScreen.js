@@ -34,14 +34,13 @@ const HealthDetails = [
   { id: "14", name: "Other" },
 ];
 const HealthDeclarationScreen = () => {
-
   const navigation = useNavigation();
 
-  const { params: {
-    objSpa
-  } } = useRoute();
+  const {
+    params: { objSpa },
+  } = useRoute();
 
-  const mycup = objSpa
+  const mycup = objSpa;
   console.log(mycup);
 
   const check = mycup.coupleRoom;
@@ -80,7 +79,9 @@ const HealthDeclarationScreen = () => {
                   });
                 }}
               >
-                <Text style={styles.btnNext}>NEXT</Text>
+                <Text style={styles.btnNext}>
+                  {screenContent.NEXT[language]}
+                </Text>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
@@ -90,7 +91,9 @@ const HealthDeclarationScreen = () => {
                   });
                 }}
               >
-                <Text style={styles.btnNext}>NEXT</Text>
+                <Text style={styles.btnNext}>
+                  {screenContent.NEXT[language]}
+                </Text>
               </TouchableOpacity>
             )}
           </View>

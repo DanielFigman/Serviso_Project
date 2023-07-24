@@ -130,9 +130,9 @@ const SpaConfirmationScreen = () => {
                 </Text>
               </>
             }
-            <Text style={styles.text}>{dateStr}</Text>
-            <Text style={styles.text}>{spaOrder.queue?.substring(0, 5)}</Text>
-            <Text style={styles.text}>{price}₪</Text>
+            <Text style={styles.text}>{screenContent.Date[language]}{dateStr}</Text>
+            <Text style={styles.text}>{screenContent.Hour[language]}{spaOrder.queue?.substring(0, 5)}</Text>
+            <Text style={styles.text}>{screenContent.Price[language]}{price}₪</Text>
           </View>
           <View style={{ marginTop: 5, flexDirection: "row", justifyContent: "space-around" }}>
             <ButtonMain text={"Confirm"} onPress={handleConfirm} buttonStyle={{ height: 50 }} />
