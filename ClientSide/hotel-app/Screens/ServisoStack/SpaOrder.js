@@ -12,15 +12,17 @@ import ScreenComponent from "../../FCComponents/ScreenComponent";
 import ButtonMain from "../../FCComponents/Buttons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
+import Languages from "../../Json_files/Languages";
 
 const SpaOrder = () => {
   const navigation = useNavigation();
 
-  const { params: {  name, basePrice, priceForAdditional15 } } = useRoute();
+  const {
+    params: { name, basePrice, priceForAdditional15 },
+  } = useRoute();
 
- 
-
-  const { user, order } = useContext(HotelsAppContext)
+  const { language, user, order } = useContext(HotelsAppContext);
+  const screenContent = Languages.SpaOrder;
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [minDate, setMinDate] = useState(null);
@@ -31,28 +33,36 @@ const SpaOrder = () => {
 
   const handleDateSelect = (date) => {
     const selectedDateObject = new Date(date);
-    setSelectedDate(selectedDateObject.toISOString().split("T")[0])
+    setSelectedDate(selectedDateObject.toISOString().split("T")[0]);
   };
 
   const handlaNext = () => {
     if (!appointmentObjects || appointmentObjects.length === 0) {
       Alert.alert(
         "There are no available treatments left",
-        "There are no available treatments left"
-        [{ text: 'OK' }],
+        "There are no available treatments left"[{ text: "OK" }]
       );
     }
 
     if (selectedDate) {
-      const selectedDateOnly = new Date(selectedDate).toISOString().slice(0, 10);
-      const freeQeues = appointmentObjects.filter(obj => obj.Date.startsWith(selectedDateOnly));
-      navigation.navigate("SpaOrderPart2", { freeQeues, name, basePrice, priceForAdditional15 });
+      const selectedDateOnly = new Date(selectedDate)
+        .toISOString()
+        .slice(0, 10);
+      const freeQeues = appointmentObjects.filter((obj) =>
+        obj.Date.startsWith(selectedDateOnly)
+      );
+      navigation.navigate("SpaOrderPart2", {
+        freeQeues,
+        name,
+        basePrice,
+        priceForAdditional15,
+      });
     }
-  }
+  };
 
   useEffect(() => {
     getAvailalbeAppointments();
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (appointmentObjects) {
@@ -73,7 +83,8 @@ const SpaOrder = () => {
     const disabledDates = [];
     const min = sortedDates[0];
     const max = sortedDates[sortedDates.length - 1];
-    for (let i = min; i < max; i += 86400000) { // 86400000 ms = 1 day
+    for (let i = min; i < max; i += 86400000) {
+      // 86400000 ms = 1 day
       if (!sortedDates.includes(i)) {
         disabledDates.push(i);
       }
@@ -83,12 +94,15 @@ const SpaOrder = () => {
 
   const getAvailalbeAppointments = async () => {
     try {
-      const response = await fetch(`http://proj.ruppin.ac.il/cgroup97/test2/api/GetSpaAvailable?hotelID=${order.hotelID}&email=${user.email}`, {
-        method: 'GET',
-        headers: new Headers({
-          'Content-type': 'application/json; charset=UTF-8',
-        })
-      });
+      const response = await fetch(
+        `http://proj.ruppin.ac.il/cgroup97/test2/api/GetSpaAvailable?hotelID=${order.hotelID}&email=${user.email}`,
+        {
+          method: "GET",
+          headers: new Headers({
+            "Content-type": "application/json; charset=UTF-8",
+          }),
+        }
+      );
 
       if (response.ok) {
         const message = await response.text();
@@ -97,12 +111,12 @@ const SpaOrder = () => {
       } else {
         const message = await response.text();
         const object = JSON.parse(message);
-        console.log(object)
+        console.log(object);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <ScreenComponent
@@ -117,7 +131,7 @@ const SpaOrder = () => {
                 Platform.OS === "android" ? StatusBar.TouchableHighlight : 80,
             }}
           >
-            MASSAGE TREATMENTS
+            {screenContent.MASSAGETREATMENTS[language]}
           </Text>
           <View
             style={{
@@ -142,7 +156,7 @@ const SpaOrder = () => {
               bottom: 10,
             }}
             onPress={handlaNext}
-            text={"NEXT"}
+            text={screenContent.NEXT[language]}
           />
         </View>
       }

@@ -8,15 +8,14 @@ import ButtonMain from "../../FCComponents/Buttons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const SpaConfirmationScreen = () => {
-
-  const { params: {
-    objSpa,
-  } } = useRoute();
+  const {
+    params: { objSpa },
+  } = useRoute();
 
   const navigation = useNavigation();
 
   const spaOrder = objSpa;
-  console.log("spaOrder: " + JSON.stringify(spaOrder))
+  console.log("spaOrder: " + JSON.stringify(spaOrder));
   const orderTime = new Date(spaOrder.dateSpa);
   let month = orderTime.getMonth() + 1;
   month.toString();
@@ -27,44 +26,49 @@ const SpaConfirmationScreen = () => {
     "-" +
     orderTime.getDate().toString();
 
-  const treatmentType = objSpa?.name
+  const treatmentType = objSpa?.name;
 
   const { language, user, order } = useContext(HotelsAppContext);
   const screenContent = Languages.SpaConfirmationScreen;
-  console.log(objSpa)
+  console.log(objSpa);
   let price;
   const isDouble = spaOrder.coupleRoom ? 2 : 1;
   if (parseInt(objSpa.duration) > 45) {
-    price = (objSpa.basePrice + ((objSpa.duration - 45) / 15 * objSpa.priceForAdditional15)) * isDouble;
+    price =
+      (objSpa.basePrice +
+        ((objSpa.duration - 45) / 15) * objSpa.priceForAdditional15) *
+      isDouble;
   } else {
     price = objSpa.basePrice;
   }
 
-
   const handleConfirm = () => {
     postAppointment();
-    navigation.navigate("HomeScreen")
-  }
+    navigation.navigate("HomeScreen");
+  };
 
   const postAppointment = async () => {
     try {
-      const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/AppointSpaTreatment', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: user.email,
-          Date: objSpa.dateSpa,
-          StartTime: objSpa.queue,
-          EndTime: objSpa.EndTime,
-          Therapy1Gender: objSpa.gender,
-          Therapy2Gender: objSpa.secondaryGender,
-          hotelID: order.hotelID,
-          orderID: order.orderID,
-          price: price,
-        }),
-        headers: new Headers({
-          'Content-type': 'application/json; charset=UTF-8',
-        })
-      });
+      const response = await fetch(
+        "http://proj.ruppin.ac.il/cgroup97/test2/api/AppointSpaTreatment",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: user.email,
+            Date: objSpa.dateSpa,
+            StartTime: objSpa.queue,
+            EndTime: objSpa.EndTime,
+            Therapy1Gender: objSpa.gender,
+            Therapy2Gender: objSpa.secondaryGender,
+            hotelID: order.hotelID,
+            orderID: order.orderID,
+            price: price,
+          }),
+          headers: new Headers({
+            "Content-type": "application/json; charset=UTF-8",
+          }),
+        }
+      );
 
       if (response.ok) {
         console.log("Spa appointment succeed");
@@ -74,12 +78,14 @@ const SpaConfirmationScreen = () => {
         const errorType = errorObject.type;
         const errorMessageText = errorObject.message;
 
-        console.log(`Error: ${response.status} - ${errorType} - ${errorMessageText}`);
+        console.log(
+          `Error: ${response.status} - ${errorType} - ${errorMessageText}`
+        );
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <ScreenComponent
@@ -112,31 +118,59 @@ const SpaConfirmationScreen = () => {
                 {screenContent.minutes[language]}
               </Text>
             )}
-            <Text style={styles.text}>{spaOrder.coupleRoom ? "Couple massage" : "Single massage"}</Text>
-            {spaOrder.gender != null && !spaOrder.coupleRoom ?
+            <Text style={styles.text}>
+              {spaOrder.coupleRoom
+                ? screenContent.CoupleMassage[language]
+                : screenContent.SingleMassage[language]}
+            </Text>
+            {spaOrder.gender != null && !spaOrder.coupleRoom ? (
               <Text style={styles.text}>
                 {/* {screenContent.gender[language]} */}
-                {"Therapist gender: "} {spaOrder.gender}
+                {screenContent.TherapistGender[language]} {spaOrder.gender}
               </Text>
-              :
+            ) : (
               <>
                 <Text style={styles.text}>
                   {/* {screenContent.gender[language]} */}
-                  {"Therapist 1 gender: "} {spaOrder.gender}
+                  {screenContent.Therapist1Gender[language]} {spaOrder.gender}
                 </Text>
                 <Text style={styles.text}>
                   {/* {screenContent.gender[language]} */}
-                  {"Therapist 2 gender: "} {spaOrder.secondaryGender}
+                  {screenContent.Therapist2Gender[language]}{" "}
+                  {spaOrder.secondaryGender}
                 </Text>
               </>
-            }
-            <Text style={styles.text}>{screenContent.Date[language]}{dateStr}</Text>
-            <Text style={styles.text}>{screenContent.Hour[language]}{spaOrder.queue?.substring(0, 5)}</Text>
-            <Text style={styles.text}>{screenContent.Price[language]}{price}₪</Text>
+            )}
+            <Text style={styles.text}>
+              {screenContent.Date[language]}
+              {dateStr}
+            </Text>
+            <Text style={styles.text}>
+              {screenContent.Hour[language]}
+              {spaOrder.queue?.substring(0, 5)}
+            </Text>
+            <Text style={styles.text}>
+              {screenContent.Price[language]}
+              {price}₪
+            </Text>
           </View>
-          <View style={{ marginTop: 5, flexDirection: "row", justifyContent: "space-around" }}>
-            <ButtonMain text={"Confirm"} onPress={handleConfirm} buttonStyle={{ height: 50 }} />
-            <ButtonMain text={"Cancel"} navigate={"back"} buttonStyle={{ height: 50, color: "#CE3838" }} />
+          <View
+            style={{
+              marginTop: 5,
+              flexDirection: "row",
+              justifyContent: "space-around",
+            }}
+          >
+            <ButtonMain
+              text={screenContent.Confirm[language]}
+              onPress={handleConfirm}
+              buttonStyle={{ height: 50 }}
+            />
+            <ButtonMain
+              text={screenContent.Cancel[language]}
+              navigate={"back"}
+              buttonStyle={{ height: 50, color: "#CE3838" }}
+            />
           </View>
         </View>
       }
@@ -150,7 +184,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     textAlign: "center",
-    marginBottom: 5
+    marginBottom: 5,
   },
   textTitle: {
     fontSize: 20,
