@@ -140,7 +140,7 @@ const ChatScreen = () => {
 
     return (
         <ScreenComponent topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow} backgroundShapes={true} title={
-            <Text style={{ fontSize: 30, textDecorationLine: "underline", left:120, flexDirection:"row"}}>Reception</Text>
+            <Text style={{ fontSize: 30, textDecorationLine: "underline", left:120, flexDirection:"row"}}>{scrennContent.Reception[language]}</Text>
         }
             content={
                 <>

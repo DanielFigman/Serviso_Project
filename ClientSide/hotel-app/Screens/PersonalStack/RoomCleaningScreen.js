@@ -307,7 +307,7 @@ const RoomCleaningScreen = () => {
               </View>
             </View>
             <ButtonMain
-              text={"Continue"}
+              text={screenContent.Continue[language]}
               onPress={handleContinue}
               buttonStyle={{ marginTop: 50 }}
             />
