@@ -185,7 +185,7 @@ const AddToCartDialog = ({
               style={styles.textArea}
               multiline={true}
               numberOfLines={5} // You can adjust the number of lines to display
-              placeholder='Enter dish notes, for example: "wihout egg".'
+              placeholder={screenContent.EnterDishNotes[language]}
               value={changes}
               onChangeText={(value) => setChanges(value)}
             />

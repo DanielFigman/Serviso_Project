@@ -1,6 +1,6 @@
 export default Languages = {
-  ChatScreen:{
-    HelloHowCanIHelpYou:{
+  ChatScreen: {
+    HelloHowCanIHelpYou: {
       "EN": "Hello, how can I help you?",
       "HE": "שלום, איך אני יכול לעזור לך?",
       "AR": "مرحبًا كيف يمكنني مساعدتك؟",
@@ -1701,6 +1701,52 @@ export default Languages = {
       POR: "Adicionar ao carrinho:",
       CH: "添加到购物车:",
       JP: "カートに追加:",
+    },
+    EnterDishNotes: {
+      EN: "Enter dish notes, for example: \"without egg\".",
+      HE: "הכנס הערות למנה, לדוגמה: \"בלי ביצה\".",
+      AR: "أدخل ملاحظات الطبق، على سبيل المثال: \"بدون بيضة\".",
+      ES: "Ingresa notas del plato, por ejemplo: \"sin huevo\".",
+      RU: "Введите примечания к блюду, например: \"без яйца\".",
+      FR: "Entrez les notes du plat, par exemple : \"sans œuf\".",
+      POR: "Insira notas do prato, por exemplo: \"sem ovo\".",
+      CH: "输入菜品备注，例如：“不加蛋”",
+      JP: "料理の注意事項を入力してください。例：「卵抜き」。",
+    }
+  },
+  FoodDescriptionDialog: {
+    Description: {
+      EN: "Description",
+      HE: "תיאור",
+      AR: "الوصف",
+      ES: "Descripción",
+      RU: "Описание",
+      FR: "Description",
+      POR: "Descrição",
+      CH: "描述",
+      JP: "説明",
+    },
+    Allergies: {
+      EN: "Allergies",
+      HE: "אלרגיות",
+      AR: "حساسية",
+      ES: "Alergias",
+      RU: "Аллергии",
+      FR: "Allergies",
+      POR: "Alergias",
+      CH: "过敏",
+      JP: "アレルギー",
+    },
+    PossibleChanges: {
+      EN: "Possible Changes",
+      HE: "שינויים אפשריים",
+      AR: "تغييرات ممكنة",
+      ES: "Cambios Posibles",
+      RU: "Возможные изменения",
+      FR: "Changements Possibles",
+      POR: "Alterações Possíveis",
+      CH: "可能的变更",
+      JP: "可能な変更",
     },
   },
   RoomServiceCartCard: {

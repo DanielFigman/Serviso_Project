@@ -105,7 +105,7 @@ export default ConciergeMainScreen;
 const styles = StyleSheet.create({
   topView: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    display:"flex",
   },
   titel: {
     fontSize: 30,
