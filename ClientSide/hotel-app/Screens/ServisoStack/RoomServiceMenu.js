@@ -46,6 +46,7 @@ export default RoomServiceMenu = () => {
             return { ...item, quantity: item.quantity + 1 };
           } else {
             alert("We apologize, we don't have that amount!");
+            א;
             return { ...item, quantity: (item.quantity = 10) };
           }
         } else {
@@ -201,7 +202,7 @@ export default RoomServiceMenu = () => {
                 alignItems: "center",
               }}
             >
-              Food
+              {screenContent.Food[language]}
             </Text>
           </View>
           <View style={{ flexDirection: "column" }}>
@@ -211,7 +212,7 @@ export default RoomServiceMenu = () => {
                 style={{ width: 35, height: 35, alignSelf: "center" }}
               />
               <Text style={{ color: "#000000", textAlign: "center" }}>
-                Cart ({cart.length})
+                {screenContent.Cart[language]} ({cart.length})
               </Text>
             </TouchableOpacity>
           </View>
@@ -257,7 +258,7 @@ export default RoomServiceMenu = () => {
                   textAlign: "center",
                 }}
               >
-                Your shopping cart
+                {screenContent.YourShoppingCart[language]}
               </Text>
 
               {cart.map((item) => (
@@ -356,7 +357,7 @@ export default RoomServiceMenu = () => {
                   style={{ width: "100%", height: 0.9, marginTop: 1 }}
                 />
                 <Text style={{ marginTop: 10, fontSize: 18 }}>
-                  Total Price: ${totalPrice}
+                  {screenContent.TotalPrice[language]} ${totalPrice}
                 </Text>
               </View>
 

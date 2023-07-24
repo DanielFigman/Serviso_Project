@@ -116,7 +116,7 @@ const RoomServiceMenuNew = () => {
             buttons={[
               {
                 value: "food",
-                label: "Food",
+                label: screenContent.Food[language],
                 checkedColor: "white",
                 style:
                   selectedTab === "food"
@@ -125,7 +125,7 @@ const RoomServiceMenuNew = () => {
               },
               {
                 value: "drinks",
-                label: "Drinks",
+                label: screenContent.Drinks[language],
                 checkedColor: "white",
                 style:
                   selectedTab === "drinks"
@@ -134,7 +134,7 @@ const RoomServiceMenuNew = () => {
               },
               {
                 value: "alcohol",
-                label: "Alcohol",
+                label: screenContent.Alcohol[language],
                 checkedColor: "white",
                 style:
                   selectedTab === "alcohol"
@@ -143,7 +143,7 @@ const RoomServiceMenuNew = () => {
               },
               {
                 value: "moreItems",
-                label: "More",
+                label: screenContent.More[language],
                 checkedColor: "white",
                 style:
                   selectedTab === "moreItems"
@@ -161,7 +161,7 @@ const RoomServiceMenuNew = () => {
               buttons={[
                 {
                   value: "cold",
-                  label: "Cold Drinks",
+                  label: screenContent.ColdDrinks[language],
                   checkedColor: "white",
                   style:
                     selectedSecodaryTab === "cold"
@@ -170,7 +170,7 @@ const RoomServiceMenuNew = () => {
                 },
                 {
                   value: "hot",
-                  label: "Hot Drinks",
+                  label: screenContent.HotDrinks[language],
                   checkedColor: "white",
                   style:
                     selectedSecodaryTab === "hot"
@@ -191,7 +191,7 @@ const RoomServiceMenuNew = () => {
               buttons={[
                 {
                   value: "cocktails",
-                  label: "Cocktails",
+                  label: screenContent.Cocktails[language],
                   checkedColor: "white",
                   style:
                     selectedAlcoholTab === "cocktails"
@@ -200,7 +200,7 @@ const RoomServiceMenuNew = () => {
                 },
                 {
                   value: "wine",
-                  label: "Wine",
+                  label: screenContent.Wine[language],
                   checkedColor: "white",
                   style:
                     selectedAlcoholTab === "wine"
