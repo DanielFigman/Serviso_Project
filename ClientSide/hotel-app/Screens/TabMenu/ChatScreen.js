@@ -14,20 +14,52 @@ import {
     orderBy,
 } from "firebase/firestore";
 import { db } from "../../Firebase/firebase-config";
+import Languages from '../../Json_files/Languages';
 
 
 const ChatScreen = () => {
 
+
     const [messages, setMessages] = useState(null);
-    const { user, hotel } = useContext(HotelsAppContext)
+    const { user, hotel, language } = useContext(HotelsAppContext)
+
+    const scrennContent = Languages.ChatScreen;
 
     const chatsRef = collection(db, "chats");
+
+    const GetTranslatedMessage = async (text) => {
+        try {
+            const response = await fetch(
+                "http://proj.ruppin.ac.il/cgroup97/test2/api/translateMessage",
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        email: "serviso4u@gmail.com",
+                        message: text,
+                    }),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8",
+                    },
+                }
+            );
+
+            if (response.ok) {
+                const responseString = await response.text();
+                return responseString.substring(1, responseString.length - 1);
+            } else {
+                return null;
+            }
+        } catch (error) {
+            return null;
+        }
+    }
 
     useEffect(() => {
         if (messages && messages.length === 0) {
             const initialMessage = {
                 _id: "serviso4u@gmail.com",
                 text: 'Hello how can I help you?',
+                translatedText: scrennContent.HelloHowCanIHelpYou[language],
                 createdAt: new Date(),
                 user: {
                     _id: "serviso4u@gmail.com",
@@ -42,6 +74,7 @@ const ChatScreen = () => {
             addDoc(chatsRef, {
                 createdAt: initialMessage.createdAt.toISOString(),
                 text: initialMessage.text,
+                translatedText: initialMessage.translatedText,
                 email: initialMessage.user._id,
                 name: initialMessage.user.name,
                 room: hotel.roomNumber,
@@ -91,11 +124,13 @@ const ChatScreen = () => {
             GiftedChat.append(previousMessages, messages)
         );
 
+        const translatedMessage = await GetTranslatedMessage(messages[0].text);
         const { user, text, createdAt } = messages[0];
         console.log({ ...user, text, createdAt })
         await addDoc(chatsRef, {
             createdAt: createdAt.toISOString(),
             text,
+            translatedText: translatedMessage,
             email: user._id,
             name: user.name,
             room: user.room,
@@ -109,13 +144,16 @@ const ChatScreen = () => {
         <ScreenComponent bottomMenu={true} topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow} backgroundShapes={true}
             content={
                 <>
-                    <View style={{ display: 'flex', justifyContent: "center", alignItems: "center", height: 35, width: "100%", textDecoration: "underline" }}>
-                        <Text style={{ fontSize: 30 }}>Reception</Text>
+                    <View style={{ display: 'flex', justifyContent: "center", alignItems: "center", height: 35, width: "100%" }}>
+                        <Text style={{ fontSize: 30, textDecorationLine: "underline" }}>Reception</Text>
                     </View>
                     <View style={{ flex: 1, bottom: keyBoardDidShow ? -61 : 0 }}>
                         <GiftedChat
                             // isTyping={true}
-                            messages={messages}
+                            messages={messages && messages.map((message) => ({
+                                ...message,
+                                text: message.email === user.email ? message.text : message.translatedText,
+                            }))}
                             onSend={onSend}
                             user={{
                                 _id: user.email,

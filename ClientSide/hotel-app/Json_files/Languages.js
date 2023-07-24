@@ -1,4 +1,17 @@
 export default Languages = {
+  ChatScreen:{
+    HelloHowCanIHelpYou:{
+      "EN": "Hello, how can I help you?",
+      "HE": "שלום, איך אני יכול לעזור לך?",
+      "AR": "مرحبًا كيف يمكنني مساعدتك؟",
+      "ES": "Hola, ¿cómo puedo ayudarte?",
+      "RU": "Здравствуйте, чем я могу помочь вам?",
+      "FR": "Bonjour, comment puis-je vous aider?",
+      "POR": "Olá, como posso ajudá-lo?",
+      "CH": "你好，我可以帮你什么忙？",
+      "JP": "こんにちは、どのようにお手伝いできますか？"
+    }
+  },
   WelcomeScreen: {
     Start: {
       EN: "START",
