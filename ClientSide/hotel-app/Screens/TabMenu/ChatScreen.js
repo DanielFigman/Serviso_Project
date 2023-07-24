@@ -99,7 +99,12 @@ const ChatScreen = () => {
             snapshot.forEach((doc) => {
                 messages.push({ ...doc.data(), _id: doc.id });
             });
-            setMessages(messages);
+
+            const sortedMessages = [...messages].sort((a, b) =>
+                a.createdAt.localeCompare(b.createdAt)
+            );
+
+            setMessages(sortedMessages);
         });
 
         return () => {
@@ -118,7 +123,7 @@ const ChatScreen = () => {
         setKeyBoardDidShow(false)
     }
 
-    const onSend = useCallback(async (messages = []) => {
+    const onSend = async (messages = []) => {
         setMessages(previousMessages =>
             GiftedChat.append(previousMessages, messages)
         );
@@ -134,22 +139,22 @@ const ChatScreen = () => {
             room: user.room,
             user: { _id: user._id }
         });
-    }, [setMessages]);
+    };
 
     const [keyBoardDidShow, setKeyBoardDidShow] = useState(false)
 
     return (
         <ScreenComponent topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow} backgroundShapes={true} title={
-            <Text style={{ fontSize: 30, textDecorationLine: "underline", left:120, flexDirection:"row"}}>Reception</Text>
+            <Text style={{ fontSize: 30, textDecorationLine: "underline", left: 120, flexDirection: "row" }}>Reception</Text>
         }
             content={
                 <>
-                    <View style={{ flexDirection:"column", paddingBottom: keyBoardDidShow ? 0 : 30, marginTop: keyBoardDidShow? 25 : 0, height: "100%", }}>
+                    <View style={{ flexDirection: "column", paddingBottom: keyBoardDidShow ? 0 : 30, marginTop: keyBoardDidShow ? 25 : 0, height: "100%", }}>
                         <GiftedChat
                             // isTyping={true}
                             messages={messages && messages.map((message) => ({
                                 ...message,
-                                text: message.email === user.email ? message.text : message.translatedText,
+                                text: message.translatedText == "" || !message.translatedText ? message.text : message.email === user.email ? message.text : message.translatedText,
                             }))}
                             onSend={messages => onSend(messages)}
                             user={{
