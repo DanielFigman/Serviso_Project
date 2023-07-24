@@ -99,12 +99,7 @@ const ChatScreen = () => {
             snapshot.forEach((doc) => {
                 messages.push({ ...doc.data(), _id: doc.id });
             });
-
-            const sortedMessages = [...messages].sort((a, b) =>
-                a.createdAt.localeCompare(b.createdAt)
-            );
-
-            setMessages(sortedMessages);
+            setMessages(messages);
         });
 
         return () => {
@@ -145,16 +140,16 @@ const ChatScreen = () => {
 
     return (
         <ScreenComponent topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow} backgroundShapes={true} title={
-            <Text style={{ fontSize: 30, textDecorationLine: "underline", left: 120, flexDirection: "row" }}>Reception</Text>
+            <Text style={{ fontSize: 30, textDecorationLine: "underline", left:120, flexDirection:"row"}}>Reception</Text>
         }
             content={
                 <>
-                    <View style={{ flexDirection: "column", paddingBottom: keyBoardDidShow ? 0 : 30, marginTop: keyBoardDidShow ? 25 : 0, height: "100%", }}>
+                    <View style={{ flexDirection:"column", paddingBottom: keyBoardDidShow ? 0 : 30, marginTop: keyBoardDidShow? 25 : 0, height: "100%", }}>
                         <GiftedChat
                             // isTyping={true}
                             messages={messages && messages.map((message) => ({
                                 ...message,
-                                text: message.email === user.email ? message.text : message.translatedText,
+                                text: message.translatedText == "" || !message.translatedText ? message.text : message.email === user.email ? message.text : message.translatedText,
                             }))}
                             onSend={messages => onSend(messages)}
                             user={{
