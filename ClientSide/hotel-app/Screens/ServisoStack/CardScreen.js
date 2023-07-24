@@ -51,21 +51,18 @@ const CardScreen = () => {
             topLeftButtonStyle={{ position: "absolute", zIndex: 1 }}
             content={
                 <View>
-                    <View style={{ width: "100%", height: 300, top: -height * 0.07, borderBottomColor:"#757575", borderBottomWidth:3 }}>
+                    <View style={{ width: "100%", height: 300, top: -height * 0.07, borderBottomColor: "#757575", borderBottomWidth: 3 }}>
                         <LoadingImage
                             style={{ width: "100%", height: "100%" }}
                             imageURL={imageURL}
                         />
-                        <Text style={[styles.titel, newTop()]}>{name}</Text>
                     </View>
-                    {/* <View
-                        style={{
-                            borderBottomColor: '#ECECEC',
-                            borderBottomWidth: 10,
-                            width: "100%", top: -height * 0.07 
-                        }}
-                    /> */}
                     <ScrollView style={{ top: -height * 0.07 }}>
+                        {name ?
+                            <Text style={styles.titel}>{name}</Text>
+                            :
+                            <></>
+                        }
                         {description ?
                             <>
                                 <Text style={styles.titelText1}>{screenContent.Description[language]}</Text>
@@ -146,9 +143,13 @@ const CardScreen = () => {
                             }
                             {
                                 buttonType === "SPA" ?
-                                    <ButtonMain text={"Pick this"} buttonStyle={{ marginTop: 75 }} onPress={() => navigation.navigate("SpaOrder", {name, basePrice, priceForAdditional15})} />
+                                    <ButtonMain text={"Pick this"} buttonStyle={{ marginTop: 75 }} onPress={() => navigation.navigate("SpaOrder", { name, basePrice, priceForAdditional15 })} />
                                     :
-                                    ""
+                                    buttonType === "roomService" ?
+                                        <ButtonMain text={"Menu"} buttonStyle={{ marginTop: 75, height:50 }} navigate={"RoomServiceMenuNew"}/>
+
+                                        :
+                                       <></>
                             }
                         </View>
                     </ScrollView>
@@ -162,20 +163,12 @@ export default CardScreen;
 
 const styles = StyleSheet.create({
     titel: {
-        fontSize: 45,
+        top: 0,
+        marginBottom: 10,
+        fontSize: 22,
         fontWeight: "bold",
         textAlign: "center",
-        fontStyle: "italic",
-        top: -height * 0.15,
-        textShadowColor: "#F0E8E6",
-        shadowOffset: {
-            width: 2,
-            height: 4,
-        },
-        shadowOpacity: 0.17,
-        shadowRadius: 1.05,
-        elevation: 7,
-        textShadowRadius: 25,
+        fontFamily: "Courier New",
     },
     text: {
         fontSize: 20,
@@ -186,13 +179,16 @@ const styles = StyleSheet.create({
         fontSize: 20,
         left: 15,
         fontWeight: "bold",
-        marginTop: 5
+        marginTop: 5,
+        fontFamily: "Courier New",
+
     },
 
     titelText: {
         fontSize: 20,
         left: 15,
         fontWeight: "bold",
+        fontFamily: "Courier New",
     },
     row: {
         padding: 5,

@@ -14,7 +14,7 @@ import Languages from '../../Json_files/Languages';
 const HomeScreen = () => {
 
     const navigation = useNavigation();
-    const { language, therapies, suggestedActivities, food, user, setUpdatedActivities, drinks, alcohol, additionalItems } = useContext(HotelsAppContext);
+    const { language, therapies, suggestedActivities, food, user, setUpdatedActivities, drinks, alcohol, additionalItems, facilities } = useContext(HotelsAppContext);
     const screenContent = Languages.HomeScreen;
 
     useEffect(() => {
@@ -52,7 +52,7 @@ const HomeScreen = () => {
     const renderRoomServiceCards = () => {
         let retVal = [];
 
-        if(alcohol){
+        if (alcohol) {
             retVal = retVal.concat(
                 food?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
                 drinks?.slice(0, 5).map(item => ({ ...item, typeOrder: 'food_and_drinks' })),
@@ -66,13 +66,13 @@ const HomeScreen = () => {
                 additionalItems?.slice(0, 5).map(item => ({ ...item, typeOrder: 'additional_items' })),
             ).flat();
         }
-     
+
 
         return (
             <ScrollView horizontal={true}>
                 {retVal.map((item) => {
                     return (
-                        <SmallCard key={item.ID} item={item} id={item.ID}
+                        <SmallCard key={item.ID} item={item} id={item.ID} type={"roomService"}
                             typeImage={item.type === "Drink" ? item.category : item.type ? item.type : "additional"} />
                     );
                 })}
@@ -116,7 +116,7 @@ const HomeScreen = () => {
                                 ""
                             }
                         </View>
-                        <View style={{ marginVertical: 10, marginTop: 10, paddingBottom: 50 }}>
+                        <View style={{ marginVertical: 10, marginTop: 10 }}>
                             <View style={{ flexDirection: "row", marginHorizontal: 40, marginBottom: 5, marginTop: 10 }}>
                                 <Text style={{ flex: 1, fontWeight: "bold" }}>{screenContent.RoomService[language]}</Text>
                                 <TouchableOpacity onPress={() => navigation.navigate("RoomServiceMenuNew")}>
@@ -125,6 +125,24 @@ const HomeScreen = () => {
                             </View>
                             {renderRoomServiceCards()}
                         </View>
+                        <View style={{ marginVertical: 10, marginTop: 10, paddingBottom: 50 }}>
+                            <View style={{ flexDirection: "row", marginHorizontal: 40, marginBottom: 5, marginTop: 10 }}>
+                                <Text style={{ flex: 1, fontWeight: "bold" }}>Hotel facilities</Text>
+                            </View>
+                            <ScrollView horizontal={true}>
+                                {facilities.map(
+                                    (item) =>
+                                        item.type === "HOTEL" && (
+                                            <SmallCard
+                                                key={item.facilityID}
+                                                item={item}
+                                                id={item.facilityID}
+                                            />
+                                        )
+                                )}
+                            </ScrollView>
+                        </View>
+
                     </ScrollView >
                 </View >
             }

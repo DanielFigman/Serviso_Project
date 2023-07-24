@@ -3,8 +3,9 @@ import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import LoadingImage from "../LoadingImage";
+import ButtonMain from "../Buttons";
 
-const SmallCard = ({ item, id, type, withPrice, typeImage}) => {
+const SmallCard = ({ item, id, type, withPrice, typeImage }) => {
   const navigation = useNavigation();
 
   return (

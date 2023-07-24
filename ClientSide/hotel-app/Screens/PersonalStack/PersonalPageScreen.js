@@ -136,13 +136,6 @@ const PersonalPageScreen = () => {
                   </View>
                   <ButtonArrow navigate={"NewCheckInScreen"} />
                 </View>
-                <View style={styles.rowView}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.text}>{screenContent.CheckOut[language]}</Text>
-                  </View>
-                  <ButtonArrow navigate={""} />
-                </View>
-
                 <View>
                   <ListItemAccordion
                     containerStyle={styles.listAccordionContainer}

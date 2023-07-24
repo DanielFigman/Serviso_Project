@@ -50,13 +50,6 @@ const SpaMainScreen = () => {
               <Text style={styles.text}>
                 {screenContent.MassageTreatments[language]}
               </Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("SpaTreatmenScreen")}
-              >
-                <Text style={styles.textBT}>
-                  {screenContent.ForMoreTreatments[language]}
-                </Text>
-              </TouchableOpacity>
             </View>
             <View style={{ marginVertical: 10 }}>
               <ScrollView horizontal={true}>
@@ -69,9 +62,11 @@ const SpaMainScreen = () => {
                   />
                 ))}
               </ScrollView>
-              <Text style={styles.textC}>
-                {screenContent.TheSpaFacilities[language]}
-              </Text>
+              <View style={styles.view1}>
+                <Text style={styles.text}>
+                  {screenContent.TheSpaFacilities[language]}
+                </Text>
+              </View>
               <ScrollView horizontal={true}>
                 {facilities.map(
                   (item) =>
