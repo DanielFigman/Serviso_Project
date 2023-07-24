@@ -70,7 +70,7 @@ const FoodCard = ({ item, setCart, cart }) => {
             </TouchableOpacity>
           </View>
           <ButtonMain
-            text="Add"
+            text={screenContent.Add[language]}
             textStyle={styles.addButton}
             buttonStyle={styles.addButtonContainer}
             onPress={() => setCartModalVisible(true)}
