@@ -29,7 +29,8 @@ namespace WebApplication.Controllers
 
                     if (convertedDict["email"].ToString().ToLower() != "serviso4u@gmail.com")
                     {
-                        targetLanguage = db.Users.FirstOrDefault(user => user.email == convertedDict["email"].ToString())?.Language.shortName;
+                        string email = convertedDict["email"].ToString();
+                        targetLanguage = db.Users.FirstOrDefault(user => user.email == email)?.Language.shortName;
                     }
                     else
                     {
