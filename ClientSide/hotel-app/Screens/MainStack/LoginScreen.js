@@ -6,7 +6,7 @@ import ButtonMain, { ButtonText } from '../../FCComponents/Buttons';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
 import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import Languages from '../../Json_files/Languages';
-import { auth, provider } from '../../Firebase/firebase-config'
+import { auth } from '../../Firebase/firebase-config'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
 const LoginScreen = () => {
@@ -49,7 +49,7 @@ const LoginScreen = () => {
         if (response.ok) {
           const message = await response.text();
           const object = JSON.parse(message);
-          await signInWithEmailAndPassword(auth, email, password)
+          await signInWithEmailAndPassword(auth, email.toLowerCase(), password)
             .then((userCredential) => {
               // The user has been signed in successfully without any popups
               const user = userCredential.user;

@@ -99,7 +99,6 @@ const ChatScreen = () => {
             snapshot.forEach((doc) => {
                 messages.push({ ...doc.data(), _id: doc.id });
             });
-            console.log(messages);
             setMessages(messages);
         });
 
@@ -126,7 +125,6 @@ const ChatScreen = () => {
 
         const translatedMessage = await GetTranslatedMessage(messages[0].text);
         const { user, text, createdAt } = messages[0];
-        console.log({ ...user, text, createdAt })
         await addDoc(chatsRef, {
             createdAt: createdAt.toISOString(),
             text,
