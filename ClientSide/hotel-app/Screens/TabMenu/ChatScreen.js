@@ -118,7 +118,7 @@ const ChatScreen = () => {
         setKeyBoardDidShow(false)
     }
 
-    const onSend = async (messages = []) => {
+    const onSend = useCallback(async (messages = []) => {
         setMessages(previousMessages =>
             GiftedChat.append(previousMessages, messages)
         );
@@ -134,17 +134,17 @@ const ChatScreen = () => {
             room: user.room,
             user: { _id: user._id }
         });
-    };
+    }, [setMessages]);
 
     const [keyBoardDidShow, setKeyBoardDidShow] = useState(false)
 
     return (
         <ScreenComponent topLeftButton={"none"} setKeyBoardDidShow={setKeyBoardDidShow} backgroundShapes={true} title={
-            <Text style={{ fontSize: 30, textDecorationLine: "underline", left: 120, flexDirection: "row" }}>Reception</Text>
+            <Text style={{ fontSize: 30, textDecorationLine: "underline", left:120, flexDirection:"row"}}>Reception</Text>
         }
             content={
                 <>
-                    <View style={{ flexDirection: "column", paddingBottom: keyBoardDidShow ? 0 : 30, marginTop: keyBoardDidShow ? 25 : 0, height: "100%", }}>
+                    <View style={{ flexDirection:"column", paddingBottom: keyBoardDidShow ? 0 : 30, marginTop: keyBoardDidShow? 25 : 0, height: "100%", }}>
                         <GiftedChat
                             // isTyping={true}
                             messages={messages && messages.map((message) => ({
