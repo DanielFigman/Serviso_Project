@@ -310,7 +310,7 @@ function SpaOrderPart2() {
                   </Text>
                 </TouchableOpacity>
                 {doubleRoom ? (
-                  <View style={{ marginTop: 20 }}>
+                  <View style={{ marginTop: 20,  }}>
                     <Text style={styles.filterLabel}>
                       {screenContent.Therapist2[language]}
                     </Text>
@@ -472,6 +472,8 @@ const styles = StyleSheet.create({
   filterButton: {
     paddingVertical: 5,
     marginTop: 2,
+    justifyContent:"center",
+    alignSelf:"center"
   },
   horizontalScrollViewContent: {
     flexDirection: "row",
