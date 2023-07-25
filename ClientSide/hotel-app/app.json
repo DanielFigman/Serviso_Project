@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "owner": "serviso-group",
+    "name": "hotel-app",
+    "slug": "hotel-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "notification":{
+      "icon":"./assets/servisoFlowerSquare.png"
+   },
+    "splash": {
+      "image":  "./assets/servisoFlowerSquare.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/servisoFlowerSquare.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/servisoFlowerSquare.png"
+    },
+    "extra": {
+      "projectId": "3409e8f9-409f-447f-983e-b6f72fca89a6",
+      "experienceId": "@danielfig/hotel-app"
+    }
+  }
+}
