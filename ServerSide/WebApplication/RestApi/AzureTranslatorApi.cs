@@ -24,7 +24,7 @@ namespace WebApplication
 
         private static readonly int aproxCharsToTranslate = 20000;
 
-        public AzureTranslatorApi() : base("AzureTranslator", 1900000)
+        public AzureTranslatorApi() : base("AzureTranslator", 1600000)
         {
 
         }
