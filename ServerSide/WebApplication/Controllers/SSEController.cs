@@ -33,9 +33,9 @@ namespace WebApplication.Controllers
 
                 lock (lockObject)
                 {
-                    Clients[email] = new ClientInfo
+                    Clients[email.ToLower()] = new ClientInfo
                     {
-                        Email = email,
+                        Email = email.ToLower(),
                         StreamWriter = clientStreamWriter
                     };
                 }
@@ -45,7 +45,7 @@ namespace WebApplication.Controllers
 
                 lock (lockObject)
                 {
-                    Clients.Remove(email);
+                    Clients.Remove(email.ToLower());
                     clientStreamWriter.Dispose();
                 }
 
@@ -63,7 +63,7 @@ namespace WebApplication.Controllers
 
             lock (lockObject)
             {
-                if (Clients.TryGetValue(email, out var clientInfo))
+                if (Clients.TryGetValue(email.ToLower(), out var clientInfo))
                 {
                     var clientStreamWriter = clientInfo.StreamWriter;
                     bool messageSent = false;
@@ -90,7 +90,7 @@ namespace WebApplication.Controllers
                     if (!messageSent)
                     {
                         Console.Error.WriteLine($"Failed to send message to client {email} after {maxRetryCount} attempts.");
-                        Clients.Remove(email);
+                        Clients.Remove(email.ToLower());
                         clientStreamWriter.Dispose();
                     }
                 }
@@ -117,14 +117,14 @@ namespace WebApplication.Controllers
                     catch (Exception e)
                     {
                         Console.Error.WriteLine($"Error sending message to client {email}: {e.Message}");
-                        clientsToRemove.Add(email);
+                        clientsToRemove.Add(email.ToLower());
                         clientStreamWriter.Dispose();
                     }
                 }
 
                 foreach (var email in clientsToRemove)
                 {
-                    Clients.Remove(email);
+                    Clients.Remove(email.ToLower());
                 }
             }
         }
@@ -142,7 +142,7 @@ namespace WebApplication.Controllers
         [Route("api/SendToClient")]
         public IHttpActionResult SendMessageToClient(string email, string type, object data)
         {
-            SendToClient(email, type, data);
+            SendToClient(email.ToLower(), type, data);
             return Ok("Message sent to client");
         }
 
@@ -150,7 +150,7 @@ namespace WebApplication.Controllers
         {
             lock (lockObject)
             {
-                return Clients.ContainsKey(email);
+                return Clients.ContainsKey(email.ToLower());
             }
         }
     }

@@ -145,6 +145,7 @@
     <Compile Include="DTO\AdditionalItemsDTO.cs" />
     <Compile Include="DTO\AdminDashboardDTO.cs" />
     <Compile Include="DTO\AlcoholDTO.cs" />
+    <Compile Include="DTO\CheckoutDTO.cs" />
     <Compile Include="DTO\Custom_Request_Type_DTO.cs" />
     <Compile Include="DTO\DrinksDTO.cs" />
     <Compile Include="DTO\FacilityDTO.cs" />
