@@ -95,7 +95,7 @@ const SpaOrder = () => {
   const getAvailalbeAppointments = async () => {
     try {
       const response = await fetch(
-        `http://proj.ruppin.ac.il/cgroup97/test2/api/GetSpaAvailable?hotelID=${order.hotelID}&email=${user.email}`,
+        `http://proj.ruppin.ac.il/cgroup97/prod/api/GetSpaAvailable?hotelID=${order.hotelID}&email=${user.email}`,
         {
           method: "GET",
           headers: new Headers({

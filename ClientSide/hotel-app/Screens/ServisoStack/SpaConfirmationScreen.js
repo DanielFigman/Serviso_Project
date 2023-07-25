@@ -50,7 +50,7 @@ const SpaConfirmationScreen = () => {
   const postAppointment = async () => {
     try {
       const response = await fetch(
-        "http://proj.ruppin.ac.il/cgroup97/test2/api/AppointSpaTreatment",
+        "http://proj.ruppin.ac.il/cgroup97/prod/api/AppointSpaTreatment",
         {
           method: "POST",
           body: JSON.stringify({

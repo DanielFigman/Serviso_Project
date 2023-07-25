@@ -10,7 +10,7 @@ const SSEComponent = () => {
 
     useEffect(() => {
 
-        const eventSource = new EventSource(`http://proj.ruppin.ac.il/cgroup97/test2/api/SSE?email=${user.email}`);
+        const eventSource = new EventSource(`http://proj.ruppin.ac.il/cgroup97/prod/api/SSE?email=${user.email}`);
 
         eventSource.addEventListener('message', (event) => {
             const eventData = JSON.parse(event.data);

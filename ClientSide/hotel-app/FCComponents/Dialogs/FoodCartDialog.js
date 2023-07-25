@@ -65,7 +65,7 @@ const FoodCartDialog = ({
       const postObject = GetRequestObject();
       try {
         const response = await fetch(
-          "http://proj.ruppin.ac.il/cgroup97/test2/api/newRequest",
+          "http://proj.ruppin.ac.il/cgroup97/prod/api/newRequest",
           {
             method: "POST",
             body: JSON.stringify(postObject),

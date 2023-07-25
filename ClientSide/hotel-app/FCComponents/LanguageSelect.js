@@ -40,7 +40,7 @@ const LanguageSelect = ({ languageContext, setlanguageContext, buttonStyle, upda
     const SetUserLanguageOnServer = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`http://proj.ruppin.ac.il/cgroup97/test2/api/changeLanguage?email=${email}&languageShortName=${selected}`, {
+            const response = await fetch(`http://proj.ruppin.ac.il/cgroup97/prod/api/changeLanguage?email=${email}&languageShortName=${selected}`, {
                 method: 'PUT', 
                 headers: new Headers({
                     'Content-type': 'application/json; charset=UTF-8',

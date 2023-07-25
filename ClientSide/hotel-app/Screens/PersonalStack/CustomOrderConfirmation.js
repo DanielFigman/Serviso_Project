@@ -6,6 +6,7 @@ import ButtonMain from "../../FCComponents/Buttons";
 import { useRoute } from "@react-navigation/native";
 import Languages from "../../Json_files/Languages";
 import { HotelsAppContext } from "../../Context/HotelsAppContext";
+import { useContext } from "react";
 
 const CustomOrderConfirmation = () => {
   const { language } = useContext(HotelsAppContext);

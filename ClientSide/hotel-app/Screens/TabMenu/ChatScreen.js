@@ -30,7 +30,7 @@ const ChatScreen = () => {
     const GetTranslatedMessage = async (text) => {
         try {
             const response = await fetch(
-                "http://proj.ruppin.ac.il/cgroup97/test2/api/translateMessage",
+                "http://proj.ruppin.ac.il/cgroup97/prod/api/translateMessage",
                 {
                     method: "POST",
                     body: JSON.stringify({

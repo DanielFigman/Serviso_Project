@@ -67,7 +67,7 @@ export default function HotelsAppContextProvider(props) {
 
     const checkIfAlreadyScheduledAcleaning = async () => {
         try {
-            const response = await fetch(`http://proj.ruppin.ac.il/cgroup97/test2/api/getCleaningRequest?email=${user.email}`, {
+            const response = await fetch(`http://proj.ruppin.ac.il/cgroup97/prod/api/getCleaningRequest?email=${user.email}`, {
                 method: 'GET',
                 headers: new Headers({
                     'Content-type': 'application/json; charset=UTF-8',
@@ -210,7 +210,7 @@ export default function HotelsAppContextProvider(props) {
 
     const postQuestionnaire = async () => {
         try {
-            const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/updateQuestionnaire', {
+            const response = await fetch('http://proj.ruppin.ac.il/cgroup97/prod/api/updateQuestionnaire', {
                 method: 'POST',
                 body: JSON.stringify(getPostQuestObject()),
                 headers: new Headers({
@@ -307,7 +307,7 @@ export default function HotelsAppContextProvider(props) {
     const postFavorite = () => {
         try {
             console.log(getNeededFavsToPost());
-            fetch(`http://proj.ruppin.ac.il/cgroup97/test2/api/updateFavsAndRatings?&email=${emailRef.current}`, {
+            fetch(`http://proj.ruppin.ac.il/cgroup97/prod/api/updateFavsAndRatings?&email=${emailRef.current}`, {
                 method: 'POST',
                 body: JSON.stringify(getNeededFavsToPost()),
                 headers: new Headers({
@@ -350,7 +350,7 @@ export default function HotelsAppContextProvider(props) {
 
     const fetchNToken = async () => {
         try {
-            const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/NTUPDATE', {
+            const response = await fetch('http://proj.ruppin.ac.il/cgroup97/prod/api/NTUPDATE', {
                 method: 'PUT',
                 body: JSON.stringify({
                     email: user.email,

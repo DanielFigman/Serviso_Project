@@ -26,7 +26,7 @@ const GetEmail = ({ setEmailToReset, language, setCode }) => {
   const checkEmailSucceed = () => {
     setIsLoading(true);
 
-    const url = "http://proj.ruppin.ac.il/cgroup97/test2/api/EmailVerification?email=" + encodeURIComponent(givenEmail);
+    const url = "http://proj.ruppin.ac.il/cgroup97/prod/api/EmailVerification?email=" + encodeURIComponent(givenEmail);
     console.log(url)
 
     axios.get(url)

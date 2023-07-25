@@ -33,7 +33,7 @@ const HomeScreen = () => {
   const GetUpdatedActivities = async () => {
     try {
       const response = await fetch(
-        `http://proj.ruppin.ac.il/cgroup97/test2/api/getUpdatedActivities?email=${user.email}`,
+        `http://proj.ruppin.ac.il/cgroup97/prod/api/getUpdatedActivities?email=${user.email}`,
         {
           method: "GET",
           headers: new Headers({

@@ -3,10 +3,10 @@ import { Dimensions, View, Text, Button, Platform, StyleSheet, Switch, Touchable
 import { Picker } from '@react-native-picker/picker';
 import CustomRequestCarusel from '../../FCComponents/CustomRequestCarusel';
 import ScreenComponent from '../../FCComponents/ScreenComponent';
-import { HotelsAppContext } from '../../Context/HotelsAppContext';
 import { useNavigation } from '@react-navigation/native';
 import ButtonMain from '../../FCComponents/Buttons';
 import Languages from '../../Json_files/Languages';
+import { HotelsAppContext } from '../../Context/HotelsAppContext';
 
 const CustomRequestScreen = () => {
 
@@ -47,7 +47,7 @@ const CustomRequestScreen = () => {
         if (customRequests && Object.keys(customRequests).length !== 0) {
             const postObject = GetRequestObject();
             try {
-                const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/newRequest', {
+                const response = await fetch('http://proj.ruppin.ac.il/cgroup97/prod/api/newRequest', {
                     method: 'POST',
                     body: JSON.stringify(postObject),
                     headers: new Headers({

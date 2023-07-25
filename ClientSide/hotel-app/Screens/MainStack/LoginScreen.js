@@ -33,7 +33,7 @@ const LoginScreen = () => {
       setIsLoading(true);
 
       try {
-        const response = await fetch('http://proj.ruppin.ac.il/cgroup97/test2/api/login', {
+        const response = await fetch('http://proj.ruppin.ac.il/cgroup97/prod/api/login', {
           method: 'POST',
           body: JSON.stringify(
             {
