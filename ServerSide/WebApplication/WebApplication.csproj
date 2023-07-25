@@ -247,7 +247,6 @@
     <Compile Include="Controllers\SSEController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="DTO\SuggestedActivitiesDTO.cs" />
     <Compile Include="FNotifications\PushNotifications.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
